@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/colinp/dev/cpp/codec/src/helpers/gwCodecHelpers.cpp
+gwCodecHelpers.h
+/home/colinp/dev/cpp/codec/src/helpers/gwCodecHelpers.h
+
+/home/colinp/dev/cpp/codec/src/helpers/gwCodecHelpers.h
+arpa/inet.h
+-
+cdr.h
+/home/colinp/dev/cpp/codec/src/helpers/cdr.h
+

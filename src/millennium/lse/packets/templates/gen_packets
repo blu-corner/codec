@@ -1,0 +1,244 @@
+#!/usr/bin/env python
+from wheezy.template.engine import Engine
+from wheezy.template.ext.core import CoreExtension
+from wheezy.template.loader import FileLoader
+from lxml import etree as ET
+from string import Template
+from datetime import datetime
+import os
+import sys
+import argparse
+import re
+import pprint
+
+
+def is_price(f):
+    return 'method' in f and f['method'] == 'price'
+
+
+def is_string(f):
+    return f['type'] == 'char' and 'length' in f
+
+
+def is_char(f):
+    return f['type'] == 'char' and 'length' not in f
+
+
+def is_int(f):
+    return 'int' in f['type']
+
+
+def int_get_default(f):
+    if 'default' in f:
+        return int(f['default'])
+    else:
+        return 0
+
+
+def rreplace(s, old, new, occurrence):
+    li = s.rsplit(old, occurrence)
+    return new.join(li)
+
+
+def to_string(msg_name, fields, prefix):
+    output = []
+    output.append("{0}stringstream ss;".format(prefix))
+    if len(fields) < 1:
+        output.append("{0}ss << \"{1}::null\";".format(prefix, msg_name))
+    else:
+        output.append("{0}ss << \"{1}::\"".format(prefix, msg_name))
+        end = len(fields) - 1
+        count = 0
+        for f in fields:
+            name = f['name']
+            x = ''
+            if f['type'] == 'uint8_t':
+                x = "{0}   << \"[{1}=\" << unsigned(get{1} ()) << \"]".\
+                     format(prefix, name)
+            else:
+                x = "{0}   << \"[{1}=\" << get{1} () << \"]".\
+                     format(prefix, name)
+
+            if count == end:
+                x += "\";"
+            else:
+                x += ",\""
+
+            output.append(x)
+            count += 1
+
+    # output.append("{0}   << endl;".format(prefix));
+    output.append("{0}return ss.str ();".format(prefix))
+    output = '\n'.join(output)
+    return output
+    # return rreplace(output, ',', '', 1)
+
+
+def msg_members(fields, prefix):
+    output = []
+    for f in fields:
+        if is_string(f):
+            output.append('{0}char m{1}[{2}];'.
+                          format(prefix, f['name'], f['length']))
+        if is_int(f) or is_char(f):
+            output.append('{0}{1} m{2};'.
+                          format(prefix, f['type'], f['name']))
+
+    return '\n'.join(output)
+
+
+def standard_get_set(prefix, type, name):
+    return Template("""${prefix}bool set$name ($type v)
+$prefix{
+$prefix    m$name = v;
+$prefix    return true;
+$prefix}
+
+${prefix}$type get$name ()
+$prefix{
+$prefix    return m$name;
+$prefix}
+""").safe_substitute({'prefix': prefix, 'type': type, 'name': name})
+
+
+def price_get_set(prefix, name):
+    return Template("""${prefix}bool set$name (double p)
+$prefix{
+$prefix    m$name = p * 100000000;
+$prefix    return true;
+$prefix}
+
+${prefix}double get$name ()
+$prefix{
+$prefix    return ((double)m$name / 100000000);
+$prefix}
+""").safe_substitute({'prefix': prefix, 'name': name})
+
+
+def string_get_set(prefix, name, length):
+    return Template("""${prefix}bool set${name} (const string& v)
+$prefix{
+$prefix    return setString (m$name, v, $length);
+$prefix}
+
+${prefix}string get$name ()
+$prefix{
+$prefix    return getString (m$name, $length);
+$prefix}
+""").safe_substitute(prefix=prefix, name=name, length=length);
+
+
+def msg_get_set(fields, prefix):
+    output = []
+    for f in fields:
+        if is_price(f):
+            output.append(price_get_set(prefix, f['name']))
+        elif is_string(f):
+            output.append(string_get_set(prefix, f['name'], f['length']))
+        else:
+            output.append(standard_get_set(prefix, f['type'], f['name']))
+
+    return '\n'.join(output).rstrip('\n')
+
+
+def default_constructor(fields, prefix):
+    output = []
+    for f in fields:
+        if is_int(f):
+            output.append("{0}m{1} = {2};".\
+                          format(prefix, f['name'], int_get_default(f)))
+        if is_string(f):
+            if f['default']:
+                output.append("{0}set{1} ({2});".\
+                              format(prefix, f['name'], f['default']))
+            else:
+                output.append("{0}memset (m{1}, \'\\0\', {2});".
+                              format(prefix, f['name'], f['length']))
+
+    return '\n'.join(output)
+
+
+def parse_field(field):
+    f = {}
+    for k, v in field.items():
+        f[k] = v
+
+    f['name'] = re.sub(' ', '', f['name'])
+
+    if 'int' in f['type']:
+        if 'default' in f:
+            f['default'] = int(f['default'])
+        else:
+            f['default'] = 0
+    else:
+        if 'default' not in f:
+            f['default'] = None
+    return f
+
+
+def transform(context, template, target):
+    searchpath = ['.']
+    engine = Engine(
+        loader=FileLoader(searchpath),
+        extensions=[CoreExtension()]
+    )
+
+    template = engine.get_template(template)
+    with open(target, 'w') as fd:
+        fd.write(template.render(context))
+
+def msg_header_guard(venue, msgname):
+    return """#ifndef {0}_{1}_PACKET_H
+#define {0}_{1}_PACKET_H""".format(venue.upper(), msgname.upper())
+
+
+parser = argparse.ArgumentParser(description='Generate Packets.h')
+parser.add_argument('-v', dest='venue_xml', type=str, help='Venue.xml')
+parser.add_argument('-m', dest='message', action='append', type=str, default=[],
+                    help='messages to process')
+parser.add_argument('-o', dest='output', type=str, default='./',
+                    help='output directory')
+args = parser.parse_args()
+
+vxml = ET.parse(args.venue_xml)
+root = vxml.getroot()
+venue_name = root.attrib['name']
+
+xmlmsgs = root.findall('message')
+
+messages = []
+message_data = {}
+
+for x in xmlmsgs:
+    if not args.message or x.attrib['name'] in args.message:
+        msg_name = re.sub(' ', '', x.attrib['name'])
+        messages.append(msg_name)
+        msg_fields = []
+        for field in x.findall('field'):
+            msg_fields.append(parse_field(field.attrib))
+
+        message_data[msg_name] = msg_fields
+
+# for m in message_data:
+#     print '\n%s' % m
+#     for f in message_data[m]:
+#         print '   %s' % f
+
+context = {}
+context['message_data'] = message_data
+context['venue'] = venue_name
+context['uvenue'] = context['venue'].upper()
+context['generation'] = datetime.now().strftime("%d/%m/%Y")
+
+transform(context, 'packet_h.t', os.path.join(args.output, '%sPackets.h' %
+                                              venue_name))
+
+for m in message_data:
+    context['msg_name'] = m
+    context['header_guard'] = msg_header_guard
+    context['msg_members'] = msg_members
+    context['msg_get_set'] = msg_get_set
+    context['default_constructor'] = default_constructor
+    context['to_string'] = to_string
+    transform(context, 'msg_packet_h.t',
+              os.path.join(args.output, '{0}{1}Packet.h'.format(venue_name, m)))

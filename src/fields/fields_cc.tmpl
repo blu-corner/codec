@@ -1,0 +1,42 @@
+@require(fields)
+#include "fields.h"
+
+namespace Fields
+{
+
+bool FieldMapCreated = false;
+
+map<int,string>
+FieldUtils::createMap ()
+{
+    if (FieldMapCreated)
+        return FieldUtils::mFieldNames;
+
+    map<int, string> m;
+@for field in fields:
+    m[@{field['number']}] = "@{field['name']}";
+@end
+
+    FieldMapCreated = true;
+    return m;
+}
+
+string
+FieldUtils::getFieldName (int f)
+{
+    map<int, string>::const_iterator itr;
+    itr = FieldUtils::mFieldNames.find (f);
+    
+    if (itr == FieldUtils::mFieldNames.end ())
+    {
+        stringstream ss;
+        ss << f;
+        return ss.str ();
+    }
+    else
+        return itr->second;
+}   
+
+map<int, string> FieldUtils::mFieldNames = FieldUtils::createMap ();
+
+} // namespace Fields

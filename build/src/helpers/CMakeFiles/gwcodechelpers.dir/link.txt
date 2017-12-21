@@ -1,0 +1,1 @@
+g++  -fPIC   -shared -Wl,-soname,libgwcodechelpers.so.0.1.0 -o libgwcodechelpers.so.0.1.0 CMakeFiles/gwcodechelpers.dir/gwCodecHelpers.cpp.o  -L/home/colinp/dev/cpp/codec/build/install/lib -lcdr -Wl,-rpath,/home/colinp/dev/cpp/codec/build/install/lib: 

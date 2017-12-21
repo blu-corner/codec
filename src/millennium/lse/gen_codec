@@ -1,0 +1,84 @@
+#!/usr/bin/env python
+import re
+import sys
+import xml.etree.ElementTree as ET
+from wheezy.template.engine import Engine
+from wheezy.template.ext.core import CoreExtension
+from wheezy.template.loader import FileLoader
+import os
+
+
+def pad_type(t):
+    return '{0:<10}'.format(t)
+
+
+def remove_space(f):
+    return re.sub('\s+', '', f)
+
+
+def replace_space(f):
+    return re.sub('\s+', '_', f)
+
+
+def load_xml_context(fxml):
+    xml = ET.parse(fxml)
+    root = xml.getroot()
+
+    venue_name = root.attrib['name']
+    global_info = root.findall('Global')
+    metadata = {}
+    for param in global_info[0].getchildren():
+        metadata[param.attrib['name']] = param.attrib['value']
+
+    messages = root.getchildren()
+
+    header = []
+    messages = []
+    message_data = {}
+    message_fields = {}
+
+    hdr = root.findall('header')[0]
+    for f in hdr.findall('field'):
+        header.append(f.attrib)
+
+    for message in root.findall('message'):
+        messages.append(message.attrib['name'])
+        message_data[message.attrib['name']] = message.attrib
+        message_fields[message.attrib['name']] = []
+        for field in message.findall('field'):
+            field.attrib['name'] = remove_space(field.attrib['name'])
+            message_fields[message.attrib['name']].append(field.attrib)
+
+    context = {
+        'name': venue_name,
+        'header': header,
+        'messages': messages,
+        'message_data': message_data,
+        'message_fields': message_fields,
+        'pad_type': pad_type,
+        'remove_space': remove_space,
+        'replace_space': replace_space,
+        'metadata': metadata
+    }
+
+    return context
+
+
+def transform(context, template, target):
+    searchpath = ['.']
+    engine = Engine(
+        loader=FileLoader(searchpath),
+        extensions=[CoreExtension()]
+    )
+
+    template = engine.get_template(template)
+    with open(target, 'w') as fd:
+        fd.write(template.render(context))
+
+
+if __name__ == '__main__':
+    context = load_xml_context(sys.argv[1])
+    template = sys.argv[2]
+    target = sys.argv[3]
+
+    transform(context, template, target)

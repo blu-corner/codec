@@ -1,0 +1,211 @@
+<exchange name="Lse">
+    <Global name="Global">
+        <parameter name="MessageSpecTitle" value="MIT203 - Native Trading Gateway Issue 11.8.5 - 8 Sep 2017" />
+        <parameter name="MessageSpecFilename" value="mit203mifidiiv1185.pdf" />
+        <parameter name="ProtocolGroup" value="Millennium" />
+        <parameter desc="" name="Venue" value="London" />
+        <parameter name="VenueMIC" value="XLON" />
+        <parameter name="Interface" value="OrderEntry" />
+        <parameter desc="MIT203" name="Protocol" value="Native" />
+        <parameter name="ProtocolVersion" value="11.8.5" />
+        <parameter name="ProtocolIssueDate" value="2017.09.08" />
+        <parameter default="little" name="Endianness" value="small" />
+        <parameter default="" name="ETX" value="" />
+    </Global>
+    <header msgtype="header" name="Header">
+        <field name="Start Of Message" type="int8_t" value="2" />
+        <field name="Message Length" type="int16_t" />
+        <field name="Message Type" type="char" />
+    </header>
+    <message msgtype="A" name="Logon">
+        <field length="25" name="User Name" type="char" />
+        <field length="25" name="Password" type="char" />
+        <field length="25" name="New Password" type="char" />
+        <field name="Message Version" type="uint8_t" value="1" />
+    </message>
+    <message msgtype="B" name="Logon Reply">
+        <field name="Reject Code" type="int32_t" />
+        <field length="30" name="Password Expiry Day Count" type="char" />
+    </message>
+    <message msgtype="5" name="Logout">
+        <field length="20" name="Reason" type="char" />
+    </message>
+    <message msgtype="0" name="Heartbeat">
+    </message>
+    <message msgtype="M" name="Missed Message Request">
+        <field name="App ID" type="int8_t" />
+        <field name="Last Msg Seq Num" type="int32_t" />
+    </message>
+    <message msgtype="N" name="Missed Message Request Ack">
+        <field name="Response Type" type="uint8_t" />
+    </message>
+    <message msgtype="P" name="Missed Message Report">
+        <field name="Response Type" type="uint8_t" />
+    </message>
+    <message msgtype="3" name="Reject">
+        <field name="Reject Code" type="int32_t" />
+        <field length="30" name="Reject Reason" type="char" />
+        <field method="char" name="Rejected Message Type" type="char" />
+        <field length="20" name="Client Order ID" type="char" />
+    </message>
+    <message msgtype="n" name="System Status">
+        <field name="App ID" type="uint8_t" />
+        <field name="Status" type="uint8_t" />
+    </message>
+    <message msgtype="D" name="New Order" section="8.4.1">
+        <field name="Client Order ID" length="20" type="char"/>
+        <field name="Trader ID" length="11" type="char"/>
+        <field name="Account" length="10" type="char"/>
+        <field name="Clearing Account" type="uint8_t" values="1,3" default="1"/>
+        <field name="Instrument ID" type="int32_t"/>
+        <field name="FXMiFIDFlags" type="uint8_t"/>
+        <field name="PartyRoleQualifiers" type="uint8_t"/>
+        <field name="Order Type" type="uint8_t" values="1,2,3,4" default="2"/>
+        <field name="TIF" type="uint8_t" values="0,3,4,5,6,8,10,12,50,51,52" default="0"/>
+        <field name="Expire Date Time" type="uint32_t"/>
+        <field name="Side" type="uint8_t" values="1,2" default="1"/>
+        <field name="Order Qty" type="int32_t"/>
+        <field name="Display Qty" type="int32_t"/>
+        <field method="price" name="Limit Price" type="int64_t"/>
+        <field name="Capacity" type="uint8_t" values="1,2,3" default="1"/>
+        <field name="Auto Cancel" type="uint8_t" values="0,1" default="1"/>
+        <field name="Order Sub Type" type="uint8_t" values="0,5,51"/>
+        <field name="Anonymity" type="uint8_t" values="0,1"/>
+        <field method="price" name="Stop Price" type="int64_t"/>
+        <field name="Passive Only Order" type="uint8_t" values="0,1,2,3,99,100"/>
+        <field name="Client ID" type="uint32_t"/>
+        <field name="Investment Decision Maker" type="uint32_t"/>
+        <field name="Reserved Field" type="char"/>
+        <field name="Minimum Quantity" type="int32_t"/>
+        <field name="Executing Trader" type="uint32_t" default="0"/>
+    </message>
+    <message msgtype="F" name="Order Cancel Request" section="8.4.4">
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="20" name="Original Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field name="Instrument ID" type="int32_t" />
+        <field name="Reserved Field 1" type="int8_t" />
+        <field name="Reserved Field 2" type="int8_t" />
+        <field name="Side" type="int8_t" values="1,2" />
+        <field length="10" name="Rfq ID" type="char" />
+    </message>
+    <message msgtype="q" name="Order Mass Cancel Request" section="8.4.5">
+        <field length="20" name="Client Order ID" type="char" />
+        <field name="Mass Cancel Request Type" type="uint8_t" values="3,4,7,8,9,15" />
+        <field name="Instrument ID" type="int32_t" />
+        <field name="Reserved Field 1" type="int8_t" />
+        <field name="Reserved Field 2" type="int8_t" />
+        <field length="4" name="Segment" type="char" />
+        <field name="Order Sub Type" type="uint8_t" values="0,3" />
+        <field length="10" name="Reserved Field 3" type="char" />
+    </message>
+    <message msgtype="G" name="Order Cancel Replace Request" section="8.4.3">
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="20" name="Original Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field name="Instrument ID" type="int32_t" />
+        <field name="Reserved Field 1" type="int8_t" />
+        <field name="Reserved Field 2" type="int8_t" />
+        <field method="mifid2DateTime" name="Expire Date Time" type="uint32_t" />
+        <field name="Order Qty" type="int32_t" />
+        <field name="Display Qty" type="int32_t" />
+        <field method="price" name="Limit Price" type="int64_t" />
+        <field length="10" name="Account" type="char" />
+        <field name="Reserved Field 3" type="uint8_t" />
+        <field name="Side" type="int8_t" values="1,2" />
+        <field method="price" name="Stop Price" type="int64_t" />
+        <field name="Passive Only Order" type="int8_t" values="0,1,2,3,99,100" />
+        <field length="9" name="Reserved Field 4" type="char" />
+        <field name="Minimum Quantity" type="int32_t" />
+    </message>
+    <message msgtype="C" name="New Order Cross" section="8.4.9">
+        <field length="20" name="Cross ID" type="char" />
+        <field name="Cross Type" type="uint8_t" values="5,6,7,8" />
+        <field length="20" name="Buy Side ClOrdID" type="char" />
+        <field name="Buy Side Order Capacity" type="uint8_t" values="1,2,3" />
+        <field name="Buy Side Clearing Account" type="int8_t" values="1,3" />
+        <field name="Buy Side Order Quantity" type="uint64_t" />
+        <field length="11" name="Buy Side Firm ID" type="char" />
+        <field name="Buy Side Party Role" type="uint8_t" values="1,17" />
+        <field length="20" name="Sell Side ClOrdID" type="char" />
+        <field name="Sell Side Order Capacity" type="uint8_t" values="1,2,3" />
+        <field name="Sell Side Clearing Account" type="int8_t" values="1,3" />
+        <field name="Sell Side Order Quantity" type="uint64_t" />
+        <field length="11" name="Sell Side Firm ID" type="char" />
+        <field name="Sell Side Party Role" type="uint8_t" values="1,17" />
+        <field name="Instrument ID" type="int32_t" />
+        <field method="price" name="Price" type="int64_t" />
+        <field name="Order Type" type="uint8_t" values="2" />
+        <field name="TIF" type="uint8_t" values="0" />
+    </message>
+    <message msgtype="H" name="Cross Order Cancel Request" section="8.4.10">
+        <field length="20" name="Cross ID" type="char" />
+        <field length="20" name="Original Cross ID" type="char" />
+        <field name="Cross Type" type="uint8_t" />
+        <field length="20" name="Buy Side Original ClOrdID" type="char" />
+        <field name="Buy Side Order Quantity" type="uint64_t" />
+        <field length="20" name="Sell Side Original ClOrdID" type="char" />
+        <field name="Sell Side Order Quantity" type="uint64_t" />
+        <field name="Instrument ID" type="int32_t" />
+        <field length="20" name="Client Order ID" type="char" />
+    </message>
+    <message msgtype="8" name="Execution Report" section="8.4.6">
+        <field name="App ID" type="uint8_t" />
+        <field name="Sequence No" type="int32_t" />
+        <field length="12" name="Execution ID" type="char" />
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field method="char" name="Exec Type" type="char" values="0,4,5,8,C,D,F,H,9" />
+        <field length="12" name="Execution Report Ref ID" type="char" />
+        <field name="Order Status" type="uint8_t" values="0,1,2,4,6,8,9" />
+        <field name="Order Reject Code" type="int32_t" />
+        <field method="price" name="Executed Price" type="int64_t" />
+        <field name="Executed Qty" type="int32_t" />
+        <field name="Leaves Qty" type="int32_t" />
+        <field name="Waiver Flags" type="uint8_t" />
+        <field name="Display Qty" type="int32_t" />
+        <field name="Instrument ID" type="int32_t" />
+        <field name="Restatement Reason" type="uint8_t" values="3,8,100" />
+        <field name="Reserved Field 2" type="int8_t" />
+        <field name="Side" type="int8_t" values="1,2" />
+        <field name="Reserved Field 3" type="uint64_t" />
+        <field length="11" name="CounterParty" type="char" />
+        <field name="Trade Liquidity Indicator" type="char" values="A,R,C" />
+        <field name="Trade Match ID" type="uint64_t" />
+        <field method="mifid2DateTime" name="Transact Time" type="uint64_t" />
+        <field name="Reserved Field 4" type="char" />
+        <field name="Type Of Trade" type="uint8_t" values="0,1,2" />
+        <field name="Capacity" type="uint8_t" values="1,2,3" />
+        <field name="Reserved Field 5" type="char" />
+        <field length="12" name="Public Order ID" type="char" />
+        <field name="Minimum Quantity" type="int32_t" />
+    </message>
+    <message msgtype="9" name="Order Cancel Reject" section="8.4.7">
+        <field name="App ID" type="uint8_t" />
+        <field name="Sequence No" type="int32_t" />
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field name="Cancel Reject Reason" type="int32_t" />
+        <field method="mifid2DateTime" name="Transact Time" type="uint64_t" />
+        <field length="10" name="Rfq ID" type="char" />
+    </message>
+    <message msgtype="r" name="Order Mass Cancel Report" section="8.4.8">
+        <field name="App ID" type="uint8_t" />
+        <field name="Sequence No" type="int32_t" />
+        <field length="20" name="Client Order ID" type="char" />
+        <field name="Mass Cancel Response" type="uint8_t" />
+        <field name="Mass Cancel Reject Reason" type="int32_t" />
+        <field name="Reserved Field 1" type="int32_t" />
+        <field method="mifid2DateTime" name="Transact Time" type="uint64_t" />
+        <field length="10" name="Reserved Field 2" type="char" />
+   </message>
+<message msgtype="j" name="Business Reject" section="8.5.1">
+        <field name="App ID" type="uint8_t" />
+        <field name="Sequence No" type="int32_t" />
+        <field name="Reject Code" type="int32_t" />
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field method="mifid2DateTime" name="Transact Time" type="uint64_t" />
+        <field length="10" name="Reserved Field 1" type="char" />
+    </message>
+</exchange>
