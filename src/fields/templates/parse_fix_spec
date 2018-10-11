@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+from lxml import etree as ET
+import sys
+import re
+
+
+def transform_name(name):
+    name = re.sub(' ', '', name)
+    return name
+
+def load_master_xml(filename):
+    xml = ET.parse(filename)
+    root = xml.getroot()
+    ret = {}
+
+    for fields in root.findall('fields'):
+        for f in fields.findall('field'):
+            ret[f.attrib['name']] = f.attrib['number']
+
+
+    return ret
+
+master_fields_file = sys.argv[1]
+master_fields_dict = load_master_xml(master_fields_file)
+fxml_files         = sys.argv[2:]
+
+for fxml in fxml_files:
+    xml = ET.parse(fxml)
+    root = xml.getroot()
+
+
+    for fields in root.findall('fields'):
+        for f in fields.findall('field'):
+            if 'number' in f.attrib:
+                try:
+                    name = transform_name(f.attrib['name'])
+                except Exception as e:
+                    print f.attrib['name']
+                    print e
+                    sys.exit(1)
+
+                if name in master_fields_dict and master_fields_dict[name] != f.attrib['number']:
+                    print("Field {} does not match current value {}".format(name, f.attrib['number']))
+                    sys.exit(1)
+
+                master_fields_dict[name] = f.attrib['number']
+
+
+master_fields = [{'name': key, 'number': value} for key, value in sorted(master_fields_dict.iteritems(), key=lambda x: int(x[1]))]
+fields        = ET.Element('fields')
+for fld in master_fields:
+    ET.SubElement(fields, 'field', attrib=fld)
+
+f = open(master_fields_file, 'w')
+f.write(ET.tostring(fields, pretty_print=True))

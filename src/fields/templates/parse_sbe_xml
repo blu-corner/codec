@@ -1,0 +1,143 @@
+#!/usr/bin/env python
+from lxml import etree as ET
+import sys
+import math
+import re
+import argparse
+import os
+
+by_number = {}
+by_name = {}
+replacements = {}
+
+
+def get_replace(root):
+    global replacements
+    for replace in root.findall('replace'):
+        field_name = re.sub(' ', '', replace.attrib['name'])
+        replacements[field_name] = []
+
+        for field in replace:
+            f = {}
+            f['name'] = re.sub(' ', '', field.attrib['name'])
+            f['type'] = field.attrib['type']
+            replacements[field_name].append(f)
+
+
+def get_master_fields(root):
+    global by_number
+    global by_name
+
+    for f in root.findall('field'):
+        by_number[int(f.attrib['number'])] = f.attrib
+        by_name[f.attrib['name']] = f.attrib
+
+
+def add_field(name, venue, next_tag_id):
+    global by_name
+    global by_number
+
+    attrib = {
+        'name': name,
+        'number': str(next_tag_id),
+        'venue': venue
+    }
+
+    by_name[name] = attrib
+    by_number[next_tag_id] = attrib
+
+
+def get_venue_fields(root, next_tag_id):
+    venue_name = root.getroot().attrib['description']
+    types = root.findall('types')[0]
+    composties = list(map(lambda i: i.findall('type'), types.findall('composite')))
+
+    composite_fields = []
+    for i in composties:
+        composite_fields += i
+    
+    for message in root.findall('{http://fixprotocol.io/2016/sbe}message'):
+
+        fields = list(map(lambda i: i, message.findall('field')))
+        groups = list(map(lambda i: i, message.findall('group')))
+        for i in groups:
+            i.attrib['isGroup'] = 'True'
+        
+        group_fields = map(lambda i: i.findall('field'), groups)
+        
+        all_fields = composite_fields + fields + groups
+        if len(group_fields) > 0:
+            for g in group_fields:
+                all_fields += g
+        
+        for field in all_fields:
+            name = re.sub(' ', '', field.attrib['name'])
+            name = name[0].upper() + name [1:]
+            name2 = None
+
+            if 'isGroup' in field.attrib:
+                name2 = message.attrib['name'] + name
+            
+            for n in (name, name2):
+                if n is None:
+                    continue
+                
+                if not n in by_name:
+                    if n in replacements:
+                        for f in replacements[n]:
+                            if f['name'] in by_name:
+                                continue
+                            add_field(f['name'], venue_name, next_tag_id)
+                            next_tag_id += 1
+                    else:
+                        add_field(n, venue_name, next_tag_id)
+                        next_tag_id += 1
+                
+
+
+def get_next_tag():
+    max_tag = max(by_number.keys())
+    next_int = int(math.ceil(max_tag / 200.0) * 200.0)
+    return next_int
+
+
+parser = argparse.ArgumentParser(
+    description='Parse Venue.xml to produce MasterFields.xml'
+)
+parser.add_argument('-v', dest='venue_xml', type=str,
+                    help='Venue.xml', required=True)
+parser.add_argument('-f', dest='fields_xml', type=str, help='folder \
+                    containing templates', required=True)
+parser.add_argument('-n', '--no-write', dest='no_write', default=False,
+                    help='folder \ containing templates', action='store_true')
+args = parser.parse_args()
+
+if not os.path.exists(args.fields_xml):
+    print('failed to find specified MasterFields.xml')
+    sys.exit(1)
+
+if not os.path.exists(args.venue_xml):
+    print('failed to find specified venue.xml')
+    sys.exit(1)
+
+mfxml = ET.parse(args.fields_xml)
+vxml = ET.parse(args.venue_xml)
+
+root = mfxml.getroot()
+get_replace(vxml.getroot())
+
+get_master_fields(root)
+next_tag_id = get_next_tag()
+print('next tag: {0}'.format(next_tag_id))
+
+get_venue_fields(vxml, next_tag_id)
+
+numbers = sorted(by_number.keys())
+
+fields = ET.Element('fields')
+for n in numbers:
+    ET.SubElement(fields, 'field', attrib=by_number[n])
+
+if not args.no_write:
+    f = open(args.fields_xml, 'w')
+    f.write(ET.tostring(fields, pretty_print=True))

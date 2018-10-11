@@ -12,10 +12,14 @@
         <parameter default="little" name="Endianness" value="small" />
         <parameter default="" name="ETX" value="" />
     </Global>
+    <replace name="Transact Time" type="uint64_t">
+        <field name="Transact Time Seconds" type="uint32_t" />
+        <field name="Transact Time Usecs" type="uint32_t" />
+    </replace>
     <header msgtype="header" name="Header">
-        <field name="Start Of Message" type="int8_t" value="2" />
-        <field name="Message Length" type="int16_t" />
-        <field name="Message Type" type="char" />
+        <field name="Start Of Message" type="int8_t" value="2" default="2"/>
+        <field name="Message Length" type="int16_t"/>
+        <field name="Message Type" type="char"/>
     </header>
     <message msgtype="A" name="Logon">
         <field length="25" name="User Name" type="char" />
@@ -172,7 +176,7 @@
         <field length="11" name="CounterParty" type="char" />
         <field name="Trade Liquidity Indicator" type="char" values="A,R,C" />
         <field name="Trade Match ID" type="uint64_t" />
-        <field method="mifid2DateTime" name="Transact Time" type="uint64_t" />
+        <field name="Transact Time" type="uint64_t" />
         <field name="Reserved Field 4" type="char" />
         <field name="Type Of Trade" type="uint8_t" values="0,1,2" />
         <field name="Capacity" type="uint8_t" values="1,2,3" />
@@ -186,7 +190,7 @@
         <field length="20" name="Client Order ID" type="char" />
         <field length="12" name="Order ID" type="char" />
         <field name="Cancel Reject Reason" type="int32_t" />
-        <field method="mifid2DateTime" name="Transact Time" type="uint64_t" />
+        <field name="Transact Time" type="uint64_t" />
         <field length="10" name="Rfq ID" type="char" />
     </message>
     <message msgtype="r" name="Order Mass Cancel Report" section="8.4.8">
@@ -196,7 +200,7 @@
         <field name="Mass Cancel Response" type="uint8_t" />
         <field name="Mass Cancel Reject Reason" type="int32_t" />
         <field name="Reserved Field 1" type="int32_t" />
-        <field method="mifid2DateTime" name="Transact Time" type="uint64_t" />
+        <field name="Transact Time" type="uint64_t" />
         <field length="10" name="Reserved Field 2" type="char" />
    </message>
 <message msgtype="j" name="Business Reject" section="8.5.1">
@@ -205,7 +209,7 @@
         <field name="Reject Code" type="int32_t" />
         <field length="20" name="Client Order ID" type="char" />
         <field length="12" name="Order ID" type="char" />
-        <field method="mifid2DateTime" name="Transact Time" type="uint64_t" />
+        <field name="Transact Time" type="uint64_t" />
         <field length="10" name="Reserved Field 1" type="char" />
     </message>
 </exchange>

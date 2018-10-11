@@ -1,0 +1,207 @@
+<exchange name="SWX">
+  <Global name="Global">
+    <parameter name="MessageSpecTitle" value="Direct Trading Interfaces Specification (OTI, QTI, IMI)" />
+    <parameter name="MessageSpecFilename" value="SSX-DIR-TRD-SPEC-3.17.0.pdf" />
+    <parameter name="ProtocolGroup" value="OUCH" />
+    <parameter desc="" name="Venue" value="" />
+    <parameter name="Interface" value="OTI" />
+    <parameter name="ProtocolVersion" value="3.17.0" />
+    <parameter name="ProtocolIssueDate" value="2018.01.09" />
+    <parameter name="Endianness" value="big" />
+    <parameter name="StringPadChar" value=" " />
+    <parameter name="StringAlignment" value="mixed" />
+  </Global>
+  <header msgtype="header" name="Header" stringAlignment="left" padding=" ">
+    <field name="Message Length" type="uint16_t" />
+    <field name="Message Type" type="char" />
+  </header>
+  <constants name="Constants">
+    <constant prefix="Order Verb" value="B" name="Buy" type="char" />
+    <constant prefix="Order Verb" value="S" name="Sell" type="char" />
+    <constant prefix="Time In Force" value="0" name="Immediate" type="uint32_t" />
+    <constant prefix="Time In Force" value="99996" name="Session order expires at close" type="uint32_t" />
+    <constant prefix="Time In Force" value="99997" name="Session order expires at the opening" type="uint32_t" />
+    <constant prefix="Time In Force" value="99998" name="Day order expires at enter of post trading" type="uint32_t" />
+    <constant prefix="Order Placement" value="C" name="Displayed Order" type="char" />
+    <constant prefix="Order Placement" value="F" name="Limit Plus Order" type="char" />
+    <constant prefix="Order Placement" value="M" name="SwissAtMid Order" type="char" />
+    <constant prefix="Order Placement" value="P" name="Iceberg Plus Order" type="char" />
+    <constant prefix="Order Placement" value="S" name="Sweep SwissAtMid Order" type="char" />
+    <constant prefix="Event Code" value="S" name="Start of day" type="char" />
+    <constant prefix="Event Code" value="E" name="End of day" type="char" />
+    <constant prefix="Order state" value="L" name="Live" type="char" />
+    <constant prefix="Order state" value="D" name="Dead" type="char" />
+    <constant prefix="Reason" value="B" name="Breach of pre trade control limit" type="char" />
+    <constant prefix="Reason" value="C" name="Cancelled due to self match prevention" type="char" />
+    <constant prefix="Reason" value="I" name="Immediate" type="char" />
+    <constant prefix="Reason" value="H" name="The Orderbook instrument board or market is not tradable or without trading access defined" type="char" />
+    <constant prefix="Reason" value="L" name="Order has been deleted due to user logoff" type="char" />
+    <constant prefix="Reason" value="S" name="Supervisory" type="char" />
+    <constant prefix="Reason" value="T" name="Timeout" type="char" />
+    <constant prefix="Reason" value="U" name="User requested the order to be cancelled" type="char" />
+    <constant prefix="Reason" value="F" name="Flow control is active user has exceeded their capacity" type="char" />
+    <constant prefix="Reason" value="K" name="Invalid order placement" type="char" />
+    <constant prefix="Reason" value="N" name="Invalid secondary quality" type="char" />
+    <constant prefix="Reason" value="R" name="The order is not allowed at this time" type="char" />
+    <constant prefix="Reason" value="V" name="Invalid iceberg order" type="char" />
+    <constant prefix="Reason" value="W" name="Unknown contact support for further information" type="char" />
+    <constant prefix="Reason" value="X" name="Invalid price" type="char" />
+    <constant prefix="Reason" value="Y" name="Invalid order" type="char" />
+    <constant prefix="Reason" value="Z" name="Invalid quantity exceeds maximum limit" type="char" />
+    <constant prefix="Reason" value="a" name="Sponsored access unavailable" type="char" />
+    <constant prefix="Reason" value="b" name="Market orders not allowed for PRM" type="char" />
+    <constant prefix="Reason" value="c" name="Restricted stock" type="char" />
+    <constant prefix="Reason" value="d" name="Max value" type="char" />
+    <constant prefix="Reason" value="e" name="Max size" type="char" />
+    <constant prefix="Reason" value="f" name="Price collar check aggressive" type="char" />
+    <constant prefix="Reason" value="g" name="Price collar check passive" type="char" />
+    <constant prefix="Reason" value="h" name="Total number of orders" type="char" />
+    <constant prefix="Reason" value="i" name="Order to trade ratio" type="char" />
+    <constant prefix="Reason" value="j" name="Total risk value" type="char" />
+    <constant prefix="Reason" value="k" name="Total buy risk value" type="char" />
+    <constant prefix="Reason" value="l" name="Total sell risk value" type="char" />
+    <constant prefix="Reason" value="m" name="Total traded value" type="char" />
+    <constant prefix="Reason" value="n" name="Total net risk value" type="char" />
+    <constant prefix="Reason" value="o" name="Total Exposure" type="char" />
+    <constant prefix="Reason" value="z" name="Sponsored access kill switch in force" type="char" />
+    <constant prefix="Reject Reason Code" value="A" name="Not Authorized invalid username or passward" type="char" />
+    <constant prefix="Reject Reason Code" value="S" name="Session not available or invalid" type="char" />
+    <constant prefix="Liquidity Flag" value="A" name="Added for the passive principal" type="char" />
+    <constant prefix="Liquidity Flag" value="R" name="Removed for the aggressor" type="char" />
+    <constant prefix="Liquidity Flag" value="A" name="Uncross for auction executions" type="char" />
+    <constant prefix="Nostro Cross Flag" value="N" name="Two principal orders from the same legal entity matched" type="char" />
+    <constant prefix="Nostro Cross Flag" value=" " name="Blank for other matched executions" type="char" />
+    <constant prefix="Book Type" value="C" name="Displayed order execution" type="char" />
+    <constant prefix="Book Type" value="M" name="SwissAtMid order execution" type="char" />
+  </constants>
+  <message msgtype="U" type="O" name="Enter Order Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="4" name="Order Token" type="uint32_t" />
+    <field length="16" name="Bank Internal Reference" type="char" />
+    <field name="Order Verb" type="char" value="B,S" />
+    <field length="4" name="Order Quantity" type="uint32_t"/>
+    <field length="4" name="Order Book" type="uint32_t" />
+    <field length="4" name="Order Price" type="uint32_t" />
+    <field length="4" name="Time In Force" type="uint32_t" value="0,99996,99997,99998" />
+    <field length="4" name="Principal Id" type="uint32_t" />
+    <field length="4" name="Secondary Quantity" type="int32_t" />
+    <field name="Order Placement" type="char" value="C,F,M,P,S" />
+    <field length="8" name="AlgoID" type="uint64_t" />
+  </message>
+  <message msgtype="U" type="U" name="Replace Order Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="4" name="Existing Order Token" type="uint32_t" />
+    <field length="4" name="Replacement Order Token" type="uint32_t" />
+    <field length="4" name="Order Quantity" type="uint32_t"/>
+    <field length="4" name="Order Price" type="uint32_t" />
+    <field length="4" name="Time In Force" type="uint32_t" value="0,99996,99997,99998" />
+    <field length="4" name="Secondary Quantity" type="uint32_t" />
+    <field length="8" name="AlgoID" type="uint64_t" />
+  </message>
+  <message msgtype="U" type="X" name="Cancel Order Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="4" name="Original Order Token" type="uint32_t" />
+    <field length="4" name="Order Quantity" type="uint32_t"/>
+  </message>
+  <message msgtype="S" type="S" name="System Event Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="8" name="Timestamp" type="uint64_t" />
+    <field name="Event Code" type="char" value="S,E" />
+  </message>
+  <message msgtype="S" type="A" name="Accepted Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="8" name="Timestamp" type="uint64_t" />
+    <field length="4" name="Order Token" type="uint32_t" />
+    <field length="16" name="Bank Internal Reference" type="char" />
+    <field name="Order Verb" type="char" value="B,S" />
+    <field length="4" name="Order Quantity" type="uint32_t"/>
+    <field length="4" name="Order Book" type="uint32_t" />
+    <field length="4" name="Order Price" type="uint32_t" />
+    <field length="4" name="Time In Force" type="uint32_t" value="0,99996,99997,99998" />
+    <field length="4" name="Principal Id" type="uint32_t" />
+    <field length="8" name="Order Number" type="uint64_t" />
+    <field length="4" name="Secondary Quantity" type="uint32_t" />
+    <field name="Order Placement" type="char" value="C,F,M,P,S" />
+    <field length="8" name="AlgoID" type="uint64_t" />
+    <field name="Order State" type="char" value="L,D" />
+  </message>
+  <message msgtype="S" type="U" name="Replaced Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="8" name="Timestamp" type="uint64_t" />
+    <field length="4" name="Replacement Order Token" type="uint32_t" />
+    <field name="Order Verb" type="char" value="B,S" />
+    <field length="4" name="Order Quantity" type="uint32_t"/>
+    <field length="4" name="Order Book" type="uint32_t" />
+    <field length="4" name="Order Price" type="uint32_t" />
+    <field length="4" name="Time In Force" type="uint32_t" value="0,99996,99997,99998" />
+    <field length="8" name="Order Number" type="uint64_t" />
+    <field length="4" name="Secondary Quantity" type="uint32_t" />
+    <field length="8" name="AlgoID" type="uint64_t" />
+    <field name="Order State" type="char" value="L,D" />
+    <field length="4" name="Previous Order Token" type="uint32_t" />
+  </message>
+  <message msgtype="S" type="T" name="Order Priority Update Change Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="8" name="Timestamp" type="uint64_t" />
+    <field length="4" name="Order Token" type="uint32_t" />
+    <field length="8" name="Order Number" type="uint64_t" />
+  </message>
+  <message msgtype="S" type="C" name="Cancelled Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="8" name="Timestamp" type="uint64_t" />
+    <field length="4" name="Order Token" type="uint32_t" />
+    <field length="4" name="Order Quantity" type="int32_t"/>
+    <field name="Reason" type="char" value="B,C,I,L,S,T,U,F,N,R,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,z" />
+  </message>
+  <message msgtype="S" type="E" name="Executed Order Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="8" name="Timestamp" type="uint64_t" />
+    <field length="4" name="Order Token" type="uint32_t" />
+    <field length="4" name="Executed Quantity" type="uint32_t"/>
+    <field length="4" name="Executed Price" type="uint32_t" />
+    <field name="Liquidity Flag" type="char" value="A,R,U" />
+    <field length="8" name="Match Number" type="uint64_t" />
+    <field name="Nostro Cross Flag" type="char" value="N, " />
+    <field length="4" name="Counter Party Id" type="uint32_t"/>
+    <field name="Book Type" type="char" value="C,M" />
+  </message>
+  <message msgtype="S" type="B" name="Broken Trade Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char" />
+    <field length="8" name="Timestamp" type="uint64_t" />
+    <field length="4" name="Order Token" type="uint32_t" />
+    <field length="8" name="Match Number" type="uint64_t"/>
+    <field name="Reason" type="char" value="C,S" />
+  </message>
+  <message msgtype="S" type="J" name="Rejected Order Message" stringAlignment="left" padding=" " >
+    <field name="Type" type="char"/>
+    <field length="8" name="Timestamp" type="uint64_t" />
+    <field length="4" name="Order Token" type="uint32_t" />
+    <field name="Reason" type="char" value="B,F,H,K,N,R,S,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,z" />
+  </message>
+  <!-- Soup Bin Session message section BEGIN-->
+  <message msgtype="+" name="Debug Message" stringAlignment="left" padding=" " >
+    <field name="Text" type="char" length="-" /> <!-- length - use rest of message length -->
+  </message>
+  <message msgtype="A" name="Login Accepted Message" stringAlignment="left" padding=" " >
+    <field length="10" name="Session" type="char" />
+    <field length="20" name="Sequence Number" type="number" stringAlignment="right" />
+  </message>
+  <message msgtype="J" name="Login Rejected Message" stringAlignment="left" padding=" " >
+    <field name="Reject Reason Code" type="char" value="A,S" />
+  </message>
+  <message msgtype="R" name="Client Heartbeat Message" stringAlignment="left" padding=" " >
+  </message>
+  <message msgtype="H" name="Server Heartbeat Message" stringAlignment="left" padding=" " >
+  </message>
+  <message msgtype="Z" name="End of Session Message" stringAlignment="left" padding=" " >
+  </message>
+  <message msgtype="L" name="Login Request Message" stringAlignment="left" padding=" " >
+    <field length="6" name="Username" type="char" />
+    <field length="10" name="Password" type="char" />
+    <field length="10" name="Requested Session" type="char" />
+    <field length="20" name="Requested Sequence Number" type="number" stringAlignment="right" />
+  </message>
+  <message msgtype="O" name="Logout Request Message" stringAlignment="left" padding=" " >
+  </message>
+  <!-- Soup Bin Session message section - END-->
+</exchange>

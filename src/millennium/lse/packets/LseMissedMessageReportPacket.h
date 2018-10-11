@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_MISSEDMESSAGEREPORT_PACKET_H
 #define LSE_MISSEDMESSAGEREPORT_PACKET_H
@@ -9,18 +9,24 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseMissedMessageReport
 {
     public:
+        LseHeader mHeader;
+
         uint8_t mResponseType;
 
         LseMissedMessageReport ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseMissedMessageReport) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = 'P';
+
             mResponseType = 0;
         }
 
@@ -44,6 +50,6 @@ PACKED(class LseMissedMessageReport
         }
 });
 
-}
+} // namespace neueda
 
 #endif

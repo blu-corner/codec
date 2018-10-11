@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_REJECT_PACKET_H
 #define LSE_REJECT_PACKET_H
@@ -9,14 +9,17 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseReject
 {
     public:
+        LseHeader mHeader;
+
         int32_t mRejectCode;
         char mRejectReason[30];
         char mRejectedMessageType;
@@ -24,6 +27,9 @@ PACKED(class LseReject
 
         LseReject ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseReject) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = '3';
+
             mRejectCode = 0;
             memset (mRejectReason, '\0', 30);
             memset (mClientOrderID, '\0', 20);
@@ -83,6 +89,6 @@ PACKED(class LseReject
         }
 });
 
-}
+} // namespace neueda
 
 #endif

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_LOGOUT_PACKET_H
 #define LSE_LOGOUT_PACKET_H
@@ -9,18 +9,24 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseLogout
 {
     public:
+        LseHeader mHeader;
+
         char mReason[20];
 
         LseLogout ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseLogout) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = '5';
+
             memset (mReason, '\0', 20);
         }
 
@@ -43,6 +49,6 @@ PACKED(class LseLogout
         }
 });
 
-}
+} // namespace neueda
 
 #endif

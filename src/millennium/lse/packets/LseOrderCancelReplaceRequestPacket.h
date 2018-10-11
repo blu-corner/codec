@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_ORDERCANCELREPLACEREQUEST_PACKET_H
 #define LSE_ORDERCANCELREPLACEREQUEST_PACKET_H
@@ -9,14 +9,17 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseOrderCancelReplaceRequest
 {
     public:
+        LseHeader mHeader;
+
         char mClientOrderID[20];
         char mOriginalClientOrderID[20];
         char mOrderID[12];
@@ -37,6 +40,9 @@ PACKED(class LseOrderCancelReplaceRequest
 
         LseOrderCancelReplaceRequest ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseOrderCancelReplaceRequest) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = 'G';
+
             memset (mClientOrderID, '\0', 20);
             memset (mOriginalClientOrderID, '\0', 20);
             memset (mOrderID, '\0', 12);
@@ -263,6 +269,6 @@ PACKED(class LseOrderCancelReplaceRequest
         }
 });
 
-}
+} // namespace neueda
 
 #endif

@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+from wheezy.template.engine import Engine
+from wheezy.template.ext.core import CoreExtension
+from wheezy.template.loader import FileLoader
+from lxml import etree as ET
+import argparse
+import sys, os
+
+
+def transform(context, template, target):
+    searchpath = ['.']
+    engine = Engine(
+        loader=FileLoader(searchpath),
+        extensions=[CoreExtension()]
+    )
+
+    template = engine.get_template(template)
+    with open(target, 'w') as fd:
+        fd.write(template.render(context))
+
+parser = argparse.ArgumentParser(
+    description='Parse MasterFields.xml to produce fields files'
+)
+parser.add_argument('-f', '--fields', dest='fields_xml', type=str,
+                    help='MasterFields.xml', required=True)
+parser.add_argument('-o', '--output', dest='output', type=str,
+                    help='output folder', default='../')
+parser.add_argument('-t', '--template-folder', dest='template_folder', type=str,
+                    help='template folder',
+                    default='./')
+args = parser.parse_args()
+
+if not os.path.exists(args.fields_xml):
+    print('failed to find MasterFields.xml')
+fxml = ET.parse(args.fields_xml)
+
+root = fxml.getroot()
+
+fields = []
+for f in root.findall('field'):
+    fields.append(f.attrib)
+
+
+header_template = os.path.join(args.template_folder, 'fields_h.tmpl')
+cc_template = os.path.join(args.template_folder, 'fields_cc.tmpl')
+
+if not os.path.exists(header_template):
+    print('failed to find fields_h.tmpl')
+    sys.exit(1)
+
+if not os.path.exists(cc_template):
+    print('failed to find fields_cc.tmpl')
+    sys.exit(1)
+
+transform({'fields': fields}, header_template,
+          os.path.join(args.output, 'fields.h'))
+transform({'fields': fields}, cc_template,
+          os.path.join(args.output, 'fields.cc'))

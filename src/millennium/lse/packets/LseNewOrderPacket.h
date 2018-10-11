@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_NEWORDER_PACKET_H
 #define LSE_NEWORDER_PACKET_H
@@ -9,14 +9,17 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseNewOrder
 {
     public:
+        LseHeader mHeader;
+
         char mClientOrderID[20];
         char mTraderID[11];
         char mAccount[10];
@@ -45,6 +48,9 @@ PACKED(class LseNewOrder
 
         LseNewOrder ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseNewOrder) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = 'D';
+
             memset (mClientOrderID, '\0', 20);
             memset (mTraderID, '\0', 11);
             memset (mAccount, '\0', 10);
@@ -376,6 +382,6 @@ PACKED(class LseNewOrder
         }
 });
 
-}
+} // namespace neueda
 
 #endif

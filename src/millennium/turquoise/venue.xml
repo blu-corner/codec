@@ -1,0 +1,278 @@
+<exchange name="Turquoise">
+    <Global name="Global">
+        <parameter name="MessageSpecTitle" value="Turquoise Equities - TQ301 Native Trading Gateway" />
+        <parameter name="MessageSpecFilename" value="TQ301 - Issue 3.2 - Trading Gateway (Native) Customer_0.pdf" />
+        <parameter name="ProtocolGroup" value="Turquoise" />
+        <parameter desc="" name="Venue" value="LSE" />
+        <parameter name="VenueMIC" value="TURQ" />
+        <parameter name="Interface" value="OrderEntry" />
+        <parameter name="Protocol" desc="TQ301"  value="Native" />
+        <parameter name="ProtocolVersion" value="3.2" />
+        <parameter name="ProtocolIssueDate" value="2015.01.15" />
+        <parameter name="Endianness" value="little" />
+        <parameter name="ETX" value="" default="" />
+    </Global>
+    <replace name="Transact Time" type="uint64_t">
+        <field name="Transact Time Seconds" type="uint32_t" />
+        <field name="Transact Time Usecs" type="uint32_t" />
+    </replace>
+    <constants name="Constants">
+        <constant prefix="Start of Message" value="2" type="int8_t" />
+        <constant prefix="Message Version" value="1" type="int8_t" />
+        <constant prefix="AppID" value="1" name="Partition 1" type="int8_t" />
+        <constant prefix="AppID" value="2" name="Partition 2" type="int8_t" />
+        <constant prefix="AppID" value="3" name="Partition 3" type="int8_t" />
+        <constant prefix="AppID" value="0" name="System Suspended" type="int8_t" />
+        <constant prefix="Response Type" value="0" name="Successful" type="int8_t" />
+        <constant prefix="Response Type" value="1" name="Limit reached" type="int8_t" />
+        <constant prefix="Response Type" value="2" name="Invalid App ID" type="int8_t" />
+        <constant prefix="Response Type" value="3" name="Service Unavailable" type="int8_t" />
+        <constant prefix="Reject Reason" value="1" name="Recovery Service Resumed" type="int8_t" />
+        <constant prefix="Reject Reason" value="2" name="Recovery Service Not Available" type="int8_t" />
+        <constant prefix="Clearing Account" value="1" name="Client" type="int8_t" />
+        <constant prefix="Clearing Account" value="2" name="House" type="int8_t" />
+        <constant prefix="Order Type" value="1" name="Market" type="int8_t" />
+        <constant prefix="Order Type" value="2" name="Limit" type="int8_t" />
+        <constant prefix="TIF" value="0" name="Day" type="int8_t" />
+        <constant prefix="TIF" value="3" name="Immediate or Cancel" type="int8_t" />
+        <constant prefix="TIF" value="4" name="Fill or Kill" type="int8_t" />
+        <constant prefix="TIF" value="8" name="Good Till Time" type="int8_t" />
+        <constant prefix="TIF" value="9" name="Good for Auction" type="int8_t" />
+        <constant prefix="Side" value="1" name="Buy" type="int8_t" />
+        <constant prefix="Side" value="2" name="Sell" type="int8_t" />
+        <constant prefix="Capacity" value="1" name="Riskless Principal" type="int8_t" />
+        <constant prefix="Capacity" value="2" name="Principal"  type="int8_t" />
+        <constant prefix="Capacity" value="3" name="Agency"  type="int8_t" />
+        <constant prefix="Capacity" value="4" name="CFD Give Up"  type="int8_t" />
+        <constant prefix="Auto Cancel" value="0" name="Do not cancel on disconnect" type="int8_t" />
+        <constant prefix="Auto Cancel" value="1" name="Check system preference" type="int8_t" />
+        <constant prefix="OrderSubType" value="0" name="Order" type="int8_t" />
+        <constant prefix="OrderSubType" value="1" name="BI" type="int8_t" />
+        <constant prefix="OrderSubType" value="3" name="Order and BDN" type="int8_t" />
+        <constant prefix="OrderSubType" value="5" name="Pegged Order" type="int8_t" />
+        <constant prefix="OrderSubType" value="51" name="Random" type="int8_t" />
+        <constant prefix="Target Book" value="0" name="Dark Midpoint Order Book" type="int8_t" />
+        <constant prefix="Target Book" value="1" name="Integrated Order Book" type="int8_t" />
+        <constant prefix="Exec Instruction" value="0" name="Apply user level Default" type="int8_t" />
+        <constant prefix="Exec Instruction" value="1" name="Turquoise Uncross only" type="int8_t" />
+        <constant prefix="Exec Instruction" value="2" name="Continuous only" type="int8_t" />
+        <constant prefix="Exec Instruction" value="5" name="Continuous and Turquoise Uncross" type="int8_t" />
+        <constant prefix="Exec Instruction" value="6" name="Turquoise Uncross then Continuous" type="int8_t" />
+        <constant prefix="PassiveOnlyOrder" value="0" name="No constraint" type="int8_t" />
+        <constant prefix="PassiveOnlyOrder" value="99" name="Accept order only if passive upon order entry" type="int8_t" />
+        <constant prefix="PassiveOnlyOrder" value="100" name="Accept order if setting new BBO" type="int8_t" />
+        <constant prefix="PassiveOnlyOrder" value="1" name="Accept order if setting new or joining existing BBO" type="int8_t" />
+        <constant prefix="PassiveOnlyOrder" value="2" name="Accept order if joining existing BBO or within one visible price point" type="int8_t" />
+        <constant prefix="PassiveOnlyOrder" value="3" name="Accept order if joining existing BBO or within two visible price points" type="int8_t" />
+        <constant prefix="MassCancelType" value="3" name="All firm orders for an instrument" type="int8_t" />
+        <constant prefix="MassCancelType" value="4" name="All firm orders in a segment" type="int8_t" />
+        <constant prefix="MassCancelType" value="7" name="All orders submitted by the CompID" type="int8_t" />
+        <constant prefix="MassCancelType" value="8" name="All firm orders" type="int8_t" />
+        <constant prefix="MassCancelType" value="9" name="All orders submitted by the CompID for an instrument" type="int8_t" />
+        <constant prefix="MassCancelType" value="15" name="All orders submitted by the CompID for a segment" type="int8_t" />
+        <constant prefix="ExecType" value="0" name="New" type="char" />
+        <constant prefix="ExecType" value="4" name="Cancelled" type="char" />
+        <constant prefix="ExecType" value="5" name="Replaced" type="char" />
+        <constant prefix="ExecType" value="8" name="Rejected" type="char" />
+        <constant prefix="ExecType" value="C" name="Expired" type="char" />
+        <constant prefix="ExecType" value="D" name="Restated" type="char" />
+        <constant prefix="ExecType" value="F" name="Trade" type="char" />
+        <constant prefix="ExecType" value="H" name="Trade Cancel" type="char" />
+        <constant prefix="ExecType" value="L" name="Triggered" type="char" />
+        <constant prefix="Order Status" value="0" name="New" type="int8_t" />
+        <constant prefix="Order Status" value="1" name="Partially filled" type="int8_t" />
+        <constant prefix="Order Status" value="2" name="Filled" type="int8_t" />
+        <constant prefix="Order Status" value="4" name="Cancelled" type="int8_t" />
+        <constant prefix="Order Status" value="6" name="Expired" type="int8_t" />
+        <constant prefix="Order Status" value="8" name="Rejected" type="int8_t" />
+        <constant prefix="Container" value="0" name="No Container" type="int8_t" />
+        <constant prefix="Container" value="1" name="Order Book" type="int8_t" />
+        <constant prefix="Container" value="8" name="Pegged Order Container" type="int8_t" />
+        <constant prefix="Trade Liquidity Indicator" value="A" name="Added Liquidity" type="char" />
+        <constant prefix="Trade Liquidity Indicator" value="R" name="Added Liquidity" type="char" />
+        <constant prefix="Trade Liquidity Indicator" value="C" name="Added Liquidity" type="char" />
+        <constant prefix="Trade Liquidity Indicator" value="S" name="Added Liquidity" type="char" />
+        <constant prefix="Trade Liquidity Indicator" value="T" name="Added Liquidity" type="char" />
+        <constant prefix="TypeOfTrade" value="0" name="Visible" type="int8_t" />
+        <constant prefix="TypeOfTrade" value="1" name="Hidden" type="int8_t" />
+        <constant prefix="TypeOfTrade" value="2" name="Not Specified" type="int8_t" />
+        <constant prefix="PriceDifferential" value="A" name="Aggressive" type="char" />
+        <constant prefix="PriceDifferential" value="B" name="New visible BBO" type="char" />
+        <constant prefix="PriceDifferential" value="1" name="Join visible BBO" type="char" />
+        <constant prefix="PriceDifferential" value="2" name="Joining 2nd best visible price point" type="char" />
+        <constant prefix="PriceDifferential" value="3" name="Joining 3rd best visible price point" type="char" />
+        <constant prefix="PriceDifferential" value="4" name="Joining 4th best visible price point" type="char" />
+        <constant prefix="PriceDifferential" value="5" name="Joining 5th best visible price point" type="char" />
+        <constant prefix="PriceDifferential" value="6" name="Joining 6th best visible price point" type="char" />
+        <constant prefix="PriceDifferential" value="7" name="Joining 7th best visible price point" type="char" />
+        <constant prefix="PriceDifferential" value="8" name="Joining 8th best visible price point" type="char" />
+        <constant prefix="PriceDifferential" value="9" name="Joining 9th best visible price point" type="char" />
+        <constant prefix="PriceDifferential" value="P" name="Passive" type="char" />
+        <constant prefix="PriceDifferential" value="S" name="Restated due to SEP upon aggression" type="char" />
+        <constant prefix="PriceDifferential" value="\0" name="unspecified" type="char" />
+        <constant prefix="Mass Cancel Response" value="0" name="Rejected" type="int8_t" />
+        <constant prefix="Mass Cancel Response" value="7" name="Accepted" type="int8_t" />
+    </constants>
+    <header name="Message Header" msgtype="header" >
+        <field length="1" name="Start Of Message" type="int8_t" value="2" default="2"/>
+        <field length="2" name="Message Length" type="uint16_t"/>
+        <field name="Message Type" type="char"/>
+    </header>
+    <message name="Logon" msgtype="A">
+        <field length="25" name="CompID" type="char" />
+        <field length="25" name="Password" type="char" />
+        <field length="25" name="New Password" type="char" />
+        <field length="1" name="Message Version" type="int8_t" value="1" />
+    </message>
+    <message name="Logon Reply" msgtype="B">
+        <field length="4" name="Reject Code" type="int32_t" />
+        <field length="30" name="Password Expiry Day Count" type="char" />
+    </message>
+    <message name="Logout" msgtype="5">
+        <field length="20" name="LogoutReason" type="char" />
+    </message>
+    <message name="Heartbeat" msgtype="0">
+    </message>
+    <message name="Missed Message Request" msgtype="M">
+        <field length="1" name="AppID" type="int8_t" />
+        <field length="4" name="Last Msg Seq Num" type="int32_t" />
+    </message>
+	<message name="Missed Message Request Ack" msgtype="N">
+        <field length="1" name="Response Type" type="int8_t" />
+    </message>
+	<message name="Missed Message Report" msgtype="P">
+        <field length="1" name="Response Type" type="int8_t" />
+    </message>
+	<message name="Reject" msgtype="3">
+        <field length="4" name="Reject Code" type="int32_t" />
+        <field length="30" name="Reject Reason" type="char" />
+        <field name="Rejected Message Type" type="char" />
+        <field length="20" name="Client Order ID" type="char" />
+    </message>
+    <message name="System Status" msgtype="n">
+        <field length="1" name="AppID" type="int8_t" />
+        <field length="1" name="Reject Reason" type="int8_t" />
+    </message>
+    <message name="New Order" msgtype="D">
+        <field length="20" name="Client Order ID" type="char"/>
+        <field length="11" name="Trader ID" type="char"/>
+        <field length="10" name="Account" type="char"/>
+        <field length="1" name="Clearing Account" type="int8_t" values="1,3" default="1"/>
+        <field length="8" name="CommonSymbol" type="char"/>
+        <field length="1" name="Order Type" type="int8_t" values="1,2"/>
+        <field length="1" name="TIF" type="int8_t" values="0,3,4,8,9"/>
+        <field length="4" name="Expire Date Time" type="uint32_t"/>
+        <field length="1" name="Side" type="int8_t" values="1,2"/>
+        <field length="4" name="Order Qty" type="int32_t"/>
+        <field length="4" name="Display Qty" type="int32_t"/>
+        <field length="8" name="Limit Price" type="int64_t" method="price"/>
+        <field length="1" name="Capacity" type="int8_t" values="1,2,3,4"/>
+        <field length="1" name="Auto Cancel" type="int8_t" values="0,1"/>
+        <field length="1" name="Order Sub Type" type="int8_t" values="0,1,3,5,51"/>
+        <field length="1" name="Reserved Field1" type="int8_t"/>
+        <field length="8" name="Reserved Field2" type="int64_t" method="price"/>
+        <field length="1" name="Target Book" type="int8_t" values="0,1"/>
+        <field length="1" name="Exec Instruction" type="int8_t" values="0,1,2,5,6"/>
+        <field length="4" name="Minimum Quantity" type="int32_t"/>
+        <field length="1" name="Reserved Field 3" type="int8_t"/>
+        <field length="1" name="Reserved Field 4" type="int8_t"/>
+        <field length="1" name="Reserved Field 5" type="int8_t"/>
+        <field length="1" name="Passive Only Order" type="int8_t" values="0,1,2,3,99,100"/>
+        <field length="12" name="CIOrdLinkID" type="char"/>
+    </message>
+    <message name="Order Cancel Replace Request" msgtype="G">
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="20" name="Original Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field length="8" name="Common Symbol" type="char" />
+        <field length="4" name="Expire Date Time" type="uint32_t"/>
+        <field length="4" name="Order Qty" type="int32_t"/>
+        <field length="4" name="Display Qty" type="int32_t"/>
+        <field length="8" name="Limit Price" type="int64_t" method="price"/>
+        <field length="10" name="Account" type="char"/>
+        <field length="1" name="TIF" type="int8_t" values="0,3,4,8,9"/>
+        <field length="1" name="Side" type="int8_t" values="1,2" />
+        <field length="8" name="Reserved Field 1" type="int64_t" method="price"/>
+        <field length="1" name="Target Book" type="int8_t" values="0,1" />
+        <field length="1" name="Exec Instruction" type="int8_t" values="0,1,2,5,6" />
+        <field length="4" name="Min Qty" type="int32_t"/>
+        <field length="1" name="Passive Only Order" type="int8_t" values="0,1,2,3,99,100" />
+        <field length="3" name="Reserved Field 2" type="char" />
+    </message>
+    <message name="Order Cancel Request" msgtype="F">
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="20" name="Original Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field length="8" name="Common Symbol" type="char" />
+        <field length="1" name="Side" type="int8_t" values="1,2" />
+        <field length="1" name="Target Book" type="int8_t" values="0,1" />
+        <field length="9" name="Reserved Field 1" type="char" />
+    </message>
+    <message name="Order Mass Cancel Request" msgtype="q">
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="1" name="Mass Cancel Type" type="int8_t" values="3,4,7,8,9,15" />
+        <field length="8" name="Common Symbol" type="char" />
+        <field length="4" name="Segment" type="char" />
+        <field length="1" name="Reserved Field 1" type="int8_t" />
+        <field length="1" name="Target Book" type="int8_t" values="0,1" />
+        <field length="9" name="Reserved Field 2" type="char" />
+    </message>
+    <message name="Execution Report" msgtype="8">
+        <field length="1" name="AppID" type="int8_t" />
+        <field length="4" name="Sequence No" type="int32_t" />
+        <field length="12" name="Execution ID" type="char" />
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field name="Exec Type" type="char" values="0,4,5,8,C,D,F,H,L" />
+        <field length="12" name="Execution Report Ref ID" type="char" />
+        <field length="1" name="Order Status" type="int8_t" values="0,1,2,4,6,8" />
+        <field length="4" name="Order Reject Code" type="int32_t" />
+        <field length="8" name="Executed Price" type="int64_t" method="price" />
+        <field length="4" name="Executed Qty" type="int32_t" />
+        <field length="4" name="Leaves Qty" type="int32_t" />
+        <field length="1" name="Container" type="int8_t" values="0,1,7" />
+        <field length="4" name="Display Qty" type="int32_t" />
+        <field length="8" name="Common Symbol" type="char" />
+        <field length="1" name="Side" type="int8_t" values="1,2" />
+        <field length="8" name="Secondary Order ID" type="uint64_t" />
+        <field length="11" name="CounterParty" type="char" />
+        <field name="Trade Liquidity Indicator" type="char" values="A,R,C,S,T" />
+        <field length="8" name="Trade Match ID" type="uint64_t" />
+        <field length="8" name="Transact Time" type="uint64_t" />
+        <field length="1" name="Target Book" type="int8_t" values="0,1" />
+        <field length="1" name="TypeOfTrade" type="int8_t" values="0,1,2" />
+		<field length="1" name="Capacity" type="int8_t" values="1,2,3"/>
+		<field name="Price Differential" type="char" values="A,B,1,2,3,4,5,6,7,8,9,P,S" />
+		<field length="12" name="Public Order ID" type="char" />
+		<field length="4" name="Minimum Quantity" type="int32_t" />
+		<field length="1" name="Reputational Score" type="int8_t" />
+    </message>
+	<message name="Order Cancel Reject" msgtype="9">
+        <field length="1" name="AppID" type="int8_t" />
+        <field length="4" name="Sequence No" type="int32_t" />
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field length="4" name="Cancel Reject Reason" type="int32_t" />
+        <field length="8" name="Transact Time" type="uint64_t" />
+        <field length="10" name="Reserved Field1" type="char" />
+    </message>
+	<message name="Order Mass Cancel Report" msgtype="r">
+        <field length="1" name="AppID" type="int8_t" />
+		<field length="4" name="Sequence No" type="int32_t" />
+		<field length="20" name="Client Order ID" type="char" />
+        <field length="1" name="Mass Cancel Response" type="int8_t" values="0,7" />
+		<field length="4" name="Mass Cancel Reject Reason" type="int32_t" />
+		<field length="4" name="Reserved Field 1" type="char" />
+		<field length="8" name="Transact Time" type="uint64_t" />
+		<field length="10" name="Reserved Field 2" type="char" />
+    </message>
+	<message name="Business Reject" msgtype="j">
+        <field length="1" name="AppID" type="int8_t" />
+        <field length="4" name="Sequence No" type="int32_t" />
+        <field length="4" name="Reject Code" type="int32_t" />
+        <field length="20" name="Client Order ID" type="char" />
+        <field length="12" name="Order ID" type="char" />
+        <field length="8" name="Transact Time" type="uint64_t" />
+        <field length="10" name="Reserved Field" type="char" />
+	</message>
+</exchange>

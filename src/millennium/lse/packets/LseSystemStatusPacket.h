@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_SYSTEMSTATUS_PACKET_H
 #define LSE_SYSTEMSTATUS_PACKET_H
@@ -9,19 +9,25 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseSystemStatus
 {
     public:
+        LseHeader mHeader;
+
         uint8_t mAppID;
         uint8_t mStatus;
 
         LseSystemStatus ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseSystemStatus) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = 'n';
+
             mAppID = 0;
             mStatus = 0;
         }
@@ -58,6 +64,6 @@ PACKED(class LseSystemStatus
         }
 });
 
-}
+} // namespace neueda
 
 #endif

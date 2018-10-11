@@ -1,0 +1,37 @@
+/*
+ * Copyright 2014-2018 Neueda
+ */
+@require(fields)
+#ifndef FIELDS_H
+#define FIELDS_H
+
+#ifndef __STDC_LIMIT_MACROS
+#define __STDC_LIMIT_MACROS
+#endif
+
+#include <stdint.h>
+#include <string>
+#include <map>
+#include <sstream>
+
+using namespace std;
+
+@for field in fields:
+#define @{field['name']} @{field['number']}
+@end
+
+namespace neueda
+{
+
+class FieldUtils
+{
+    public:
+        static map<int, string> createMap ();
+        static string getFieldName (int f);
+
+        static map<int, string> mFieldNames;
+};
+
+} // namespace neueda
+
+#endif // FIELDS_H

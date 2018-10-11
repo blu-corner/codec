@@ -1,3 +1,6 @@
+/*
+ * Copyright 2014-2018 Neueda
+ */
 #ifndef FIELDS_H
 #define FIELDS_H
 
@@ -12,1531 +15,2134 @@
 
 using namespace std;
 
-namespace Fields
-{
+#define Account 1
+#define AdvId 2
+#define AdvRefID 3
+#define AdvSide 4
+#define AdvTransType 5
+#define AvgPx 6
+#define BeginSeqNo 7
+#define BeginString 8
+#define BodyLength 9
+#define CheckSum 10
+#define ClOrdID 11
+#define Commission 12
+#define CommType 13
+#define CumQty 14
+#define Currency 15
+#define EndSeqNo 16
+#define ExecID 17
+#define ExecInst 18
+#define ExecRefID 19
+#define ExecTransType 20
+#define HandlInst 21
+#define SecurityIDSource 22
+#define IOIid 23
+#define IOIOthSvc 24
+#define IOIQltyInd 25
+#define IOIRefID 26
+#define IOIShares 27
+#define IOITransType 28
+#define LastCapacity 29
+#define LastMkt 30
+#define LastPx 31
+#define LastShares 32
+#define NoLinesOfText 33
+#define MsgSeqNum 34
+#define MsgType 35
+#define NewSeqNo 36
+#define OrderID 37
+#define OrderQty 38
+#define OrdStatus 39
+#define OrdType 40
+#define OrigClOrdID 41
+#define OrigTime 42
+#define PossDupFlag 43
+#define Price 44
+#define RefSeqNum 45
+#define RelatdSym 46
+#define Rule80A 47
+#define SecurityID 48
+#define SenderCompID 49
+#define SenderSubID 50
+#define SendingDate 51
+#define SendingTime 52
+#define Shares 53
+#define Side 54
+#define Symbol 55
+#define TargetCompID 56
+#define TargetSubID 57
+#define Text 58
+#define TimeInForce 59
+#define TransactTime 60
+#define Urgency 61
+#define ValidUntilTime 62
+#define SettlType 63
+#define FutSettDate 64
+#define SymbolSfx 65
+#define ListID 66
+#define ListSeqNo 67
+#define TotNoOrders 68
+#define ListExecInst 69
+#define AllocID 70
+#define AllocTransType 71
+#define RefAllocID 72
+#define NoOrders 73
+#define AvgPxPrecision 74
+#define TradeDate 75
+#define ExecBroker 76
+#define OpenClose 77
+#define NoAllocs 78
+#define AllocAccount 79
+#define AllocShares 80
+#define ProcessCode 81
+#define NoRpts 82
+#define RptSeq 83
+#define CxlQty 84
+#define NoDlvyInst 85
+#define DlvyInst 86
+#define AllocStatus 87
+#define AllocRejCode 88
+#define Signature 89
+#define SecureDataLen 90
+#define SecureData 91
+#define BrokerOfCredit 92
+#define SignatureLength 93
+#define EmailType 94
+#define RawDataLength 95
+#define RawData 96
+#define PossResend 97
+#define EncryptMethod 98
+#define StopPx 99
+#define ExDestination 100
+#define CxlRejReason 102
+#define OrdRejReason 103
+#define IOIQualifier 104
+#define WaveNo 105
+#define Issuer 106
+#define SecurityDesc 107
+#define HeartBtInt 108
+#define ClientID 109
+#define MinQty 110
+#define MaxFloor 111
+#define TestReqID 112
+#define ReportToExch 113
+#define LocateReqd 114
+#define OnBehalfOfCompID 115
+#define OnBehalfOfSubID 116
+#define QuoteID 117
+#define NetMoney 118
+#define SettlCurrAmt 119
+#define SettlCurrency 120
+#define ForexReq 121
+#define OrigSendingTime 122
+#define GapFillFlag 123
+#define NoExecs 124
+#define CxlType 125
+#define ExpireTime 126
+#define DKReason 127
+#define DeliverToCompID 128
+#define DeliverToSubID 129
+#define IOINaturalFlag 130
+#define QuoteReqID 131
+#define BidPx 132
+#define OfferPx 133
+#define BidSize 134
+#define OfferSize 135
+#define NoMiscFees 136
+#define MiscFeeAmt 137
+#define MiscFeeCurr 138
+#define MiscFeeType 139
+#define PrevClosePx 140
+#define ResetSeqNumFlag 141
+#define SenderLocationID 142
+#define TargetLocationID 143
+#define OnBehalfOfLocationID 144
+#define DeliverToLocationID 145
+#define NoRelatedSym 146
+#define Subject 147
+#define Headline 148
+#define URLLink 149
+#define ExecType 150
+#define LeavesQty 151
+#define CashOrderQty 152
+#define AllocAvgPx 153
+#define AllocNetMoney 154
+#define SettlCurrFxRate 155
+#define SettlCurrFxRateCalc 156
+#define NumDaysInterest 157
+#define AccruedInterestRate 158
+#define AccruedInterestAmt 159
+#define SettlInstMode 160
+#define AllocText 161
+#define SettlInstID 162
+#define SettlInstTransType 163
+#define EmailThreadID 164
+#define SettlInstSource 165
+#define SettlLocation 166
+#define SecurityType 167
+#define EffectiveTime 168
+#define StandInstDbType 169
+#define StandInstDbName 170
+#define StandInstDbID 171
+#define SettlDeliveryType 172
+#define SettlDepositoryCode 173
+#define SettlBrkrCode 174
+#define SettlInstCode 175
+#define SecuritySettlAgentName 176
+#define SecuritySettlAgentCode 177
+#define SecuritySettlAgentAcctNum 178
+#define SecuritySettlAgentAcctName 179
+#define SecuritySettlAgentContactName 180
+#define SecuritySettlAgentContactPhone 181
+#define CashSettlAgentName 182
+#define CashSettlAgentCode 183
+#define CashSettlAgentAcctNum 184
+#define CashSettlAgentAcctName 185
+#define CashSettlAgentContactName 186
+#define CashSettlAgentContactPhone 187
+#define BidSpotRate 188
+#define BidForwardPoints 189
+#define OfferSpotRate 190
+#define OfferForwardPoints 191
+#define OrderQty2 192
+#define FutSettDate2 193
+#define LastSpotRate 194
+#define LastForwardPoints 195
+#define AllocLinkID 196
+#define AllocLinkType 197
+#define SecondaryOrderID 198
+#define NoIOIQualifiers 199
+#define MaturityMonthYear 200
+#define PutOrCall 201
+#define StrikePrice 202
+#define CoveredOrUncovered 203
+#define CustomerOrFirm 204
+#define MaturityDay 205
+#define OptAttribute 206
+#define SecurityExchange 207
+#define NotifyBrokerOfCredit 208
+#define AllocHandlInst 209
+#define MaxShow 210
+#define PegOffsetValue 211
+#define XmlDataLen 212
+#define XmlData 213
+#define SettlInstRefID 214
+#define NoRoutingIDs 215
+#define RoutingType 216
+#define RoutingID 217
+#define SpreadToBenchmark 218
+#define Benchmark 219
+#define BenchmarkCurveCurrency 220
+#define BenchmarkCurveName 221
+#define BenchmarkCurvePoint 222
+#define CouponRate 223
+#define CouponPaymentDate 224
+#define IssueDate 225
+#define RepurchaseTerm 226
+#define RepurchaseRate 227
+#define Factor 228
+#define TradeOriginationDate 229
+#define ExDate 230
+#define ContractMultiplier 231
+#define NoStipulations 232
+#define StipulationType 233
+#define StipulationValue 234
+#define YieldType 235
+#define Yield 236
+#define TotalTakedown 237
+#define Concession 238
+#define RepoCollateralSecurityType 239
+#define RedemptionDate 240
+#define UnderlyingCouponPaymentDate 241
+#define UnderlyingIssueDate 242
+#define UnderlyingRepoCollateralSecurityType 243
+#define UnderlyingRepurchaseTerm 244
+#define UnderlyingRepurchaseRate 245
+#define UnderlyingFactor 246
+#define UnderlyingRedemptionDate 247
+#define LegCouponPaymentDate 248
+#define LegIssueDate 249
+#define LegRepoCollateralSecurityType 250
+#define LegRepurchaseTerm 251
+#define LegRepurchaseRate 252
+#define LegFactor 253
+#define LegRedemptionDate 254
+#define CreditRating 255
+#define UnderlyingCreditRating 256
+#define LegCreditRating 257
+#define TradedFlatSwitch 258
+#define BasisFeatureDate 259
+#define BasisFeaturePrice 260
+#define MDReqID 262
+#define SubscriptionRequestType 263
+#define MarketDepth 264
+#define MDUpdateType 265
+#define AggregatedBook 266
+#define NoMDEntryTypes 267
+#define NoMDEntries 268
+#define MDEntryType 269
+#define MDEntryPx 270
+#define MDEntrySize 271
+#define MDEntryDate 272
+#define MDEntryTime 273
+#define TickDirection 274
+#define MDMkt 275
+#define QuoteCondition 276
+#define TradeCondition 277
+#define MDEntryID 278
+#define MDUpdateAction 279
+#define MDEntryRefID 280
+#define MDReqRejReason 281
+#define MDEntryOriginator 282
+#define LocationID 283
+#define DeskID 284
+#define DeleteReason 285
+#define OpenCloseSettleFlag 286
+#define SellerDays 287
+#define MDEntryBuyer 288
+#define MDEntrySeller 289
+#define MDEntryPositionNo 290
+#define FinancialStatus 291
+#define CorporateAction 292
+#define DefBidSize 293
+#define DefOfferSize 294
+#define NoQuoteEntries 295
+#define NoQuoteSets 296
+#define QuoteStatus 297
+#define QuoteCancelType 298
+#define QuoteEntryID 299
+#define QuoteRejectReason 300
+#define QuoteResponseLevel 301
+#define QuoteSetID 302
+#define QuoteRequestType 303
+#define TotQuoteEntries 304
+#define UnderlyingSecurityIDSource 305
+#define UnderlyingIssuer 306
+#define UnderlyingSecurityDesc 307
+#define UnderlyingSecurityExchange 308
+#define UnderlyingSecurityID 309
+#define UnderlyingSecurityType 310
+#define UnderlyingSymbol 311
+#define UnderlyingSymbolSfx 312
+#define UnderlyingMaturityMonthYear 313
+#define UnderlyingMaturityDay 314
+#define UnderlyingPutOrCall 315
+#define UnderlyingStrikePrice 316
+#define UnderlyingOptAttribute 317
+#define UnderlyingCurrency 318
+#define RatioQty 319
+#define SecurityReqID 320
+#define SecurityRequestType 321
+#define SecurityResponseID 322
+#define SecurityResponseType 323
+#define SecurityStatusReqID 324
+#define UnsolicitedIndicator 325
+#define SecurityTradingStatus 326
+#define HaltReasonChar 327
+#define InViewOfCommon 328
+#define DueToRelated 329
+#define BuyVolume 330
+#define SellVolume 331
+#define HighPx 332
+#define LowPx 333
+#define Adjustment 334
+#define TradSesReqID 335
+#define TradingSessionID 336
+#define ContraTrader 337
+#define TradSesMethod 338
+#define TradSesMode 339
+#define TradSesStatus 340
+#define TradSesStartTime 341
+#define TradSesOpenTime 342
+#define TradSesPreCloseTime 343
+#define TradSesCloseTime 344
+#define TradSesEndTime 345
+#define NumberOfOrders 346
+#define MessageEncoding 347
+#define EncodedIssuerLen 348
+#define EncodedIssuer 349
+#define EncodedSecurityDescLen 350
+#define EncodedSecurityDesc 351
+#define EncodedListExecInstLen 352
+#define EncodedListExecInst 353
+#define EncodedTextLen 354
+#define EncodedText 355
+#define EncodedSubjectLen 356
+#define EncodedSubject 357
+#define EncodedHeadlineLen 358
+#define EncodedHeadline 359
+#define EncodedAllocTextLen 360
+#define EncodedAllocText 361
+#define EncodedUnderlyingIssuerLen 362
+#define EncodedUnderlyingIssuer 363
+#define EncodedUnderlyingSecurityDescLen 364
+#define EncodedUnderlyingSecurityDesc 365
+#define AllocPrice 366
+#define QuoteSetValidUntilTime 367
+#define QuoteEntryRejectReason 368
+#define LastMsgSeqNumProcessed 369
+#define OnBehalfOfSendingTime 370
+#define RefTagID 371
+#define RefMsgType 372
+#define SessionRejectReason 373
+#define BidRequestTransType 374
+#define ContraBroker 375
+#define ComplianceID 376
+#define SolicitedFlag 377
+#define ExecRestatementReason 378
+#define BusinessRejectRefID 379
+#define BusinessRejectReason 380
+#define GrossTradeAmt 381
+#define NoContraBrokers 382
+#define MaxMessageSize 383
+#define NoMsgTypes 384
+#define MsgDirection 385
+#define NoTradingSessions 386
+#define TotalVolumeTraded 387
+#define DiscretionInst 388
+#define DiscretionOffset 389
+#define BidID 390
+#define ClientBidID 391
+#define ListName 392
+#define TotNoRelatedSym 393
+#define BidType 394
+#define NumTickets 395
+#define SideValue1 396
+#define SideValue2 397
+#define NoBidDescriptors 398
+#define BidDescriptorType 399
+#define BidDescriptor 400
+#define SideValueInd 401
+#define LiquidityPctLow 402
+#define LiquidityPctHigh 403
+#define LiquidityValue 404
+#define EFPTrackingError 405
+#define FairValue 406
+#define OutsideIndexPct 407
+#define ValueOfFutures 408
+#define LiquidityIndType 409
+#define WtAverageLiquidity 410
+#define ExchangeForPhysical 411
+#define OutMainCntryUIndex 412
+#define CrossPercent 413
+#define ProgRptReqs 414
+#define ProgPeriodInterval 415
+#define IncTaxInd 416
+#define NumBidders 417
+#define BidTradeType 418
+#define BasisPxType 419
+#define NoBidComponents 420
+#define Country 421
+#define TotNoStrikes 422
+#define PriceType 423
+#define DayOrderQty 424
+#define DayCumQty 425
+#define DayAvgPx 426
+#define GTBookingInst 427
+#define NoStrikes 428
+#define ListStatusType 429
+#define NetGrossInd 430
+#define ListOrderStatus 431
+#define ExpireDate 432
+#define ListExecInstType 433
+#define CxlRejResponseTo 434
+#define UnderlyingCouponRate 435
+#define UnderlyingContractMultiplier 436
+#define ContraTradeQty 437
+#define ContraTradeTime 438
+#define ClearingFirm 439
+#define ClearingAccount 440
+#define LiquidityNumSecurities 441
+#define MultiLegReportingType 442
+#define StrikeTime 443
+#define ListStatusText 444
+#define EncodedListStatusTextLen 445
+#define EncodedListStatusText 446
+#define PartyIDSource 447
+#define PartyID 448
+#define TotalVolumeTradedDate 449
+#define TotalVolumeTradedTime 450
+#define NetChgPrevDay 451
+#define PartyRole 452
+#define NoPartyIDs 453
+#define NoSecurityAltID 454
+#define SecurityAltID 455
+#define SecurityAltIDSource 456
+#define NoUnderlyingSecurityAltID 457
+#define UnderlyingSecurityAltID 458
+#define UnderlyingSecurityAltIDSource 459
+#define Product 460
+#define CFICode 461
+#define UnderlyingProduct 462
+#define UnderlyingCFICode 463
+#define TestMessageIndicator 464
+#define QuantityType 465
+#define BookingRefID 466
+#define IndividualAllocID 467
+#define RoundingDirection 468
+#define RoundingModulus 469
+#define CountryOfIssue 470
+#define StateOrProvinceOfIssue 471
+#define LocaleOfIssue 472
+#define NoRegistDtls 473
+#define MailingDtls 474
+#define InvestorCountryOfResidence 475
+#define PaymentRef 476
+#define DistribPaymentMethod 477
+#define CashDistribCurr 478
+#define CommCurrency 479
+#define CancellationRights 480
+#define MoneyLaunderingStatus 481
+#define MailingInst 482
+#define TransBkdTime 483
+#define ExecPriceType 484
+#define ExecPriceAdjustment 485
+#define DateOfBirth 486
+#define TradeReportTransType 487
+#define CardHolderName 488
+#define CardNumber 489
+#define CardExpDate 490
+#define CardIssNum 491
+#define PaymentMethod 492
+#define RegistAcctType 493
+#define Designation 494
+#define TaxAdvantageType 495
+#define RegistRejReasonText 496
+#define FundRenewWaiv 497
+#define CashDistribAgentName 498
+#define CashDistribAgentCode 499
+#define CashDistribAgentAcctNumber 500
+#define CashDistribPayRef 501
+#define CashDistribAgentAcctName 502
+#define CardStartDate 503
+#define PaymentDate 504
+#define PaymentRemitterID 505
+#define RegistStatus 506
+#define RegistRejReasonCode 507
+#define RegistRefID 508
+#define RegistDetls 509
+#define NoDistribInsts 510
+#define RegistEmail 511
+#define DistribPercentage 512
+#define RegistID 513
+#define RegistTransType 514
+#define ExecValuationPoint 515
+#define OrderPercent 516
+#define OwnershipType 517
+#define NoContAmts 518
+#define ContAmtType 519
+#define ContAmtValue 520
+#define ContAmtCurr 521
+#define OwnerType 522
+#define PartySubID 523
+#define NestedPartyID 524
+#define NestedPartyIDSource 525
+#define SecondaryClOrdID 526
+#define SecondaryExecID 527
+#define OrderCapacity 528
+#define OrderRestrictions 529
+#define MassCancelRequestType 530
+#define MassCancelResponse 531
+#define MassCancelRejectReason 532
+#define TotalAffectedOrders 533
+#define NoAffectedOrders 534
+#define AffectedOrderID 535
+#define AffectedSecondaryOrderID 536
+#define QuoteType 537
+#define NestedPartyRole 538
+#define NoNestedPartyIDs 539
+#define TotalAccruedInterestAmt 540
+#define MaturityDate 541
+#define UnderlyingMaturityDate 542
+#define InstrRegistry 543
+#define CashMargin 544
+#define NestedPartySubID 545
+#define Scope 546
+#define MDImplicitDelete 547
+#define CrossID 548
+#define CrossType 549
+#define CrossPrioritization 550
+#define OrigCrossID 551
+#define NoSides 552
+#define Username 553
+#define Password 554
+#define NoLegs 555
+#define LegCurrency 556
+#define TotalNumSecurityTypes 557
+#define NoSecurityTypes 558
+#define SecurityListRequestType 559
+#define SecurityRequestResult 560
+#define RoundLot 561
+#define MinTradeVol 562
+#define MultiLegRptTypeReq 563
+#define LegPositionEffect 564
+#define LegCoveredOrUncovered 565
+#define LegPrice 566
+#define TradSesStatusRejReason 567
+#define TradeRequestID 568
+#define TradeRequestType 569
+#define PreviouslyReported 570
+#define TradeReportID 571
+#define TradeReportRefID 572
+#define MatchStatus 573
+#define MatchType 574
+#define OddLot 575
+#define NoClearingInstructions 576
+#define ClearingInstruction 577
+#define TradeInputSource 578
+#define TradeInputDevice 579
+#define NoDates 580
+#define AccountType 581
+#define CustOrderCapacity 582
+#define ClOrdLinkID 583
+#define MassStatusReqID 584
+#define MassStatusReqType 585
+#define OrigOrdModTime 586
+#define LegSettlType 587
+#define LegSettlDate 588
+#define DayBookingInst 589
+#define BookingUnit 590
+#define PreallocMethod 591
+#define UnderlyingCountryOfIssue 592
+#define UnderlyingStateOrProvinceOfIssue 593
+#define UnderlyingLocaleOfIssue 594
+#define UnderlyingInstrRegistry 595
+#define LegCountryOfIssue 596
+#define LegStateOrProvinceOfIssue 597
+#define LegLocaleOfIssue 598
+#define LegInstrRegistry 599
+#define LegSymbol 600
+#define LegSymbolSfx 601
+#define LegSecurityID 602
+#define LegSecurityIDSource 603
+#define NoLegSecurityAltID 604
+#define LegSecurityAltID 605
+#define LegSecurityAltIDSource 606
+#define LegProduct 607
+#define LegCFICode 608
+#define LegSecurityType 609
+#define LegMaturityMonthYear 610
+#define LegMaturityDate 611
+#define LegStrikePrice 612
+#define LegOptAttribute 613
+#define LegContractMultiplier 614
+#define LegCouponRate 615
+#define LegSecurityExchange 616
+#define LegIssuer 617
+#define EncodedLegIssuerLen 618
+#define EncodedLegIssuer 619
+#define LegSecurityDesc 620
+#define EncodedLegSecurityDescLen 621
+#define EncodedLegSecurityDesc 622
+#define LegRatioQty 623
+#define LegSide 624
+#define TradingSessionSubID 625
+#define AllocType 626
+#define NoHops 627
+#define HopCompID 628
+#define HopSendingTime 629
+#define HopRefID 630
+#define MidPx 631
+#define BidYield 632
+#define MidYield 633
+#define OfferYield 634
+#define ClearingFeeIndicator 635
+#define WorkingIndicator 636
+#define LegLastPx 637
+#define PriorityIndicator 638
+#define PriceImprovement 639
+#define Price2 640
+#define LastForwardPoints2 641
+#define BidForwardPoints2 642
+#define OfferForwardPoints2 643
+#define RFQReqID 644
+#define MktBidPx 645
+#define MktOfferPx 646
+#define MinBidSize 647
+#define MinOfferSize 648
+#define QuoteStatusReqID 649
+#define LegalConfirm 650
+#define UnderlyingLastPx 651
+#define UnderlyingLastQty 652
+#define SecDefStatus 653
+#define LegRefID 654
+#define ContraLegRefID 655
+#define SettlCurrBidFxRate 656
+#define SettlCurrOfferFxRate 657
+#define QuoteRequestRejectReason 658
+#define SideComplianceID 659
+#define AcctIDSource 660
+#define AllocAcctIDSource 661
+#define BenchmarkPrice 662
+#define BenchmarkPriceType 663
+#define ConfirmID 664
+#define ConfirmStatus 665
+#define ConfirmTransType 666
+#define ContractSettlMonth 667
+#define DeliveryForm 668
+#define LastParPx 669
+#define NoLegAllocs 670
+#define LegAllocAccount 671
+#define LegIndividualAllocID 672
+#define LegAllocQty 673
+#define LegAllocAcctIDSource 674
+#define LegSettlCurrency 675
+#define LegBenchmarkCurveCurrency 676
+#define LegBenchmarkCurveName 677
+#define LegBenchmarkCurvePoint 678
+#define LegBenchmarkPrice 679
+#define LegBenchmarkPriceType 680
+#define LegBidPx 681
+#define LegIOIQty 682
+#define NoLegStipulations 683
+#define LegOfferPx 684
+#define LegOrderQty 685
+#define LegPriceType 686
+#define LegQty 687
+#define LegStipulationType 688
+#define LegStipulationValue 689
+#define LegSwapType 690
+#define Pool 691
+#define QuotePriceType 692
+#define QuoteRespID 693
+#define QuoteRespType 694
+#define QuoteQualifier 695
+#define YieldRedemptionDate 696
+#define YieldRedemptionPrice 697
+#define YieldRedemptionPriceType 698
+#define BenchmarkSecurityID 699
+#define ReversalIndicator 700
+#define YieldCalcDate 701
+#define NoPositions 702
+#define PosType 703
+#define LongQty 704
+#define ShortQty 705
+#define PosQtyStatus 706
+#define PosAmtType 707
+#define PosAmt 708
+#define PosTransType 709
+#define PosReqID 710
+#define NoUnderlyings 711
+#define PosMaintAction 712
+#define OrigPosReqRefID 713
+#define PosMaintRptRefID 714
+#define ClearingBusinessDate 715
+#define SettlSessID 716
+#define SettlSessSubID 717
+#define AdjustmentType 718
+#define ContraryInstructionIndicator 719
+#define PriorSpreadIndicator 720
+#define PosMaintRptID 721
+#define PosMaintStatus 722
+#define PosMaintResult 723
+#define PosReqType 724
+#define ResponseTransportType 725
+#define ResponseDestination 726
+#define TotalNumPosReports 727
+#define PosReqResult 728
+#define PosReqStatus 729
+#define SettlPrice 730
+#define SettlPriceType 731
+#define UnderlyingSettlPrice 732
+#define UnderlyingSettlPriceType 733
+#define PriorSettlPrice 734
+#define NoQuoteQualifiers 735
+#define AllocSettlCurrency 736
+#define AllocSettlCurrAmt 737
+#define InterestAtMaturity 738
+#define LegDatedDate 739
+#define LegPool 740
+#define AllocInterestAtMaturity 741
+#define AllocAccruedInterestAmt 742
+#define DeliveryDate 743
+#define AssignmentMethod 744
+#define AssignmentUnit 745
+#define OpenInterest 746
+#define ExerciseMethod 747
+#define TotNumTradeReports 748
+#define TradeRequestResult 749
+#define TradeRequestStatus 750
+#define TradeReportRejectReason 751
+#define SideMultiLegReportingType 752
+#define NoPosAmt 753
+#define AutoAcceptIndicator 754
+#define AllocReportID 755
+#define NoNested2PartyIDs 756
+#define Nested2PartyID 757
+#define Nested2PartyIDSource 758
+#define Nested2PartyRole 759
+#define Nested2PartySubID 760
+#define BenchmarkSecurityIDSource 761
+#define SecuritySubType 762
+#define UnderlyingSecuritySubType 763
+#define LegSecuritySubType 764
+#define AllowableOneSidednessPct 765
+#define AllowableOneSidednessValue 766
+#define AllowableOneSidednessCurr 767
+#define NoTrdRegTimestamps 768
+#define TrdRegTimestamp 769
+#define TrdRegTimestampType 770
+#define TrdRegTimestampOrigin 771
+#define ConfirmRefID 772
+#define ConfirmType 773
+#define ConfirmRejReason 774
+#define BookingType 775
+#define IndividualAllocRejCode 776
+#define SettlInstMsgID 777
+#define NoSettlInst 778
+#define LastUpdateTime 779
+#define AllocSettlInstType 780
+#define NoSettlPartyIDs 781
+#define SettlPartyID 782
+#define SettlPartyIDSource 783
+#define SettlPartyRole 784
+#define SettlPartySubID 785
+#define SettlPartySubIDType 786
+#define DlvyInstType 787
+#define TerminationType 788
+#define NextExpectedMsgSeqNum 789
+#define OrdStatusReqID 790
+#define SettlInstReqID 791
+#define SettlInstReqRejCode 792
+#define SecondaryAllocID 793
+#define AllocReportType 794
+#define AllocReportRefID 795
+#define AllocCancReplaceReason 796
+#define CopyMsgIndicator 797
+#define AllocAccountType 798
+#define OrderAvgPx 799
+#define OrderBookingQty 800
+#define NoSettlPartySubIDs 801
+#define NoPartySubIDs 802
+#define PartySubIDType 803
+#define NoNestedPartySubIDs 804
+#define NestedPartySubIDType 805
+#define NoNested2PartySubIDs 806
+#define Nested2PartySubIDType 807
+#define AllocIntermedReqType 808
+#define UnderlyingPx 810
+#define PriceDelta 811
+#define ApplQueueMax 812
+#define ApplQueueDepth 813
+#define ApplQueueResolution 814
+#define ApplQueueAction 815
+#define NoAltMDSource 816
+#define AltMDSourceID 817
+#define SecondaryTradeReportID 818
+#define AvgPxIndicator 819
+#define TradeLinkID 820
+#define OrderInputDevice 821
+#define UnderlyingTradingSessionID 822
+#define UnderlyingTradingSessionSubID 823
+#define TradeLegRefID 824
+#define ExchangeRule 825
+#define TradeAllocIndicator 826
+#define ExpirationCycle 827
+#define TrdType 828
+#define TrdSubType 829
+#define TransferReason 830
+#define AsgnReqID 831
+#define TotNumAssignmentReports 832
+#define AsgnRptID 833
+#define ThresholdAmount 834
+#define PegMoveType 835
+#define PegOffsetType 836
+#define PegLimitType 837
+#define PegRoundDirection 838
+#define PeggedPrice 839
+#define PegScope 840
+#define DiscretionMoveType 841
+#define DiscretionOffsetType 842
+#define DiscretionLimitType 843
+#define DiscretionRoundDirection 844
+#define DiscretionPrice 845
+#define DiscretionScope 846
+#define TargetStrategy 847
+#define TargetStrategyParameters 848
+#define ParticipationRate 849
+#define TargetStrategyPerformance 850
+#define LastLiquidityInd 851
+#define PublishTrdIndicator 852
+#define ShortSaleReason 853
+#define QtyType 854
+#define SecondaryTrdType 855
+#define TradeReportType 856
+#define AllocNoOrdersType 857
+#define SharedCommission 858
+#define ConfirmReqID 859
+#define AvgParPx 860
+#define ReportedPx 861
+#define NoCapacities 862
+#define OrderCapacityQty 863
+#define NoEvents 864
+#define EventType 865
+#define EventDate 866
+#define EventPx 867
+#define EventText 868
+#define PctAtRisk 869
+#define NoInstrAttrib 870
+#define InstrAttribType 871
+#define InstrAttribValue 872
+#define DatedDate 873
+#define InterestAccrualDate 874
+#define CPProgram 875
+#define CPRegType 876
+#define UnderlyingCPProgram 877
+#define UnderlyingCPRegType 878
+#define UnderlyingQty 879
+#define TrdMatchID 880
+#define SecondaryTradeReportRefID 881
+#define UnderlyingDirtyPrice 882
+#define UnderlyingEndPrice 883
+#define UnderlyingStartValue 884
+#define UnderlyingCurrentValue 885
+#define UnderlyingEndValue 886
+#define NoUnderlyingStips 887
+#define UnderlyingStipType 888
+#define UnderlyingStipValue 889
+#define MaturityNetMoney 890
+#define MiscFeeBasis 891
+#define TotNoAllocs 892
+#define LastFragment 893
+#define CollReqID 894
+#define CollAsgnReason 895
+#define CollInquiryQualifier 896
+#define NoTrades 897
+#define MarginRatio 898
+#define MarginExcess 899
+#define TotalNetValue 900
+#define CashOutstanding 901
+#define CollAsgnID 902
+#define CollAsgnTransType 903
+#define CollRespID 904
+#define CollAsgnRespType 905
+#define CollAsgnRejectReason 906
+#define CollAsgnRefID 907
+#define CollRptID 908
+#define CollInquiryID 909
+#define CollStatus 910
+#define TotNumReports 911
+#define LastRptRequested 912
+#define AgreementDesc 913
+#define AgreementID 914
+#define AgreementDate 915
+#define StartDate 916
+#define EndDate 917
+#define AgreementCurrency 918
+#define DeliveryType 919
+#define EndAccruedInterestAmt 920
+#define StartCash 921
+#define EndCash 922
+#define UserRequestID 923
+#define UserRequestType 924
+#define NewPassword 925
+#define UserStatus 926
+#define UserStatusText 927
+#define StatusValue 928
+#define StatusText 929
+#define RefCompID 930
+#define RefSubID 931
+#define NetworkResponseID 932
+#define NetworkRequestID 933
+#define LastNetworkResponseID 934
+#define NetworkRequestType 935
+#define NoCompIDs 936
+#define NetworkStatusResponseType 937
+#define NoCollInquiryQualifier 938
+#define TrdRptStatus 939
+#define AffirmStatus 940
+#define UnderlyingStrikeCurrency 941
+#define LegStrikeCurrency 942
+#define TimeBracket 943
+#define CollAction 944
+#define CollInquiryStatus 945
+#define CollInquiryResult 946
+#define StrikeCurrency 947
+#define NoNested3PartyIDs 948
+#define Nested3PartyID 949
+#define Nested3PartyIDSource 950
+#define Nested3PartyRole 951
+#define NoNested3PartySubIDs 952
+#define Nested3PartySubID 953
+#define Nested3PartySubIDType 954
+#define LegContractSettlMonth 955
+#define LegInterestAccrualDate 956
+#define NoStrategyParameters 957
+#define StrategyParameterName 958
+#define StrategyParameterType 959
+#define StrategyParameterValue 960
+#define HostCrossID 961
+#define SideTimeInForce 962
+#define MDReportID 963
+#define SecurityReportID 964
+#define SecurityStatus 965
+#define SettleOnOpenFlag 966
+#define StrikeMultiplier 967
+#define StrikeValue 968
+#define MinPriceIncrement 969
+#define PositionLimit 970
+#define NTPositionLimit 971
+#define UnderlyingAllocationPercent 972
+#define UnderlyingCashAmount 973
+#define UnderlyingCashType 974
+#define UnderlyingSettlementType 975
+#define QuantityDate 976
+#define ContIntRptID 977
+#define LateIndicator 978
+#define InputSource 979
+#define SecurityUpdateAction 980
+#define NoExpiration 981
+#define ExpirationQtyType 982
+#define ExpQty 983
+#define NoUnderlyingAmounts 984
+#define UnderlyingPayAmount 985
+#define UnderlyingCollectAmount 986
+#define UnderlyingSettlementDate 987
+#define UnderlyingSettlementStatus 988
+#define SecondaryIndividualAllocID 989
+#define LegReportID 990
+#define RndPx 991
+#define IndividualAllocType 992
+#define AllocCustomerCapacity 993
+#define TierCode 994
+#define UnitOfMeasure 996
+#define TimeUnit 997
+#define UnderlyingUnitOfMeasure 998
+#define LegUnitOfMeasure 999
+#define UnderlyingTimeUnit 1000
+#define LegTimeUnit 1001
+#define AllocMethod 1002
+#define TradeID 1003
+#define SideTradeReportID 1005
+#define SideFillStationCd 1006
+#define SideReasonCd 1007
+#define SideTrdSubTyp 1008
+#define SideLastQty 1009
+#define MessageEventSource 1011
+#define SideTrdRegTimestamp 1012
+#define SideTrdRegTimestampType 1013
+#define SideTrdRegTimestampSrc 1014
+#define AsOfIndicator 1015
+#define NoSideTrdRegTS 1016
+#define LegOptionRatio 1017
+#define NoInstrumentParties 1018
+#define InstrumentPartyID 1019
+#define TradeVolume 1020
+#define MDBookType 1021
+#define MDFeedType 1022
+#define MDPriceLevel 1023
+#define MDOriginType 1024
+#define FirstPx 1025
+#define MDEntrySpotRate 1026
+#define MDEntryForwardPoints 1027
+#define ManualOrderIndicator 1028
+#define CustDirectedOrder 1029
+#define ReceivedDeptID 1030
+#define CustOrderHandlingInst 1031
+#define OrderHandlingInstSource 1032
+#define DeskType 1033
+#define DeskTypeSource 1034
+#define DeskOrderHandlingInst 1035
+#define ExecAckStatus 1036
+#define UnderlyingDeliveryAmount 1037
+#define UnderlyingCapValue 1038
+#define UnderlyingSettlMethod 1039
+#define SecondaryTradeID 1040
+#define FirmTradeID 1041
+#define SecondaryFirmTradeID 1042
+#define CollApplType 1043
+#define UnderlyingAdjustedQuantity 1044
+#define UnderlyingFXRate 1045
+#define UnderlyingFXRateCalc 1046
+#define AllocPositionEffect 1047
+#define DealingCapacity 1048
+#define InstrmtAssignmentMethod 1049
+#define InstrumentPartyIDSource 1050
+#define InstrumentPartyRole 1051
+#define NoInstrumentPartySubIDs 1052
+#define InstrumentPartySubID 1053
+#define InstrumentPartySubIDType 1054
+#define PositionCurrency 1055
+#define CalculatedCcyLastQty 1056
+#define AggressorIndicator 1057
+#define NoUndlyInstrumentParties 1058
+#define UndlyInstrumentPartyID 1059
+#define UndlyInstrumentPartyIDSource 1060
+#define UndlyInstrumentPartyRole 1061
+#define NoUndlyInstrumentPartySubIDs 1062
+#define UnderlyingInstrumentPartySubID 1063
+#define UndlyInstrumentPartySubIDType 1064
+#define BidSwapPoints 1065
+#define OfferSwapPoints 1066
+#define LegBidForwardPoints 1067
+#define LegOfferForwardPoints 1068
+#define SwapPoints 1069
+#define MDQuoteType 1070
+#define LastSwapPoints 1071
+#define SideGrossTradeAmt 1072
+#define LegLastForwardPoints 1073
+#define LegCalculatedCcyLastQty 1074
+#define LegGrossTradeAmt 1075
+#define MaturityTime 1079
+#define RefOrderID 1080
+#define RefOrderIDSource 1081
+#define SecondaryDisplayQty 1082
+#define DisplayWhen 1083
+#define DisplayMethod 1084
+#define DisplayLowQty 1085
+#define DisplayHighQty 1086
+#define DisplayMinIncr 1087
+#define RefreshQty 1088
+#define MatchIncrement 1089
+#define MaxPriceLevels 1090
+#define PreTradeAnonymity 1091
+#define PriceProtectionScope 1092
+#define LotType 1093
+#define PegPriceType 1094
+#define PeggedRefPrice 1095
+#define PegSecurityIDSource 1096
+#define PegSecurityID 1097
+#define PegSymbol 1098
+#define PegSecurityDesc 1099
+#define TriggerType 1100
+#define TriggerAction 1101
+#define TriggerPrice 1102
+#define TriggerSymbol 1103
+#define TriggerSecurityID 1104
+#define TriggerSecurityIDSource 1105
+#define TriggerSecurityDesc 1106
+#define TriggerPriceType 1107
+#define TriggerPriceTypeScope 1108
+#define TriggerPriceDirection 1109
+#define TriggerNewPrice 1110
+#define TriggerOrderType 1111
+#define TriggerNewQty 1112
+#define TriggerTradingSessionID 1113
+#define TriggerTradingSessionSubID 1114
+#define OrderCategory 1115
+#define NoRootPartyIDs 1116
+#define RootPartyID 1117
+#define RootPartyIDSource 1118
+#define RootPartyRole 1119
+#define NoRootPartySubIDs 1120
+#define RootPartySubID 1121
+#define RootPartySubIDType 1122
+#define TradeHandlingInstr 1123
+#define OrigTradeHandlingInstr 1124
+#define OrigTradeDate 1125
+#define OrigTradeID 1126
+#define OrigSecondaryTradeID 1127
+#define ApplVerID 1128
+#define CstmApplVerID 1129
+#define RefApplVerID 1130
+#define RefCstmApplVerID 1131
+#define TZTransactTime 1132
+#define ExDestinationIDSource 1133
+#define ReportedPxDiff 1134
+#define RptSys 1135
+#define AllocClearingFeeIndicator 1136
+#define DefaultApplVerID 1137
+#define DisplayQty 1138
+#define ExchangeSpecialInstructions 1139
+#define MaxTradeVol 1140
+#define NoMDFeedTypes 1141
+#define MatchAlgorithm 1142
+#define MaxPriceVariation 1143
+#define ImpliedMarketIndicator 1144
+#define EventTime 1145
+#define MinPriceIncrementAmount 1146
+#define UnitOfMeasureQty 1147
+#define LowLimitPrice 1148
+#define HighLimitPrice 1149
+#define TradingReferencePrice 1150
+#define SecurityGroup 1151
+#define LegNumber 1152
+#define SettlementCycleNo 1153
+#define SideCurrency 1154
+#define SideSettlCurrency 1155
+#define ApplExtID 1156
+#define CcyAmt 1157
+#define NoSettlDetails 1158
+#define SettlObligMode 1159
+#define SettlObligMsgID 1160
+#define SettlObligID 1161
+#define SettlObligTransType 1162
+#define SettlObligRefID 1163
+#define SettlObligSource 1164
+#define NoSettlOblig 1165
+#define QuoteMsgID 1166
+#define QuoteEntryStatus 1167
+#define TotNoCxldQuotes 1168
+#define TotNoAccQuotes 1169
+#define TotNoRejQuotes 1170
+#define PrivateQuote 1171
+#define RespondentType 1172
+#define MDSubBookType 1173
+#define SecurityTradingEvent 1174
+#define NoStatsIndicators 1175
+#define StatsType 1176
+#define NoOfSecSizes 1177
+#define MDSecSizeType 1178
+#define MDSecSize 1179
+#define ApplID 1180
+#define ApplSeqNum 1181
+#define ApplBegSeqNum 1182
+#define ApplEndSeqNum 1183
+#define SecurityXMLLen 1184
+#define SecurityXML 1185
+#define SecurityXMLSchema 1186
+#define RefreshIndicator 1187
+#define Volatility 1188
+#define TimeToExpiration 1189
+#define RiskFreeRate 1190
+#define PriceUnitOfMeasure 1191
+#define PriceUnitOfMeasureQty 1192
+#define SettlMethod 1193
+#define ExerciseStyle 1194
+#define OptPayAmount 1195
+#define PriceQuoteMethod 1196
+#define FuturesValuationMethod 1197
+#define ListMethod 1198
+#define CapPrice 1199
+#define FloorPrice 1200
+#define NoStrikeRules 1201
+#define StartStrikePxRange 1202
+#define EndStrikePxRange 1203
+#define StrikeIncrement 1204
+#define NoTickRules 1205
+#define StartTickPriceRange 1206
+#define EndTickPriceRange 1207
+#define TickIncrement 1208
+#define TickRuleType 1209
+#define NestedInstrAttribType 1210
+#define NestedInstrAttribValue 1211
+#define LegMaturityTime 1212
+#define UnderlyingMaturityTime 1213
+#define DerivativeSymbol 1214
+#define DerivativeSymbolSfx 1215
+#define DerivativeSecurityID 1216
+#define DerivativeSecurityIDSource 1217
+#define NoDerivativeSecurityAltID 1218
+#define DerivativeSecurityAltID 1219
+#define DerivativeSecurityAltIDSource 1220
+#define SecondaryLowLimitPrice 1221
+#define MaturityRuleID 1222
+#define StrikeRuleID 1223
+#define LegUnitOfMeasureQty 1224
+#define DerivativeOptPayAmount 1225
+#define EndMaturityMonthYear 1226
+#define ProductComplex 1227
+#define DerivativeProductComplex 1228
+#define MaturityMonthYearIncrement 1229
+#define SecondaryHighLimitPrice 1230
+#define MinLotSize 1231
+#define NoExecInstRules 1232
+#define NoLotTypeRules 1234
+#define NoMatchRules 1235
+#define NoMaturityRules 1236
+#define NoOrdTypeRules 1237
+#define NoTimeInForceRules 1239
+#define SecondaryTradingReferencePrice 1240
+#define StartMaturityMonthYear 1241
+#define FlexProductEligibilityIndicator 1242
+#define DerivFlexProductEligibilityIndicator 1243
+#define FlexibleIndicator 1244
+#define TradingCurrency 1245
+#define DerivativeProduct 1246
+#define DerivativeSecurityGroup 1247
+#define DerivativeCFICode 1248
+#define DerivativeSecurityType 1249
+#define DerivativeSecuritySubType 1250
+#define DerivativeMaturityMonthYear 1251
+#define DerivativeMaturityDate 1252
+#define DerivativeMaturityTime 1253
+#define DerivativeSettleOnOpenFlag 1254
+#define DerivativeInstrmtAssignmentMethod 1255
+#define DerivativeSecurityStatus 1256
+#define DerivativeInstrRegistry 1257
+#define DerivativeCountryOfIssue 1258
+#define DerivativeStateOrProvinceOfIssue 1259
+#define DerivativeLocaleOfIssue 1260
+#define DerivativeStrikePrice 1261
+#define DerivativeStrikeCurrency 1262
+#define DerivativeStrikeMultiplier 1263
+#define DerivativeStrikeValue 1264
+#define DerivativeOptAttribute 1265
+#define DerivativeContractMultiplier 1266
+#define DerivativeMinPriceIncrement 1267
+#define DerivativeMinPriceIncrementAmount 1268
+#define DerivativeUnitOfMeasure 1269
+#define DerivativeUnitOfMeasureQty 1270
+#define DerivativeTimeUnit 1271
+#define DerivativeSecurityExchange 1272
+#define DerivativePositionLimit 1273
+#define DerivativeNTPositionLimit 1274
+#define DerivativeIssuer 1275
+#define DerivativeIssueDate 1276
+#define DerivativeEncodedIssuerLen 1277
+#define DerivativeEncodedIssuer 1278
+#define DerivativeSecurityDesc 1279
+#define DerivativeEncodedSecurityDescLen 1280
+#define DerivativeEncodedSecurityDesc 1281
+#define DerivativeSecurityXMLLen 1282
+#define DerivativeSecurityXML 1283
+#define DerivativeSecurityXMLSchema 1284
+#define DerivativeContractSettlMonth 1285
+#define NoDerivativeEvents 1286
+#define DerivativeEventType 1287
+#define DerivativeEventDate 1288
+#define DerivativeEventTime 1289
+#define DerivativeEventPx 1290
+#define DerivativeEventText 1291
+#define NoDerivativeInstrumentParties 1292
+#define DerivativeInstrumentPartyID 1293
+#define DerivativeInstrumentPartyIDSource 1294
+#define DerivativeInstrumentPartyRole 1295
+#define NoDerivativeInstrumentPartySubIDs 1296
+#define DerivativeInstrumentPartySubID 1297
+#define DerivativeInstrumentPartySubIDType 1298
+#define DerivativeExerciseStyle 1299
+#define MarketSegmentID 1300
+#define MarketID 1301
+#define MaturityMonthYearIncrementUnits 1302
+#define MaturityMonthYearFormat 1303
+#define StrikeExerciseStyle 1304
+#define SecondaryPriceLimitType 1305
+#define PriceLimitType 1306
+#define DerivativeSecurityListRequestType 1307
+#define ExecInstValue 1308
+#define NoTradingSessionRules 1309
+#define NoMarketSegments 1310
+#define NoDerivativeInstrAttrib 1311
+#define NoNestedInstrAttrib 1312
+#define DerivativeInstrAttribType 1313
+#define DerivativeInstrAttribValue 1314
+#define DerivativePriceUnitOfMeasure 1315
+#define DerivativePriceUnitOfMeasureQty 1316
+#define DerivativeSettlMethod 1317
+#define DerivativePriceQuoteMethod 1318
+#define DerivativeValuationMethod 1319
+#define DerivativeListMethod 1320
+#define DerivativeCapPrice 1321
+#define DerivativeFloorPrice 1322
+#define DerivativePutOrCall 1323
+#define ListUpdateAction 1324
+#define ParentMktSegmID 1325
+#define TradingSessionDesc 1326
+#define TradSesUpdateAction 1327
+#define RejectText 1328
+#define FeeMultiplier 1329
+#define UnderlyingLegSymbol 1330
+#define UnderlyingLegSymbolSfx 1331
+#define UnderlyingLegSecurityID 1332
+#define UnderlyingLegSecurityIDSource 1333
+#define NoUnderlyingLegSecurityAltID 1334
+#define UnderlyingLegSecurityAltID 1335
+#define UnderlyingLegSecurityAltIDSource 1336
+#define UnderlyingLegSecurityType 1337
+#define UnderlyingLegSecuritySubType 1338
+#define UnderlyingLegMaturityMonthYear 1339
+#define UnderlyingLegStrikePrice 1340
+#define UnderlyingLegSecurityExchange 1341
+#define NoOfLegUnderlyings 1342
+#define UnderlyingLegPutOrCall 1343
+#define UnderlyingLegCFICode 1344
+#define UnderlyingLegMaturityDate 1345
+#define ApplReqID 1346
+#define ApplReqType 1347
+#define ApplResponseType 1348
+#define ApplTotalMessageCount 1349
+#define ApplLastSeqNum 1350
+#define NoApplIDs 1351
+#define ApplResendFlag 1352
+#define ApplResponseID 1353
+#define ApplResponseError 1354
+#define RefApplID 1355
+#define ApplReportID 1356
+#define RefApplLastSeqNum 1357
+#define LegPutOrCall 1358
+#define EncodedSymbolLen 1359
+#define EncodedSymbol 1360
+#define TotNoFills 1361
+#define NoFills 1362
+#define FillExecID 1363
+#define FillPx 1364
+#define FillQty 1365
+#define LegAllocID 1366
+#define LegAllocSettlCurrency 1367
+#define TradSesEvent 1368
+#define MassActionReportID 1369
+#define NoNotAffectedOrders 1370
+#define NotAffectedOrderID 1371
+#define NotAffOrigClOrdID 1372
+#define MassActionType 1373
+#define MassActionScope 1374
+#define MassActionResponse 1375
+#define MassActionRejectReason 1376
+#define MultilegModel 1377
+#define MultilegPriceMethod 1378
+#define LegVolatility 1379
+#define DividendYield 1380
+#define LegDividendYield 1381
+#define CurrencyRatio 1382
+#define LegCurrencyRatio 1383
+#define LegExecInst 1384
+#define ContingencyType 1385
+#define ListRejectReason 1386
+#define NoTrdRepIndicators 1387
+#define TrdRepPartyRole 1388
+#define TrdRepIndicator 1389
+#define TradePublishIndicator 1390
+#define UnderlyingLegOptAttribute 1391
+#define UnderlyingLegSecurityDesc 1392
+#define MarketReqID 1393
+#define MarketReportID 1394
+#define MarketUpdateAction 1395
+#define MarketSegmentDesc 1396
+#define EncodedMktSegmDescLen 1397
+#define EncodedMktSegmDesc 1398
+#define ApplNewSeqNum 1399
+#define EncryptedPasswordMethod 1400
+#define EncryptedPasswordLen 1401
+#define EncryptedPassword 1402
+#define EncryptedNewPasswordLen 1403
+#define EncryptedNewPassword 1404
+#define UnderlyingLegMaturityTime 1405
+#define RefApplExtID 1406
+#define DefaultApplExtID 1407
+#define DefaultCstmApplVerID 1408
+#define SessionStatus 1409
+#define DefaultVerIndicator 1410
+#define Nested4PartySubIDType 1411
+#define Nested4PartySubID 1412
+#define NoNested4PartySubIDs 1413
+#define NoNested4PartyIDs 1414
+#define Nested4PartyID 1415
+#define Nested4PartyIDSource 1416
+#define Nested4PartyRole 1417
+#define LegLastQty 1418
+#define UnderlyingExerciseStyle 1419
+#define LegExerciseStyle 1420
+#define LegPriceUnitOfMeasure 1421
+#define LegPriceUnitOfMeasureQty 1422
+#define UnderlyingUnitOfMeasureQty 1423
+#define UnderlyingPriceUnitOfMeasure 1424
+#define UnderlyingPriceUnitOfMeasureQty 1425
+#define ApplReportType 1426
+#define SideExecID 1427
+#define OrderDelay 1428
+#define OrderDelayUnit 1429
+#define VenueType 1430
+#define RefOrdIDReason 1431
+#define OrigCustOrderCapacity 1432
+#define RefApplReqID 1433
+#define ModelType 1434
+#define ContractMultiplierUnit 1435
+#define LegContractMultiplierUnit 1436
+#define UnderlyingContractMultiplierUnit 1437
+#define DerivativeContractMultiplierUnit 1438
+#define FlowScheduleType 1439
+#define LegFlowScheduleType 1440
+#define UnderlyingFlowScheduleType 1441
+#define DerivativeFlowScheduleType 1442
+#define FillLiquidityInd 1443
+#define SideLiquidityInd 1444
+#define NoRateSources 1445
+#define RateSource 1446
+#define RateSourceType 1447
+#define ReferencePage 1448
+#define RestructuringType 1449
+#define Seniority 1450
+#define NotionalPercentageOutstanding 1451
+#define OriginalNotionalPercentageOutstanding 1452
+#define UnderlyingRestructuringType 1453
+#define UnderlyingSeniority 1454
+#define UnderlyingNotionalPercentageOutstanding 1455
+#define UnderlyingOriginalNotionalPercentageOutstanding 1456
+#define AttachmentPoint 1457
+#define DetachmentPoint 1458
+#define UnderlyingAttachmentPoint 1459
+#define UnderlyingDetachmentPoint 1460
+#define NoTargetPartyIDs 1461
+#define TargetPartyID 1462
+#define TargetPartyIDSource 1463
+#define TargetPartyRole 1464
+#define SecurityListID 1465
+#define SecurityListRefID 1466
+#define SecurityListDesc 1467
+#define EncodedSecurityListDescLen 1468
+#define EncodedSecurityListDesc 1469
+#define SecurityListType 1470
+#define SecurityListTypeSource 1471
+#define NewsID 1472
+#define NewsCategory 1473
+#define LanguageCode 1474
+#define NoNewsRefIDs 1475
+#define NewsRefID 1476
+#define NewsRefType 1477
+#define StrikePriceDeterminationMethod 1478
+#define StrikePriceBoundaryMethod 1479
+#define StrikePriceBoundaryPrecision 1480
+#define UnderlyingPriceDeterminationMethod 1481
+#define OptPayoutType 1482
+#define NoComplexEvents 1483
+#define ComplexEventType 1484
+#define ComplexOptPayoutAmount 1485
+#define ComplexEventPrice 1486
+#define ComplexEventPriceBoundaryMethod 1487
+#define ComplexEventPriceBoundaryPrecision 1488
+#define ComplexEventPriceTimeType 1489
+#define ComplexEventCondition 1490
+#define NoComplexEventDates 1491
+#define ComplexEventStartDate 1492
+#define ComplexEventEndDate 1493
+#define NoComplexEventTimes 1494
+#define ComplexEventStartTime 1495
+#define ComplexEventEndTime 1496
+#define StreamAsgnReqID 1497
+#define StreamAsgnReqType 1498
+#define NoAsgnReqs 1499
+#define MDStreamID 1500
+#define StreamAsgnRptID 1501
+#define StreamAsgnRejReason 1502
+#define StreamAsgnAckType 1503
+#define RelSymTransactTime 1504
+#define PartyDetailsListRequestID 1505
+#define NoPartyListResponseTypes 1506
+#define PartyListResponseType 1507
+#define NoRequestedPartyRoles 1508
+#define RequestedPartyRole 1509
+#define PartyDetailsListReportID 1510
+#define PartyDetailsRequestResult 1511
+#define TotNoPartyList 1512
+#define NoPartyList 1513
+#define NoPartyRelationships 1514
+#define PartyRelationship 1515
+#define NoPartyAltIDs 1516
+#define PartyAltID 1517
+#define PartyAltIDSource 1518
+#define NoPartyAltSubIDs 1519
+#define PartyAltSubID 1520
+#define PartyAltSubIDType 1521
+#define NoContextPartyIDs 1522
+#define ContextPartyID 1523
+#define ContextPartyIDSource 1524
+#define ContextPartyRole 1525
+#define NoContextPartySubIDs 1526
+#define ContextPartySubID 1527
+#define ContextPartySubIDType 1528
+#define NoRiskLimits 1529
+#define RiskLimitType 1530
+#define RiskLimitAmount 1531
+#define RiskLimitCurrency 1532
+#define RiskLimitPlatform 1533
+#define NoRiskInstruments 1534
+#define RiskInstrumentOperator 1535
+#define RiskSymbol 1536
+#define RiskSymbolSfx 1537
+#define RiskSecurityID 1538
+#define RiskSecurityIDSource 1539
+#define NoRiskSecurityAltID 1540
+#define RiskSecurityAltID 1541
+#define RiskSecurityAltIDSource 1542
+#define RiskProduct 1543
+#define RiskProductComplex 1544
+#define RiskSecurityGroup 1545
+#define RiskCFICode 1546
+#define RiskSecurityType 1547
+#define RiskSecuritySubType 1548
+#define RiskMaturityMonthYear 1549
+#define RiskMaturityTime 1550
+#define RiskRestructuringType 1551
+#define RiskSeniority 1552
+#define RiskPutOrCall 1553
+#define RiskFlexibleIndicator 1554
+#define RiskCouponRate 1555
+#define RiskSecurityDesc 1556
+#define RiskInstrumentSettlType 1557
+#define RiskInstrumentMultiplier 1558
+#define NoRiskWarningLevels 1559
+#define RiskWarningLevelPercent 1560
+#define RiskWarningLevelName 1561
+#define NoRelatedPartyIDs 1562
+#define RelatedPartyID 1563
+#define RelatedPartyIDSource 1564
+#define RelatedPartyRole 1565
+#define NoRelatedPartySubIDs 1566
+#define RelatedPartySubID 1567
+#define RelatedPartySubIDType 1568
+#define NoRelatedPartyAltIDs 1569
+#define RelatedPartyAltID 1570
+#define RelatedPartyAltIDSource 1571
+#define NoRelatedPartyAltSubIDs 1572
+#define RelatedPartyAltSubID 1573
+#define RelatedPartyAltSubIDType 1574
+#define NoRelatedContextPartyIDs 1575
+#define RelatedContextPartyID 1576
+#define RelatedContextPartyIDSource 1577
+#define RelatedContextPartyRole 1578
+#define NoRelatedContextPartySubIDs 1579
+#define RelatedContextPartySubID 1580
+#define RelatedContextPartySubIDType 1581
+#define NoRelationshipRiskLimits 1582
+#define RelationshipRiskLimitType 1583
+#define RelationshipRiskLimitAmount 1584
+#define RelationshipRiskLimitCurrency 1585
+#define RelationshipRiskLimitPlatform 1586
+#define NoRelationshipRiskInstruments 1587
+#define RelationshipRiskInstrumentOperator 1588
+#define RelationshipRiskSymbol 1589
+#define RelationshipRiskSymbolSfx 1590
+#define RelationshipRiskSecurityID 1591
+#define RelationshipRiskSecurityIDSource 1592
+#define NoRelationshipRiskSecurityAltID 1593
+#define RelationshipRiskSecurityAltID 1594
+#define RelationshipRiskSecurityAltIDSource 1595
+#define RelationshipRiskProduct 1596
+#define RelationshipRiskProductComplex 1597
+#define RelationshipRiskSecurityGroup 1598
+#define RelationshipRiskCFICode 1599
+#define RelationshipRiskSecurityType 1600
+#define RelationshipRiskSecuritySubType 1601
+#define RelationshipRiskMaturityMonthYear 1602
+#define RelationshipRiskMaturityTime 1603
+#define RelationshipRiskRestructuringType 1604
+#define RelationshipRiskSeniority 1605
+#define RelationshipRiskPutOrCall 1606
+#define RelationshipRiskFlexibleIndicator 1607
+#define RelationshipRiskCouponRate 1608
+#define RelationshipRiskSecurityExchange 1609
+#define RelationshipRiskSecurityDesc 1610
+#define RelationshipRiskInstrumentSettlType 1611
+#define RelationshipRiskInstrumentMultiplier 1612
+#define NoRelationshipRiskWarningLevels 1613
+#define RelationshipRiskWarningLevelPercent 1614
+#define RelationshipRiskWarningLevelName 1615
+#define RiskSecurityExchange 1616
+#define StreamAsgnType 1617
+#define RelationshipRiskEncodedSecurityDescLen 1618
+#define RelationshipRiskEncodedSecurityDesc 1619
+#define RiskEncodedSecurityDescLen 1620
+#define RiskEncodedSecurityDesc 1621
+#define UserName 1800
+#define MessageVersion 1801
+#define RejectCode 1802
+#define PasswordExpiryDayCount 1803
+#define Reason 1804
+#define RejectReason 1805
+#define RejectedMessageType 1806
+#define ClientOrderID 1807
+#define AppID 1808
+#define LastMsgSeqNum 1809
+#define ResponseType 1810
+#define AppStatus 1811
+#define TraderID 1812
+#define InstrumentID 1813
+#define FXMiFIDFlags 1814
+#define PartyRoleQualifiers 1815
+#define OrderType 1816
+#define TIF 1817
+#define ExpireDateTime 1818
+#define LimitPrice 1819
+#define Capacity 1820
+#define AutoCancel 1821
+#define OrderSubType 1822
+#define Anonymity 1823
+#define StoppedPrice 1824
+#define ReservedField1 1825
+#define ReservedField2 1826
+#define OrderSource 1827
+#define InvestmentDecisionMaker 1828
+#define ExecutingTrader 1829
+#define BidPrice 1830
+#define AskPrice 1831
+#define AskSize 1832
+#define BuySideCIOrdID 1833
+#define BuySideOrderCapacity 1834
+#define BuySideClearingAccount 1835
+#define BuySideOrderQuantity 1836
+#define BuySideFirmID 1837
+#define BuySidePartyRole 1838
+#define BuyFXMiFIDFlags 1839
+#define BuyClientID 1840
+#define BuyInvestmentDecisionMaker 1841
+#define BuyExecutingTrader 1842
+#define BuyPartyRoleQualifiers 1843
+#define SellSideCIOrdID 1844
+#define SellSideOrderCapacity 1845
+#define SellSideClearingAccount 1846
+#define SellSideOrderQuantity 1847
+#define SellSideFirmID 1848
+#define SellSidePartyRole 1849
+#define SellFXMiFIDFlags 1850
+#define SellClientID 1851
+#define SellInvestmentDecisionMaker 1852
+#define SellExecutingTrader 1853
+#define SellPartyRoleQualifiers 1854
+#define OriginalCrossID 1855
+#define BuySideOriginalCIOrdID 1856
+#define OriginalClientOrderID 1857
+#define ReservedField3 1858
+#define ReservedField4 1859
+#define ReservedField5 1860
+#define RFQID 1861
+#define OrderBook 1862
+#define Segment 1863
+#define PartitionID 1864
+#define SequenceNumber 1865
+#define OrderQuantity 1866
+#define MarketMakers 1867
+#define ContraFirm 1868
+#define Reservedforfutureuse1 1869
+#define OfferID 1870
+#define BidQuantity 1871
+#define OfferPrice 1872
+#define OfferQuantity 1873
+#define MarketMakerFirm 1874
+#define CoverPrice 1875
+#define ExecutionID 1876
+#define ExecutionType 1877
+#define TradeMatchID 1878
+#define ExecutedQuantity 1879
+#define ExecutedPrice 1880
+#define LastParPrice 1881
+#define OrderStatus 1882
+#define LeavesQuantity 1883
+#define ParPrice 1884
+#define ConvertedYield 1885
+#define WaiverFlags 1886
+#define SequenceNo 1887
+#define ExecutionReportRefID 1888
+#define OrderRejectCode 1889
+#define ExecutedQty 1890
+#define Reservedforfutureuse2 1891
+#define Counterparty 1892
+#define TradeLiquidityIndicator 1893
+#define Reservedfield1 1894
+#define Reservedfield2 1895
+#define ImpliedPrice 1896
+#define ResatementReason 1897
+#define PublicOrderID 1898
+#define TypeOfTrade 1899
+#define CancelRejectReason 1900
+#define CompID 2000
+#define PasswordExpiry 2001
+#define MessageType 2002
+#define Status 2003
+#define TraderMnemonic 2004
+#define DisplayQuantity 2005
+#define MinimumQuantity 2006
+#define StopPrice 2007
+#define CancelonDisconnect 2008
+#define ExecutionInstruction 2009
+#define BuySideClientOrderID 2010
+#define BuySideCapacity 2011
+#define BuySideTraderMnemonic 2012
+#define BuySideAccount 2013
+#define SellSideClientOrderID 2014
+#define SellSideCapacity 2015
+#define SellSideTraderMnemonic 2016
+#define SellSideAccount 2017
+#define RejctCode 2018
+#define Container 2019
+#define IsMarketOpsRequest 2020
+#define TradeSubType 2021
+#define ClientInformation 2022
+#define CancelOnDisconnect 2023
+#define Rate 2024
+#define AllinPrice 2025
+#define Leg1ReferencePrice 2026
+#define SecurityRequestID 2027
+#define SequenceType 2028
+#define Reservedfield 2029
+#define ReferenceInstrument 2030
+#define ReferencePrice 2031
+#define NearMonthType 2032
+#define FarMonthType 2033
+#define FarMaturityDate 2034
+#define QuoteAckStatus 2035
+#define SpotPrice 2036
+#define Instruments 2037
+#define UnderlyingInstruments 2038
+#define FirmList 2039
+#define UserList 2040
+#define PassiveOnlyOrder 2200
+#define ReservedField 2201
+#define RfqID 2202
+#define BuySideClOrdID 2203
+#define SellSideClOrdID 2204
+#define BuySideOriginalClOrdID 2205
+#define SellSideOriginalClOrdID 2206
+#define RestatementReason 2207
+#define CounterParty 2208
+#define TargetBook 2400
+#define ExecInstruction 2401
+#define ReservedField6 2402
+#define ReservedField7 2403
+#define ReservedField8 2404
+#define PriceDifferential 2405
+#define LogoutReason 2600
+#define CommonSymbol 2601
+#define CIOrdLinkID 2602
+#define MassCancelType 2603
+#define ReputationalScore 2604
+#define Type 2800
+#define OrderToken 2801
+#define BankInternalReference 2802
+#define OrderVerb 2803
+#define OrderPrice 2804
+#define PrincipalId 2805
+#define SecondaryQuantity 2806
+#define OrderPlacement 2807
+#define AlgoID 2808
+#define ExistingOrderToken 2809
+#define ReplacementOrderToken 2810
+#define OriginalOrderToken 2811
+#define Timestamp 2812
+#define EventCode 2813
+#define OrderNumber 2814
+#define OrderState 2815
+#define PreviousOrderToken 2816
+#define LiquidityFlag 2817
+#define MatchNumber 2818
+#define NostroCrossFlag 2819
+#define CounterPartyId 2820
+#define BookType 2821
+#define Session 2822
+#define RejectReasonCode 2823
+#define RequestedSession 2824
+#define RequestedSequenceNumber 2825
+#define BlockLength 3000
+#define TemplateId 3001
+#define SchemaId 3002
+#define Version 3003
+#define NumInGroup 3004
+#define ClMsgSeqNum 3005
+#define FirmID 3006
+#define SymbolIndex 3007
+#define EMM 3008
+#define OrderSide 3009
+#define OrderPx 3010
+#define ExecutionWithinFirmShortCode 3011
+#define TradingCapacity 3012
+#define LPRole 3013
+#define DarkExecutionInstruction 3014
+#define MiFIDIndicators 3015
+#define STPID 3016
+#define FreeTextSection 3017
+#define NewOrderFreeTextSection 3018
+#define MiFIDShortcodes 3019
+#define NewOrderMiFIDShortcodes 3020
+#define OptionalFields 3021
+#define NewOrderOptionalFields 3022
+#define ClearingFields 3023
+#define NewOrderClearingFields 3024
+#define FreeText 3025
+#define OEGINFromMember 3026
+#define OEGOUTTimeToME 3027
+#define BookIn 3028
+#define BookOUTTime 3029
+#define OEGINFromME 3030
+#define OEGOUTToMember 3031
+#define OrigClientOrderID 3032
+#define AckType 3033
+#define AckPhase 3034
+#define OrderPriority 3035
+#define AckQualifiers 3036
+#define TradeTime 3037
+#define TradeType 3038
+#define TradeQualifier 3039
+#define LastTradedPx 3040
+#define ExecutionPhase 3041
+#define OptionalFieldsFill 3042
+#define FillOptionalFieldsFill 3043
+#define StrategyFields 3044
+#define FillStrategyFields 3045
+#define CounterpartFirmID 3046
+#define OtherLegLastPx 3047
+#define PackageID 3048
+#define UnderlyingInstrumentID 3049
+#define KillReason 3050
+#define ClientIdentificationShortcode 3051
+#define CancelReplaceFreeTextSection 3052
+#define CancelReplaceOptionalFields 3053
+#define CancelReplaceClearingFields 3054
+#define RejectedMessage 3055
+#define ErrorCode 3056
+#define RejectedMessageID 3057
+#define CollarFields 3058
+#define RejectCollarFields 3059
+#define CollarRejType 3060
+#define BreachedCollarPrice 3061
+#define RFEAnswer 3062
+#define QuotesMiFIDShortcodes 3063
+#define ClearingDataset 3064
+#define QuotesClearingDataset 3065
+#define QuotesRep 3066
+#define QuotesQuotesRep 3067
+#define InvestmentDecisionWFirmShortCode 3068
+#define NonExecutingBrokerShortCode 3069
+#define QuoteAcks 3070
+#define QuoteAckQuoteAcks 3071
+#define BidOrderID 3072
+#define OfferOrderID 3073
+#define BuyRevisionFlag 3074
+#define SellRevisionFlag 3075
+#define BidErrorCode 3076
+#define OfferErrorCode 3077
+#define FirmIDPublication 3078
+#define EndClient 3079
+#define InstrumentGroupCode 3080
+#define LogicalAccessID 3081
+#define OEPartitionID 3082
+#define ContractID 3083
+#define Maturity 3084
+#define OptionType 3085
+#define InputPriceType 3086
+#define LPActionCode 3087
+#define AFQReason 3088
+#define RFQUpdateType 3089
+#define PotentialMatchingPX 3090
+#define PotentialMatchingQty 3091
+#define NumberOfLPs 3092
+#define RecipientType 3093
+#define FamilyID 3094
+#define OperationType 3095
+#define EnteringCounterparty 3096
+#define Quantity 3097
+#define MICofSecondaryListing 3098
+#define CentralisationDate 3099
+#define ClearingFirmID 3100
+#define AccountTypeCross 3101
+#define TradingCapacityCross 3102
+#define SettlementPeriod 3103
+#define SettlementFlag 3104
+#define GuaranteeFlag 3105
+#define TransactionPriceType 3106
+#define PrincipalCode 3107
+#define PrincipalCodeCross 3108
+#define StartTimeVwap 3109
+#define EndTimeVwap 3110
+#define GrossTradeAmount 3111
+#define AccountNumber 3112
+#define AccountNumberCross 3113
+#define FreeTextCross 3114
+#define ClientIdentificationShortCodeCross 3115
+#define DeclarationID 3116
+#define PreMatchingType 3117
+#define WaiverIndicator 3118
+#define DeclarationStatus 3119
+#define PreviousDayIndicator 3120
+#define MiscellaneousFeeAmount 3121
+#define ActionType 3122
+#define BypassIndicator 3123
+#define ResynchronizationID 3124
+#define InstrumentSynchronizationSection 3125
+#define InstrumentSynchronizationListInstrumentSynchronizationSection 3126
+#define LastBookInTime 3127
+#define SoftwareProvider 3128
+#define QueueingIndicator 3129
+#define ExchangeID 3130
+#define LastClMsgSeqNum 3131
+#define LogonRejectCode 3132
+#define LogOutReasonCode 3133
+#define RejectedClientMessageSequenceNumber 3134
+#define FrameLength 3135
+#define StartOfMessage 3200
+#define MessageLength 3201
+#define TransactTimeSeconds 3400
+#define TransactTimeUsecs 3401
+#define MessageName 3402
+#define UndisclosedPrice 3600
+#define DisclosedQty 3601
+#define MinOrderQty 3602
+#define OrderExpirationTime 3603
+#define OrderExpirationDate 3604
+#define PegOffset 3605
+#define TradingSession 3606
+#define UndisclosedIcebergType 3607
+#define StopTriggeredTimeInForce 3608
+#define TechnicalOrigin 3609
+#define LegInstrumentID 3610
+#define AffectedOrdGrp 3701
+#define AffectedOrigClOrdID 3703
+#define ApplBegMsgID 3704
+#define ApplEndMsgID 3706
+#define ApplIDStatus 3709
+#define ApplMsgID 3710
+#define ApplSeqIndicator 3712
+#define ApplSeqStatus 3714
+#define ApplSeqTradeDate 3715
+#define ApplSubID 3716
+#define ApplUsageOrders 3718
+#define ApplUsageQuotes 3719
+#define ApplicationSystemName 3720
+#define ApplicationSystemVendor 3721
+#define ApplicationSystemVersion 3722
+#define BidCxlSize 3723
+#define BodyLen 3726
+#define CrossedIndicator 3728
+#define DefaultCstmApplVerSubID 3733
+#define EnrichmentRuleID 3738
+#define EnrichmentRulesGrp 3739
+#define ExDestinationType 3740
+#define ExecutingTraderQualifier 3746
+#define FIXClOrdID 3748
+#define FIXEngineName 3749
+#define FIXEngineVendor 3750
+#define FIXEngineVersion 3751
+#define FillMatchID 3754
+#define FillsGrp 3757
+#define FreeText1 3758
+#define FreeText2 3759
+#define FreeText4 3760
+#define GatewayID 3761
+#define GatewayStatus 3762
+#define GatewaySubID 3763
+#define LastEntityProcessed 3766
+#define LastQty 3770
+#define MassActionReason 3775
+#define MatchDate 3778
+#define MatchInstCrossID 3779
+#define MatchSubType 3780
+#define MatchingEngineStatus 3782
+#define MatchingEngineTradeDate 3783
+#define MessageHeaderIn 3784
+#define MessageHeaderOut 3785
+#define NRBCHeader 3788
+#define NRResponseHeaderME 3789
+#define NetworkMsgID 3790
+#define NoEnrichmentRules 3792
+#define NoNotAffectedSecurities 3795
+#define NoPartyDetails 3796
+#define NoQuoteEvents 3798
+#define NoSessions 3799
+#define NotAffectedOrdersGrp 3802
+#define NotAffectedSecuritiesGrp 3803
+#define NotAffectedSecurityID 3804
+#define NotifHeader 3805
+#define NotificationIn 3806
+#define OfferCxlSize 3807
+#define OrderAttributeLiquidityProvision 3812
+#define OrderIDSfx 3815
+#define OrderRoutingIndicator 3817
+#define OwnershipIndicator 3821
+#define Pad1 3822
+#define Pad2 3823
+#define Pad3 3824
+#define Pad4 3825
+#define Pad5 3826
+#define Pad6 3827
+#define Pad7 3828
+#define PartyActionType 3830
+#define PartyDetailDeskID 3831
+#define PartyDetailExecutingTrader 3832
+#define PartyDetailIDExecutingTrader 3833
+#define PartyDetailIDExecutingUnit 3834
+#define PartyDetailRoleQualifier 3835
+#define PartyDetailStatus 3836
+#define PartyDetailsGrp 3837
+#define PartyExecutingFirm 3838
+#define PartyIDClientID 3839
+#define PartyIDEnteringFirm 3840
+#define PartyIDEnteringTrader 3841
+#define PartyIDExecutingTrader 3842
+#define PartyIDExecutingUnit 3843
+#define PartyIDSessionID 3844
+#define PartyIdInvestmentDecisionMaker 3845
+#define PartyIdInvestmentDecisionMakerQualifier 3846
+#define PegOffsetValueAbs 3848
+#define PegOffsetValueBidPx 3849
+#define PegOffsetValueOfferPx 3850
+#define PegOffsetValuePct 3851
+#define PriceValidityCheckType 3853
+#define QuoteEntryAckGrp 3854
+#define QuoteEntryGrp 3855
+#define QuoteEventExecID 3858
+#define QuoteEventGrp 3859
+#define QuoteEventLiquidityInd 3860
+#define QuoteEventMatchID 3861
+#define QuoteEventPx 3862
+#define QuoteEventQty 3863
+#define QuoteEventReason 3864
+#define QuoteEventSide 3865
+#define QuoteEventType 3866
+#define QuoteResponseID 3869
+#define QuoteSizeType 3870
+#define RBCHeader 3871
+#define RBCHeaderME 3872
+#define RFQPublishIndicator 3873
+#define RFQRequesterDisclosureInstruction 3874
+#define RefApplLastMsgID 3876
+#define RefApplSubID 3878
+#define RequestHeader 3879
+#define RequestOut 3880
+#define RequestTime 3881
+#define RequestingPartyClearingFirm 3882
+#define RequestingPartyEnteringFirm 3883
+#define RequestingPartyIDEnteringFirm 3884
+#define RequestingPartyIDExecutingSystem 3885
+#define RequestingPartyIDExecutingTrader 3886
+#define ReservedBidSize 3887
+#define ReservedOfferSize 3888
+#define ReservedSize 3889
+#define ResponseHeader 3890
+#define ResponseHeaderME 3891
+#define ResponseIn 3892
+#define RootPartyClearingFirm 3893
+#define RootPartyContraFirm 3894
+#define RootPartyContraFirmKVNumber 3895
+#define RootPartyContraSettlementAccount 3896
+#define RootPartyContraSettlementFirm 3897
+#define RootPartyContraSettlementLocation 3898
+#define RootPartyExecutingFirm 3899
+#define RootPartyExecutingFirmKVNumber 3900
+#define RootPartyExecutingTrader 3901
+#define RootPartyIDClearingUnit 3902
+#define RootPartyIDContraSettlementUnit 3903
+#define RootPartyIDContraUnit 3904
+#define RootPartyIDExecutingTrader 3905
+#define RootPartyIDExecutingUnit 3906
+#define RootPartyIDSessionID 3907
+#define RootPartyIDSettlementUnit 3908
+#define RootPartySettlementAccount 3909
+#define RootPartySettlementFirm 3910
+#define RootPartySettlementLocation 3911
+#define SecondaryGatewayID 3912
+#define SecondaryGatewayStatus 3913
+#define SecondaryGatewaySubID 3914
+#define SessionInstanceID 3918
+#define SessionMode 3919
+#define SessionSubMode 3922
+#define SessionsGrp 3923
+#define SettlDate 3927
+#define SideTradeID 3930
+#define StopPxIndicator 3933
+#define SubscriptionScope 3934
+#define TargetPartyIDDeskID 3935
+#define TargetPartyIDExecutingTrader 3936
+#define TargetPartyIDSessionID 3937
+#define TemplateID 3938
+#define ThrottleDisconnectLimit 3939
+#define ThrottleNoMsgs 3940
+#define ThrottleTimeInterval 3941
+#define TradeManagerStatus 3947
+#define TradeManagerTradeDate 3948
+#define TradeNumber 3949
+#define TrdRegTSEntryTime 3956
+#define TrdRegTSTimeIn 3957
+#define TrdRegTSTimeOut 3958
+#define TrdRegTSTimePriority 3959
+#define Triggered 3960
+#define ValueCheckTypeQuantity 3963
+#define ValueCheckTypeValue 3964
+#define VarText 3965
+#define VarTextLen 3966
+#define VolumeDiscoveryPrice 3967
 
-const int Account = 1;
-const int AdvId = 2;
-const int AdvRefID = 3;
-const int AdvSide = 4;
-const int AdvTransType = 5;
-const int AvgPx = 6;
-const int BeginSeqNo = 7;
-const int BeginString = 8;
-const int BodyLength = 9;
-const int CheckSum = 10;
-const int ClOrdID = 11;
-const int Commission = 12;
-const int CommType = 13;
-const int CumQty = 14;
-const int Currency = 15;
-const int EndSeqNo = 16;
-const int ExecID = 17;
-const int ExecInst = 18;
-const int ExecRefID = 19;
-const int HandlInst = 21;
-const int SecurityIDSource = 22;
-const int IOIID = 23;
-const int IOIQltyInd = 25;
-const int IOIRefID = 26;
-const int IOIQty = 27;
-const int IOITransType = 28;
-const int LastCapacity = 29;
-const int LastMkt = 30;
-const int LastPx = 31;
-const int LastQty = 32;
-const int NoLinesOfText = 33;
-const int MsgSeqNum = 34;
-const int MsgType = 35;
-const int NewSeqNo = 36;
-const int OrderID = 37;
-const int OrderQty = 38;
-const int OrdStatus = 39;
-const int OrdType = 40;
-const int OrigClOrdID = 41;
-const int OrigTime = 42;
-const int PossDupFlag = 43;
-const int Price = 44;
-const int RefSeqNum = 45;
-const int SecurityID = 48;
-const int SenderCompID = 49;
-const int SenderSubID = 50;
-const int SendingTime = 52;
-const int Quantity = 53;
-const int Side = 54;
-const int Symbol = 55;
-const int TargetCompID = 56;
-const int TargetSubID = 57;
-const int Text = 58;
-const int TimeInForce = 59;
-const int TransactTime = 60;
-const int Urgency = 61;
-const int ValidUntilTime = 62;
-const int SettlType = 63;
-const int SettlDate = 64;
-const int SymbolSfx = 65;
-const int ListID = 66;
-const int ListSeqNo = 67;
-const int TotNoOrders = 68;
-const int ListExecInst = 69;
-const int AllocID = 70;
-const int AllocTransType = 71;
-const int RefAllocID = 72;
-const int NoOrders = 73;
-const int AvgPxPrecision = 74;
-const int TradeDate = 75;
-const int PositionEffect = 77;
-const int NoAllocs = 78;
-const int AllocAccount = 79;
-const int AllocQty = 80;
-const int ProcessCode = 81;
-const int NoRpts = 82;
-const int RptSeq = 83;
-const int CxlQty = 84;
-const int NoDlvyInst = 85;
-const int AllocStatus = 87;
-const int AllocRejCode = 88;
-const int Signature = 89;
-const int SecureDataLen = 90;
-const int SecureData = 91;
-const int SignatureLength = 93;
-const int EmailType = 94;
-const int RawDataLength = 95;
-const int RawData = 96;
-const int PossResend = 97;
-const int EncryptMethod = 98;
-const int StopPx = 99;
-const int ExDestination = 100;
-const int CxlRejReason = 102;
-const int OrdRejReason = 103;
-const int IOIQualifier = 104;
-const int Issuer = 106;
-const int SecurityDesc = 107;
-const int HeartBtInt = 108;
-const int MinQty = 110;
-const int MaxFloor = 111;
-const int TestReqID = 112;
-const int ReportToExch = 113;
-const int LocateReqd = 114;
-const int OnBehalfOfCompID = 115;
-const int OnBehalfOfSubID = 116;
-const int QuoteID = 117;
-const int NetMoney = 118;
-const int SettlCurrAmt = 119;
-const int SettlCurrency = 120;
-const int ForexReq = 121;
-const int OrigSendingTime = 122;
-const int GapFillFlag = 123;
-const int NoExecs = 124;
-const int ExpireTime = 126;
-const int DKReason = 127;
-const int DeliverToCompID = 128;
-const int DeliverToSubID = 129;
-const int IOINaturalFlag = 130;
-const int QuoteReqID = 131;
-const int BidPx = 132;
-const int OfferPx = 133;
-const int BidSize = 134;
-const int OfferSize = 135;
-const int NoMiscFees = 136;
-const int MiscFeeAmt = 137;
-const int MiscFeeCurr = 138;
-const int MiscFeeType = 139;
-const int PrevClosePx = 140;
-const int ResetSeqNumFlag = 141;
-const int SenderLocationID = 142;
-const int TargetLocationID = 143;
-const int OnBehalfOfLocationID = 144;
-const int DeliverToLocationID = 145;
-const int NoRelatedSym = 146;
-const int Subject = 147;
-const int Headline = 148;
-const int URLLink = 149;
-const int ExecType = 150;
-const int LeavesQty = 151;
-const int CashOrderQty = 152;
-const int AllocAvgPx = 153;
-const int AllocNetMoney = 154;
-const int SettlCurrFxRate = 155;
-const int SettlCurrFxRateCalc = 156;
-const int NumDaysInterest = 157;
-const int AccruedInterestRate = 158;
-const int AccruedInterestAmt = 159;
-const int SettlInstMode = 160;
-const int AllocText = 161;
-const int SettlInstID = 162;
-const int SettlInstTransType = 163;
-const int EmailThreadID = 164;
-const int SettlInstSource = 165;
-const int SecurityType = 167;
-const int EffectiveTime = 168;
-const int StandInstDbType = 169;
-const int StandInstDbName = 170;
-const int StandInstDbID = 171;
-const int SettlDeliveryType = 172;
-const int BidSpotRate = 188;
-const int BidForwardPoints = 189;
-const int OfferSpotRate = 190;
-const int OfferForwardPoints = 191;
-const int OrderQty2 = 192;
-const int SettlDate2 = 193;
-const int LastSpotRate = 194;
-const int LastForwardPoints = 195;
-const int AllocLinkID = 196;
-const int AllocLinkType = 197;
-const int SecondaryOrderID = 198;
-const int NoIOIQualifiers = 199;
-const int MaturityMonthYear = 200;
-const int PutOrCall = 201;
-const int StrikePrice = 202;
-const int CoveredOrUncovered = 203;
-const int OptAttribute = 206;
-const int SecurityExchange = 207;
-const int NotifyBrokerOfCredit = 208;
-const int AllocHandlInst = 209;
-const int MaxShow = 210;
-const int PegOffsetValue = 211;
-const int XmlDataLen = 212;
-const int XmlData = 213;
-const int SettlInstRefID = 214;
-const int NoRoutingIDs = 215;
-const int RoutingType = 216;
-const int RoutingID = 217;
-const int Spread = 218;
-const int BenchmarkCurveCurrency = 220;
-const int BenchmarkCurveName = 221;
-const int BenchmarkCurvePoint = 222;
-const int CouponRate = 223;
-const int CouponPaymentDate = 224;
-const int IssueDate = 225;
-const int RepurchaseTerm = 226;
-const int RepurchaseRate = 227;
-const int Factor = 228;
-const int TradeOriginationDate = 229;
-const int ExDate = 230;
-const int ContractMultiplier = 231;
-const int NoStipulations = 232;
-const int StipulationType = 233;
-const int StipulationValue = 234;
-const int YieldType = 235;
-const int Yield = 236;
-const int TotalTakedown = 237;
-const int Concession = 238;
-const int RepoCollateralSecurityType = 239;
-const int RedemptionDate = 240;
-const int UnderlyingCouponPaymentDate = 241;
-const int UnderlyingIssueDate = 242;
-const int UnderlyingRepoCollateralSecurityType = 243;
-const int UnderlyingRepurchaseTerm = 244;
-const int UnderlyingRepurchaseRate = 245;
-const int UnderlyingFactor = 246;
-const int UnderlyingRedemptionDate = 247;
-const int LegCouponPaymentDate = 248;
-const int LegIssueDate = 249;
-const int LegRepoCollateralSecurityType = 250;
-const int LegRepurchaseTerm = 251;
-const int LegRepurchaseRate = 252;
-const int LegFactor = 253;
-const int LegRedemptionDate = 254;
-const int CreditRating = 255;
-const int UnderlyingCreditRating = 256;
-const int LegCreditRating = 257;
-const int TradedFlatSwitch = 258;
-const int BasisFeatureDate = 259;
-const int BasisFeaturePrice = 260;
-const int MDReqID = 262;
-const int SubscriptionRequestType = 263;
-const int MarketDepth = 264;
-const int MDUpdateType = 265;
-const int AggregatedBook = 266;
-const int NoMDEntryTypes = 267;
-const int NoMDEntries = 268;
-const int MDEntryType = 269;
-const int MDEntryPx = 270;
-const int MDEntrySize = 271;
-const int MDEntryDate = 272;
-const int MDEntryTime = 273;
-const int TickDirection = 274;
-const int MDMkt = 275;
-const int QuoteCondition = 276;
-const int TradeCondition = 277;
-const int MDEntryID = 278;
-const int MDUpdateAction = 279;
-const int MDEntryRefID = 280;
-const int MDReqRejReason = 281;
-const int MDEntryOriginator = 282;
-const int LocationID = 283;
-const int DeskID = 284;
-const int DeleteReason = 285;
-const int OpenCloseSettlFlag = 286;
-const int SellerDays = 287;
-const int MDEntryBuyer = 288;
-const int MDEntrySeller = 289;
-const int MDEntryPositionNo = 290;
-const int FinancialStatus = 291;
-const int CorporateAction = 292;
-const int DefBidSize = 293;
-const int DefOfferSize = 294;
-const int NoQuoteEntries = 295;
-const int NoQuoteSets = 296;
-const int QuoteStatus = 297;
-const int QuoteCancelType = 298;
-const int QuoteEntryID = 299;
-const int QuoteRejectReason = 300;
-const int QuoteResponseLevel = 301;
-const int QuoteSetID = 302;
-const int QuoteRequestType = 303;
-const int TotNoQuoteEntries = 304;
-const int UnderlyingSecurityIDSource = 305;
-const int UnderlyingIssuer = 306;
-const int UnderlyingSecurityDesc = 307;
-const int UnderlyingSecurityExchange = 308;
-const int UnderlyingSecurityID = 309;
-const int UnderlyingSecurityType = 310;
-const int UnderlyingSymbol = 311;
-const int UnderlyingSymbolSfx = 312;
-const int UnderlyingMaturityMonthYear = 313;
-const int UnderlyingPutOrCall = 315;
-const int UnderlyingStrikePrice = 316;
-const int UnderlyingOptAttribute = 317;
-const int UnderlyingCurrency = 318;
-const int SecurityReqID = 320;
-const int SecurityRequestType = 321;
-const int SecurityResponseID = 322;
-const int SecurityResponseType = 323;
-const int SecurityStatusReqID = 324;
-const int UnsolicitedIndicator = 325;
-const int SecurityTradingStatus = 326;
-const int HaltReasonInt = 327;
-const int InViewOfCommon = 328;
-const int DueToRelated = 329;
-const int BuyVolume = 330;
-const int SellVolume = 331;
-const int HighPx = 332;
-const int LowPx = 333;
-const int Adjustment = 334;
-const int TradSesReqID = 335;
-const int TradingSessionID = 336;
-const int ContraTrader = 337;
-const int TradSesMethod = 338;
-const int TradSesMode = 339;
-const int TradSesStatus = 340;
-const int TradSesStartTime = 341;
-const int TradSesOpenTime = 342;
-const int TradSesPreCloseTime = 343;
-const int TradSesCloseTime = 344;
-const int TradSesEndTime = 345;
-const int NumberOfOrders = 346;
-const int MessageEncoding = 347;
-const int EncodedIssuerLen = 348;
-const int EncodedIssuer = 349;
-const int EncodedSecurityDescLen = 350;
-const int EncodedSecurityDesc = 351;
-const int EncodedListExecInstLen = 352;
-const int EncodedListExecInst = 353;
-const int EncodedTextLen = 354;
-const int EncodedText = 355;
-const int EncodedSubjectLen = 356;
-const int EncodedSubject = 357;
-const int EncodedHeadlineLen = 358;
-const int EncodedHeadline = 359;
-const int EncodedAllocTextLen = 360;
-const int EncodedAllocText = 361;
-const int EncodedUnderlyingIssuerLen = 362;
-const int EncodedUnderlyingIssuer = 363;
-const int EncodedUnderlyingSecurityDescLen = 364;
-const int EncodedUnderlyingSecurityDesc = 365;
-const int AllocPrice = 366;
-const int QuoteSetValidUntilTime = 367;
-const int QuoteEntryRejectReason = 368;
-const int LastMsgSeqNumProcessed = 369;
-const int RefTagID = 371;
-const int RefMsgType = 372;
-const int SessionRejectReason = 373;
-const int BidRequestTransType = 374;
-const int ContraBroker = 375;
-const int ComplianceID = 376;
-const int SolicitedFlag = 377;
-const int ExecRestatementReason = 378;
-const int BusinessRejectRefID = 379;
-const int BusinessRejectReason = 380;
-const int GrossTradeAmt = 381;
-const int NoContraBrokers = 382;
-const int MaxMessageSize = 383;
-const int NoMsgTypes = 384;
-const int MsgDirection = 385;
-const int NoTradingSessions = 386;
-const int TotalVolumeTraded = 387;
-const int DiscretionInst = 388;
-const int DiscretionOffsetValue = 389;
-const int BidID = 390;
-const int ClientBidID = 391;
-const int ListName = 392;
-const int TotNoRelatedSym = 393;
-const int BidType = 394;
-const int NumTickets = 395;
-const int SideValue1 = 396;
-const int SideValue2 = 397;
-const int NoBidDescriptors = 398;
-const int BidDescriptorType = 399;
-const int BidDescriptor = 400;
-const int SideValueInd = 401;
-const int LiquidityPctLow = 402;
-const int LiquidityPctHigh = 403;
-const int LiquidityValue = 404;
-const int EFPTrackingError = 405;
-const int FairValue = 406;
-const int OutsideIndexPct = 407;
-const int ValueOfFutures = 408;
-const int LiquidityIndType = 409;
-const int WtAverageLiquidity = 410;
-const int ExchangeForPhysical = 411;
-const int OutMainCntryUIndex = 412;
-const int CrossPercent = 413;
-const int ProgRptReqs = 414;
-const int ProgPeriodInterval = 415;
-const int IncTaxInd = 416;
-const int NumBidders = 417;
-const int BidTradeType = 418;
-const int BasisPxType = 419;
-const int NoBidComponents = 420;
-const int Country = 421;
-const int TotNoStrikes = 422;
-const int PriceType = 423;
-const int DayOrderQty = 424;
-const int DayCumQty = 425;
-const int DayAvgPx = 426;
-const int GTBookingInst = 427;
-const int NoStrikes = 428;
-const int ListStatusType = 429;
-const int NetGrossInd = 430;
-const int ListOrderStatus = 431;
-const int ExpireDate = 432;
-const int ListExecInstType = 433;
-const int CxlRejResponseTo = 434;
-const int UnderlyingCouponRate = 435;
-const int UnderlyingContractMultiplier = 436;
-const int ContraTradeQty = 437;
-const int ContraTradeTime = 438;
-const int LiquidityNumSecurities = 441;
-const int MultiLegReportingType = 442;
-const int StrikeTime = 443;
-const int ListStatusText = 444;
-const int EncodedListStatusTextLen = 445;
-const int EncodedListStatusText = 446;
-const int PartyIDSource = 447;
-const int PartyID = 448;
-const int NetChgPrevDay = 451;
-const int PartyRole = 452;
-const int NoPartyIDs = 453;
-const int NoSecurityAltID = 454;
-const int SecurityAltID = 455;
-const int SecurityAltIDSource = 456;
-const int NoUnderlyingSecurityAltID = 457;
-const int UnderlyingSecurityAltID = 458;
-const int UnderlyingSecurityAltIDSource = 459;
-const int Product = 460;
-const int CFICode = 461;
-const int UnderlyingProduct = 462;
-const int UnderlyingCFICode = 463;
-const int TestMessageIndicator = 464;
-const int BookingRefID = 466;
-const int IndividualAllocID = 467;
-const int RoundingDirection = 468;
-const int RoundingModulus = 469;
-const int CountryOfIssue = 470;
-const int StateOrProvinceOfIssue = 471;
-const int LocaleOfIssue = 472;
-const int NoRegistDtls = 473;
-const int MailingDtls = 474;
-const int InvestorCountryOfResidence = 475;
-const int PaymentRef = 476;
-const int DistribPaymentMethod = 477;
-const int CashDistribCurr = 478;
-const int CommCurrency = 479;
-const int CancellationRights = 480;
-const int MoneyLaunderingStatus = 481;
-const int MailingInst = 482;
-const int TransBkdTime = 483;
-const int ExecPriceType = 484;
-const int ExecPriceAdjustment = 485;
-const int DateOfBirth = 486;
-const int TradeReportTransType = 487;
-const int CardHolderName = 488;
-const int CardNumber = 489;
-const int CardExpDate = 490;
-const int CardIssNum = 491;
-const int PaymentMethod = 492;
-const int RegistAcctType = 493;
-const int Designation = 494;
-const int TaxAdvantageType = 495;
-const int RegistRejReasonText = 496;
-const int FundRenewWaiv = 497;
-const int CashDistribAgentName = 498;
-const int CashDistribAgentCode = 499;
-const int CashDistribAgentAcctNumber = 500;
-const int CashDistribPayRef = 501;
-const int CashDistribAgentAcctName = 502;
-const int CardStartDate = 503;
-const int PaymentDate = 504;
-const int PaymentRemitterID = 505;
-const int RegistStatus = 506;
-const int RegistRejReasonCode = 507;
-const int RegistRefID = 508;
-const int RegistDtls = 509;
-const int NoDistribInsts = 510;
-const int RegistEmail = 511;
-const int DistribPercentage = 512;
-const int RegistID = 513;
-const int RegistTransType = 514;
-const int ExecValuationPoint = 515;
-const int OrderPercent = 516;
-const int OwnershipType = 517;
-const int NoContAmts = 518;
-const int ContAmtType = 519;
-const int ContAmtValue = 520;
-const int ContAmtCurr = 521;
-const int OwnerType = 522;
-const int PartySubID = 523;
-const int NestedPartyID = 524;
-const int NestedPartyIDSource = 525;
-const int SecondaryClOrdID = 526;
-const int SecondaryExecID = 527;
-const int OrderCapacity = 528;
-const int OrderRestrictions = 529;
-const int MassCancelRequestType = 530;
-const int MassCancelResponse = 531;
-const int MassCancelRejectReason = 532;
-const int TotalAffectedOrders = 533;
-const int NoAffectedOrders = 534;
-const int AffectedOrderID = 535;
-const int AffectedSecondaryOrderID = 536;
-const int QuoteType = 537;
-const int NestedPartyRole = 538;
-const int NoNestedPartyIDs = 539;
-const int TotalAccruedInterestAmt = 540;
-const int MaturityDate = 541;
-const int UnderlyingMaturityDate = 542;
-const int InstrRegistry = 543;
-const int CashMargin = 544;
-const int NestedPartySubID = 545;
-const int Scope = 546;
-const int MDImplicitDelete = 547;
-const int CrossID = 548;
-const int CrossType = 549;
-const int CrossPrioritization = 550;
-const int OrigCrossID = 551;
-const int NoSides = 552;
-const int Username = 553;
-const int Password = 554;
-const int NoLegs = 555;
-const int LegCurrency = 556;
-const int TotNoSecurityTypes = 557;
-const int NoSecurityTypes = 558;
-const int SecurityListRequestType = 559;
-const int SecurityRequestResult = 560;
-const int RoundLot = 561;
-const int MinTradeVol = 562;
-const int MultiLegRptTypeReq = 563;
-const int LegPositionEffect = 564;
-const int LegCoveredOrUncovered = 565;
-const int LegPrice = 566;
-const int TradSesStatusRejReason = 567;
-const int TradeRequestID = 568;
-const int TradeRequestType = 569;
-const int PreviouslyReported = 570;
-const int TradeReportID = 571;
-const int TradeReportRefID = 572;
-const int MatchStatus = 573;
-const int MatchType = 574;
-const int OddLot = 575;
-const int NoClearingInstructions = 576;
-const int ClearingInstruction = 577;
-const int TradeInputSource = 578;
-const int TradeInputDevice = 579;
-const int NoDates = 580;
-const int AccountType = 581;
-const int CustOrderCapacity = 582;
-const int ClOrdLinkID = 583;
-const int MassStatusReqID = 584;
-const int MassStatusReqType = 585;
-const int OrigOrdModTime = 586;
-const int LegSettlType = 587;
-const int LegSettlDate = 588;
-const int DayBookingInst = 589;
-const int BookingUnit = 590;
-const int PreallocMethod = 591;
-const int UnderlyingCountryOfIssue = 592;
-const int UnderlyingStateOrProvinceOfIssue = 593;
-const int UnderlyingLocaleOfIssue = 594;
-const int UnderlyingInstrRegistry = 595;
-const int LegCountryOfIssue = 596;
-const int LegStateOrProvinceOfIssue = 597;
-const int LegLocaleOfIssue = 598;
-const int LegInstrRegistry = 599;
-const int LegSymbol = 600;
-const int LegSymbolSfx = 601;
-const int LegSecurityID = 602;
-const int LegSecurityIDSource = 603;
-const int NoLegSecurityAltID = 604;
-const int LegSecurityAltID = 605;
-const int LegSecurityAltIDSource = 606;
-const int LegProduct = 607;
-const int LegCFICode = 608;
-const int LegSecurityType = 609;
-const int LegMaturityMonthYear = 610;
-const int LegMaturityDate = 611;
-const int LegStrikePrice = 612;
-const int LegOptAttribute = 613;
-const int LegContractMultiplier = 614;
-const int LegCouponRate = 615;
-const int LegSecurityExchange = 616;
-const int LegIssuer = 617;
-const int EncodedLegIssuerLen = 618;
-const int EncodedLegIssuer = 619;
-const int LegSecurityDesc = 620;
-const int EncodedLegSecurityDescLen = 621;
-const int EncodedLegSecurityDesc = 622;
-const int LegRatioQty = 623;
-const int LegSide = 624;
-const int TradingSessionSubID = 625;
-const int AllocType = 626;
-const int NoHops = 627;
-const int HopCompID = 628;
-const int HopSendingTime = 629;
-const int HopRefID = 630;
-const int MidPx = 631;
-const int BidYield = 632;
-const int MidYield = 633;
-const int OfferYield = 634;
-const int ClearingFeeIndicator = 635;
-const int WorkingIndicator = 636;
-const int LegLastPx = 637;
-const int PriorityIndicator = 638;
-const int PriceImprovement = 639;
-const int Price2 = 640;
-const int LastForwardPoints2 = 641;
-const int BidForwardPoints2 = 642;
-const int OfferForwardPoints2 = 643;
-const int RFQReqID = 644;
-const int MktBidPx = 645;
-const int MktOfferPx = 646;
-const int MinBidSize = 647;
-const int MinOfferSize = 648;
-const int QuoteStatusReqID = 649;
-const int LegalConfirm = 650;
-const int UnderlyingLastPx = 651;
-const int UnderlyingLastQty = 652;
-const int LegRefID = 654;
-const int ContraLegRefID = 655;
-const int SettlCurrBidFxRate = 656;
-const int SettlCurrOfferFxRate = 657;
-const int QuoteRequestRejectReason = 658;
-const int SideComplianceID = 659;
-const int AcctIDSource = 660;
-const int AllocAcctIDSource = 661;
-const int BenchmarkPrice = 662;
-const int BenchmarkPriceType = 663;
-const int ConfirmID = 664;
-const int ConfirmStatus = 665;
-const int ConfirmTransType = 666;
-const int ContractSettlMonth = 667;
-const int DeliveryForm = 668;
-const int LastParPx = 669;
-const int NoLegAllocs = 670;
-const int LegAllocAccount = 671;
-const int LegIndividualAllocID = 672;
-const int LegAllocQty = 673;
-const int LegAllocAcctIDSource = 674;
-const int LegSettlCurrency = 675;
-const int LegBenchmarkCurveCurrency = 676;
-const int LegBenchmarkCurveName = 677;
-const int LegBenchmarkCurvePoint = 678;
-const int LegBenchmarkPrice = 679;
-const int LegBenchmarkPriceType = 680;
-const int LegBidPx = 681;
-const int LegIOIQty = 682;
-const int NoLegStipulations = 683;
-const int LegOfferPx = 684;
-const int LegOrderQty = 685;
-const int LegPriceType = 686;
-const int LegQty = 687;
-const int LegStipulationType = 688;
-const int LegStipulationValue = 689;
-const int LegSwapType = 690;
-const int Pool = 691;
-const int QuotePriceType = 692;
-const int QuoteRespID = 693;
-const int QuoteRespType = 694;
-const int QuoteQualifier = 695;
-const int YieldRedemptionDate = 696;
-const int YieldRedemptionPrice = 697;
-const int YieldRedemptionPriceType = 698;
-const int BenchmarkSecurityID = 699;
-const int ReversalIndicator = 700;
-const int YieldCalcDate = 701;
-const int NoPositions = 702;
-const int PosType = 703;
-const int LongQty = 704;
-const int ShortQty = 705;
-const int PosQtyStatus = 706;
-const int PosAmtType = 707;
-const int PosAmt = 708;
-const int PosTransType = 709;
-const int PosReqID = 710;
-const int NoUnderlyings = 711;
-const int PosMaintAction = 712;
-const int OrigPosReqRefID = 713;
-const int PosMaintRptRefID = 714;
-const int ClearingBusinessDate = 715;
-const int SettlSessID = 716;
-const int SettlSessSubID = 717;
-const int AdjustmentType = 718;
-const int ContraryInstructionIndicator = 719;
-const int PriorSpreadIndicator = 720;
-const int PosMaintRptID = 721;
-const int PosMaintStatus = 722;
-const int PosMaintResult = 723;
-const int PosReqType = 724;
-const int ResponseTransportType = 725;
-const int ResponseDestination = 726;
-const int TotalNumPosReports = 727;
-const int PosReqResult = 728;
-const int PosReqStatus = 729;
-const int SettlPrice = 730;
-const int SettlPriceType = 731;
-const int UnderlyingSettlPrice = 732;
-const int UnderlyingSettlPriceType = 733;
-const int PriorSettlPrice = 734;
-const int NoQuoteQualifiers = 735;
-const int AllocSettlCurrency = 736;
-const int AllocSettlCurrAmt = 737;
-const int InterestAtMaturity = 738;
-const int LegDatedDate = 739;
-const int LegPool = 740;
-const int AllocInterestAtMaturity = 741;
-const int AllocAccruedInterestAmt = 742;
-const int DeliveryDate = 743;
-const int AssignmentMethod = 744;
-const int AssignmentUnit = 745;
-const int OpenInterest = 746;
-const int ExerciseMethod = 747;
-const int TotNumTradeReports = 748;
-const int TradeRequestResult = 749;
-const int TradeRequestStatus = 750;
-const int TradeReportRejectReason = 751;
-const int SideMultiLegReportingType = 752;
-const int NoPosAmt = 753;
-const int AutoAcceptIndicator = 754;
-const int AllocReportID = 755;
-const int NoNested2PartyIDs = 756;
-const int Nested2PartyID = 757;
-const int Nested2PartyIDSource = 758;
-const int Nested2PartyRole = 759;
-const int Nested2PartySubID = 760;
-const int BenchmarkSecurityIDSource = 761;
-const int SecuritySubType = 762;
-const int UnderlyingSecuritySubType = 763;
-const int LegSecuritySubType = 764;
-const int AllowableOneSidednessPct = 765;
-const int AllowableOneSidednessValue = 766;
-const int AllowableOneSidednessCurr = 767;
-const int NoTrdRegTimestamps = 768;
-const int TrdRegTimestamp = 769;
-const int TrdRegTimestampType = 770;
-const int TrdRegTimestampOrigin = 771;
-const int ConfirmRefID = 772;
-const int ConfirmType = 773;
-const int ConfirmRejReason = 774;
-const int BookingType = 775;
-const int IndividualAllocRejCode = 776;
-const int SettlInstMsgID = 777;
-const int NoSettlInst = 778;
-const int LastUpdateTime = 779;
-const int AllocSettlInstType = 780;
-const int NoSettlPartyIDs = 781;
-const int SettlPartyID = 782;
-const int SettlPartyIDSource = 783;
-const int SettlPartyRole = 784;
-const int SettlPartySubID = 785;
-const int SettlPartySubIDType = 786;
-const int DlvyInstType = 787;
-const int TerminationType = 788;
-const int NextExpectedMsgSeqNum = 789;
-const int OrdStatusReqID = 790;
-const int SettlInstReqID = 791;
-const int SettlInstReqRejCode = 792;
-const int SecondaryAllocID = 793;
-const int AllocReportType = 794;
-const int AllocReportRefID = 795;
-const int AllocCancReplaceReason = 796;
-const int CopyMsgIndicator = 797;
-const int AllocAccountType = 798;
-const int OrderAvgPx = 799;
-const int OrderBookingQty = 800;
-const int NoSettlPartySubIDs = 801;
-const int NoPartySubIDs = 802;
-const int PartySubIDType = 803;
-const int NoNestedPartySubIDs = 804;
-const int NestedPartySubIDType = 805;
-const int NoNested2PartySubIDs = 806;
-const int Nested2PartySubIDType = 807;
-const int AllocIntermedReqType = 808;
-const int NoUsernames = 809;
-const int UnderlyingPx = 810;
-const int PriceDelta = 811;
-const int ApplQueueMax = 812;
-const int ApplQueueDepth = 813;
-const int ApplQueueResolution = 814;
-const int ApplQueueAction = 815;
-const int NoAltMDSource = 816;
-const int AltMDSourceID = 817;
-const int SecondaryTradeReportID = 818;
-const int AvgPxIndicator = 819;
-const int TradeLinkID = 820;
-const int OrderInputDevice = 821;
-const int UnderlyingTradingSessionID = 822;
-const int UnderlyingTradingSessionSubID = 823;
-const int TradeLegRefID = 824;
-const int ExchangeRule = 825;
-const int TradeAllocIndicator = 826;
-const int ExpirationCycle = 827;
-const int TrdType = 828;
-const int TrdSubType = 829;
-const int TransferReason = 830;
-const int TotNumAssignmentReports = 832;
-const int AsgnRptID = 833;
-const int ThresholdAmount = 834;
-const int PegMoveType = 835;
-const int PegOffsetType = 836;
-const int PegLimitType = 837;
-const int PegRoundDirection = 838;
-const int PeggedPrice = 839;
-const int PegScope = 840;
-const int DiscretionMoveType = 841;
-const int DiscretionOffsetType = 842;
-const int DiscretionLimitType = 843;
-const int DiscretionRoundDirection = 844;
-const int DiscretionPrice = 845;
-const int DiscretionScope = 846;
-const int TargetStrategy = 847;
-const int TargetStrategyParameters = 848;
-const int ParticipationRate = 849;
-const int TargetStrategyPerformance = 850;
-const int LastLiquidityInd = 851;
-const int PublishTrdIndicator = 852;
-const int ShortSaleReason = 853;
-const int QtyType = 854;
-const int SecondaryTrdType = 855;
-const int TradeReportType = 856;
-const int AllocNoOrdersType = 857;
-const int SharedCommission = 858;
-const int ConfirmReqID = 859;
-const int AvgParPx = 860;
-const int ReportedPx = 861;
-const int NoCapacities = 862;
-const int OrderCapacityQty = 863;
-const int NoEvents = 864;
-const int EventType = 865;
-const int EventDate = 866;
-const int EventPx = 867;
-const int EventText = 868;
-const int PctAtRisk = 869;
-const int NoInstrAttrib = 870;
-const int InstrAttribType = 871;
-const int InstrAttribValue = 872;
-const int DatedDate = 873;
-const int InterestAccrualDate = 874;
-const int CPProgram = 875;
-const int CPRegType = 876;
-const int UnderlyingCPProgram = 877;
-const int UnderlyingCPRegType = 878;
-const int UnderlyingQty = 879;
-const int TrdMatchID = 880;
-const int SecondaryTradeReportRefID = 881;
-const int UnderlyingDirtyPrice = 882;
-const int UnderlyingEndPrice = 883;
-const int UnderlyingStartValue = 884;
-const int UnderlyingCurrentValue = 885;
-const int UnderlyingEndValue = 886;
-const int NoUnderlyingStips = 887;
-const int UnderlyingStipType = 888;
-const int UnderlyingStipValue = 889;
-const int MaturityNetMoney = 890;
-const int MiscFeeBasis = 891;
-const int TotNoAllocs = 892;
-const int LastFragment = 893;
-const int CollReqID = 894;
-const int CollAsgnReason = 895;
-const int CollInquiryQualifier = 896;
-const int NoTrades = 897;
-const int MarginRatio = 898;
-const int MarginExcess = 899;
-const int TotalNetValue = 900;
-const int CashOutstanding = 901;
-const int CollAsgnID = 902;
-const int CollAsgnTransType = 903;
-const int CollRespID = 904;
-const int CollAsgnRespType = 905;
-const int CollAsgnRejectReason = 906;
-const int CollAsgnRefID = 907;
-const int CollRptID = 908;
-const int CollInquiryID = 909;
-const int CollStatus = 910;
-const int TotNumReports = 911;
-const int LastRptRequested = 912;
-const int AgreementDesc = 913;
-const int AgreementID = 914;
-const int AgreementDate = 915;
-const int StartDate = 916;
-const int EndDate = 917;
-const int AgreementCurrency = 918;
-const int DeliveryType = 919;
-const int EndAccruedInterestAmt = 920;
-const int StartCash = 921;
-const int EndCash = 922;
-const int UserRequestID = 923;
-const int UserRequestType = 924;
-const int NewPassword = 925;
-const int UserStatus = 926;
-const int UserStatusText = 927;
-const int StatusValue = 928;
-const int StatusText = 929;
-const int RefCompID = 930;
-const int RefSubID = 931;
-const int NetworkResponseID = 932;
-const int NetworkRequestID = 933;
-const int LastNetworkResponseID = 934;
-const int NetworkRequestType = 935;
-const int NoCompIDs = 936;
-const int NetworkStatusResponseType = 937;
-const int NoCollInquiryQualifier = 938;
-const int TrdRptStatus = 939;
-const int AffirmStatus = 940;
-const int UnderlyingStrikeCurrency = 941;
-const int LegStrikeCurrency = 942;
-const int TimeBracket = 943;
-const int CollAction = 944;
-const int CollInquiryStatus = 945;
-const int CollInquiryResult = 946;
-const int StrikeCurrency = 947;
-const int NoNested3PartyIDs = 948;
-const int Nested3PartyID = 949;
-const int Nested3PartyIDSource = 950;
-const int Nested3PartyRole = 951;
-const int NoNested3PartySubIDs = 952;
-const int Nested3PartySubID = 953;
-const int Nested3PartySubIDType = 954;
-const int LegContractSettlMonth = 955;
-const int LegInterestAccrualDate = 956;
-const int NoStrategyParameters = 957;
-const int StrategyParameterName = 958;
-const int StrategyParameterType = 959;
-const int StrategyParameterValue = 960;
-const int HostCrossID = 961;
-const int SideTimeInForce = 962;
-const int MDReportID = 963;
-const int SecurityReportID = 964;
-const int SecurityStatus = 965;
-const int SettleOnOpenFlag = 966;
-const int StrikeMultiplier = 967;
-const int StrikeValue = 968;
-const int MinPriceIncrement = 969;
-const int PositionLimit = 970;
-const int NTPositionLimit = 971;
-const int UnderlyingAllocationPercent = 972;
-const int UnderlyingCashAmount = 973;
-const int UnderlyingCashType = 974;
-const int UnderlyingSettlementType = 975;
-const int QuantityDate = 976;
-const int ContIntRptID = 977;
-const int LateIndicator = 978;
-const int InputSource = 979;
-const int SecurityUpdateAction = 980;
-const int NoExpiration = 981;
-const int ExpirationQtyType = 982;
-const int ExpQty = 983;
-const int NoUnderlyingAmounts = 984;
-const int UnderlyingPayAmount = 985;
-const int UnderlyingCollectAmount = 986;
-const int UnderlyingSettlementDate = 987;
-const int UnderlyingSettlementStatus = 988;
-const int SecondaryIndividualAllocID = 989;
-const int LegReportID = 990;
-const int RndPx = 991;
-const int IndividualAllocType = 992;
-const int AllocCustomerCapacity = 993;
-const int TierCode = 994;
-const int UnitOfMeasure = 996;
-const int TimeUnit = 997;
-const int UnderlyingUnitOfMeasure = 998;
-const int LegUnitOfMeasure = 999;
-const int UnderlyingTimeUnit = 1000;
-const int LegTimeUnit = 1001;
-const int AllocMethod = 1002;
-const int TradeID = 1003;
-const int SideTradeReportID = 1005;
-const int SideFillStationCd = 1006;
-const int SideReasonCd = 1007;
-const int SideTrdSubTyp = 1008;
-const int SideLastQty = 1009;
-const int MessageEventSource = 1011;
-const int SideTrdRegTimestamp = 1012;
-const int SideTrdRegTimestampType = 1013;
-const int SideTrdRegTimestampSrc = 1014;
-const int AsOfIndicator = 1015;
-const int NoSideTrdRegTS = 1016;
-const int LegOptionRatio = 1017;
-const int NoInstrumentParties = 1018;
-const int InstrumentPartyID = 1019;
-const int TradeVolume = 1020;
-const int MDBookType = 1021;
-const int MDFeedType = 1022;
-const int MDPriceLevel = 1023;
-const int MDOriginType = 1024;
-const int FirstPx = 1025;
-const int MDEntrySpotRate = 1026;
-const int MDEntryForwardPoints = 1027;
-const int ManualOrderIndicator = 1028;
-const int CustDirectedOrder = 1029;
-const int ReceivedDeptID = 1030;
-const int CustOrderHandlingInst = 1031;
-const int OrderHandlingInstSource = 1032;
-const int DeskType = 1033;
-const int DeskTypeSource = 1034;
-const int DeskOrderHandlingInst = 1035;
-const int ExecAckStatus = 1036;
-const int UnderlyingDeliveryAmount = 1037;
-const int UnderlyingCapValue = 1038;
-const int UnderlyingSettlMethod = 1039;
-const int SecondaryTradeID = 1040;
-const int FirmTradeID = 1041;
-const int SecondaryFirmTradeID = 1042;
-const int CollApplType = 1043;
-const int UnderlyingAdjustedQuantity = 1044;
-const int UnderlyingFXRate = 1045;
-const int UnderlyingFXRateCalc = 1046;
-const int AllocPositionEffect = 1047;
-const int DealingCapacity = 1048;
-const int InstrmtAssignmentMethod = 1049;
-const int InstrumentPartyIDSource = 1050;
-const int InstrumentPartyRole = 1051;
-const int NoInstrumentPartySubIDs = 1052;
-const int InstrumentPartySubID = 1053;
-const int InstrumentPartySubIDType = 1054;
-const int PositionCurrency = 1055;
-const int CalculatedCcyLastQty = 1056;
-const int AggressorIndicator = 1057;
-const int NoUndlyInstrumentParties = 1058;
-const int UnderlyingInstrumentPartyID = 1059;
-const int UnderlyingInstrumentPartyIDSource = 1060;
-const int UnderlyingInstrumentPartyRole = 1061;
-const int NoUndlyInstrumentPartySubIDs = 1062;
-const int UnderlyingInstrumentPartySubID = 1063;
-const int UnderlyingInstrumentPartySubIDType = 1064;
-const int BidSwapPoints = 1065;
-const int OfferSwapPoints = 1066;
-const int LegBidForwardPoints = 1067;
-const int LegOfferForwardPoints = 1068;
-const int SwapPoints = 1069;
-const int MDQuoteType = 1070;
-const int LastSwapPoints = 1071;
-const int SideGrossTradeAmt = 1072;
-const int LegLastForwardPoints = 1073;
-const int LegCalculatedCcyLastQty = 1074;
-const int LegGrossTradeAmt = 1075;
-const int MaturityTime = 1079;
-const int RefOrderID = 1080;
-const int RefOrderIDSource = 1081;
-const int SecondaryDisplayQty = 1082;
-const int DisplayWhen = 1083;
-const int DisplayMethod = 1084;
-const int DisplayLowQty = 1085;
-const int DisplayHighQty = 1086;
-const int DisplayMinIncr = 1087;
-const int RefreshQty = 1088;
-const int MatchIncrement = 1089;
-const int MaxPriceLevels = 1090;
-const int PreTradeAnonymity = 1091;
-const int PriceProtectionScope = 1092;
-const int LotType = 1093;
-const int PegPriceType = 1094;
-const int PeggedRefPrice = 1095;
-const int PegSecurityIDSource = 1096;
-const int PegSecurityID = 1097;
-const int PegSymbol = 1098;
-const int PegSecurityDesc = 1099;
-const int TriggerType = 1100;
-const int TriggerAction = 1101;
-const int TriggerPrice = 1102;
-const int TriggerSymbol = 1103;
-const int TriggerSecurityID = 1104;
-const int TriggerSecurityIDSource = 1105;
-const int TriggerSecurityDesc = 1106;
-const int TriggerPriceType = 1107;
-const int TriggerPriceTypeScope = 1108;
-const int TriggerPriceDirection = 1109;
-const int TriggerNewPrice = 1110;
-const int TriggerOrderType = 1111;
-const int TriggerNewQty = 1112;
-const int TriggerTradingSessionID = 1113;
-const int TriggerTradingSessionSubID = 1114;
-const int OrderCategory = 1115;
-const int NoRootPartyIDs = 1116;
-const int RootPartyID = 1117;
-const int RootPartyIDSource = 1118;
-const int RootPartyRole = 1119;
-const int NoRootPartySubIDs = 1120;
-const int RootPartySubID = 1121;
-const int RootPartySubIDType = 1122;
-const int TradeHandlingInstr = 1123;
-const int OrigTradeHandlingInstr = 1124;
-const int OrigTradeDate = 1125;
-const int OrigTradeID = 1126;
-const int OrigSecondaryTradeID = 1127;
-const int ApplVerID = 1128;
-const int CstmApplVerID = 1129;
-const int RefApplVerID = 1130;
-const int RefCstmApplVerID = 1131;
-const int TZTransactTime = 1132;
-const int ExDestinationIDSource = 1133;
-const int ReportedPxDiff = 1134;
-const int RptSys = 1135;
-const int AllocClearingFeeIndicator = 1136;
-const int DefaultApplVerID = 1137;
-const int DisplayQty = 1138;
-const int ExchangeSpecialInstructions = 1139;
-const int MaxTradeVol = 1140;
-const int NoMDFeedTypes = 1141;
-const int MatchAlgorithm = 1142;
-const int MaxPriceVariation = 1143;
-const int ImpliedMarketIndicator = 1144;
-const int EventTime = 1145;
-const int MinPriceIncrementAmount = 1146;
-const int UnitOfMeasureQty = 1147;
-const int LowLimitPrice = 1148;
-const int HighLimitPrice = 1149;
-const int TradingReferencePrice = 1150;
-const int SecurityGroup = 1151;
-const int LegNumber = 1152;
-const int SettlementCycleNo = 1153;
-const int SideCurrency = 1154;
-const int SideSettlCurrency = 1155;
-const int ApplExtID = 1156;
-const int CcyAmt = 1157;
-const int NoSettlDetails = 1158;
-const int SettlObligMode = 1159;
-const int SettlObligMsgID = 1160;
-const int SettlObligID = 1161;
-const int SettlObligTransType = 1162;
-const int SettlObligRefID = 1163;
-const int SettlObligSource = 1164;
-const int NoSettlOblig = 1165;
-const int QuoteMsgID = 1166;
-const int QuoteEntryStatus = 1167;
-const int TotNoCxldQuotes = 1168;
-const int TotNoAccQuotes = 1169;
-const int TotNoRejQuotes = 1170;
-const int PrivateQuote = 1171;
-const int RespondentType = 1172;
-const int MDSubBookType = 1173;
-const int SecurityTradingEvent = 1174;
-const int NoStatsIndicators = 1175;
-const int StatsType = 1176;
-const int NoOfSecSizes = 1177;
-const int MDSecSizeType = 1178;
-const int MDSecSize = 1179;
-const int ApplID = 1180;
-const int ApplSeqNum = 1181;
-const int ApplBegSeqNum = 1182;
-const int ApplEndSeqNum = 1183;
-const int SecurityXMLLen = 1184;
-const int SecurityXML = 1185;
-const int SecurityXMLSchema = 1186;
-const int RefreshIndicator = 1187;
-const int Volatility = 1188;
-const int TimeToExpiration = 1189;
-const int RiskFreeRate = 1190;
-const int PriceUnitOfMeasure = 1191;
-const int PriceUnitOfMeasureQty = 1192;
-const int SettlMethod = 1193;
-const int ExerciseStyle = 1194;
-const int OptPayoutAmount = 1195;
-const int PriceQuoteMethod = 1196;
-const int ValuationMethod = 1197;
-const int ListMethod = 1198;
-const int CapPrice = 1199;
-const int FloorPrice = 1200;
-const int NoStrikeRules = 1201;
-const int StartStrikePxRange = 1202;
-const int EndStrikePxRange = 1203;
-const int StrikeIncrement = 1204;
-const int NoTickRules = 1205;
-const int StartTickPriceRange = 1206;
-const int EndTickPriceRange = 1207;
-const int TickIncrement = 1208;
-const int TickRuleType = 1209;
-const int NestedInstrAttribType = 1210;
-const int NestedInstrAttribValue = 1211;
-const int LegMaturityTime = 1212;
-const int UnderlyingMaturityTime = 1213;
-const int DerivativeSymbol = 1214;
-const int DerivativeSymbolSfx = 1215;
-const int DerivativeSecurityID = 1216;
-const int DerivativeSecurityIDSource = 1217;
-const int NoDerivativeSecurityAltID = 1218;
-const int DerivativeSecurityAltID = 1219;
-const int DerivativeSecurityAltIDSource = 1220;
-const int SecondaryLowLimitPrice = 1221;
-const int MaturityRuleID = 1222;
-const int StrikeRuleID = 1223;
-const int LegUnitOfMeasureQty = 1224;
-const int DerivativeOptPayAmount = 1225;
-const int EndMaturityMonthYear = 1226;
-const int ProductComplex = 1227;
-const int DerivativeProductComplex = 1228;
-const int MaturityMonthYearIncrement = 1229;
-const int SecondaryHighLimitPrice = 1230;
-const int MinLotSize = 1231;
-const int NoExecInstRules = 1232;
-const int NoLotTypeRules = 1234;
-const int NoMatchRules = 1235;
-const int NoMaturityRules = 1236;
-const int NoOrdTypeRules = 1237;
-const int NoTimeInForceRules = 1239;
-const int SecondaryTradingReferencePrice = 1240;
-const int StartMaturityMonthYear = 1241;
-const int FlexProductEligibilityIndicator = 1242;
-const int DerivFlexProductEligibilityIndicator = 1243;
-const int FlexibleIndicator = 1244;
-const int TradingCurrency = 1245;
-const int DerivativeProduct = 1246;
-const int DerivativeSecurityGroup = 1247;
-const int DerivativeCFICode = 1248;
-const int DerivativeSecurityType = 1249;
-const int DerivativeSecuritySubType = 1250;
-const int DerivativeMaturityMonthYear = 1251;
-const int DerivativeMaturityDate = 1252;
-const int DerivativeMaturityTime = 1253;
-const int DerivativeSettleOnOpenFlag = 1254;
-const int DerivativeInstrmtAssignmentMethod = 1255;
-const int DerivativeSecurityStatus = 1256;
-const int DerivativeInstrRegistry = 1257;
-const int DerivativeCountryOfIssue = 1258;
-const int DerivativeStateOrProvinceOfIssue = 1259;
-const int DerivativeLocaleOfIssue = 1260;
-const int DerivativeStrikePrice = 1261;
-const int DerivativeStrikeCurrency = 1262;
-const int DerivativeStrikeMultiplier = 1263;
-const int DerivativeStrikeValue = 1264;
-const int DerivativeOptAttribute = 1265;
-const int DerivativeContractMultiplier = 1266;
-const int DerivativeMinPriceIncrement = 1267;
-const int DerivativeMinPriceIncrementAmount = 1268;
-const int DerivativeUnitOfMeasure = 1269;
-const int DerivativeUnitOfMeasureQty = 1270;
-const int DerivativeTimeUnit = 1271;
-const int DerivativeSecurityExchange = 1272;
-const int DerivativePositionLimit = 1273;
-const int DerivativeNTPositionLimit = 1274;
-const int DerivativeIssuer = 1275;
-const int DerivativeIssueDate = 1276;
-const int DerivativeEncodedIssuerLen = 1277;
-const int DerivativeEncodedIssuer = 1278;
-const int DerivativeSecurityDesc = 1279;
-const int DerivativeEncodedSecurityDescLen = 1280;
-const int DerivativeEncodedSecurityDesc = 1281;
-const int DerivativeSecurityXMLLen = 1282;
-const int DerivativeSecurityXML = 1283;
-const int DerivativeSecurityXMLSchema = 1284;
-const int DerivativeContractSettlMonth = 1285;
-const int NoDerivativeEvents = 1286;
-const int DerivativeEventType = 1287;
-const int DerivativeEventDate = 1288;
-const int DerivativeEventTime = 1289;
-const int DerivativeEventPx = 1290;
-const int DerivativeEventText = 1291;
-const int NoDerivativeInstrumentParties = 1292;
-const int DerivativeInstrumentPartyID = 1293;
-const int DerivativeInstrumentPartyIDSource = 1294;
-const int DerivativeInstrumentPartyRole = 1295;
-const int NoDerivativeInstrumentPartySubIDs = 1296;
-const int DerivativeInstrumentPartySubID = 1297;
-const int DerivativeInstrumentPartySubIDType = 1298;
-const int DerivativeExerciseStyle = 1299;
-const int MarketSegmentID = 1300;
-const int MarketID = 1301;
-const int MaturityMonthYearIncrementUnits = 1302;
-const int MaturityMonthYearFormat = 1303;
-const int StrikeExerciseStyle = 1304;
-const int SecondaryPriceLimitType = 1305;
-const int PriceLimitType = 1306;
-const int ExecInstValue = 1308;
-const int NoTradingSessionRules = 1309;
-const int NoMarketSegments = 1310;
-const int NoDerivativeInstrAttrib = 1311;
-const int NoNestedInstrAttrib = 1312;
-const int DerivativeInstrAttribType = 1313;
-const int DerivativeInstrAttribValue = 1314;
-const int DerivativePriceUnitOfMeasure = 1315;
-const int DerivativePriceUnitOfMeasureQty = 1316;
-const int DerivativeSettlMethod = 1317;
-const int DerivativePriceQuoteMethod = 1318;
-const int DerivativeValuationMethod = 1319;
-const int DerivativeListMethod = 1320;
-const int DerivativeCapPrice = 1321;
-const int DerivativeFloorPrice = 1322;
-const int DerivativePutOrCall = 1323;
-const int ListUpdateAction = 1324;
-const int ParentMktSegmID = 1325;
-const int TradingSessionDesc = 1326;
-const int TradSesUpdateAction = 1327;
-const int RejectText = 1328;
-const int FeeMultiplier = 1329;
-const int UnderlyingLegSymbol = 1330;
-const int UnderlyingLegSymbolSfx = 1331;
-const int UnderlyingLegSecurityID = 1332;
-const int UnderlyingLegSecurityIDSource = 1333;
-const int NoUnderlyingLegSecurityAltID = 1334;
-const int UnderlyingLegSecurityAltID = 1335;
-const int UnderlyingLegSecurityAltIDSource = 1336;
-const int UnderlyingLegSecurityType = 1337;
-const int UnderlyingLegSecuritySubType = 1338;
-const int UnderlyingLegMaturityMonthYear = 1339;
-const int UnderlyingLegStrikePrice = 1340;
-const int UnderlyingLegSecurityExchange = 1341;
-const int NoOfLegUnderlyings = 1342;
-const int UnderlyingLegPutOrCall = 1343;
-const int UnderlyingLegCFICode = 1344;
-const int UnderlyingLegMaturityDate = 1345;
-const int ApplReqID = 1346;
-const int ApplReqType = 1347;
-const int ApplResponseType = 1348;
-const int ApplTotalMessageCount = 1349;
-const int ApplLastSeqNum = 1350;
-const int NoApplIDs = 1351;
-const int ApplResendFlag = 1352;
-const int ApplResponseID = 1353;
-const int ApplResponseError = 1354;
-const int RefApplID = 1355;
-const int ApplReportID = 1356;
-const int RefApplLastSeqNum = 1357;
-const int LegPutOrCall = 1358;
-const int TotNoFills = 1361;
-const int NoFills = 1362;
-const int FillExecID = 1363;
-const int FillPx = 1364;
-const int FillQty = 1365;
-const int LegAllocID = 1366;
-const int LegAllocSettlCurrency = 1367;
-const int TradSesEvent = 1368;
-const int MassActionReportID = 1369;
-const int NoNotAffectedOrders = 1370;
-const int NotAffectedOrderID = 1371;
-const int NotAffOrigClOrdID = 1372;
-const int MassActionType = 1373;
-const int MassActionScope = 1374;
-const int MassActionResponse = 1375;
-const int MassActionRejectReason = 1376;
-const int MultilegModel = 1377;
-const int MultilegPriceMethod = 1378;
-const int LegVolatility = 1379;
-const int DividendYield = 1380;
-const int LegDividendYield = 1381;
-const int CurrencyRatio = 1382;
-const int LegCurrencyRatio = 1383;
-const int LegExecInst = 1384;
-const int ContingencyType = 1385;
-const int ListRejectReason = 1386;
-const int NoTrdRepIndicators = 1387;
-const int TrdRepPartyRole = 1388;
-const int TrdRepIndicator = 1389;
-const int TradePublishIndicator = 1390;
-const int UnderlyingLegOptAttribute = 1391;
-const int UnderlyingLegSecurityDesc = 1392;
-const int MarketReqID = 1393;
-const int MarketReportID = 1394;
-const int MarketUpdateAction = 1395;
-const int MarketSegmentDesc = 1396;
-const int EncodedMktSegmDescLen = 1397;
-const int EncodedMktSegmDesc = 1398;
-const int ApplNewSeqNum = 1399;
-const int EncryptedPasswordMethod = 1400;
-const int EncryptedPasswordLen = 1401;
-const int EncryptedPassword = 1402;
-const int EncryptedNewPasswordLen = 1403;
-const int EncryptedNewPassword = 1404;
-const int UnderlyingLegMaturityTime = 1405;
-const int RefApplExtID = 1406;
-const int DefaultApplExtID = 1407;
-const int DefaultCstmApplVerID = 1408;
-const int SessionStatus = 1409;
-const int DefaultVerIndicator = 1410;
-const int Nested4PartySubIDType = 1411;
-const int Nested4PartySubID = 1412;
-const int NoNested4PartySubIDs = 1413;
-const int NoNested4PartyIDs = 1414;
-const int Nested4PartyID = 1415;
-const int Nested4PartyIDSource = 1416;
-const int Nested4PartyRole = 1417;
-const int LegLastQty = 1418;
-const int UnderlyingExerciseStyle = 1419;
-const int LegExerciseStyle = 1420;
-const int LegPriceUnitOfMeasure = 1421;
-const int LegPriceUnitOfMeasureQty = 1422;
-const int UnderlyingUnitOfMeasureQty = 1423;
-const int UnderlyingPriceUnitOfMeasure = 1424;
-const int UnderlyingPriceUnitOfMeasureQty = 1425;
-const int ApplReportType = 1426;
-const int SideExecID = 1427;
-const int OrderDelay = 1428;
-const int OrderDelayUnit = 1429;
-const int VenueType = 1430;
-const int RefOrdIDReason = 1431;
-const int OrigCustOrderCapacity = 1432;
-const int RefApplReqID = 1433;
-const int ModelType = 1434;
-const int ContractMultiplierUnit = 1435;
-const int LegContractMultiplierUnit = 1436;
-const int UnderlyingContractMultiplierUnit = 1437;
-const int DerivativeContractMultiplierUnit = 1438;
-const int FlowScheduleType = 1439;
-const int LegFlowScheduleType = 1440;
-const int UnderlyingFlowScheduleType = 1441;
-const int DerivativeFlowScheduleType = 1442;
-const int FillLiquidityInd = 1443;
-const int SideLiquidityInd = 1444;
-const int NoRateSources = 1445;
-const int RateSource = 1446;
-const int RateSourceType = 1447;
-const int ReferencePage = 1448;
-const int RestructuringType = 1449;
-const int Seniority = 1450;
-const int NotionalPercentageOutstanding = 1451;
-const int OriginalNotionalPercentageOutstanding = 1452;
-const int UnderlyingRestructuringType = 1453;
-const int UnderlyingSeniority = 1454;
-const int UnderlyingNotionalPercentageOutstanding = 1455;
-const int UnderlyingOriginalNotionalPercentageOutstanding = 1456;
-const int AttachmentPoint = 1457;
-const int DetachmentPoint = 1458;
-const int UnderlyingAttachmentPoint = 1459;
-const int UnderlyingDetachmentPoint = 1460;
-const int NoTargetPartyIDs = 1461;
-const int TargetPartyID = 1462;
-const int TargetPartyIDSource = 1463;
-const int TargetPartyRole = 1464;
-const int SecurityListID = 1465;
-const int SecurityListRefID = 1466;
-const int SecurityListDesc = 1467;
-const int EncodedSecurityListDescLen = 1468;
-const int EncodedSecurityListDesc = 1469;
-const int SecurityListType = 1470;
-const int SecurityListTypeSource = 1471;
-const int NewsID = 1472;
-const int NewsCategory = 1473;
-const int LanguageCode = 1474;
-const int NoNewsRefIDs = 1475;
-const int NewsRefID = 1476;
-const int NewsRefType = 1477;
-const int StrikePriceDeterminationMethod = 1478;
-const int StrikePriceBoundaryMethod = 1479;
-const int StrikePriceBoundaryPrecision = 1480;
-const int UnderlyingPriceDeterminationMethod = 1481;
-const int OptPayoutType = 1482;
-const int NoComplexEvents = 1483;
-const int ComplexEventType = 1484;
-const int ComplexOptPayoutAmount = 1485;
-const int ComplexEventPrice = 1486;
-const int ComplexEventPriceBoundaryMethod = 1487;
-const int ComplexEventPriceBoundaryPrecision = 1488;
-const int ComplexEventPriceTimeType = 1489;
-const int ComplexEventCondition = 1490;
-const int NoComplexEventDates = 1491;
-const int ComplexEventStartDate = 1492;
-const int ComplexEventEndDate = 1493;
-const int NoComplexEventTimes = 1494;
-const int ComplexEventStartTime = 1495;
-const int ComplexEventEndTime = 1496;
-const int StreamAsgnReqID = 1497;
-const int StreamAsgnReqType = 1498;
-const int NoAsgnReqs = 1499;
-const int MDStreamID = 1500;
-const int StreamAsgnRptID = 1501;
-const int StreamAsgnRejReason = 1502;
-const int StreamAsgnAckType = 1503;
-const int RelSymTransactTime = 1504;
-const int StreamAsgnType = 1617;
-const int UserName = 2000;
-const int MessageVersion = 2001;
-const int RejectCode = 2002;
-const int PasswordExpiryDayCount = 2003;
-const int Reason = 2004;
-const int AppID = 2005;
-const int LastMsgSeqNum = 2006;
-const int ResponseType = 2007;
-const int RejectReason = 2008;
-const int RejectedMessageType = 2009;
-const int ClientOrderID = 2010;
-const int Status = 2011;
-const int TraderID = 2012;
-const int ClearingAccount = 2013;
-const int InstrumentID = 2014;
-const int FXMiFIDFlags = 2015;
-const int PartyRoleQualifiers = 2016;
-const int OrderType = 2017;
-const int TIF = 2018;
-const int ExpireDateTime = 2019;
-const int LimitPrice = 2020;
-const int Capacity = 2021;
-const int AutoCancel = 2022;
-const int OrderSubType = 2023;
-const int Anonymity = 2024;
-const int StopPrice = 2025;
-const int PassiveOnlyOrder = 2026;
-const int ClientID = 2027;
-const int InvestmentDecisionMaker = 2028;
-const int ReservedField = 2029;
-const int MinimumQuantity = 2030;
-const int ExecutingTrader = 2031;
-const int OriginalClientOrderID = 2032;
-const int ReservedField1 = 2033;
-const int ReservedField2 = 2034;
-const int RfqID = 2035;
-const int Segment = 2036;
-const int ReservedField3 = 2037;
-const int ReservedField4 = 2038;
-const int BuySideClOrdID = 2039;
-const int BuySideOrderCapacity = 2040;
-const int BuySideClearingAccount = 2041;
-const int BuySideOrderQuantity = 2042;
-const int BuySideFirmID = 2043;
-const int BuySidePartyRole = 2044;
-const int SellSideClOrdID = 2045;
-const int SellSideOrderCapacity = 2046;
-const int SellSideClearingAccount = 2047;
-const int SellSideOrderQuantity = 2048;
-const int SellSideFirmID = 2049;
-const int SellSidePartyRole = 2050;
-const int OriginalCrossID = 2051;
-const int BuySideOriginalClOrdID = 2052;
-const int SellSideOriginalClOrdID = 2053;
-const int SequenceNo = 2054;
-const int ExecutionID = 2055;
-const int ExecutionReportRefID = 2056;
-const int OrderStatus = 2057;
-const int OrderRejectCode = 2058;
-const int ExecutedPrice = 2059;
-const int ExecutedQty = 2060;
-const int WaiverFlags = 2061;
-const int RestatementReason = 2062;
-const int CounterParty = 2063;
-const int TradeLiquidityIndicator = 2064;
-const int TradeMatchID = 2065;
-const int TypeOfTrade = 2066;
-const int ReservedField5 = 2067;
-const int PublicOrderID = 2068;
-const int CancelRejectReason = 2069;
+namespace neueda
+{
 
 class FieldUtils
 {
@@ -1547,6 +2153,6 @@ class FieldUtils
         static map<int, string> mFieldNames;
 };
 
-} // namespace Fields
+} // namespace neueda
 
 #endif // FIELDS_H

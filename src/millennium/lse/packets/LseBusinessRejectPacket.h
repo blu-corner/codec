@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_BUSINESSREJECT_PACKET_H
 #define LSE_BUSINESSREJECT_PACKET_H
@@ -9,30 +9,38 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseBusinessReject
 {
     public:
+        LseHeader mHeader;
+
         uint8_t mAppID;
         int32_t mSequenceNo;
         int32_t mRejectCode;
         char mClientOrderID[20];
         char mOrderID[12];
-        uint64_t mTransactTime;
+        uint32_t mTransactTimeSeconds;
+        uint32_t mTransactTimeUsecs;
         char mReservedField1[10];
 
         LseBusinessReject ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseBusinessReject) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = 'j';
+
             mAppID = 0;
             mSequenceNo = 0;
             mRejectCode = 0;
             memset (mClientOrderID, '\0', 20);
             memset (mOrderID, '\0', 12);
-            mTransactTime = 0;
+            mTransactTimeSeconds = 0;
+            mTransactTimeUsecs = 0;
             memset (mReservedField1, '\0', 10);
         }
 
@@ -89,15 +97,26 @@ PACKED(class LseBusinessReject
             return getString (mOrderID, 12);
         }
 
-        bool setTransactTime (uint64_t v)
+        bool setTransactTimeSeconds (uint32_t v)
         {
-            mTransactTime = v;
+            mTransactTimeSeconds = v;
             return true;
         }
 
-        uint64_t getTransactTime ()
+        uint32_t getTransactTimeSeconds ()
         {
-            return mTransactTime;
+            return mTransactTimeSeconds;
+        }
+
+        bool setTransactTimeUsecs (uint32_t v)
+        {
+            mTransactTimeUsecs = v;
+            return true;
+        }
+
+        uint32_t getTransactTimeUsecs ()
+        {
+            return mTransactTimeUsecs;
         }
 
         bool setReservedField1 (const string& v)
@@ -119,12 +138,13 @@ PACKED(class LseBusinessReject
                << "[RejectCode=" << getRejectCode () << "],"
                << "[ClientOrderID=" << getClientOrderID () << "],"
                << "[OrderID=" << getOrderID () << "],"
-               << "[TransactTime=" << getTransactTime () << "],"
+               << "[TransactTimeSeconds=" << getTransactTimeSeconds () << "],"
+               << "[TransactTimeUsecs=" << getTransactTimeUsecs () << "],"
                << "[ReservedField1=" << getReservedField1 () << "]";
             return ss.str ();
         }
 });
 
-}
+} // namespace neueda
 
 #endif

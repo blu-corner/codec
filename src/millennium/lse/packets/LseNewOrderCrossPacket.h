@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_NEWORDERCROSS_PACKET_H
 #define LSE_NEWORDERCROSS_PACKET_H
@@ -9,14 +9,17 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseNewOrderCross
 {
     public:
+        LseHeader mHeader;
+
         char mCrossID[20];
         uint8_t mCrossType;
         char mBuySideClOrdID[20];
@@ -38,6 +41,9 @@ PACKED(class LseNewOrderCross
 
         LseNewOrderCross ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseNewOrderCross) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = 'C';
+
             memset (mCrossID, '\0', 20);
             mCrossType = 0;
             memset (mBuySideClOrdID, '\0', 20);
@@ -277,6 +283,6 @@ PACKED(class LseNewOrderCross
         }
 });
 
-}
+} // namespace neueda
 
 #endif

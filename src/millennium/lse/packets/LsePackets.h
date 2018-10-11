@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_PACKETS_H
 #define LSE_PACKETS_H
@@ -15,11 +15,12 @@
 #include "LseOrderMassCancelReportPacket.h"
 #include "LseMissedMessageRequestPacket.h"
 #include "LseExecutionReportPacket.h"
-#include "LseSystemStatusPacket.h"
+#include "LseHeaderPacket.h"
 #include "LseOrderMassCancelRequestPacket.h"
 #include "LseLogoutPacket.h"
 #include "LseLogonReplyPacket.h"
 #include "LseRejectPacket.h"
+#include "LseSystemStatusPacket.h"
 #include "LseHeartbeatPacket.h"
 #include "LseNewOrderPacket.h"
 #include "LseLogonPacket.h"

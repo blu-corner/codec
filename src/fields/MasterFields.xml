@@ -18,17 +18,19 @@
   <field name="ExecID" number="17"/>
   <field name="ExecInst" number="18"/>
   <field name="ExecRefID" number="19"/>
+  <field name="ExecTransType" number="20"/>
   <field name="HandlInst" number="21"/>
   <field name="SecurityIDSource" number="22"/>
-  <field name="IOIID" number="23"/>
+  <field name="IOIid" number="23"/>
+  <field name="IOIOthSvc" number="24"/>
   <field name="IOIQltyInd" number="25"/>
   <field name="IOIRefID" number="26"/>
-  <field name="IOIQty" number="27"/>
+  <field name="IOIShares" number="27"/>
   <field name="IOITransType" number="28"/>
   <field name="LastCapacity" number="29"/>
   <field name="LastMkt" number="30"/>
   <field name="LastPx" number="31"/>
-  <field name="LastQty" number="32"/>
+  <field name="LastShares" number="32"/>
   <field name="NoLinesOfText" number="33"/>
   <field name="MsgSeqNum" number="34"/>
   <field name="MsgType" number="35"/>
@@ -42,11 +44,14 @@
   <field name="PossDupFlag" number="43"/>
   <field name="Price" number="44"/>
   <field name="RefSeqNum" number="45"/>
+  <field name="RelatdSym" number="46"/>
+  <field name="Rule80A" number="47"/>
   <field name="SecurityID" number="48"/>
   <field name="SenderCompID" number="49"/>
   <field name="SenderSubID" number="50"/>
+  <field name="SendingDate" number="51"/>
   <field name="SendingTime" number="52"/>
-  <field name="Quantity" number="53"/>
+  <field name="Shares" number="53"/>
   <field name="Side" number="54"/>
   <field name="Symbol" number="55"/>
   <field name="TargetCompID" number="56"/>
@@ -57,7 +62,7 @@
   <field name="Urgency" number="61"/>
   <field name="ValidUntilTime" number="62"/>
   <field name="SettlType" number="63"/>
-  <field name="SettlDate" number="64"/>
+  <field name="FutSettDate" number="64"/>
   <field name="SymbolSfx" number="65"/>
   <field name="ListID" number="66"/>
   <field name="ListSeqNo" number="67"/>
@@ -69,20 +74,23 @@
   <field name="NoOrders" number="73"/>
   <field name="AvgPxPrecision" number="74"/>
   <field name="TradeDate" number="75"/>
-  <field name="PositionEffect" number="77"/>
+  <field name="ExecBroker" number="76"/>
+  <field name="OpenClose" number="77"/>
   <field name="NoAllocs" number="78"/>
   <field name="AllocAccount" number="79"/>
-  <field name="AllocQty" number="80"/>
+  <field name="AllocShares" number="80"/>
   <field name="ProcessCode" number="81"/>
   <field name="NoRpts" number="82"/>
   <field name="RptSeq" number="83"/>
   <field name="CxlQty" number="84"/>
   <field name="NoDlvyInst" number="85"/>
+  <field name="DlvyInst" number="86"/>
   <field name="AllocStatus" number="87"/>
   <field name="AllocRejCode" number="88"/>
   <field name="Signature" number="89"/>
   <field name="SecureDataLen" number="90"/>
   <field name="SecureData" number="91"/>
+  <field name="BrokerOfCredit" number="92"/>
   <field name="SignatureLength" number="93"/>
   <field name="EmailType" number="94"/>
   <field name="RawDataLength" number="95"/>
@@ -94,9 +102,11 @@
   <field name="CxlRejReason" number="102"/>
   <field name="OrdRejReason" number="103"/>
   <field name="IOIQualifier" number="104"/>
+  <field name="WaveNo" number="105"/>
   <field name="Issuer" number="106"/>
   <field name="SecurityDesc" number="107"/>
   <field name="HeartBtInt" number="108"/>
+  <field name="ClientID" number="109"/>
   <field name="MinQty" number="110"/>
   <field name="MaxFloor" number="111"/>
   <field name="TestReqID" number="112"/>
@@ -112,6 +122,7 @@
   <field name="OrigSendingTime" number="122"/>
   <field name="GapFillFlag" number="123"/>
   <field name="NoExecs" number="124"/>
+  <field name="CxlType" number="125"/>
   <field name="ExpireTime" number="126"/>
   <field name="DKReason" number="127"/>
   <field name="DeliverToCompID" number="128"/>
@@ -152,18 +163,34 @@
   <field name="SettlInstTransType" number="163"/>
   <field name="EmailThreadID" number="164"/>
   <field name="SettlInstSource" number="165"/>
+  <field name="SettlLocation" number="166"/>
   <field name="SecurityType" number="167"/>
   <field name="EffectiveTime" number="168"/>
   <field name="StandInstDbType" number="169"/>
   <field name="StandInstDbName" number="170"/>
   <field name="StandInstDbID" number="171"/>
   <field name="SettlDeliveryType" number="172"/>
+  <field name="SettlDepositoryCode" number="173"/>
+  <field name="SettlBrkrCode" number="174"/>
+  <field name="SettlInstCode" number="175"/>
+  <field name="SecuritySettlAgentName" number="176"/>
+  <field name="SecuritySettlAgentCode" number="177"/>
+  <field name="SecuritySettlAgentAcctNum" number="178"/>
+  <field name="SecuritySettlAgentAcctName" number="179"/>
+  <field name="SecuritySettlAgentContactName" number="180"/>
+  <field name="SecuritySettlAgentContactPhone" number="181"/>
+  <field name="CashSettlAgentName" number="182"/>
+  <field name="CashSettlAgentCode" number="183"/>
+  <field name="CashSettlAgentAcctNum" number="184"/>
+  <field name="CashSettlAgentAcctName" number="185"/>
+  <field name="CashSettlAgentContactName" number="186"/>
+  <field name="CashSettlAgentContactPhone" number="187"/>
   <field name="BidSpotRate" number="188"/>
   <field name="BidForwardPoints" number="189"/>
   <field name="OfferSpotRate" number="190"/>
   <field name="OfferForwardPoints" number="191"/>
   <field name="OrderQty2" number="192"/>
-  <field name="SettlDate2" number="193"/>
+  <field name="FutSettDate2" number="193"/>
   <field name="LastSpotRate" number="194"/>
   <field name="LastForwardPoints" number="195"/>
   <field name="AllocLinkID" number="196"/>
@@ -174,6 +201,8 @@
   <field name="PutOrCall" number="201"/>
   <field name="StrikePrice" number="202"/>
   <field name="CoveredOrUncovered" number="203"/>
+  <field name="CustomerOrFirm" number="204"/>
+  <field name="MaturityDay" number="205"/>
   <field name="OptAttribute" number="206"/>
   <field name="SecurityExchange" number="207"/>
   <field name="NotifyBrokerOfCredit" number="208"/>
@@ -186,7 +215,8 @@
   <field name="NoRoutingIDs" number="215"/>
   <field name="RoutingType" number="216"/>
   <field name="RoutingID" number="217"/>
-  <field name="Spread" number="218"/>
+  <field name="SpreadToBenchmark" number="218"/>
+  <field name="Benchmark" number="219"/>
   <field name="BenchmarkCurveCurrency" number="220"/>
   <field name="BenchmarkCurveName" number="221"/>
   <field name="BenchmarkCurvePoint" number="222"/>
@@ -252,7 +282,7 @@
   <field name="LocationID" number="283"/>
   <field name="DeskID" number="284"/>
   <field name="DeleteReason" number="285"/>
-  <field name="OpenCloseSettlFlag" number="286"/>
+  <field name="OpenCloseSettleFlag" number="286"/>
   <field name="SellerDays" number="287"/>
   <field name="MDEntryBuyer" number="288"/>
   <field name="MDEntrySeller" number="289"/>
@@ -270,7 +300,7 @@
   <field name="QuoteResponseLevel" number="301"/>
   <field name="QuoteSetID" number="302"/>
   <field name="QuoteRequestType" number="303"/>
-  <field name="TotNoQuoteEntries" number="304"/>
+  <field name="TotQuoteEntries" number="304"/>
   <field name="UnderlyingSecurityIDSource" number="305"/>
   <field name="UnderlyingIssuer" number="306"/>
   <field name="UnderlyingSecurityDesc" number="307"/>
@@ -280,10 +310,12 @@
   <field name="UnderlyingSymbol" number="311"/>
   <field name="UnderlyingSymbolSfx" number="312"/>
   <field name="UnderlyingMaturityMonthYear" number="313"/>
+  <field name="UnderlyingMaturityDay" number="314"/>
   <field name="UnderlyingPutOrCall" number="315"/>
   <field name="UnderlyingStrikePrice" number="316"/>
   <field name="UnderlyingOptAttribute" number="317"/>
   <field name="UnderlyingCurrency" number="318"/>
+  <field name="RatioQty" number="319"/>
   <field name="SecurityReqID" number="320"/>
   <field name="SecurityRequestType" number="321"/>
   <field name="SecurityResponseID" number="322"/>
@@ -291,7 +323,7 @@
   <field name="SecurityStatusReqID" number="324"/>
   <field name="UnsolicitedIndicator" number="325"/>
   <field name="SecurityTradingStatus" number="326"/>
-  <field name="HaltReasonInt" number="327"/>
+  <field name="HaltReasonChar" number="327"/>
   <field name="InViewOfCommon" number="328"/>
   <field name="DueToRelated" number="329"/>
   <field name="BuyVolume" number="330"/>
@@ -334,6 +366,7 @@
   <field name="QuoteSetValidUntilTime" number="367"/>
   <field name="QuoteEntryRejectReason" number="368"/>
   <field name="LastMsgSeqNumProcessed" number="369"/>
+  <field name="OnBehalfOfSendingTime" number="370"/>
   <field name="RefTagID" number="371"/>
   <field name="RefMsgType" number="372"/>
   <field name="SessionRejectReason" number="373"/>
@@ -352,7 +385,7 @@
   <field name="NoTradingSessions" number="386"/>
   <field name="TotalVolumeTraded" number="387"/>
   <field name="DiscretionInst" number="388"/>
-  <field name="DiscretionOffsetValue" number="389"/>
+  <field name="DiscretionOffset" number="389"/>
   <field name="BidID" number="390"/>
   <field name="ClientBidID" number="391"/>
   <field name="ListName" number="392"/>
@@ -402,6 +435,8 @@
   <field name="UnderlyingContractMultiplier" number="436"/>
   <field name="ContraTradeQty" number="437"/>
   <field name="ContraTradeTime" number="438"/>
+  <field name="ClearingFirm" number="439"/>
+  <field name="ClearingAccount" number="440"/>
   <field name="LiquidityNumSecurities" number="441"/>
   <field name="MultiLegReportingType" number="442"/>
   <field name="StrikeTime" number="443"/>
@@ -410,6 +445,8 @@
   <field name="EncodedListStatusText" number="446"/>
   <field name="PartyIDSource" number="447"/>
   <field name="PartyID" number="448"/>
+  <field name="TotalVolumeTradedDate" number="449"/>
+  <field name="TotalVolumeTradedTime" number="450"/>
   <field name="NetChgPrevDay" number="451"/>
   <field name="PartyRole" number="452"/>
   <field name="NoPartyIDs" number="453"/>
@@ -424,6 +461,7 @@
   <field name="UnderlyingProduct" number="462"/>
   <field name="UnderlyingCFICode" number="463"/>
   <field name="TestMessageIndicator" number="464"/>
+  <field name="QuantityType" number="465"/>
   <field name="BookingRefID" number="466"/>
   <field name="IndividualAllocID" number="467"/>
   <field name="RoundingDirection" number="468"/>
@@ -467,7 +505,7 @@
   <field name="RegistStatus" number="506"/>
   <field name="RegistRejReasonCode" number="507"/>
   <field name="RegistRefID" number="508"/>
-  <field name="RegistDtls" number="509"/>
+  <field name="RegistDetls" number="509"/>
   <field name="NoDistribInsts" number="510"/>
   <field name="RegistEmail" number="511"/>
   <field name="DistribPercentage" number="512"/>
@@ -515,7 +553,7 @@
   <field name="Password" number="554"/>
   <field name="NoLegs" number="555"/>
   <field name="LegCurrency" number="556"/>
-  <field name="TotNoSecurityTypes" number="557"/>
+  <field name="TotalNumSecurityTypes" number="557"/>
   <field name="NoSecurityTypes" number="558"/>
   <field name="SecurityListRequestType" number="559"/>
   <field name="SecurityRequestResult" number="560"/>
@@ -611,6 +649,7 @@
   <field name="LegalConfirm" number="650"/>
   <field name="UnderlyingLastPx" number="651"/>
   <field name="UnderlyingLastQty" number="652"/>
+  <field name="SecDefStatus" number="653"/>
   <field name="LegRefID" number="654"/>
   <field name="ContraLegRefID" number="655"/>
   <field name="SettlCurrBidFxRate" number="656"/>
@@ -766,7 +805,6 @@
   <field name="NoNested2PartySubIDs" number="806"/>
   <field name="Nested2PartySubIDType" number="807"/>
   <field name="AllocIntermedReqType" number="808"/>
-  <field name="NoUsernames" number="809"/>
   <field name="UnderlyingPx" number="810"/>
   <field name="PriceDelta" number="811"/>
   <field name="ApplQueueMax" number="812"/>
@@ -788,6 +826,7 @@
   <field name="TrdType" number="828"/>
   <field name="TrdSubType" number="829"/>
   <field name="TransferReason" number="830"/>
+  <field name="AsgnReqID" number="831"/>
   <field name="TotNumAssignmentReports" number="832"/>
   <field name="AsgnRptID" number="833"/>
   <field name="ThresholdAmount" number="834"/>
@@ -1012,12 +1051,12 @@
   <field name="CalculatedCcyLastQty" number="1056"/>
   <field name="AggressorIndicator" number="1057"/>
   <field name="NoUndlyInstrumentParties" number="1058"/>
-  <field name="UnderlyingInstrumentPartyID" number="1059"/>
-  <field name="UnderlyingInstrumentPartyIDSource" number="1060"/>
-  <field name="UnderlyingInstrumentPartyRole" number="1061"/>
+  <field name="UndlyInstrumentPartyID" number="1059"/>
+  <field name="UndlyInstrumentPartyIDSource" number="1060"/>
+  <field name="UndlyInstrumentPartyRole" number="1061"/>
   <field name="NoUndlyInstrumentPartySubIDs" number="1062"/>
   <field name="UnderlyingInstrumentPartySubID" number="1063"/>
-  <field name="UnderlyingInstrumentPartySubIDType" number="1064"/>
+  <field name="UndlyInstrumentPartySubIDType" number="1064"/>
   <field name="BidSwapPoints" number="1065"/>
   <field name="OfferSwapPoints" number="1066"/>
   <field name="LegBidForwardPoints" number="1067"/>
@@ -1145,9 +1184,9 @@
   <field name="PriceUnitOfMeasureQty" number="1192"/>
   <field name="SettlMethod" number="1193"/>
   <field name="ExerciseStyle" number="1194"/>
-  <field name="OptPayoutAmount" number="1195"/>
+  <field name="OptPayAmount" number="1195"/>
   <field name="PriceQuoteMethod" number="1196"/>
-  <field name="ValuationMethod" number="1197"/>
+  <field name="FuturesValuationMethod" number="1197"/>
   <field name="ListMethod" number="1198"/>
   <field name="CapPrice" number="1199"/>
   <field name="FloorPrice" number="1200"/>
@@ -1255,6 +1294,7 @@
   <field name="StrikeExerciseStyle" number="1304"/>
   <field name="SecondaryPriceLimitType" number="1305"/>
   <field name="PriceLimitType" number="1306"/>
+  <field name="DerivativeSecurityListRequestType" number="1307"/>
   <field name="ExecInstValue" number="1308"/>
   <field name="NoTradingSessionRules" number="1309"/>
   <field name="NoMarketSegments" number="1310"/>
@@ -1306,6 +1346,8 @@
   <field name="ApplReportID" number="1356"/>
   <field name="RefApplLastSeqNum" number="1357"/>
   <field name="LegPutOrCall" number="1358"/>
+  <field name="EncodedSymbolLen" number="1359"/>
+  <field name="EncodedSymbol" number="1360"/>
   <field name="TotNoFills" number="1361"/>
   <field name="NoFills" number="1362"/>
   <field name="FillExecID" number="1363"/>
@@ -1450,75 +1492,636 @@
   <field name="StreamAsgnRejReason" number="1502"/>
   <field name="StreamAsgnAckType" number="1503"/>
   <field name="RelSymTransactTime" number="1504"/>
+  <field name="PartyDetailsListRequestID" number="1505"/>
+  <field name="NoPartyListResponseTypes" number="1506"/>
+  <field name="PartyListResponseType" number="1507"/>
+  <field name="NoRequestedPartyRoles" number="1508"/>
+  <field name="RequestedPartyRole" number="1509"/>
+  <field name="PartyDetailsListReportID" number="1510"/>
+  <field name="PartyDetailsRequestResult" number="1511"/>
+  <field name="TotNoPartyList" number="1512"/>
+  <field name="NoPartyList" number="1513"/>
+  <field name="NoPartyRelationships" number="1514"/>
+  <field name="PartyRelationship" number="1515"/>
+  <field name="NoPartyAltIDs" number="1516"/>
+  <field name="PartyAltID" number="1517"/>
+  <field name="PartyAltIDSource" number="1518"/>
+  <field name="NoPartyAltSubIDs" number="1519"/>
+  <field name="PartyAltSubID" number="1520"/>
+  <field name="PartyAltSubIDType" number="1521"/>
+  <field name="NoContextPartyIDs" number="1522"/>
+  <field name="ContextPartyID" number="1523"/>
+  <field name="ContextPartyIDSource" number="1524"/>
+  <field name="ContextPartyRole" number="1525"/>
+  <field name="NoContextPartySubIDs" number="1526"/>
+  <field name="ContextPartySubID" number="1527"/>
+  <field name="ContextPartySubIDType" number="1528"/>
+  <field name="NoRiskLimits" number="1529"/>
+  <field name="RiskLimitType" number="1530"/>
+  <field name="RiskLimitAmount" number="1531"/>
+  <field name="RiskLimitCurrency" number="1532"/>
+  <field name="RiskLimitPlatform" number="1533"/>
+  <field name="NoRiskInstruments" number="1534"/>
+  <field name="RiskInstrumentOperator" number="1535"/>
+  <field name="RiskSymbol" number="1536"/>
+  <field name="RiskSymbolSfx" number="1537"/>
+  <field name="RiskSecurityID" number="1538"/>
+  <field name="RiskSecurityIDSource" number="1539"/>
+  <field name="NoRiskSecurityAltID" number="1540"/>
+  <field name="RiskSecurityAltID" number="1541"/>
+  <field name="RiskSecurityAltIDSource" number="1542"/>
+  <field name="RiskProduct" number="1543"/>
+  <field name="RiskProductComplex" number="1544"/>
+  <field name="RiskSecurityGroup" number="1545"/>
+  <field name="RiskCFICode" number="1546"/>
+  <field name="RiskSecurityType" number="1547"/>
+  <field name="RiskSecuritySubType" number="1548"/>
+  <field name="RiskMaturityMonthYear" number="1549"/>
+  <field name="RiskMaturityTime" number="1550"/>
+  <field name="RiskRestructuringType" number="1551"/>
+  <field name="RiskSeniority" number="1552"/>
+  <field name="RiskPutOrCall" number="1553"/>
+  <field name="RiskFlexibleIndicator" number="1554"/>
+  <field name="RiskCouponRate" number="1555"/>
+  <field name="RiskSecurityDesc" number="1556"/>
+  <field name="RiskInstrumentSettlType" number="1557"/>
+  <field name="RiskInstrumentMultiplier" number="1558"/>
+  <field name="NoRiskWarningLevels" number="1559"/>
+  <field name="RiskWarningLevelPercent" number="1560"/>
+  <field name="RiskWarningLevelName" number="1561"/>
+  <field name="NoRelatedPartyIDs" number="1562"/>
+  <field name="RelatedPartyID" number="1563"/>
+  <field name="RelatedPartyIDSource" number="1564"/>
+  <field name="RelatedPartyRole" number="1565"/>
+  <field name="NoRelatedPartySubIDs" number="1566"/>
+  <field name="RelatedPartySubID" number="1567"/>
+  <field name="RelatedPartySubIDType" number="1568"/>
+  <field name="NoRelatedPartyAltIDs" number="1569"/>
+  <field name="RelatedPartyAltID" number="1570"/>
+  <field name="RelatedPartyAltIDSource" number="1571"/>
+  <field name="NoRelatedPartyAltSubIDs" number="1572"/>
+  <field name="RelatedPartyAltSubID" number="1573"/>
+  <field name="RelatedPartyAltSubIDType" number="1574"/>
+  <field name="NoRelatedContextPartyIDs" number="1575"/>
+  <field name="RelatedContextPartyID" number="1576"/>
+  <field name="RelatedContextPartyIDSource" number="1577"/>
+  <field name="RelatedContextPartyRole" number="1578"/>
+  <field name="NoRelatedContextPartySubIDs" number="1579"/>
+  <field name="RelatedContextPartySubID" number="1580"/>
+  <field name="RelatedContextPartySubIDType" number="1581"/>
+  <field name="NoRelationshipRiskLimits" number="1582"/>
+  <field name="RelationshipRiskLimitType" number="1583"/>
+  <field name="RelationshipRiskLimitAmount" number="1584"/>
+  <field name="RelationshipRiskLimitCurrency" number="1585"/>
+  <field name="RelationshipRiskLimitPlatform" number="1586"/>
+  <field name="NoRelationshipRiskInstruments" number="1587"/>
+  <field name="RelationshipRiskInstrumentOperator" number="1588"/>
+  <field name="RelationshipRiskSymbol" number="1589"/>
+  <field name="RelationshipRiskSymbolSfx" number="1590"/>
+  <field name="RelationshipRiskSecurityID" number="1591"/>
+  <field name="RelationshipRiskSecurityIDSource" number="1592"/>
+  <field name="NoRelationshipRiskSecurityAltID" number="1593"/>
+  <field name="RelationshipRiskSecurityAltID" number="1594"/>
+  <field name="RelationshipRiskSecurityAltIDSource" number="1595"/>
+  <field name="RelationshipRiskProduct" number="1596"/>
+  <field name="RelationshipRiskProductComplex" number="1597"/>
+  <field name="RelationshipRiskSecurityGroup" number="1598"/>
+  <field name="RelationshipRiskCFICode" number="1599"/>
+  <field name="RelationshipRiskSecurityType" number="1600"/>
+  <field name="RelationshipRiskSecuritySubType" number="1601"/>
+  <field name="RelationshipRiskMaturityMonthYear" number="1602"/>
+  <field name="RelationshipRiskMaturityTime" number="1603"/>
+  <field name="RelationshipRiskRestructuringType" number="1604"/>
+  <field name="RelationshipRiskSeniority" number="1605"/>
+  <field name="RelationshipRiskPutOrCall" number="1606"/>
+  <field name="RelationshipRiskFlexibleIndicator" number="1607"/>
+  <field name="RelationshipRiskCouponRate" number="1608"/>
+  <field name="RelationshipRiskSecurityExchange" number="1609"/>
+  <field name="RelationshipRiskSecurityDesc" number="1610"/>
+  <field name="RelationshipRiskInstrumentSettlType" number="1611"/>
+  <field name="RelationshipRiskInstrumentMultiplier" number="1612"/>
+  <field name="NoRelationshipRiskWarningLevels" number="1613"/>
+  <field name="RelationshipRiskWarningLevelPercent" number="1614"/>
+  <field name="RelationshipRiskWarningLevelName" number="1615"/>
+  <field name="RiskSecurityExchange" number="1616"/>
   <field name="StreamAsgnType" number="1617"/>
-  <field name="UserName" number="2000"/>
-  <field name="MessageVersion" number="2001"/>
-  <field name="RejectCode" number="2002"/>
-  <field name="PasswordExpiryDayCount" number="2003"/>
-  <field name="Reason" number="2004"/>
-  <field name="AppID" number="2005"/>
-  <field name="LastMsgSeqNum" number="2006"/>
-  <field name="ResponseType" number="2007"/>
-  <field name="RejectReason" number="2008"/>
-  <field name="RejectedMessageType" number="2009"/>
-  <field name="ClientOrderID" number="2010"/>
-  <field name="Status" number="2011"/>
-  <field name="TraderID" number="2012"/>
-  <field name="ClearingAccount" number="2013"/>
-  <field name="InstrumentID" number="2014"/>
-  <field name="FXMiFIDFlags" number="2015"/>
-  <field name="PartyRoleQualifiers" number="2016"/>
-  <field name="OrderType" number="2017"/>
-  <field name="TIF" number="2018"/>
-  <field name="ExpireDateTime" number="2019"/>
-  <field name="LimitPrice" number="2020"/>
-  <field name="Capacity" number="2021"/>
-  <field name="AutoCancel" number="2022"/>
-  <field name="OrderSubType" number="2023"/>
-  <field name="Anonymity" number="2024"/>
-  <field name="StopPrice" number="2025"/>
-  <field name="PassiveOnlyOrder" number="2026"/>
-  <field name="ClientID" number="2027"/>
-  <field name="InvestmentDecisionMaker" number="2028"/>
-  <field name="ReservedField" number="2029"/>
-  <field name="MinimumQuantity" number="2030"/>
-  <field name="ExecutingTrader" number="2031"/>
-  <field name="OriginalClientOrderID" number="2032"/>
-  <field name="ReservedField1" number="2033"/>
-  <field name="ReservedField2" number="2034"/>
-  <field name="RfqID" number="2035"/>
-  <field name="Segment" number="2036"/>
-  <field name="ReservedField3" number="2037"/>
-  <field name="ReservedField4" number="2038"/>
-  <field name="BuySideClOrdID" number="2039"/>
-  <field name="BuySideOrderCapacity" number="2040"/>
-  <field name="BuySideClearingAccount" number="2041"/>
-  <field name="BuySideOrderQuantity" number="2042"/>
-  <field name="BuySideFirmID" number="2043"/>
-  <field name="BuySidePartyRole" number="2044"/>
-  <field name="SellSideClOrdID" number="2045"/>
-  <field name="SellSideOrderCapacity" number="2046"/>
-  <field name="SellSideClearingAccount" number="2047"/>
-  <field name="SellSideOrderQuantity" number="2048"/>
-  <field name="SellSideFirmID" number="2049"/>
-  <field name="SellSidePartyRole" number="2050"/>
-  <field name="OriginalCrossID" number="2051"/>
-  <field name="BuySideOriginalClOrdID" number="2052"/>
-  <field name="SellSideOriginalClOrdID" number="2053"/>
-  <field name="SequenceNo" number="2054"/>
-  <field name="ExecutionID" number="2055"/>
-  <field name="ExecutionReportRefID" number="2056"/>
-  <field name="OrderStatus" number="2057"/>
-  <field name="OrderRejectCode" number="2058"/>
-  <field name="ExecutedPrice" number="2059"/>
-  <field name="ExecutedQty" number="2060"/>
-  <field name="WaiverFlags" number="2061"/>
-  <field name="RestatementReason" number="2062"/>
-  <field name="CounterParty" number="2063"/>
-  <field name="TradeLiquidityIndicator" number="2064"/>
-  <field name="TradeMatchID" number="2065"/>
-  <field name="TypeOfTrade" number="2066"/>
-  <field name="ReservedField5" number="2067"/>
-  <field name="PublicOrderID" number="2068"/>
-  <field name="CancelRejectReason" number="2069"/>
+  <field name="RelationshipRiskEncodedSecurityDescLen" number="1618"/>
+  <field name="RelationshipRiskEncodedSecurityDesc" number="1619"/>
+  <field name="RiskEncodedSecurityDescLen" number="1620"/>
+  <field name="RiskEncodedSecurityDesc" number="1621"/>
+  <field name="UserName" number="1800" venue="BorsaItaliana"/>
+  <field name="MessageVersion" number="1801" venue="BorsaItaliana"/>
+  <field name="RejectCode" number="1802" venue="BorsaItaliana"/>
+  <field name="PasswordExpiryDayCount" number="1803" venue="BorsaItaliana"/>
+  <field name="Reason" number="1804" venue="BorsaItaliana"/>
+  <field name="RejectReason" number="1805" venue="BorsaItaliana"/>
+  <field name="RejectedMessageType" number="1806" venue="BorsaItaliana"/>
+  <field name="ClientOrderID" number="1807" venue="BorsaItaliana"/>
+  <field name="AppID" number="1808" venue="BorsaItaliana"/>
+  <field name="LastMsgSeqNum" number="1809" venue="BorsaItaliana"/>
+  <field name="ResponseType" number="1810" venue="BorsaItaliana"/>
+  <field name="AppStatus" number="1811" venue="BorsaItaliana"/>
+  <field name="TraderID" number="1812" venue="BorsaItaliana"/>
+  <field name="InstrumentID" number="1813" venue="BorsaItaliana"/>
+  <field name="FXMiFIDFlags" number="1814" venue="BorsaItaliana"/>
+  <field name="PartyRoleQualifiers" number="1815" venue="BorsaItaliana"/>
+  <field name="OrderType" number="1816" venue="BorsaItaliana"/>
+  <field name="TIF" number="1817" venue="BorsaItaliana"/>
+  <field name="ExpireDateTime" number="1818" venue="BorsaItaliana"/>
+  <field name="LimitPrice" number="1819" venue="BorsaItaliana"/>
+  <field name="Capacity" number="1820" venue="BorsaItaliana"/>
+  <field name="AutoCancel" number="1821" venue="BorsaItaliana"/>
+  <field name="OrderSubType" number="1822" venue="BorsaItaliana"/>
+  <field name="Anonymity" number="1823" venue="BorsaItaliana"/>
+  <field name="StoppedPrice" number="1824" venue="BorsaItaliana"/>
+  <field name="ReservedField1" number="1825" venue="BorsaItaliana"/>
+  <field name="ReservedField2" number="1826" venue="BorsaItaliana"/>
+  <field name="OrderSource" number="1827" venue="BorsaItaliana"/>
+  <field name="InvestmentDecisionMaker" number="1828" venue="BorsaItaliana"/>
+  <field name="ExecutingTrader" number="1829" venue="BorsaItaliana"/>
+  <field name="BidPrice" number="1830" venue="BorsaItaliana"/>
+  <field name="AskPrice" number="1831" venue="BorsaItaliana"/>
+  <field name="AskSize" number="1832" venue="BorsaItaliana"/>
+  <field name="BuySideCIOrdID" number="1833" venue="BorsaItaliana"/>
+  <field name="BuySideOrderCapacity" number="1834" venue="BorsaItaliana"/>
+  <field name="BuySideClearingAccount" number="1835" venue="BorsaItaliana"/>
+  <field name="BuySideOrderQuantity" number="1836" venue="BorsaItaliana"/>
+  <field name="BuySideFirmID" number="1837" venue="BorsaItaliana"/>
+  <field name="BuySidePartyRole" number="1838" venue="BorsaItaliana"/>
+  <field name="BuyFXMiFIDFlags" number="1839" venue="BorsaItaliana"/>
+  <field name="BuyClientID" number="1840" venue="BorsaItaliana"/>
+  <field name="BuyInvestmentDecisionMaker" number="1841" venue="BorsaItaliana"/>
+  <field name="BuyExecutingTrader" number="1842" venue="BorsaItaliana"/>
+  <field name="BuyPartyRoleQualifiers" number="1843" venue="BorsaItaliana"/>
+  <field name="SellSideCIOrdID" number="1844" venue="BorsaItaliana"/>
+  <field name="SellSideOrderCapacity" number="1845" venue="BorsaItaliana"/>
+  <field name="SellSideClearingAccount" number="1846" venue="BorsaItaliana"/>
+  <field name="SellSideOrderQuantity" number="1847" venue="BorsaItaliana"/>
+  <field name="SellSideFirmID" number="1848" venue="BorsaItaliana"/>
+  <field name="SellSidePartyRole" number="1849" venue="BorsaItaliana"/>
+  <field name="SellFXMiFIDFlags" number="1850" venue="BorsaItaliana"/>
+  <field name="SellClientID" number="1851" venue="BorsaItaliana"/>
+  <field name="SellInvestmentDecisionMaker" number="1852" venue="BorsaItaliana"/>
+  <field name="SellExecutingTrader" number="1853" venue="BorsaItaliana"/>
+  <field name="SellPartyRoleQualifiers" number="1854" venue="BorsaItaliana"/>
+  <field name="OriginalCrossID" number="1855" venue="BorsaItaliana"/>
+  <field name="BuySideOriginalCIOrdID" number="1856" venue="BorsaItaliana"/>
+  <field name="OriginalClientOrderID" number="1857" venue="BorsaItaliana"/>
+  <field name="ReservedField3" number="1858" venue="BorsaItaliana"/>
+  <field name="ReservedField4" number="1859" venue="BorsaItaliana"/>
+  <field name="ReservedField5" number="1860" venue="BorsaItaliana"/>
+  <field name="RFQID" number="1861" venue="BorsaItaliana"/>
+  <field name="OrderBook" number="1862" venue="BorsaItaliana"/>
+  <field name="Segment" number="1863" venue="BorsaItaliana"/>
+  <field name="PartitionID" number="1864" venue="BorsaItaliana"/>
+  <field name="SequenceNumber" number="1865" venue="BorsaItaliana"/>
+  <field name="OrderQuantity" number="1866" venue="BorsaItaliana"/>
+  <field name="MarketMakers" number="1867" venue="BorsaItaliana"/>
+  <field name="ContraFirm" number="1868" venue="BorsaItaliana"/>
+  <field name="Reservedforfutureuse1" number="1869" venue="BorsaItaliana"/>
+  <field name="OfferID" number="1870" venue="BorsaItaliana"/>
+  <field name="BidQuantity" number="1871" venue="BorsaItaliana"/>
+  <field name="OfferPrice" number="1872" venue="BorsaItaliana"/>
+  <field name="OfferQuantity" number="1873" venue="BorsaItaliana"/>
+  <field name="MarketMakerFirm" number="1874" venue="BorsaItaliana"/>
+  <field name="CoverPrice" number="1875" venue="BorsaItaliana"/>
+  <field name="ExecutionID" number="1876" venue="BorsaItaliana"/>
+  <field name="ExecutionType" number="1877" venue="BorsaItaliana"/>
+  <field name="TradeMatchID" number="1878" venue="BorsaItaliana"/>
+  <field name="ExecutedQuantity" number="1879" venue="BorsaItaliana"/>
+  <field name="ExecutedPrice" number="1880" venue="BorsaItaliana"/>
+  <field name="LastParPrice" number="1881" venue="BorsaItaliana"/>
+  <field name="OrderStatus" number="1882" venue="BorsaItaliana"/>
+  <field name="LeavesQuantity" number="1883" venue="BorsaItaliana"/>
+  <field name="ParPrice" number="1884" venue="BorsaItaliana"/>
+  <field name="ConvertedYield" number="1885" venue="BorsaItaliana"/>
+  <field name="WaiverFlags" number="1886" venue="BorsaItaliana"/>
+  <field name="SequenceNo" number="1887" venue="BorsaItaliana"/>
+  <field name="ExecutionReportRefID" number="1888" venue="BorsaItaliana"/>
+  <field name="OrderRejectCode" number="1889" venue="BorsaItaliana"/>
+  <field name="ExecutedQty" number="1890" venue="BorsaItaliana"/>
+  <field name="Reservedforfutureuse2" number="1891" venue="BorsaItaliana"/>
+  <field name="Counterparty" number="1892" venue="BorsaItaliana"/>
+  <field name="TradeLiquidityIndicator" number="1893" venue="BorsaItaliana"/>
+  <field name="Reservedfield1" number="1894" venue="BorsaItaliana"/>
+  <field name="Reservedfield2" number="1895" venue="BorsaItaliana"/>
+  <field name="ImpliedPrice" number="1896" venue="BorsaItaliana"/>
+  <field name="ResatementReason" number="1897" venue="BorsaItaliana"/>
+  <field name="PublicOrderID" number="1898" venue="BorsaItaliana"/>
+  <field name="TypeOfTrade" number="1899" venue="BorsaItaliana"/>
+  <field name="CancelRejectReason" number="1900" venue="BorsaItaliana"/>
+  <field name="CompID" number="2000" venue="Jse"/>
+  <field name="PasswordExpiry" number="2001" venue="Jse"/>
+  <field name="MessageType" number="2002" venue="Jse"/>
+  <field name="Status" number="2003" venue="Jse"/>
+  <field name="TraderMnemonic" number="2004" venue="Jse"/>
+  <field name="DisplayQuantity" number="2005" venue="Jse"/>
+  <field name="MinimumQuantity" number="2006" venue="Jse"/>
+  <field name="StopPrice" number="2007" venue="Jse"/>
+  <field name="CancelonDisconnect" number="2008" venue="Jse"/>
+  <field name="ExecutionInstruction" number="2009" venue="Jse"/>
+  <field name="BuySideClientOrderID" number="2010" venue="Jse"/>
+  <field name="BuySideCapacity" number="2011" venue="Jse"/>
+  <field name="BuySideTraderMnemonic" number="2012" venue="Jse"/>
+  <field name="BuySideAccount" number="2013" venue="Jse"/>
+  <field name="SellSideClientOrderID" number="2014" venue="Jse"/>
+  <field name="SellSideCapacity" number="2015" venue="Jse"/>
+  <field name="SellSideTraderMnemonic" number="2016" venue="Jse"/>
+  <field name="SellSideAccount" number="2017" venue="Jse"/>
+  <field name="RejctCode" number="2018" venue="Jse"/>
+  <field name="Container" number="2019" venue="Jse"/>
+  <field name="IsMarketOpsRequest" number="2020" venue="Jse"/>
+  <field name="TradeSubType" number="2021" venue="Jse"/>
+  <field name="ClientInformation" number="2022" venue="Jse"/>
+  <field name="CancelOnDisconnect" number="2023" venue="Jse"/>
+  <field name="Rate" number="2024" venue="Jse"/>
+  <field name="AllinPrice" number="2025" venue="Jse"/>
+  <field name="Leg1ReferencePrice" number="2026" venue="Jse"/>
+  <field name="SecurityRequestID" number="2027" venue="Jse"/>
+  <field name="SequenceType" number="2028" venue="Jse"/>
+  <field name="Reservedfield" number="2029" venue="Jse"/>
+  <field name="ReferenceInstrument" number="2030" venue="Jse"/>
+  <field name="ReferencePrice" number="2031" venue="Jse"/>
+  <field name="NearMonthType" number="2032" venue="Jse"/>
+  <field name="FarMonthType" number="2033" venue="Jse"/>
+  <field name="FarMaturityDate" number="2034" venue="Jse"/>
+  <field name="QuoteAckStatus" number="2035" venue="Jse"/>
+  <field name="SpotPrice" number="2036" venue="Jse"/>
+  <field name="Instruments" number="2037" venue="Jse"/>
+  <field name="UnderlyingInstruments" number="2038" venue="Jse"/>
+  <field name="FirmList" number="2039" venue="Jse"/>
+  <field name="UserList" number="2040" venue="Jse"/>
+  <field name="PassiveOnlyOrder" number="2200" venue="Lse"/>
+  <field name="ReservedField" number="2201" venue="Lse"/>
+  <field name="RfqID" number="2202" venue="Lse"/>
+  <field name="BuySideClOrdID" number="2203" venue="Lse"/>
+  <field name="SellSideClOrdID" number="2204" venue="Lse"/>
+  <field name="BuySideOriginalClOrdID" number="2205" venue="Lse"/>
+  <field name="SellSideOriginalClOrdID" number="2206" venue="Lse"/>
+  <field name="RestatementReason" number="2207" venue="Lse"/>
+  <field name="CounterParty" number="2208" venue="Lse"/>
+  <field name="TargetBook" number="2400" venue="Oslo"/>
+  <field name="ExecInstruction" number="2401" venue="Oslo"/>
+  <field name="ReservedField6" number="2402" venue="Oslo"/>
+  <field name="ReservedField7" number="2403" venue="Oslo"/>
+  <field name="ReservedField8" number="2404" venue="Oslo"/>
+  <field name="PriceDifferential" number="2405" venue="Oslo"/>
+  <field name="LogoutReason" number="2600" venue="Turquoise"/>
+  <field name="CommonSymbol" number="2601" venue="Turquoise"/>
+  <field name="CIOrdLinkID" number="2602" venue="Turquoise"/>
+  <field name="MassCancelType" number="2603" venue="Turquoise"/>
+  <field name="ReputationalScore" number="2604" venue="Turquoise"/>
+  <field name="Type" number="2800" venue="SWX"/>
+  <field name="OrderToken" number="2801" venue="SWX"/>
+  <field name="BankInternalReference" number="2802" venue="SWX"/>
+  <field name="OrderVerb" number="2803" venue="SWX"/>
+  <field name="OrderPrice" number="2804" venue="SWX"/>
+  <field name="PrincipalId" number="2805" venue="SWX"/>
+  <field name="SecondaryQuantity" number="2806" venue="SWX"/>
+  <field name="OrderPlacement" number="2807" venue="SWX"/>
+  <field name="AlgoID" number="2808" venue="SWX"/>
+  <field name="ExistingOrderToken" number="2809" venue="SWX"/>
+  <field name="ReplacementOrderToken" number="2810" venue="SWX"/>
+  <field name="OriginalOrderToken" number="2811" venue="SWX"/>
+  <field name="Timestamp" number="2812" venue="SWX"/>
+  <field name="EventCode" number="2813" venue="SWX"/>
+  <field name="OrderNumber" number="2814" venue="SWX"/>
+  <field name="OrderState" number="2815" venue="SWX"/>
+  <field name="PreviousOrderToken" number="2816" venue="SWX"/>
+  <field name="LiquidityFlag" number="2817" venue="SWX"/>
+  <field name="MatchNumber" number="2818" venue="SWX"/>
+  <field name="NostroCrossFlag" number="2819" venue="SWX"/>
+  <field name="CounterPartyId" number="2820" venue="SWX"/>
+  <field name="BookType" number="2821" venue="SWX"/>
+  <field name="Session" number="2822" venue="SWX"/>
+  <field name="RejectReasonCode" number="2823" venue="SWX"/>
+  <field name="RequestedSession" number="2824" venue="SWX"/>
+  <field name="RequestedSequenceNumber" number="2825" venue="SWX"/>
+  <field name="BlockLength" number="3000" venue="OEG Binary"/>
+  <field name="TemplateId" number="3001" venue="OEG Binary"/>
+  <field name="SchemaId" number="3002" venue="OEG Binary"/>
+  <field name="Version" number="3003" venue="OEG Binary"/>
+  <field name="NumInGroup" number="3004" venue="OEG Binary"/>
+  <field name="ClMsgSeqNum" number="3005" venue="OEG Binary"/>
+  <field name="FirmID" number="3006" venue="OEG Binary"/>
+  <field name="SymbolIndex" number="3007" venue="OEG Binary"/>
+  <field name="EMM" number="3008" venue="OEG Binary"/>
+  <field name="OrderSide" number="3009" venue="OEG Binary"/>
+  <field name="OrderPx" number="3010" venue="OEG Binary"/>
+  <field name="ExecutionWithinFirmShortCode" number="3011" venue="OEG Binary"/>
+  <field name="TradingCapacity" number="3012" venue="OEG Binary"/>
+  <field name="LPRole" number="3013" venue="OEG Binary"/>
+  <field name="DarkExecutionInstruction" number="3014" venue="OEG Binary"/>
+  <field name="MiFIDIndicators" number="3015" venue="OEG Binary"/>
+  <field name="STPID" number="3016" venue="OEG Binary"/>
+  <field name="FreeTextSection" number="3017" venue="OEG Binary"/>
+  <field name="NewOrderFreeTextSection" number="3018" venue="OEG Binary"/>
+  <field name="MiFIDShortcodes" number="3019" venue="OEG Binary"/>
+  <field name="NewOrderMiFIDShortcodes" number="3020" venue="OEG Binary"/>
+  <field name="OptionalFields" number="3021" venue="OEG Binary"/>
+  <field name="NewOrderOptionalFields" number="3022" venue="OEG Binary"/>
+  <field name="ClearingFields" number="3023" venue="OEG Binary"/>
+  <field name="NewOrderClearingFields" number="3024" venue="OEG Binary"/>
+  <field name="FreeText" number="3025" venue="OEG Binary"/>
+  <field name="OEGINFromMember" number="3026" venue="OEG Binary"/>
+  <field name="OEGOUTTimeToME" number="3027" venue="OEG Binary"/>
+  <field name="BookIn" number="3028" venue="OEG Binary"/>
+  <field name="BookOUTTime" number="3029" venue="OEG Binary"/>
+  <field name="OEGINFromME" number="3030" venue="OEG Binary"/>
+  <field name="OEGOUTToMember" number="3031" venue="OEG Binary"/>
+  <field name="OrigClientOrderID" number="3032" venue="OEG Binary"/>
+  <field name="AckType" number="3033" venue="OEG Binary"/>
+  <field name="AckPhase" number="3034" venue="OEG Binary"/>
+  <field name="OrderPriority" number="3035" venue="OEG Binary"/>
+  <field name="AckQualifiers" number="3036" venue="OEG Binary"/>
+  <field name="TradeTime" number="3037" venue="OEG Binary"/>
+  <field name="TradeType" number="3038" venue="OEG Binary"/>
+  <field name="TradeQualifier" number="3039" venue="OEG Binary"/>
+  <field name="LastTradedPx" number="3040" venue="OEG Binary"/>
+  <field name="ExecutionPhase" number="3041" venue="OEG Binary"/>
+  <field name="OptionalFieldsFill" number="3042" venue="OEG Binary"/>
+  <field name="FillOptionalFieldsFill" number="3043" venue="OEG Binary"/>
+  <field name="StrategyFields" number="3044" venue="OEG Binary"/>
+  <field name="FillStrategyFields" number="3045" venue="OEG Binary"/>
+  <field name="CounterpartFirmID" number="3046" venue="OEG Binary"/>
+  <field name="OtherLegLastPx" number="3047" venue="OEG Binary"/>
+  <field name="PackageID" number="3048" venue="OEG Binary"/>
+  <field name="UnderlyingInstrumentID" number="3049" venue="OEG Binary"/>
+  <field name="KillReason" number="3050" venue="OEG Binary"/>
+  <field name="ClientIdentificationShortcode" number="3051" venue="OEG Binary"/>
+  <field name="CancelReplaceFreeTextSection" number="3052" venue="OEG Binary"/>
+  <field name="CancelReplaceOptionalFields" number="3053" venue="OEG Binary"/>
+  <field name="CancelReplaceClearingFields" number="3054" venue="OEG Binary"/>
+  <field name="RejectedMessage" number="3055" venue="OEG Binary"/>
+  <field name="ErrorCode" number="3056" venue="OEG Binary"/>
+  <field name="RejectedMessageID" number="3057" venue="OEG Binary"/>
+  <field name="CollarFields" number="3058" venue="OEG Binary"/>
+  <field name="RejectCollarFields" number="3059" venue="OEG Binary"/>
+  <field name="CollarRejType" number="3060" venue="OEG Binary"/>
+  <field name="BreachedCollarPrice" number="3061" venue="OEG Binary"/>
+  <field name="RFEAnswer" number="3062" venue="OEG Binary"/>
+  <field name="QuotesMiFIDShortcodes" number="3063" venue="OEG Binary"/>
+  <field name="ClearingDataset" number="3064" venue="OEG Binary"/>
+  <field name="QuotesClearingDataset" number="3065" venue="OEG Binary"/>
+  <field name="QuotesRep" number="3066" venue="OEG Binary"/>
+  <field name="QuotesQuotesRep" number="3067" venue="OEG Binary"/>
+  <field name="InvestmentDecisionWFirmShortCode" number="3068" venue="OEG Binary"/>
+  <field name="NonExecutingBrokerShortCode" number="3069" venue="OEG Binary"/>
+  <field name="QuoteAcks" number="3070" venue="OEG Binary"/>
+  <field name="QuoteAckQuoteAcks" number="3071" venue="OEG Binary"/>
+  <field name="BidOrderID" number="3072" venue="OEG Binary"/>
+  <field name="OfferOrderID" number="3073" venue="OEG Binary"/>
+  <field name="BuyRevisionFlag" number="3074" venue="OEG Binary"/>
+  <field name="SellRevisionFlag" number="3075" venue="OEG Binary"/>
+  <field name="BidErrorCode" number="3076" venue="OEG Binary"/>
+  <field name="OfferErrorCode" number="3077" venue="OEG Binary"/>
+  <field name="FirmIDPublication" number="3078" venue="OEG Binary"/>
+  <field name="EndClient" number="3079" venue="OEG Binary"/>
+  <field name="InstrumentGroupCode" number="3080" venue="OEG Binary"/>
+  <field name="LogicalAccessID" number="3081" venue="OEG Binary"/>
+  <field name="OEPartitionID" number="3082" venue="OEG Binary"/>
+  <field name="ContractID" number="3083" venue="OEG Binary"/>
+  <field name="Maturity" number="3084" venue="OEG Binary"/>
+  <field name="OptionType" number="3085" venue="OEG Binary"/>
+  <field name="InputPriceType" number="3086" venue="OEG Binary"/>
+  <field name="LPActionCode" number="3087" venue="OEG Binary"/>
+  <field name="AFQReason" number="3088" venue="OEG Binary"/>
+  <field name="RFQUpdateType" number="3089" venue="OEG Binary"/>
+  <field name="PotentialMatchingPX" number="3090" venue="OEG Binary"/>
+  <field name="PotentialMatchingQty" number="3091" venue="OEG Binary"/>
+  <field name="NumberOfLPs" number="3092" venue="OEG Binary"/>
+  <field name="RecipientType" number="3093" venue="OEG Binary"/>
+  <field name="FamilyID" number="3094" venue="OEG Binary"/>
+  <field name="OperationType" number="3095" venue="OEG Binary"/>
+  <field name="EnteringCounterparty" number="3096" venue="OEG Binary"/>
+  <field name="Quantity" number="3097" venue="OEG Binary"/>
+  <field name="MICofSecondaryListing" number="3098" venue="OEG Binary"/>
+  <field name="CentralisationDate" number="3099" venue="OEG Binary"/>
+  <field name="ClearingFirmID" number="3100" venue="OEG Binary"/>
+  <field name="AccountTypeCross" number="3101" venue="OEG Binary"/>
+  <field name="TradingCapacityCross" number="3102" venue="OEG Binary"/>
+  <field name="SettlementPeriod" number="3103" venue="OEG Binary"/>
+  <field name="SettlementFlag" number="3104" venue="OEG Binary"/>
+  <field name="GuaranteeFlag" number="3105" venue="OEG Binary"/>
+  <field name="TransactionPriceType" number="3106" venue="OEG Binary"/>
+  <field name="PrincipalCode" number="3107" venue="OEG Binary"/>
+  <field name="PrincipalCodeCross" number="3108" venue="OEG Binary"/>
+  <field name="StartTimeVwap" number="3109" venue="OEG Binary"/>
+  <field name="EndTimeVwap" number="3110" venue="OEG Binary"/>
+  <field name="GrossTradeAmount" number="3111" venue="OEG Binary"/>
+  <field name="AccountNumber" number="3112" venue="OEG Binary"/>
+  <field name="AccountNumberCross" number="3113" venue="OEG Binary"/>
+  <field name="FreeTextCross" number="3114" venue="OEG Binary"/>
+  <field name="ClientIdentificationShortCodeCross" number="3115" venue="OEG Binary"/>
+  <field name="DeclarationID" number="3116" venue="OEG Binary"/>
+  <field name="PreMatchingType" number="3117" venue="OEG Binary"/>
+  <field name="WaiverIndicator" number="3118" venue="OEG Binary"/>
+  <field name="DeclarationStatus" number="3119" venue="OEG Binary"/>
+  <field name="PreviousDayIndicator" number="3120" venue="OEG Binary"/>
+  <field name="MiscellaneousFeeAmount" number="3121" venue="OEG Binary"/>
+  <field name="ActionType" number="3122" venue="OEG Binary"/>
+  <field name="BypassIndicator" number="3123" venue="OEG Binary"/>
+  <field name="ResynchronizationID" number="3124" venue="OEG Binary"/>
+  <field name="InstrumentSynchronizationSection" number="3125" venue="OEG Binary"/>
+  <field name="InstrumentSynchronizationListInstrumentSynchronizationSection" number="3126" venue="OEG Binary"/>
+  <field name="LastBookInTime" number="3127" venue="OEG Binary"/>
+  <field name="SoftwareProvider" number="3128" venue="OEG Binary"/>
+  <field name="QueueingIndicator" number="3129" venue="OEG Binary"/>
+  <field name="ExchangeID" number="3130" venue="OEG Binary"/>
+  <field name="LastClMsgSeqNum" number="3131" venue="OEG Binary"/>
+  <field name="LogonRejectCode" number="3132" venue="OEG Binary"/>
+  <field name="LogOutReasonCode" number="3133" venue="OEG Binary"/>
+  <field name="RejectedClientMessageSequenceNumber" number="3134" venue="OEG Binary"/>
+  <field name="FrameLength" number="3135" venue="OEG Binary"/>
+  <field name="StartOfMessage" number="3200" venue="Lse"/>
+  <field name="MessageLength" number="3201" venue="Lse"/>
+  <field name="TransactTimeSeconds" number="3400" venue="Lse"/>
+  <field name="TransactTimeUsecs" number="3401" venue="Lse"/>
+  <field name="MessageName" number="3402" venue="Jse"/>
+  <field name="UndisclosedPrice" number="3600" venue="OEG Binary"/>
+  <field name="DisclosedQty" number="3601" venue="OEG Binary"/>
+  <field name="MinOrderQty" number="3602" venue="OEG Binary"/>
+  <field name="OrderExpirationTime" number="3603" venue="OEG Binary"/>
+  <field name="OrderExpirationDate" number="3604" venue="OEG Binary"/>
+  <field name="PegOffset" number="3605" venue="OEG Binary"/>
+  <field name="TradingSession" number="3606" venue="OEG Binary"/>
+  <field name="UndisclosedIcebergType" number="3607" venue="OEG Binary"/>
+  <field name="StopTriggeredTimeInForce" number="3608" venue="OEG Binary"/>
+  <field name="TechnicalOrigin" number="3609" venue="OEG Binary"/>
+  <field name="LegInstrumentID" number="3610" venue="OEG Binary"/>
+  <field name="AffectedOrdGrp" number="3701" venue="Xetra"/>
+  <field name="AffectedOrigClOrdID" number="3703" venue="Xetra"/>
+  <field name="ApplBegMsgID" number="3704" venue="Xetra"/>
+  <field name="ApplEndMsgID" number="3706" venue="Xetra"/>
+  <field name="ApplIDStatus" number="3709" venue="Xetra"/>
+  <field name="ApplMsgID" number="3710" venue="Xetra"/>
+  <field name="ApplSeqIndicator" number="3712" venue="Xetra"/>
+  <field name="ApplSeqStatus" number="3714" venue="Xetra"/>
+  <field name="ApplSeqTradeDate" number="3715" venue="Xetra"/>
+  <field name="ApplSubID" number="3716" venue="Xetra"/>
+  <field name="ApplUsageOrders" number="3718" venue="Xetra"/>
+  <field name="ApplUsageQuotes" number="3719" venue="Xetra"/>
+  <field name="ApplicationSystemName" number="3720" venue="Xetra"/>
+  <field name="ApplicationSystemVendor" number="3721" venue="Xetra"/>
+  <field name="ApplicationSystemVersion" number="3722" venue="Xetra"/>
+  <field name="BidCxlSize" number="3723" venue="Xetra"/>
+  <field name="BodyLen" number="3726" venue="Xetra"/>
+  <field name="CrossedIndicator" number="3728" venue="Xetra"/>
+  <field name="DefaultCstmApplVerSubID" number="3733" venue="Xetra"/>
+  <field name="EnrichmentRuleID" number="3738" venue="Xetra"/>
+  <field name="EnrichmentRulesGrp" number="3739" venue="Xetra"/>
+  <field name="ExDestinationType" number="3740" venue="Xetra"/>
+  <field name="ExecutingTraderQualifier" number="3746" venue="Xetra"/>
+  <field name="FIXClOrdID" number="3748" venue="Xetra"/>
+  <field name="FIXEngineName" number="3749" venue="Xetra"/>
+  <field name="FIXEngineVendor" number="3750" venue="Xetra"/>
+  <field name="FIXEngineVersion" number="3751" venue="Xetra"/>
+  <field name="FillMatchID" number="3754" venue="Xetra"/>
+  <field name="FillsGrp" number="3757" venue="Xetra"/>
+  <field name="FreeText1" number="3758" venue="Xetra"/>
+  <field name="FreeText2" number="3759" venue="Xetra"/>
+  <field name="FreeText4" number="3760" venue="Xetra"/>
+  <field name="GatewayID" number="3761" venue="Xetra"/>
+  <field name="GatewayStatus" number="3762" venue="Xetra"/>
+  <field name="GatewaySubID" number="3763" venue="Xetra"/>
+  <field name="LastEntityProcessed" number="3766" venue="Xetra"/>
+  <field name="LastQty" number="3770" venue="Xetra"/>
+  <field name="MassActionReason" number="3775" venue="Xetra"/>
+  <field name="MatchDate" number="3778" venue="Xetra"/>
+  <field name="MatchInstCrossID" number="3779" venue="Xetra"/>
+  <field name="MatchSubType" number="3780" venue="Xetra"/>
+  <field name="MatchingEngineStatus" number="3782" venue="Xetra"/>
+  <field name="MatchingEngineTradeDate" number="3783" venue="Xetra"/>
+  <field name="MessageHeaderIn" number="3784" venue="Xetra"/>
+  <field name="MessageHeaderOut" number="3785" venue="Xetra"/>
+  <field name="NRBCHeader" number="3788" venue="Xetra"/>
+  <field name="NRResponseHeaderME" number="3789" venue="Xetra"/>
+  <field name="NetworkMsgID" number="3790" venue="Xetra"/>
+  <field name="NoEnrichmentRules" number="3792" venue="Xetra"/>
+  <field name="NoNotAffectedSecurities" number="3795" venue="Xetra"/>
+  <field name="NoPartyDetails" number="3796" venue="Xetra"/>
+  <field name="NoQuoteEvents" number="3798" venue="Xetra"/>
+  <field name="NoSessions" number="3799" venue="Xetra"/>
+  <field name="NotAffectedOrdersGrp" number="3802" venue="Xetra"/>
+  <field name="NotAffectedSecuritiesGrp" number="3803" venue="Xetra"/>
+  <field name="NotAffectedSecurityID" number="3804" venue="Xetra"/>
+  <field name="NotifHeader" number="3805" venue="Xetra"/>
+  <field name="NotificationIn" number="3806" venue="Xetra"/>
+  <field name="OfferCxlSize" number="3807" venue="Xetra"/>
+  <field name="OrderAttributeLiquidityProvision" number="3812" venue="Xetra"/>
+  <field name="OrderIDSfx" number="3815" venue="Xetra"/>
+  <field name="OrderRoutingIndicator" number="3817" venue="Xetra"/>
+  <field name="OwnershipIndicator" number="3821" venue="Xetra"/>
+  <field name="Pad1" number="3822" venue="Xetra"/>
+  <field name="Pad2" number="3823" venue="Xetra"/>
+  <field name="Pad3" number="3824" venue="Xetra"/>
+  <field name="Pad4" number="3825" venue="Xetra"/>
+  <field name="Pad5" number="3826" venue="Xetra"/>
+  <field name="Pad6" number="3827" venue="Xetra"/>
+  <field name="Pad7" number="3828" venue="Xetra"/>
+  <field name="PartyActionType" number="3830" venue="Xetra"/>
+  <field name="PartyDetailDeskID" number="3831" venue="Xetra"/>
+  <field name="PartyDetailExecutingTrader" number="3832" venue="Xetra"/>
+  <field name="PartyDetailIDExecutingTrader" number="3833" venue="Xetra"/>
+  <field name="PartyDetailIDExecutingUnit" number="3834" venue="Xetra"/>
+  <field name="PartyDetailRoleQualifier" number="3835" venue="Xetra"/>
+  <field name="PartyDetailStatus" number="3836" venue="Xetra"/>
+  <field name="PartyDetailsGrp" number="3837" venue="Xetra"/>
+  <field name="PartyExecutingFirm" number="3838" venue="Xetra"/>
+  <field name="PartyIDClientID" number="3839" venue="Xetra"/>
+  <field name="PartyIDEnteringFirm" number="3840" venue="Xetra"/>
+  <field name="PartyIDEnteringTrader" number="3841" venue="Xetra"/>
+  <field name="PartyIDExecutingTrader" number="3842" venue="Xetra"/>
+  <field name="PartyIDExecutingUnit" number="3843" venue="Xetra"/>
+  <field name="PartyIDSessionID" number="3844" venue="Xetra"/>
+  <field name="PartyIdInvestmentDecisionMaker" number="3845" venue="Xetra"/>
+  <field name="PartyIdInvestmentDecisionMakerQualifier" number="3846" venue="Xetra"/>
+  <field name="PegOffsetValueAbs" number="3848" venue="Xetra"/>
+  <field name="PegOffsetValueBidPx" number="3849" venue="Xetra"/>
+  <field name="PegOffsetValueOfferPx" number="3850" venue="Xetra"/>
+  <field name="PegOffsetValuePct" number="3851" venue="Xetra"/>
+  <field name="PriceValidityCheckType" number="3853" venue="Xetra"/>
+  <field name="QuoteEntryAckGrp" number="3854" venue="Xetra"/>
+  <field name="QuoteEntryGrp" number="3855" venue="Xetra"/>
+  <field name="QuoteEventExecID" number="3858" venue="Xetra"/>
+  <field name="QuoteEventGrp" number="3859" venue="Xetra"/>
+  <field name="QuoteEventLiquidityInd" number="3860" venue="Xetra"/>
+  <field name="QuoteEventMatchID" number="3861" venue="Xetra"/>
+  <field name="QuoteEventPx" number="3862" venue="Xetra"/>
+  <field name="QuoteEventQty" number="3863" venue="Xetra"/>
+  <field name="QuoteEventReason" number="3864" venue="Xetra"/>
+  <field name="QuoteEventSide" number="3865" venue="Xetra"/>
+  <field name="QuoteEventType" number="3866" venue="Xetra"/>
+  <field name="QuoteResponseID" number="3869" venue="Xetra"/>
+  <field name="QuoteSizeType" number="3870" venue="Xetra"/>
+  <field name="RBCHeader" number="3871" venue="Xetra"/>
+  <field name="RBCHeaderME" number="3872" venue="Xetra"/>
+  <field name="RFQPublishIndicator" number="3873" venue="Xetra"/>
+  <field name="RFQRequesterDisclosureInstruction" number="3874" venue="Xetra"/>
+  <field name="RefApplLastMsgID" number="3876" venue="Xetra"/>
+  <field name="RefApplSubID" number="3878" venue="Xetra"/>
+  <field name="RequestHeader" number="3879" venue="Xetra"/>
+  <field name="RequestOut" number="3880" venue="Xetra"/>
+  <field name="RequestTime" number="3881" venue="Xetra"/>
+  <field name="RequestingPartyClearingFirm" number="3882" venue="Xetra"/>
+  <field name="RequestingPartyEnteringFirm" number="3883" venue="Xetra"/>
+  <field name="RequestingPartyIDEnteringFirm" number="3884" venue="Xetra"/>
+  <field name="RequestingPartyIDExecutingSystem" number="3885" venue="Xetra"/>
+  <field name="RequestingPartyIDExecutingTrader" number="3886" venue="Xetra"/>
+  <field name="ReservedBidSize" number="3887" venue="Xetra"/>
+  <field name="ReservedOfferSize" number="3888" venue="Xetra"/>
+  <field name="ReservedSize" number="3889" venue="Xetra"/>
+  <field name="ResponseHeader" number="3890" venue="Xetra"/>
+  <field name="ResponseHeaderME" number="3891" venue="Xetra"/>
+  <field name="ResponseIn" number="3892" venue="Xetra"/>
+  <field name="RootPartyClearingFirm" number="3893" venue="Xetra"/>
+  <field name="RootPartyContraFirm" number="3894" venue="Xetra"/>
+  <field name="RootPartyContraFirmKVNumber" number="3895" venue="Xetra"/>
+  <field name="RootPartyContraSettlementAccount" number="3896" venue="Xetra"/>
+  <field name="RootPartyContraSettlementFirm" number="3897" venue="Xetra"/>
+  <field name="RootPartyContraSettlementLocation" number="3898" venue="Xetra"/>
+  <field name="RootPartyExecutingFirm" number="3899" venue="Xetra"/>
+  <field name="RootPartyExecutingFirmKVNumber" number="3900" venue="Xetra"/>
+  <field name="RootPartyExecutingTrader" number="3901" venue="Xetra"/>
+  <field name="RootPartyIDClearingUnit" number="3902" venue="Xetra"/>
+  <field name="RootPartyIDContraSettlementUnit" number="3903" venue="Xetra"/>
+  <field name="RootPartyIDContraUnit" number="3904" venue="Xetra"/>
+  <field name="RootPartyIDExecutingTrader" number="3905" venue="Xetra"/>
+  <field name="RootPartyIDExecutingUnit" number="3906" venue="Xetra"/>
+  <field name="RootPartyIDSessionID" number="3907" venue="Xetra"/>
+  <field name="RootPartyIDSettlementUnit" number="3908" venue="Xetra"/>
+  <field name="RootPartySettlementAccount" number="3909" venue="Xetra"/>
+  <field name="RootPartySettlementFirm" number="3910" venue="Xetra"/>
+  <field name="RootPartySettlementLocation" number="3911" venue="Xetra"/>
+  <field name="SecondaryGatewayID" number="3912" venue="Xetra"/>
+  <field name="SecondaryGatewayStatus" number="3913" venue="Xetra"/>
+  <field name="SecondaryGatewaySubID" number="3914" venue="Xetra"/>
+  <field name="SessionInstanceID" number="3918" venue="Xetra"/>
+  <field name="SessionMode" number="3919" venue="Xetra"/>
+  <field name="SessionSubMode" number="3922" venue="Xetra"/>
+  <field name="SessionsGrp" number="3923" venue="Xetra"/>
+  <field name="SettlDate" number="3927" venue="Xetra"/>
+  <field name="SideTradeID" number="3930" venue="Xetra"/>
+  <field name="StopPxIndicator" number="3933" venue="Xetra"/>
+  <field name="SubscriptionScope" number="3934" venue="Xetra"/>
+  <field name="TargetPartyIDDeskID" number="3935" venue="Xetra"/>
+  <field name="TargetPartyIDExecutingTrader" number="3936" venue="Xetra"/>
+  <field name="TargetPartyIDSessionID" number="3937" venue="Xetra"/>
+  <field name="TemplateID" number="3938" venue="Xetra"/>
+  <field name="ThrottleDisconnectLimit" number="3939" venue="Xetra"/>
+  <field name="ThrottleNoMsgs" number="3940" venue="Xetra"/>
+  <field name="ThrottleTimeInterval" number="3941" venue="Xetra"/>
+  <field name="TradeManagerStatus" number="3947" venue="Xetra"/>
+  <field name="TradeManagerTradeDate" number="3948" venue="Xetra"/>
+  <field name="TradeNumber" number="3949" venue="Xetra"/>
+  <field name="TrdRegTSEntryTime" number="3956" venue="Xetra"/>
+  <field name="TrdRegTSTimeIn" number="3957" venue="Xetra"/>
+  <field name="TrdRegTSTimeOut" number="3958" venue="Xetra"/>
+  <field name="TrdRegTSTimePriority" number="3959" venue="Xetra"/>
+  <field name="Triggered" number="3960" venue="Xetra"/>
+  <field name="ValueCheckTypeQuantity" number="3963" venue="Xetra"/>
+  <field name="ValueCheckTypeValue" number="3964" venue="Xetra"/>
+  <field name="VarText" number="3965" venue="Xetra"/>
+  <field name="VarTextLen" number="3966" venue="Xetra"/>
+  <field name="VolumeDiscoveryPrice" number="3967" venue="Xetra"/>
 </fields>

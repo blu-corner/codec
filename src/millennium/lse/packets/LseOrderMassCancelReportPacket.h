@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_ORDERMASSCANCELREPORT_PACKET_H
 #define LSE_ORDERMASSCANCELREPORT_PACKET_H
@@ -9,32 +9,40 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseOrderMassCancelReport
 {
     public:
+        LseHeader mHeader;
+
         uint8_t mAppID;
         int32_t mSequenceNo;
         char mClientOrderID[20];
         uint8_t mMassCancelResponse;
         int32_t mMassCancelRejectReason;
         int32_t mReservedField1;
-        uint64_t mTransactTime;
+        uint32_t mTransactTimeSeconds;
+        uint32_t mTransactTimeUsecs;
         char mReservedField2[10];
 
         LseOrderMassCancelReport ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseOrderMassCancelReport) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = 'r';
+
             mAppID = 0;
             mSequenceNo = 0;
             memset (mClientOrderID, '\0', 20);
             mMassCancelResponse = 0;
             mMassCancelRejectReason = 0;
             mReservedField1 = 0;
-            mTransactTime = 0;
+            mTransactTimeSeconds = 0;
+            mTransactTimeUsecs = 0;
             memset (mReservedField2, '\0', 10);
         }
 
@@ -103,15 +111,26 @@ PACKED(class LseOrderMassCancelReport
             return mReservedField1;
         }
 
-        bool setTransactTime (uint64_t v)
+        bool setTransactTimeSeconds (uint32_t v)
         {
-            mTransactTime = v;
+            mTransactTimeSeconds = v;
             return true;
         }
 
-        uint64_t getTransactTime ()
+        uint32_t getTransactTimeSeconds ()
         {
-            return mTransactTime;
+            return mTransactTimeSeconds;
+        }
+
+        bool setTransactTimeUsecs (uint32_t v)
+        {
+            mTransactTimeUsecs = v;
+            return true;
+        }
+
+        uint32_t getTransactTimeUsecs ()
+        {
+            return mTransactTimeUsecs;
         }
 
         bool setReservedField2 (const string& v)
@@ -134,12 +153,13 @@ PACKED(class LseOrderMassCancelReport
                << "[MassCancelResponse=" << unsigned(getMassCancelResponse ()) << "],"
                << "[MassCancelRejectReason=" << getMassCancelRejectReason () << "],"
                << "[ReservedField1=" << getReservedField1 () << "],"
-               << "[TransactTime=" << getTransactTime () << "],"
+               << "[TransactTimeSeconds=" << getTransactTimeSeconds () << "],"
+               << "[TransactTimeUsecs=" << getTransactTimeUsecs () << "],"
                << "[ReservedField2=" << getReservedField2 () << "]";
             return ss.str ();
         }
 });
 
-}
+} // namespace neueda
 
 #endif

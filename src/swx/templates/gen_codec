@@ -1,0 +1,159 @@
+#!/usr/bin/env python
+import re
+import sys
+import xml.etree.ElementTree as ET
+from wheezy.template.engine import Engine
+from wheezy.template.ext.core import CoreExtension
+from wheezy.template.loader import FileLoader
+import os
+import argparse
+
+
+def pad_type(t):
+    return '{0:<10}'.format(t)
+
+
+def remove_space(f):
+    return re.sub('\s+', '', f)
+
+
+def replace_space(f):
+    return re.sub('\s+', '_', f)
+
+def camel_case(f):
+    capitalized = re.sub(r'\w+', lambda m:m.group(0).capitalize(), f)
+    return remove_space(capitalized)
+
+def offsetof(msg, fieldName, fields):
+    fieldsToCount = []
+    for f in fields:
+        if f['name'] == fieldName:
+            break
+        fieldsToCount.append(f)
+
+    if len(fieldsToCount) == 0:
+        return '0'
+
+    output = []
+    for f in fieldsToCount:
+        if f['type'] == 'char' and f['length'] is not None and f['length'] != '-':
+            output.append("{0}".format(f['length']))
+        else:
+            output.append("sizeof{0}".format(f['type']))
+    
+    return "+".join(output)
+
+def load_xml_context(fxml):
+    xml = ET.parse(fxml)
+    root = xml.getroot()
+
+    venue_name = root.attrib['name'].lower()
+    global_info = root.findall('Global')
+    metadata = {}
+    for param in global_info[0].getchildren():
+        metadata[param.attrib['name']] = param.attrib['value']
+
+    globalParameters = global_info[0].findall('parameter')
+    endianness = tuple(filter(lambda i: i.attrib['name'] == 'Endianness', globalParameters))[0].attrib['value']
+
+    messages = root.getchildren()
+
+    header = []
+    messages = []
+    message_data = {}
+    message_fields = {}
+    duplicated_message_types = {}
+    constants = {}
+
+    try:
+        constantsRoot = root.findall('constants')[0]
+        for constant in constantsRoot.findall('constant'):
+            attributes = constant.attrib
+            prefix = attributes['prefix']
+            if prefix not in constants.keys():
+                constants[prefix] = []
+            constants[prefix].append(attributes)
+    except:
+        pass
+
+    hdr = root.findall('header')[0]
+    for f in hdr.findall('field'):
+        header.append(f.attrib)
+
+    for message in root.findall('message'):
+        message_name = message.attrib['name']
+        message_type = message.attrib['msgtype']
+        messages.append(message_name)
+        message_data[message_name] = message.attrib
+
+        # throw in the endianess to the message
+        if 'endian' not in message_data:
+            message_data[message_name]['endian'] = endianness
+        
+        message_fields[message.attrib['name']] = []
+        for field in message.findall('field'):
+            field.attrib['name'] = remove_space(field.attrib['name'])
+            if 'stringAlignment' not in field.attrib.keys():
+                field.attrib['stringAlignment'] = message.attrib['stringAlignment']
+            message_fields[message.attrib['name']].append(field.attrib)
+
+    for message in messages:
+        message_type = message_data[message]['msgtype']
+        duplicate_message_types = list(filter(lambda i: message_data[i]['msgtype'] == message_type, messages))
+        if len(duplicate_message_types) > 1:
+            duplicated_message_types[message_type] = duplicate_message_types
+    
+    return {
+        'name': venue_name,
+        'header': header,
+        'messages': messages,
+        'message_data': message_data,
+        'message_fields': message_fields,
+        'pad_type': pad_type,
+        'remove_space': remove_space,
+        'replace_space': replace_space,
+        'metadata': metadata,
+        'camel_case': camel_case,
+        'constants': constants,
+        'duplicate_messages': duplicated_message_types,
+        'offsetof': offsetof
+    }
+
+
+def transform(context, template, target):
+    searchpath = ['.']
+    engine = Engine(
+        loader=FileLoader(searchpath),
+        extensions=[CoreExtension()]
+    )
+
+    template = engine.get_template(template)
+    with open(target, 'w') as fd:
+        fd.write(template.render(context))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Generate Codec Files')
+    parser.add_argument('-v', dest='venue_xml', type=str, help='Venue.xml')
+    parser.add_argument('-t', dest='template_dir', type=str, help='folder \
+                        containing templates', default='./')
+    parser.add_argument('-o', dest='output', type=str, default='./',
+                        help='output directory')
+    args = parser.parse_args()
+
+    context = load_xml_context(args.venue_xml)
+    template_h = os.path.join(args.template_dir, 'codec_h.t')
+    template_cpp = os.path.join(args.template_dir, 'codec_cpp.t')
+    template_constants_h = os.path.join(args.template_dir, 'codec_constants_h.t')
+
+    target_h = os.path.join(args.output,
+                            '{0}Codec.h'.format(context['name'].lower()))
+    target_cpp = os.path.join(args.output,
+                              '{0}Codec.cpp'.format(context['name'].lower()))
+    target_constants_h = os.path.join(args.output,
+                                      '{0}CodecConstants.h'.format(context['name'].lower()))
+
+    transform(context, template_h, target_h)
+    transform(context, template_cpp, target_cpp)
+    if os.path.exists(target_constants_h):
+        transform(context, template_constants_h, target_constants_h)

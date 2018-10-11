@@ -1,27 +1,8 @@
-set(LSE_HEADERS
-LseBusinessRejectPacket.h
-LseCrossOrderCancelRequestPacket.h
-LseExecutionReportPacket.h
-LseHeartbeatPacket.h
-LseLogonPacket.h
-LseLogonReplyPacket.h
-LseLogoutPacket.h
-LseMissedMessageReportPacket.h
-LseMissedMessageRequestAckPacket.h
-LseMissedMessageRequestPacket.h
-LseNewOrderCrossPacket.h
-LseNewOrderPacket.h
-LseOrderCancelRejectPacket.h
-LseOrderCancelReplaceRequestPacket.h
-LseOrderCancelRequestPacket.h
-LseOrderMassCancelReportPacket.h
-LseOrderMassCancelRequestPacket.h
-LsePackets.h
-LsePacketUtils.h
-LseRejectPacket.h
-LseSystemStatusPacket.h
-    )
+#
+# Copyright 2014-2018 Neueda Ltd.
+#
+file (GLOB LSE_HEADERS "*.h")
 
 install(FILES ${LSE_HEADERS}
-    DESTINATION include/lse/packets
+    DESTINATION include/codec/millennium/lse/packets
     )

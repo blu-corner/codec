@@ -1,0 +1,626 @@
+#!/usr/bin/env python
+from lxml import etree as ET
+import os
+import argparse
+from wheezy.template.engine import Engine
+from wheezy.template.ext.core import CoreExtension
+from wheezy.template.loader import FileLoader
+import re
+from string import Template
+from datetime import datetime
+
+
+msgs = []
+enums = []
+enum_data = {}
+types = {}
+sets = {}
+msg_data = {}
+composites = {}
+composite_data = {}
+groups = []
+
+
+def capitalise(txt):
+    return txt[0].upper() + txt[1:]
+
+
+class Field(dict):
+    def is_group(self):
+        return False
+
+
+class Group():
+    def __init__(self, attrib):
+        self._attrib = attrib
+        self.fields = []
+        self._attrib['original_name'] = self.name
+
+    @property
+    def type(self):
+        return 'optiq' + capitalise(self._attrib['dimensionType']) + 'Packet'
+
+    @property
+    def name(self):
+        return capitalise(self._attrib['name'])
+
+    @property
+    def original_name(self):
+        return capitalise(self._attrib['original_name'])
+
+    @property
+    def id(self):
+        return self._attrib['id']
+
+    def append_field(self, f):
+        self.fields.append(f)
+
+    def is_group(self):
+        return True
+
+
+def get_null(t):
+    if t == 'uint8' or t == 'uint8_t' or t == 'unsigned_char':
+        return 'UINT8_MAX'
+    elif 'uint' in t:
+        return types[t]['primitiveType'].upper() + '_MAX'
+    elif 'int' in t:
+        return types[t]['primitiveType'].upper() + '_MIN'
+    else:
+        return '//TODO unhandled type for get_null {0}'.format(t)
+
+
+def get_optional_int_field(field, t, indent, pkt, cdr):
+    null_val = get_null(t)
+    res = Template("""
+${indent}if (${packet}->get${fieldName} () != ${null_val})
+${indent}    ${cdr}.setInteger (${fieldName}, ${packet}->get${fieldName} ());
+${indent}offset += sizeof (${t});""").\
+        substitute(**{'indent': indent * ' ',
+                      't': t,
+                      'fieldName': field['name'],
+                      'null_val': null_val,
+                      'packet': pkt,
+                      'cdr': cdr})
+    return res
+
+
+def get_int_field(field, t, indent, pkt, cdr):
+    res = Template("""
+${indent}${cdr}.setInteger (${fieldName}, ${packet}->get${fieldName} ());
+${indent}offset += sizeof (${t});""").\
+        substitute(**{'indent': indent * ' ', 't': t, 'fieldName': field['name'],
+                  'packet': pkt, 'cdr': cdr})
+    return res
+
+
+def get_string_field(field, t, indent, pkt, cdr):
+    # {t} val = packet->get{fieldName} ();
+    length = types[field['type']]['length']
+    res = Template("""
+${indent}${cdr}.setString (${fieldName}, ${packet}->get${fieldName} ());
+${indent}offset += ${length};""").\
+        substitute(**{'t': t, 'fieldName': field['name'], 'packet': pkt,
+                  'indent': indent * ' ',
+                  'cdr': cdr,
+                  'length': length})
+    return res
+
+
+def get_default_value(field, indent=0, field_type=None):
+    if field_type:
+        t = field_type
+    else:
+        t = field['type']
+
+    n = field['name']
+
+    if 'enum' in t or 'set' in t:
+        return Template("${indent}m${name} = 0;").\
+                substitute(**{'indent': indent * ' ',
+                              'name': n})
+    elif 'char' in t and 'unsigned' not in t:
+        return Template("${indent}memset (m${name}, 0, ${length});").\
+                        substitute(**{'indent': indent * ' ',
+                                      'name': n,
+                                      'length': types[t]['length']})
+    else:
+        null_val = 0
+        if field['optional']:
+            null_val = get_null(t)
+        
+        return Template("${indent}m${name} = ${null};").\
+                        substitute(**{'indent': indent * ' ',
+                                      'name': n,
+                                      'null': null_val})
+
+
+def packet_get_set_string(field, indent=4):
+    return Template("""
+${indent}${field_type} get${field_name} () const
+${indent}{
+${indent}    return getString (m${field_name}, sizeof (m${field_name}));
+${indent}}
+
+${indent}bool set${field_name} (const ${field_type}& val)
+${indent}{
+${indent}    return setString (m${field_name}, val, sizeof (m${field_name}));
+${indent}}""").substitute(**{'indent': indent * ' ',
+                             'field_type': get_field_type(field),
+                             'field_name': field['name']})
+
+
+def packet_get_set_int(field, indent=4):
+    return Template("""
+${indent}${field_type} get${field_name} () const
+${indent}{
+${indent}    return m${field_name};
+${indent}}
+
+${indent}bool set${field_name} (${field_type} val)
+${indent}{
+${indent}    m${field_name} = val;
+${indent}    return true;
+${indent}}""").substitute(**{'indent': indent * ' ',
+                             'field_type': get_field_type(field),
+                             'field_name': field['name']})
+
+def packet_get_set_set_choices(field):
+    ft = get_field_type(field)
+    s = sets[field['type']]
+
+    res = ""
+    for choice in s['choices']:
+        res += Template("""
+${indent}bool get${field_name}_${choice_name} () const
+${indent}{
+${indent}    return ((m${field_name} >> OPTIQ_${field_tname_upper}_${choice_name_upper}) & 1);
+${indent}}
+
+${indent}void set${field_name}_${choice_name} ()
+${indent}{
+${indent}    m${field_name} |= OPTIQ_${field_tname_upper}_${choice_name_upper};
+${indent}}
+""").substitute(**{'indent': 4 * ' ',
+                             'field_name': field['name'],
+                             'field_name_upper': field['name'].upper(),
+                             'field_tname': field['type'].replace('_set', ''),
+                             'field_tname_upper': field['type'].replace('_set', '').upper(),
+                             'choice_name': choice['name'],
+                             'choice_name_upper': choice['name'].upper()})
+    return res
+
+def packet_get_set(field, indent=4, field_type=None):
+    if isinstance(field, Group):
+        return
+
+    if not field_type:
+        field_type = get_field_type(field);
+
+    if '_set' in field['type']:
+        res = packet_get_set_int(field, indent)
+        res += packet_get_set_set_choices(field)
+        return res
+
+    if 'int' in field_type:
+        return packet_get_set_int(field, indent)
+    elif 'string' in field_type:
+        return packet_get_set_string(field, indent)
+    else:
+        if field['type'] == 'unsigned_char':
+            return packet_get_set_int(field, indent)
+        return '//TODO unhandled type {0}'.format(field_type)
+
+
+def get_comp_field_type(field):
+    pt = field['primitiveType']
+    for n, t in types.items():
+        if t['primitiveType'] == pt:
+            return n
+
+
+def get_field_initialise(field, indent=4):
+    t = get_field_type(field)
+    if t == 'string':
+        t = types[field['type']]
+        l = t['length']
+        return Template("${indent}char m${field_name}[${len}];").\
+                substitute(**{'indent': indent * ' ',
+                              'field_name': field['name'],
+                              'len': l})
+    else:
+        return Template("${indent}${type} m${field_name};").\
+                substitute(**{'indent': indent * ' ',
+                              'field_name': field['name'],
+                              'type': t})
+
+
+def get_field_type(field):
+    name = field['name']
+    t = field['type']
+    if t == 'unsigned_char':
+        t = 'uint8_t'
+    elif 'enum' in t:
+        t = 'uint8_t'
+    elif 'set' in t:
+        s = sets[t]
+        if s['encodingType'] == 'uint8':
+            t = 'uint8_t'
+        elif s['encodingType'] == 'uint16':
+            t = 'uint16_t'
+        else:
+            return "//TODO UNHANDLED SET TYPE\n"
+    elif re.search('char\d+', t):
+        t = 'string'
+
+    return t
+
+
+def get_field(field, indent=4, pkt='packet', cdr='d'):
+    if isinstance(field, Group):
+        group = field
+        comp = composites[group.type]
+        group_packet = 'optiq' + group.name + 'Packet'
+
+        res = Template("""
+${indent}${comp_name}* gse${id} = (${comp_name}*)((char*)buf + offset);
+${indent}offset += sizeof (${comp_name});
+${indent}
+${indent}cdrArray ${original_name}Array;
+${indent}for (int i = 0; i < gse${id}->getNumInGroup (); i++)
+${indent}{
+${indent}    cdr item;
+${indent}    ${group_packet}* g${group_name} = (${group_packet}*) ((char*)buf + offset);
+""").substitute(**{'indent': indent * ' ',
+                  'comp_name': comp['name'],
+                  'id': group.id,
+                  'original_name': group.original_name,
+                  'group_name': group.name,
+                  'group_packet': group_packet
+                 }
+               )
+
+        for field in group.fields:
+            res += get_field(field, indent + 4, 'g' + group.name, 'item') \
+                + "\n"
+        res += "\n"
+        res += "        {0}Array.push_back (item);\n".format(group.original_name)
+        res += "    }\n"
+        res += "    d.setArray ({0}, {0}Array);\n".format(group.original_name)
+        return res
+
+    field_type = get_field_type(field)
+
+    if 'int' in field_type:
+        if field['optional']:
+            return get_optional_int_field(field, field_type, indent, pkt, cdr)
+        else:
+            return get_int_field(field, field_type, indent, pkt, cdr)
+
+    elif 'string' in field_type:
+        return get_string_field(field, field_type, indent, pkt, cdr)
+
+    return "//TODO UNHANDLED {0} type {1}".format(field['name'], field_type)
+
+
+def set_string_field(field, field_type, indent, pkt, cdr):
+    length = types[field['type']]['length']
+    res = Template("""
+${indent}$fieldType $lowerName;
+${indent}if (!${cdr}.getString ($name, $lowerName))
+$indent{
+$indent    setLastError ("${name} missing or not string");
+$indent    return GW_CODEC_ERROR;
+$indent}
+${indent}${packet}->set${name} (${lowerName});
+${indent}offset += ${length};""").\
+    substitute(**{'fieldType': field_type,
+                  'indent': ' ' * indent,
+                  'name': field['name'],
+                  'lowerName': field['name'].lower(),
+                  'cdr': cdr,
+                  'packet': pkt,
+                  'length': length
+                  })
+    return res
+
+
+def set_optional_int_field(field, field_type, indent, pkt, cdr):
+    null_val = get_null(field_type); 
+    res = Template("""
+${indent}$fieldType $lowerName;
+${indent}if (!${cdr}.getInteger ($name, $lowerName))
+${indent}    ${packet}->set${name} (${null_val});
+${indent}else
+${indent}    ${packet}->set${name} (${lowerName});
+${indent}offset += sizeof ($fieldType);
+${indent}""").\
+    substitute(**{'fieldType': field_type,
+                  'indent': ' ' * indent,
+                  'name': field['name'],
+                  'lowerName': field['name'].lower(),
+                  'null_val': null_val,
+                  'cdr': cdr,
+                  'packet': pkt
+                  })
+    return res
+
+def set_int_field(field, field_type, indent, pkt, cdr):
+    res = Template("""
+${indent}$fieldType $lowerName;
+${indent}if (!${cdr}.getInteger ($name, $lowerName))
+$indent{
+$indent    setLastError ("${name} missing or not integer");
+$indent    return GW_CODEC_ERROR;
+$indent}
+${indent}${packet}->set${name} (${lowerName});
+${indent}offset += sizeof ($fieldType);""").\
+    substitute(**{'fieldType': field_type,
+                  'indent': ' ' * indent,
+                  'name': field['name'],
+                  'lowerName': field['name'].lower(),
+                  'cdr': cdr,
+                  'packet': pkt
+                  })
+    return res
+
+
+def set_field(field, indent=4, pkt='packet', cdr='d'):
+    if isinstance(field, Group):
+        group = field
+        comp = composites[group.type]
+        group_packet = 'optiq' + group.name + 'Packet'
+
+        res = Template(
+"""
+${indent}${comp_name}* gse${id} = (${comp_name}*)((char*)buf + offset);
+${indent}offset += sizeof (${comp_name});
+${indent}
+${indent}gse${id}->setNumInGroup (d.getArraySize (${group_name}));
+${indent}gse${id}->setBlockLength (sizeof (${group_packet}));
+${indent}
+${indent}if (d.getArraySize (${group_name}) > 0)
+${indent}{
+${indent}    cdrArray* ${group_name}Array = NULL;
+${indent}    d.getArray ($group_name, (const cdrArray**)(&${group_name}Array));
+${indent}    for (cdrArray::iterator it = ${group_name}Array->begin(); it != ${group_name}Array->end(); ++it)
+${indent}    {
+${indent}        cdr& item = *it;
+${indent}        ${group_packet}* ${group_name_lower} = (${group_packet}*) ((char*)buf + offset);
+"""
+        ).substitute(**{'indent': ' ' * indent,
+                        'comp_name': comp['name'],
+                        'id': group.id,
+                        'packet': pkt,
+                        'group_packet': group_packet,
+                        'group_name': group.original_name,
+                        'group_name_lower': group.original_name.lower()})
+
+        for field in group.fields:
+            res += set_field(field, indent + 8, group.original_name.lower(), 'item') + \
+                '\n'
+
+        res += "\n        }"
+        res += "\n    }"
+        return res
+
+    field_type = get_field_type(field)
+
+    if 'int' in field_type:
+        if field['optional']:
+            return set_optional_int_field(field, field_type, indent, pkt, cdr)
+        else:
+            return set_int_field(field, field_type, indent, pkt, cdr)
+
+    elif 'string' in field_type:
+        return set_string_field(field, field_type, indent, pkt, cdr)
+
+    return "//TODO UNHANDLED {0} type {1}\n".format(field['name'], field_type)
+
+
+def load_xml_context(fxml):
+    xml = ET.parse(fxml)
+    root = xml.getroot()
+
+    global enums
+    global enum_data
+    global msgs
+    global types
+    global sets
+    global msg_data
+    global composites
+    global groups
+    global composite_data
+
+    types_root = root.findall('types')[0]
+
+    for ts in types_root.findall('type'):
+        types[ts.attrib['name']] = ts.attrib
+
+    for s in types_root.findall('set'):
+        st = dict(s.attrib)
+        st['name'] = st['name']
+        st['new_name'] = st['name'].replace('_set', '')
+        st['choices'] = []
+        for c in s.findall('choice'):
+            choice = dict(c.attrib)
+            choice['text'] = c.text
+            st['choices'].append(choice)
+
+        sets[st['name']] = st
+
+    for e in types_root.findall('enum'):
+        enum = dict(e.attrib)
+        enum['name'] = enum['name'].replace('_enum', '')
+        enum_data[enum['name']] = []
+        enums.append(enum)
+        for v in e.findall('validValue'):
+            val = dict(v.attrib)
+            val['text'] = v.text
+            enum_data[enum['name']].append(val)
+
+    for composite in types_root.findall('composite'):
+        comp = dict(composite.attrib)
+        comp['name'] = 'optiq' + comp['name'][0].upper() + \
+            comp['name'][1:] + 'Packet'
+        composites[comp['name']] = comp
+        composite_data[comp['name']] = []
+
+        for t in composite.findall('type'):
+            field = Field(t.attrib)
+            field['name'] = field['name'][0].upper() + field['name'][1:]
+            field['type'] = get_comp_field_type(field)
+            field['optional'] = False
+            composite_data[comp['name']].append(field)
+
+
+    for message in root.findall('{http://fixprotocol.io/2016/sbe}message'):
+        msg = message.attrib
+        msg_name = msg['name'][0].upper() + msg['name'][1:]
+        msg['name'] = msg_name
+        msgs.append(msg)
+
+        msg_data[msg_name] = []
+        for child in message.getchildren():
+            if child.tag == 'field':
+                field = Field(child.attrib)
+                field['name'] = field['name'][0].upper() + field['name'][1:]
+                field['optional'] = field.get('presence', None) == 'optional'
+                msg_data[msg_name].append(field)
+            elif child.tag == 'group':
+                group = Group(child.attrib)
+                group.name = msg_name + group.name
+                for gchild in child.getchildren():
+                    field = Field(gchild.attrib)
+                    field['name'] = field['name'][0].upper() + field['name'][1:]
+                    field['optional'] = \
+                        field.get('presence', None) == 'optional'
+                    group.append_field(field)
+                msg_data[msg_name].append(group)
+                groups.append(group)
+
+    return {
+        'enums': enum,
+        'enum_data': enum_data,
+        'generation_date': datetime.now().strftime("%H:%M:%S %d/%m/%y"),
+        'name': 'optiq',
+        'venue': 'optiq',
+        'Venue': 'Optiq',
+        'VENUE': 'Optiq'.upper(),
+        'messages': msgs,
+        'msg_data': msg_data,
+        'test': {'hello': 100},
+        'types': types,
+        'composites': composites,
+        'sets': sets,
+        'get_field': get_field,
+        'set_field': set_field,
+        'get_field_type': get_field_type,
+        'version': 102,
+        'get_default_value': get_default_value,
+        'packet_get_set': packet_get_set,
+        'get_comp_field_type': get_comp_field_type,
+        'groups': groups,
+        'get_field_initialise': get_field_initialise
+    }
+
+
+def generate_group_packets (context, output_directory, template_dir):
+    for group in groups:
+        destinationName = 'optiq{0}Packet.h'.format(group.name)
+        context['group_name'] = group.name
+        context['group'] = group
+        transform(context,
+                  os.path.join(template_dir, 'group_packet_h.t'),
+                  os.path.join(output_directory, destinationName))
+
+
+def generate_composite_packets (context, output_directory, template_dir):
+    context['composites'] = composites
+    context['composite_data'] = composite_data
+    for comp in composites:
+        destinationName = '{0}.h'.format(comp)
+        context['comp_name'] = comp
+        transform(context,
+                  os.path.join(template_dir, 'composite_packet_h.t'),
+                  os.path.join(output_directory, destinationName))
+
+
+def generate_msg_packets (context, output_directory, template_dir):
+    for msg in context['messages']:
+        destinationName = '{0}{1}Packet.h'.format(context['Venue'].lower(),
+                                                   msg['name'])
+        context['msg_name'] = msg['name']
+        transform(context,
+                  os.path.join(template_dir, 'msg_packet_h.t'),
+                  os.path.join(output_directory, destinationName))
+
+def generate_packet_includes (context, output_directory, template_dir):
+    destinationName = '{0}Packets.h'.format(context['venue'])
+    transform(context, os.path.join(template_dir, 'venue_packets_h.t'),
+              os.path.join(output_directory, destinationName))
+
+
+def generate_codec(context, output_directory, template_dir):
+    template_h = os.path.join(template_dir, 'codec_h.t')
+    template_cpp = os.path.join(template_dir, 'codec_cpp.t')
+
+    target_h = os.path.join(output_directory,
+                            '{0}Codec.h'.format(context['venue']))
+    target_cpp = os.path.join(output_directory,
+                              '{0}Codec.cpp'.format(context['venue']))
+
+    transform(context, template_h, target_h)
+    transform(context, template_cpp, target_cpp)
+
+
+def generate_constants(context, output_directory, template_dir):
+    template = os.path.join(template_dir, 'venue_constants_h.t')
+
+    target = os.path.join(output_directory, 'optiqConstants.h')
+
+    transform(context, template, target)
+
+
+def transform(context, template, target):
+    searchpath = ['.']
+    engine = Engine(
+        loader=FileLoader(searchpath),
+        extensions=[CoreExtension()]
+    )
+
+    template = engine.get_template(template)
+    with open(target, 'w') as fd:
+        fd.write(template.render(context))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Generate Codec Files')
+    parser.add_argument('-v', dest='venue_xml', type=str, help='Venue.xml')
+    parser.add_argument('-t', dest='template_dir', type=str, help='folder \
+                        containing templates', default='./')
+    parser.add_argument('-o', dest='output', type=str, default='./',
+                        help='output directory')
+    args = parser.parse_args()
+
+    context = load_xml_context(args.venue_xml)
+
+    if not os.path.exists(args.output):
+        os.makedirs(args.output)
+
+    generate_packet_includes(context,
+                             os.path.join(args.output, 'packets'),
+                             args.template_dir)
+
+    generate_codec(context, args.output, args.template_dir)
+    generate_constants(context, args.output, args.template_dir)
+
+    generate_msg_packets(context,
+                         os.path.join(args.output, 'packets'),
+                         args.template_dir)
+    generate_composite_packets(context,
+                               os.path.join(args.output, 'packets'),
+                               args.template_dir)
+    generate_group_packets(context,
+                               os.path.join(args.output, 'packets'),
+                               args.template_dir)

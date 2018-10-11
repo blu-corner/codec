@@ -1,0 +1,417 @@
+#!/usr/bin/env python
+from wheezy.template.engine import Engine
+from wheezy.template.ext.core import CoreExtension
+from wheezy.template.loader import FileLoader
+from lxml import etree as ET
+from string import Template
+from datetime import datetime
+import os
+import sys
+import argparse
+import re
+import pprint
+
+endianness = None
+
+
+def is_left_padded(f):
+    # is left padded when right aligned
+    return f['stringAlignment'] == 'right'
+
+
+def is_right_padded(f):
+    return f['stringAlignment'] == 'right'
+
+
+def is_number(f):
+    return f['type'] == 'number'
+
+
+def is_string(f):
+    return (f['type'] == 'char' or f['type'] == 'number') and 'length' in f
+
+
+def is_variable_length_string(f):
+    return (is_string(f)) and f['length'] == '-'
+
+def is_char(f):
+    return f['type'] == 'char' and 'length' not in f
+
+def is_int(f):
+    return 'int' in f['type']
+
+def is_short(f):
+    return 'int' in f['type'] and '16' in f['type']
+
+def is_64bit(f):
+    return 'int' in f['type'] and '64' in f['type']
+
+def is_big_endian(f):
+    return True if 'Endianness' in f and f['Endianness'] == 'big' else endianness == 'big'
+
+def int_get_default(f):
+    if 'default' in f:
+        return int(f['default'])
+    else:
+        return 0
+
+
+def rreplace(s, old, new, occurrence):
+    li = s.rsplit(old, occurrence)
+    return new.join(li)
+
+
+def to_string(msg_name, data, prefix):
+    fields = data['fields']
+    output = []
+    output.append("{0}stringstream ss;".format(prefix))
+    if len(fields) < 1:
+        output.append("{0}ss << \"{1}::null\";".format(prefix, msg_name))
+    else:
+        output.append("{0}ss << \"{1}::\"".format(prefix, msg_name))
+        end = len(fields) - 1
+        count = 0
+        for f in fields:
+            name = f['name']
+            x = ''
+            if f['type'] == 'uint8_t':
+                x = "{0}   << \"[{1}=\" << unsigned(get{1} ()) << \"]".\
+                     format(prefix, name)
+            else:
+                x = "{0}   << \"[{1}=\" << get{1} () << \"]".\
+                     format(prefix, name)
+
+            if count == end:
+                x += "\";"
+            else:
+                x += ",\""
+
+            output.append(x)
+            count += 1
+
+    # output.append("{0}   << endl;".format(prefix));
+    output.append("{0}return ss.str ();".format(prefix))
+    output = '\n'.join(output)
+    return output
+    # return rreplace(output, ',', '', 1)
+
+
+def msg_members(data, prefix):
+    fields = data['fields']
+    output = []
+    for f in fields:
+        if is_variable_length_string(f):
+            output.append('{0}char m{1};'.
+                          format(prefix, f['name']))
+        elif is_string(f):
+            output.append('{0}char m{1}[{2}];'.
+                          format(prefix, f['name'], f['length']))
+        if is_int(f) or is_char(f):
+            output.append('{0}{1} m{2};'.
+                          format(prefix, f['type'], f['name']))
+
+    return '\n'.join(output)
+
+
+def standard_get_set(prefix, type, name):
+    return Template("""${prefix}bool set$name ($type v)
+$prefix{
+$prefix    m$name = v;
+$prefix    return true;
+$prefix}
+
+${prefix}$type get$name ()
+$prefix{
+$prefix    return m$name;
+$prefix}
+""").safe_substitute({'prefix': prefix, 'type': type, 'name': name})
+
+
+def integer_short_big_endian_get_set(prefix, type, name):
+    return Template("""${prefix}bool set$name ($type v)
+$prefix{
+$prefix    m$name = htons (v);
+$prefix    return true;
+$prefix}
+
+${prefix}$type get$name ()
+$prefix{
+$prefix    return ntohs (m$name);
+$prefix}
+""").safe_substitute({'prefix': prefix, 'type': type, 'name': name})
+
+
+def integer_64_big_endian_get_set(prefix, type, name):
+    return Template("""${prefix}bool set$name ($type v)
+$prefix{
+$prefix    m$name = htonll (v);
+$prefix    return true;
+$prefix}
+
+${prefix}$type get$name ()
+$prefix{
+$prefix    return ntohll (m$name);
+$prefix}
+""").safe_substitute({'prefix': prefix, 'type': type, 'name': name})
+
+
+def integer_big_endian_get_set(prefix, type, name):
+    return Template("""${prefix}bool set$name ($type v)
+$prefix{
+$prefix    m$name = htonl (v);
+$prefix    return true;
+$prefix}
+
+${prefix}$type get$name ()
+$prefix{
+$prefix    return ntohl (m$name);
+$prefix}
+""").safe_substitute({'prefix': prefix, 'type': type, 'name': name})
+
+
+def string_left_padded_get_set(prefix, name, length, paddingChar):
+    return Template("""${prefix}bool set${name} (const string& v)
+$prefix{
+$prefix    return setLeftPaddedStringBuf (v, m$name, $length, '$paddingChar');
+$prefix}
+
+${prefix}string get$name ()
+$prefix{
+$prefix    std::string output;
+$prefix    getLeftPaddedString (m$name, $length, '$paddingChar', output);
+$prefix    return output;
+$prefix}
+""").safe_substitute(prefix=prefix, name=name, length=length, paddingChar=paddingChar);
+
+
+def string_right_padded_get_set(prefix, name, length, paddingChar):
+    return Template("""${prefix}bool set${name} (const string& v)
+$prefix{
+$prefix    return setRightPaddedStringBuf (v, m$name, $length, '$paddingChar');
+$prefix}
+
+${prefix}string get$name ()
+$prefix{
+$prefix    std::string output;
+$prefix    getRightPaddedString (m$name, $length, '$paddingChar', output);
+$prefix    return output;
+$prefix}
+""").safe_substitute(prefix=prefix, name=name, length=length, paddingChar=paddingChar);
+
+
+def string_left_padded_number_get_set(prefix, name, length, paddingChar):
+    return Template("""${prefix}bool set${name} (int v)
+$prefix{
+$prefix    std::ostringstream oss;
+$prefix    oss << v;
+$prefix    if (oss.bad ())
+$prefix        return false;
+$prefix    std::string stringValue = oss.str ();
+$prefix    return setLeftPaddedStringBuf (stringValue, m$name, $length, '$paddingChar');
+$prefix}
+
+${prefix}int get$name ()
+$prefix{
+$prefix    std::string output;
+$prefix    getLeftPaddedString (m$name, $length, '$paddingChar', output);
+$prefix    std::istringstream iss(output);
+$prefix    int value;
+$prefix    iss >> value;
+$prefix    return value;
+$prefix}
+""").safe_substitute(prefix=prefix, name=name, length=length, paddingChar=paddingChar);
+
+
+def string_right_padded_number_get_set(prefix, name, length, paddingChar):
+    return Template("""${prefix}bool set${name} (int v)
+$prefix{
+$prefix    std::ostringstream oss;
+$prefix    oss << v;
+$prefix    if (oss.bad ())
+$prefix        return false;
+$prefix    std::string stringValue = oss.str ();
+$prefix    return setRightPaddedStringBuf (stringValue, m$name, $length, '$paddingChar');
+$prefix}
+
+${prefix}int get$name ()
+$prefix{
+$prefix    std::string output;
+$prefix    getRightPaddedString (m$name, $length, '$paddingChar', output);
+$prefix    std::istringstream iss(output);
+$prefix    int value;
+$prefix    iss >> value;
+$prefix    return value;
+$prefix}
+""").safe_substitute(prefix=prefix, name=name, length=length, paddingChar=paddingChar);
+
+
+
+def msg_get_set(data, prefix):
+    fields = data['fields']
+    output = []
+    for f in fields:
+        
+        if is_variable_length_string(f):
+            output.append(standard_get_set(prefix, f['type'], f['name']))
+            
+        elif is_number(f):
+            if is_left_padded(f):
+                output.append(string_left_padded_number_get_set(prefix, f['name'], f['length'], data['padding']))
+            else:
+                output.append(string_right_padded_number_get_set(prefix, f['name'], f['length'], data['padding']))
+                
+        elif is_string(f):
+            if is_left_padded(f):
+                output.append(string_left_padded_get_set(prefix, f['name'], f['length'], data['padding']))
+            else:
+                output.append(string_right_padded_get_set(prefix, f['name'], f['length'], data['padding']))
+
+        elif is_int(f) and is_big_endian (f):
+            if is_short(f):
+                output.append(integer_short_big_endian_get_set(prefix, f['type'], f['name']))
+            elif is_64bit(f):
+                output.append(integer_64_big_endian_get_set(prefix, f['type'], f['name']))
+            else:
+                output.append(integer_big_endian_get_set(prefix, f['type'], f['name']))
+            
+        else:
+            output.append(standard_get_set(prefix, f['type'], f['name']))
+
+    return '\n'.join(output).rstrip('\n')
+
+
+def default_constructor(data, prefix):
+    fields = data['fields']
+    output = []
+    for f in fields:
+        if is_int(f):
+            output.append("{0}m{1} = {2};".\
+                          format(prefix, f['name'], int_get_default(f)))
+        if is_string(f):
+            if f['default']:
+                output.append("{0}set{1} ({2});".\
+                              format(prefix, f['name'], f['default']))
+            elif f['length'] != '-':
+                output.append("{0}memset (m{1}, \'{2}\', {3});".
+                              format(prefix, f['name'], data['padding'], f['length']))
+        #
+        # output.append('\n')
+
+    return '\n'.join(output)
+
+
+def parse_field(field):
+    f = {}
+    for k, v in field.items():
+        f[k] = v
+
+    f['name'] = re.sub(' ', '', f['name'])
+
+    if 'int' in f['type']:
+        if 'default' in f:
+            f['default'] = int(f['default'])
+        else:
+            f['default'] = 0
+    else:
+        if 'default' not in f:
+            f['default'] = None
+    return f
+
+
+def transform(context, template, target):
+    searchpath = ['.']
+    engine = Engine(
+        loader=FileLoader(searchpath),
+        extensions=[CoreExtension()]
+    )
+
+    template = engine.get_template(template)
+    with open(target, 'w') as fd:
+        fd.write(template.render(context))
+
+def msg_header_guard(venue, msgname):
+    return """#ifndef {0}_{1}_PACKET_H
+#define {0}_{1}_PACKET_H""".format(venue.upper(), msgname.upper())
+
+
+parser = argparse.ArgumentParser(description='Generate Packets.h')
+parser.add_argument('-v', dest='venue_xml', type=str, help='Venue.xml')
+parser.add_argument('-m', dest='message', action='append', type=str, default=[],
+                    help='messages to process')
+parser.add_argument('-o', dest='output', type=str, default='./',
+                    help='output directory')
+args = parser.parse_args()
+
+vxml = ET.parse(args.venue_xml)
+root = vxml.getroot()
+venue_name = root.attrib['name'].lower()
+
+xmlmsgs = root.findall('message')
+xhdr = root.findall('header')
+xglobal = root.findall('Global')[0]
+globalParameters = xglobal.findall('parameter')
+endianness = tuple(filter(lambda i: i.attrib['name'] == 'Endianness', globalParameters))[0].attrib['value']
+
+msg_types = {}
+messages = []
+message_data = {}
+
+messages.append('Header')
+msg_fields = []
+for field in xhdr[0].findall('field'):
+    msg_fields.append(parse_field(field.attrib))
+    
+message_data['Header'] = dict(xhdr[0].attrib)
+message_data['Header']['type'] = None
+message_data['Header']['fields'] = msg_fields
+
+for x in xmlmsgs:
+    if not args.message or x.attrib['name'] in args.message:
+        msg_name = re.sub(' ', '', x.attrib['name'])
+        msg_type = x.attrib['msgtype']
+        msg_types[msg_name] = msg_type
+        proto_msg_type = x.attrib['type'] if 'type' in x.attrib else None
+
+        messages.append(msg_name)
+        msg_fields = []
+        for field in x.findall('field'):
+            f = parse_field(field.attrib)
+
+            # ensure string alginment is passed along in fields
+            if 'char' in f['type'] or 'number' in f['type'] and 'stringAlignment' not in f.keys():
+                f['stringAlignment'] = x.attrib['stringAlignment']
+                
+            msg_fields.append(f)
+
+        message_data[msg_name] = dict(x.attrib)
+        message_data[msg_name]['type'] = proto_msg_type
+        message_data[msg_name]['fields'] = msg_fields
+
+# for m in message_data:
+#     print '\n%s' % m
+#     for f in message_data[m]:
+#         print '   %s' % f
+#     for i in message_data[m]['fields']:
+#         print i
+
+context = {}
+context['message_data'] = message_data
+context['msg_types'] = msg_types
+context['venue'] = venue_name
+context['uvenue'] = context['venue'].upper()
+context['generation'] = datetime.now().strftime("%d/%m/%Y")
+
+transform(context, 'packet_h.t', os.path.join(args.output, '%sPackets.h' %
+                                              venue_name))
+
+for m in message_data:
+    context['msg_name'] = m
+    context['header_guard'] = msg_header_guard
+    context['msg_members'] = msg_members
+    context['msg_get_set'] = msg_get_set
+    context['default_constructor'] = default_constructor
+    context['to_string'] = to_string
+    transform(context, 'msg_packet_h.t',
+              os.path.join(args.output, '{0}{1}Packet.h'.format(venue_name, m)))
+
+transform(context, 'venue_i.t', os.path.join(args.output, "%s.i" % venue_name))

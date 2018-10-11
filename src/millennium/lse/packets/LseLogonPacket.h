@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_LOGON_PACKET_H
 #define LSE_LOGON_PACKET_H
@@ -9,14 +9,17 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseLogon
 {
     public:
+        LseHeader mHeader;
+
         char mUserName[25];
         char mPassword[25];
         char mNewPassword[25];
@@ -24,6 +27,9 @@ PACKED(class LseLogon
 
         LseLogon ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseLogon) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = 'A';
+
             memset (mUserName, '\0', 25);
             memset (mPassword, '\0', 25);
             memset (mNewPassword, '\0', 25);
@@ -83,6 +89,6 @@ PACKED(class LseLogon
         }
 });
 
-}
+} // namespace neueda
 
 #endif

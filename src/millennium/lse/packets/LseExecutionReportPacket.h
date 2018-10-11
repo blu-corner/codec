@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 20/12/2017
+ * Generated 21/09/2018
  */
 #ifndef LSE_EXECUTIONREPORT_PACKET_H
 #define LSE_EXECUTIONREPORT_PACKET_H
@@ -9,14 +9,17 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "LsePacketUtils.h"
+#include "MillenniumPacketUtils.h"
+#include "LseHeaderPacket.h"
 
-namespace LsePackets
+namespace neueda
 {
 
 PACKED(class LseExecutionReport
 {
     public:
+        LseHeader mHeader;
+
         uint8_t mAppID;
         int32_t mSequenceNo;
         char mExecutionID[12];
@@ -39,7 +42,8 @@ PACKED(class LseExecutionReport
         char mCounterParty[11];
         char mTradeLiquidityIndicator;
         uint64_t mTradeMatchID;
-        uint64_t mTransactTime;
+        uint32_t mTransactTimeSeconds;
+        uint32_t mTransactTimeUsecs;
         char mReservedField4;
         uint8_t mTypeOfTrade;
         uint8_t mCapacity;
@@ -49,6 +53,9 @@ PACKED(class LseExecutionReport
 
         LseExecutionReport ()
         {
+            mHeader.mMessageLength = (int16_t)sizeof (LseExecutionReport) - ((int16_t)sizeof (LseHeader) - 1);
+            mHeader.mMessageType = '8';
+
             mAppID = 0;
             mSequenceNo = 0;
             memset (mExecutionID, '\0', 12);
@@ -69,7 +76,8 @@ PACKED(class LseExecutionReport
             mReservedField3 = 0;
             memset (mCounterParty, '\0', 11);
             mTradeMatchID = 0;
-            mTransactTime = 0;
+            mTransactTimeSeconds = 0;
+            mTransactTimeUsecs = 0;
             mTypeOfTrade = 0;
             mCapacity = 0;
             memset (mPublicOrderID, '\0', 12);
@@ -313,15 +321,26 @@ PACKED(class LseExecutionReport
             return mTradeMatchID;
         }
 
-        bool setTransactTime (uint64_t v)
+        bool setTransactTimeSeconds (uint32_t v)
         {
-            mTransactTime = v;
+            mTransactTimeSeconds = v;
             return true;
         }
 
-        uint64_t getTransactTime ()
+        uint32_t getTransactTimeSeconds ()
         {
-            return mTransactTime;
+            return mTransactTimeSeconds;
+        }
+
+        bool setTransactTimeUsecs (uint32_t v)
+        {
+            mTransactTimeUsecs = v;
+            return true;
+        }
+
+        uint32_t getTransactTimeUsecs ()
+        {
+            return mTransactTimeUsecs;
         }
 
         bool setReservedField4 (char v)
@@ -415,7 +434,8 @@ PACKED(class LseExecutionReport
                << "[CounterParty=" << getCounterParty () << "],"
                << "[TradeLiquidityIndicator=" << getTradeLiquidityIndicator () << "],"
                << "[TradeMatchID=" << getTradeMatchID () << "],"
-               << "[TransactTime=" << getTransactTime () << "],"
+               << "[TransactTimeSeconds=" << getTransactTimeSeconds () << "],"
+               << "[TransactTimeUsecs=" << getTransactTimeUsecs () << "],"
                << "[ReservedField4=" << getReservedField4 () << "],"
                << "[TypeOfTrade=" << unsigned(getTypeOfTrade ()) << "],"
                << "[Capacity=" << unsigned(getCapacity ()) << "],"
@@ -426,6 +446,6 @@ PACKED(class LseExecutionReport
         }
 });
 
-}
+} // namespace neueda
 
 #endif
