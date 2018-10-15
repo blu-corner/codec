@@ -4,8 +4,6 @@
 cmake_minimum_required(VERSION 2.8.0)
 project(codec CXX)
 
-set(CMAKE_C_COMPILER gcc)
-set(CMAKE_CXX_COMPILER g++)
 set(SUBMODULE_FLAGS -DTESTS=off)
 
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
