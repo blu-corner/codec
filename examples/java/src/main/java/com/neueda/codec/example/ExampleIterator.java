@@ -12,7 +12,7 @@ import com.neueda.codec.CodecFactory;
 import com.neueda.codec.DecodeResults;
 import java.nio.file.Files;
 
-class CdrReader implements Iterable<Cdr> {
+class CodecReader implements Iterable<Cdr> {
 
     private InputStream istream;
     private Codec codec;
@@ -24,7 +24,7 @@ class CdrReader implements Iterable<Cdr> {
     private boolean hasNext = false;
     private Cdr initialCdr;
 
-    public CdrReader(String fileName, String codec)
+    public CodecReader(String fileName, String codec)
             throws IOException, FileNotFoundException {
 
         this.istream = new FileInputStream(new File(fileName));
@@ -96,8 +96,8 @@ class CdrReader implements Iterable<Cdr> {
     public Iterator<Cdr> iterator() {
         return new Iterator<Cdr>() {
 
-            private boolean _hasNext = CdrReader.this.hasNext;
-            private Cdr _nextCdr = CdrReader.this.initialCdr;
+            private boolean _hasNext = CodecReader.this.hasNext;
+            private Cdr _nextCdr = CodecReader.this.initialCdr;
 
             @Override
             public boolean hasNext() {
@@ -200,7 +200,7 @@ public class ExampleIterator {
             return;
         }
 
-        CdrReader reader = new CdrReader(fileName, codecName);
+        CodecReader reader = new CodecReader(fileName, codecName);
         for (Cdr cdr : reader) {
             System.out.println(cdr.toString());
         }
