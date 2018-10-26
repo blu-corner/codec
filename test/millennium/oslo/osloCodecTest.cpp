@@ -1,6 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda
  */
+#include <sbfCommon.h>
 #include <gtest/gtest.h>
 #include "osloCodec.h"
 #include "OsloPackets.h"
@@ -19,7 +20,7 @@ protected:
     {
         std::string errorMessage;
         bool ok = mFactory.get ("oslo", mOslo, errorMessage);
-        if (not ok)
+        if (!ok)
         {
             std::cout << errorMessage << std::endl;
             ASSERT_TRUE (ok);

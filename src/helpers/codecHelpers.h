@@ -8,7 +8,7 @@
 #define __STDC_LIMIT_MACROS
 #endif
 
-#include <arpa/inet.h>
+#include <sbfCommon.h>
 #include "cdr.h"
 
 #ifndef htonll

@@ -9,7 +9,11 @@
 #include "codec.h"
 #include <assert.h>
 
+#ifdef WIN32
+#define PACKED(d) __pragma( pack(push, 1) ) d __pragma( pack(pop) )
+#else
 #define PACKED(d) d __attribute__ ((__packed__))
+#endif
 
 namespace neueda
 {

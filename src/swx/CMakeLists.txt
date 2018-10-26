@@ -21,6 +21,8 @@ install(FILES ${SWX_CODEC_HEADERS}
     )
 
 install(TARGETS swxcodec EXPORT swxcodec
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 
 add_subdirectory(packets)

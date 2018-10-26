@@ -4,6 +4,7 @@
 #ifndef GW_CODEC_H
 #define GW_CODEC_H
 
+#include <sbfCommon.h>
 #include <string>
 #include <iomanip>
 #include "cdr.h"

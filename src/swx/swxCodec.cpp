@@ -170,7 +170,7 @@ swxCodec::getEnterOrderMessage (cdr &d, swxHeader* hdr)
                                     ' ',
                                     stringBuffer);
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;
     d.setString (BankInternalReference, stringBuffer);
     }
@@ -247,7 +247,7 @@ swxCodec::getAcceptedMessage (cdr &d, swxHeader* hdr)
                                     ' ',
                                     stringBuffer);
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;
     d.setString (BankInternalReference, stringBuffer);
     }
@@ -399,7 +399,7 @@ swxCodec::getLoginAcceptedMessage (cdr &d, swxHeader* hdr)
                                     ' ',
                                     stringBuffer);
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;
     d.setString (Session, stringBuffer);
     }
@@ -410,7 +410,7 @@ swxCodec::getLoginAcceptedMessage (cdr &d, swxHeader* hdr)
                                    ' ',
                                    stringBuffer);
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;            
 
     uint32_t value;
@@ -476,7 +476,7 @@ swxCodec::getLoginRequestMessage (cdr &d, swxHeader* hdr)
                                     ' ',
                                     stringBuffer);
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;
     d.setString (Username, stringBuffer);
     }
@@ -487,7 +487,7 @@ swxCodec::getLoginRequestMessage (cdr &d, swxHeader* hdr)
                                     ' ',
                                     stringBuffer);
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;
     d.setString (Password, stringBuffer);
     }
@@ -498,7 +498,7 @@ swxCodec::getLoginRequestMessage (cdr &d, swxHeader* hdr)
                                     ' ',
                                     stringBuffer);
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;
     d.setString (RequestedSession, stringBuffer);
     }
@@ -509,7 +509,7 @@ swxCodec::getLoginRequestMessage (cdr &d, swxHeader* hdr)
                                    ' ',
                                    stringBuffer);
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;            
 
     uint32_t value;
@@ -1598,7 +1598,7 @@ swxCodec::encode (const cdr& d, void* buf, size_t len, size_t& used)
     {
         std::string swxMessageTypeStr;
         bool ok = d.getString (Type, swxMessageTypeStr);
-        if (not ok)
+        if (!ok)
         {
             setLastError ("Type missing or not string");
             return GW_CODEC_ERROR;
@@ -1663,7 +1663,7 @@ swxCodec::encode (const cdr& d, void* buf, size_t len, size_t& used)
     {
         std::string swxMessageTypeStr;
         bool ok = d.getString (Type, swxMessageTypeStr);
-        if (not ok)
+        if (!ok)
         {
             setLastError ("Type missing or not string");
             return GW_CODEC_ERROR;

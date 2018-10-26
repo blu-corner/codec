@@ -22,6 +22,8 @@ install(FILES ${XETRA_CODEC_HEADERS}
     )
 
 install(TARGETS xetracodec EXPORT xetracodec
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 
 add_subdirectory(packets)

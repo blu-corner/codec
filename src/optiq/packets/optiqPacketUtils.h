@@ -4,7 +4,11 @@
 #ifndef OPTIQ_PACKET_UTILS_H
 #define OPTIQ_PACKET_UTILS_H
 
+#ifdef WIN32
+#define PACKED(d) __pragma( pack(push, 1) ) d __pragma( pack(pop) )
+#else
 #define PACKED(d) d __attribute__ ((__packed__))
+#endif
 
 namespace neueda
 {

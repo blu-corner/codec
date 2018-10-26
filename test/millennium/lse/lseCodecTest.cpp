@@ -1,6 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda
  */
+#include <sbfCommon.h>
 #include <gtest/gtest.h>
 #include "lse/lseCodec.h"
 #include "lse/packets/LsePackets.h"
@@ -20,7 +21,7 @@ protected:
     {
         std::string errorMessage;
         bool ok = mFactory.get ("lse", mLse, errorMessage);
-        if (not ok)
+        if (!ok)
         {
             std::cout << errorMessage << std::endl;
             ASSERT_TRUE (ok);

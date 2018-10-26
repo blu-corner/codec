@@ -21,6 +21,8 @@ install(FILES ${LSE_CODEC_HEADERS}
     )
 
 install(TARGETS lsecodec EXPORT lsecodec
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 
 add_subdirectory(packets)

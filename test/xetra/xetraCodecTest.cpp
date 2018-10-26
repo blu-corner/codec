@@ -1,3 +1,4 @@
+#include <sbfCommon.h>
 #include <gtest/gtest.h>
 
 #include "cdr.h"

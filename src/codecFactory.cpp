@@ -13,7 +13,11 @@ bool
 codecFactory::get (const char* type, codec*& codec, std::string& errorMessage)
 {
     std::ostringstream lib;
+#ifndef WIN32
     lib << "lib" << type << "codec" << SBF_SHLIB_SUFFIX;
+#else
+    lib << type << "codec.dll";
+#endif
     dl_handle handle = dl_open (lib.str ().c_str ());
 
     if (handle == NULL)

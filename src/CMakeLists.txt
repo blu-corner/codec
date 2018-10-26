@@ -23,12 +23,16 @@ target_link_libraries (codec utils cdr)
 add_dependencies (codec CDR_PROJECT UTILS_PROJECT)
 
 install(TARGETS codec EXPORT codec
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 
 
 add_subdirectory(helpers)
 add_subdirectory(fields)
-add_subdirectory(tools)
+if(NOT WIN32)
+    add_subdirectory(tools)
+endif()
 
 add_subdirectory(millennium)
 add_subdirectory(swx)
