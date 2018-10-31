@@ -173,7 +173,7 @@ else()
   set(LIBEVENT_CMAKE ${SUBMODULE_ROOT_DIR}/ext/libevent CACHE PATH "Location of libevent-cmake" FORCE)
   message(STATUS "libevent-location: " ${LIBEVENT_CMAKE})
   ExternalProject_Add(
-    LIBEVENT_PROJECT
+    libevent
     PREFIX ${SUBMODULE_PREFIX_DIR}
     SOURCE_DIR ${LIBEVENT_CMAKE}
     CMAKE_ARGS -DEVENT__DISABLE_TESTS=ON -DEVENT__DISABLE_REGRESS=ON -DEVENT__DISABLE_OPENSSL=ON -DEVENT__DISABLE_SAMPLES=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
@@ -192,7 +192,7 @@ ExternalProject_Add(
 ExternalProject_Get_Property(SBF_PROJECT binary_dir)
 set(SBF_PROJECT_DIR ${binary_dir}/lib/cmake/sbf CACHE PATH "location of sbf cmake files" FORCE)
 if (NOT EVENT_LIB)
-    add_dependencies(SBF_PROJECT LIBEVENT_PROJECT)
+    add_dependencies(SBF_PROJECT libevent)
 endif()
 set(CPACK_INSTALL_CMAKE_PROJECTS ${CPACK_INSTALL_CMAKE_PROJECTS} "${binary_dir};sbf;ALL;/")
 
