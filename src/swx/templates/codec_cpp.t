@@ -185,7 +185,7 @@ codecState
                                     stringBuffer);
                     @end
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;            
 
     uint32_t value;
@@ -225,7 +225,7 @@ codecState
                                     stringBuffer);
                     @end
     
-    if (not ok)
+    if (!ok)
         return GW_CODEC_ERROR;
     d.setString (@field['name'], stringBuffer);
     }
@@ -437,7 +437,7 @@ codecState
     {
         std::string swxMessageTypeStr;
         bool ok = d.getString (Type, swxMessageTypeStr);
-        if (not ok)
+        if (!ok)
         {
             setLastError ("Type missing or not string");
             return GW_CODEC_ERROR;

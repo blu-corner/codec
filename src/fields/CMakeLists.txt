@@ -14,5 +14,7 @@ add_library(fields SHARED
   )
 
 install(TARGETS fields EXPORT fields
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 

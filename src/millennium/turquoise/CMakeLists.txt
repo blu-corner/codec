@@ -18,6 +18,8 @@ install(FILES ${TURQ_CODEC_HEADERS}
     )
 
 install(TARGETS turquoisecodec EXPORT turquoisecodec
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 
 add_subdirectory(packets)

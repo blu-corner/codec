@@ -20,6 +20,8 @@ install(FILES ${OPTIQ_CODEC_HEADERS}
   )
 
 install(TARGETS optiqcodec EXPORT optiqcodec
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 
 add_subdirectory(packets)

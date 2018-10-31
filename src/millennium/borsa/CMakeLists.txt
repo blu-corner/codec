@@ -18,6 +18,8 @@ install(FILES ${BORSA_CODEC_HEADERS}
     )
 
 install(TARGETS borsacodec EXPORT borsacodec
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 
 add_subdirectory(packets)

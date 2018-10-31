@@ -1,6 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda
  */
+#include <sbfCommon.h>
 #include <gtest/gtest.h>
 #include "swx/swxCodec.h"
 #include "swx/packets/swxPackets.h"
@@ -19,7 +20,7 @@ protected:
     {
         std::string errorMessage;
         bool ok = mFactory.get ("swx", mSwx, errorMessage);
-        if (not ok)
+        if (!ok)
         {
             std::cout << errorMessage << std::endl;
             ASSERT_TRUE (ok);

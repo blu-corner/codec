@@ -1,3 +1,15 @@
+set(TEST_LIBS codec
+              lsecodec
+              xetracodec
+              oslocodec
+              codechelpers
+              gtest
+              gmock)
+
+if(NOT WIN32)
+    set(TEST_LIBS ${TEST_LIBS} pthread)
+endif()
+
 include_directories(
   ${PROJECT_SOURCE_DIR}/src
   ${PROJECT_SOURCE_DIR}/src/helpers
@@ -34,16 +46,7 @@ file(GLOB_RECURSE SRC_FILES
 
 add_executable(unittest main.cpp ${SRC_FILES})
 
-target_link_libraries(unittest
-  codec
-  lsecodec
-  xetracodec
-  oslocodec
-  codechelpers
-  gtest
-  gmock
-  pthread
-  )
+target_link_libraries(unittest ${TEST_LIBS})
 
 add_test(NAME unittest
   COMMAND unittest

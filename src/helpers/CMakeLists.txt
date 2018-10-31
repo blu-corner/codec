@@ -12,7 +12,7 @@ add_library(codechelpers SHARED
   codecHelpers.cpp
   )
 
-target_link_libraries(codechelpers cdr logger)
+target_link_libraries(codechelpers cdr logger sbfcommon sbfcore Ws2_32.lib)
 add_dependencies(codechelpers CDR_PROJECT LOGGER_PROJECT)
 
 install(FILES codecHelpers.h
@@ -20,5 +20,7 @@ install(FILES codecHelpers.h
     )
 
 install(TARGETS codechelpers EXPORT codechelpers
-  LIBRARY DESTINATION lib)
+    RUNTIME DESTINATION lib
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
 

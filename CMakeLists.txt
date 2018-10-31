@@ -17,6 +17,14 @@ option(CSHARP "Enable C# bindings" OFF)
 option(COVERAGE "Enable gcov coverage" OFF)
 option(EXAMPLES "Enable compilation of examples" ON)
 
+if(WIN32)
+  set(CMAKE_SHARED_LINKER_FLAGS "/FORCE:UNRESOLVED")
+  set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+  set(BUILD_SHARED_LIBS TRUE)
+  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
+endif()
+
 if(APPLE)
   set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
   set(CMAKE_XCODE_ATTRIBUTE_GCC_VERSION "com.apple.compilers.llvm.clang.1_0")
@@ -63,14 +71,13 @@ if (UNIX)
 endif (UNIX)
 
 # compile options
-add_compile_options(-Wall)
+add_compile_options(-Wall -c -g)
 if (DEBUG)
   message(STATUS "codec DEBUG: ON")
-  add_compile_options(-g3)
   set(SUBMODULE_FLAGS ${SUBMODULE_FLAGS} -DDEBUG=on)
 else ()
   message(STATUS "codec DEBUG: OFF")
-  add_compile_options(-g -O2)
+  add_compile_options(-O3)
 endif (DEBUG)
 
 # int max macros
@@ -97,6 +104,8 @@ else ()
   message(STATUS "CSHARP: OFF")
   set(SUBMODULE_FLAGS ${SUBMODULE_FLAGS} -DCSHARP=OFF)
 endif()
+
+find_package(FLEX REQUIRED)
 
 # allow external projects
 include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
@@ -131,7 +140,7 @@ if(TESTS)
   ExternalProject_Add(
     googletest
     SOURCE_DIR ${PROJECT_SOURCE_DIR}/ext/googletest
-    CMAKE_ARGS -DBUILD_GMOCK=ON -DBUILD_GTEST=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
+    CMAKE_ARGS -Dgtest_force_shared_crt=ON -DBUILD_GMOCK=ON -DBUILD_GTEST=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
     )
   
   include(CTest)
@@ -164,7 +173,7 @@ else()
   set(LIBEVENT_CMAKE ${SUBMODULE_ROOT_DIR}/ext/libevent CACHE PATH "Location of libevent-cmake" FORCE)
   message(STATUS "libevent-location: " ${LIBEVENT_CMAKE})
   ExternalProject_Add(
-    LIBEVENT_PROJECT
+    libevent
     PREFIX ${SUBMODULE_PREFIX_DIR}
     SOURCE_DIR ${LIBEVENT_CMAKE}
     CMAKE_ARGS -DEVENT__DISABLE_TESTS=ON -DEVENT__DISABLE_REGRESS=ON -DEVENT__DISABLE_OPENSSL=ON -DEVENT__DISABLE_SAMPLES=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
@@ -183,7 +192,7 @@ ExternalProject_Add(
 ExternalProject_Get_Property(SBF_PROJECT binary_dir)
 set(SBF_PROJECT_DIR ${binary_dir}/lib/cmake/sbf CACHE PATH "location of sbf cmake files" FORCE)
 if (NOT EVENT_LIB)
-    add_dependencies(SBF_PROJECT LIBEVENT_PROJECT)
+    add_dependencies(SBF_PROJECT libevent)
 endif()
 set(CPACK_INSTALL_CMAKE_PROJECTS ${CPACK_INSTALL_CMAKE_PROJECTS} "${binary_dir};sbf;ALL;/")
 
@@ -235,7 +244,7 @@ ExternalProject_Add(
     LOGGER_PROJECT
     PREFIX ${SUBMODULE_PREFIX_DIR}
     SOURCE_DIR ${LOGGER_CMAKE}
-    CMAKE_ARGS -DSUBMODULE_PREFIX_DIR=${SUBMODULE_PREFIX_DIR} -DSUBMODULE_ROOT_DIR=${SUBMODULE_ROOT_DIR} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} ${SUBMODULE_FLAGS}
+    CMAKE_ARGS -DFLEX_EXECUTABLE=${FLEX_EXECUTABLE} -DFLEX_INCLUDE_DIR=${FLEX_INCLUDE_DIR} -DSUBMODULE_PREFIX_DIR=${SUBMODULE_PREFIX_DIR} -DSUBMODULE_ROOT_DIR=${SUBMODULE_ROOT_DIR} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} ${SUBMODULE_FLAGS}
     )
 ExternalProject_Get_Property(LOGGER_PROJECT binary_dir)
 set(LOGGER_PROJECT_DIR ${binary_dir}/lib/cmake/logger CACHE PATH "location of logger cmake files" FORCE)

@@ -4,7 +4,11 @@
 #ifndef SWX_PACKET_UTILS_H
 #define SWX_PACKET_UTILS_H
 
+#ifdef WIN32
+#define PACKED(d) __pragma( pack(push, 1) ) d __pragma( pack(pop) )
+#else
 #define PACKED(d) d __attribute__ ((__packed__))
+#endif
 
 #include <string>
 #include <string.h>
