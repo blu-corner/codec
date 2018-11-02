@@ -8,9 +8,9 @@
 %rename(CodecFactory) neueda::codecFactory;
 
 %{
+#include <codec.h>
 #include <fields.h>
 #include <codecFactory.h>
-#include <codec.h>
 #include <codecBuffer.h>
 
 #include <stdexcept>
@@ -79,7 +79,7 @@ x
          size_t used = 0;
          codecState state = self->encode (*source, buffer, 1024, used);
          bool ok = state == GW_CODEC_SUCCESS;
-         if (not ok)
+         if (!ok)
              throw std::runtime_error (self->getLastError ());
 
          return new neueda::Buffer(buffer, used, true);
@@ -91,7 +91,7 @@ x
          codecState state = self->decode(*target, (const void*)buffer, length, used);
 
          bool ok = state == GW_CODEC_SUCCESS;
-         if (not ok) {
+         if (!ok) {
              delete target;
              throw std::runtime_error (self->getLastError ());
          }
@@ -110,7 +110,7 @@ x
                                          used);
 
          bool ok = state == GW_CODEC_SUCCESS;
-         if (not ok) {
+         if (!ok) {
              delete target;
              throw std::runtime_error (self->getLastError ());
          }

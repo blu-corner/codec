@@ -2150,6 +2150,7 @@ class FieldUtils
         static map<int, string> createMap ();
         static string getFieldName (int f);
 
+    private:
         static map<int, string> mFieldNames;
 };
 
