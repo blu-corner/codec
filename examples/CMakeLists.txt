@@ -50,6 +50,10 @@ if(PYTHON)
     INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/python/
             DESTINATION examples/codec/python/)
 endif()
+if(CSHARP)
+    INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/csharp/
+            DESTINATION examples/codec/csharp/)
+endif()
 
 INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cpp/
         DESTINATION examples/codec/cpp/)
