@@ -147,11 +147,19 @@ install(
 # unit-tests
 option(TESTS "Enable unit-tests" OFF)
 if(TESTS)
-  ExternalProject_Add(
-    googletest
-    SOURCE_DIR ${PROJECT_SOURCE_DIR}/ext/googletest
-    CMAKE_ARGS -Dgtest_force_shared_crt=ON -DBUILD_GMOCK=ON -DBUILD_GTEST=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
-    )
+  if(WIN32)
+    ExternalProject_Add(
+      googletest
+      SOURCE_DIR ${PROJECT_SOURCE_DIR}/ext/googletest
+      CMAKE_ARGS -Dgtest_force_shared_crt=ON -DCMAKE_CXX_FLAGS="/w" -DBUILD_GMOCK=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
+      )
+  else()
+    ExternalProject_Add(
+      googletest
+      SOURCE_DIR ${PROJECT_SOURCE_DIR}/ext/googletest
+      CMAKE_ARGS -DBUILD_GMOCK=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
+      )
+  endif()
   
   include(CTest)
   enable_testing()

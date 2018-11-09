@@ -47,6 +47,7 @@ file(GLOB_RECURSE SRC_FILES
 add_executable(unittest main.cpp ${SRC_FILES})
 
 target_link_libraries(unittest ${TEST_LIBS})
+add_dependencies(unittest googletest)
 
 add_test(NAME unittest
   COMMAND unittest
