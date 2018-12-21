@@ -1,4 +1,5 @@
 set(TEST_LIBS codec
+              fixCodec
               lsecodec
               xetracodec
               oslocodec
@@ -27,6 +28,9 @@ include_directories(
   #xetra
   ${PROJECT_SOURCE_DIR}/src/xetra
   ${PROJECT_SOURCE_DIR}/src/xetra/packets
+  #fix
+  ${PROJECT_SOURCE_DIR}/src/fix
+  ${LIBXML2_INCLUDE_DIR}
   #googletest
   ${CMAKE_BINARY_DIR}/googletest/include
   ${CMAKE_INSTALL_PREFIX}/include
@@ -42,7 +46,10 @@ file(GLOB_RECURSE SRC_FILES
   ${PROJECT_SOURCE_DIR}/test/millennium/*.cpp
   ${PROJECT_SOURCE_DIR}/test/swx/*.cpp
   ${PROJECT_SOURCE_DIR}/test/xetra/*.cpp
+  ${PROJECT_SOURCE_DIR}/test/fix/*.cpp
   )
+
+message(STATUS ${SRC_FILES})
 
 add_executable(unittest main.cpp ${SRC_FILES})
 
