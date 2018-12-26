@@ -1,5 +1,19 @@
-codec
-=====
+# codec
+
+- [Overview](#overview)
+    - [Getting Started](#getting-started)
+    - [Dependencies](#dependencies)
+    - [Example Usage](#example-usage)
+    - [Running the Tests](#running-the-tests)
+- [Architecture](#architecture)
+    - [cdr Interface](#cdr-interface)
+    - [Packets Interface](#packets-interface)
+    - [Interface Code Comparison](#interface-code-comparison)
+    - [High Level Languages](#high-level-languages)
+- [Examples](#examples)
+    - [pcapReader](#pcapreader)
+    - [fileReader](#filereader)
+- [Implementation Notes](#implementation-notes)
 
 # Overview
 
@@ -243,3 +257,7 @@ Usage: ./fileReader -v *codec* -f *binaryFile*
 Description: Takes a binary file and parses it to produce a decoded stream of
 messages. It is assumed that the file only contains the encoded binary messages
 and no additional data.
+
+# Implementation Notes
+
+- [fix](docs/venue_fix.md#fixcodec)
