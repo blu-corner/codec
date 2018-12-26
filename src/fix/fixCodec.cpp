@@ -189,7 +189,8 @@ fixCodec::loadDataDictionary (const char* xml, string& err)
 codecState
 fixCodec::validate (const void* buf,
                     size_t len,
-                    size_t& used)
+                    size_t& used,
+                    string& err)
 {
     /* 8=BeginString
        9=BodyLength
@@ -198,7 +199,6 @@ fixCodec::validate (const void* buf,
        10=ChkSum 
 
        BodyLength is length from first tag after 10 to start of 10 */
-    string err;
 
     if (len <= 2)
         return GW_CODEC_SHORT;
@@ -222,11 +222,16 @@ fixCodec::validate (const void* buf,
         return GW_CODEC_ERROR;
     }
 
+    string stag;
+
     if ((sval != "FIX.4.2")  &&
         (sval != "FIX.4.3")  &&
         (sval != "FIX.4.4")  &&
         (sval != "FIXT.1.1"))
     {
+        utils_toString (tag, stag);
+        setLastField (stag);
+
         err.assign ("invalid fix version " + sval);
         return GW_CODEC_ERROR;
     }    
@@ -245,6 +250,9 @@ fixCodec::validate (const void* buf,
     uint32_t bodyLen;
     if (!utils_parseNumber (sval, bodyLen))
     {
+        utils_toString (tag, stag);
+        setLastField (stag);
+
         err.assign ("BodyLength must be a integer");
         return GW_CODEC_ERROR;
     }
@@ -270,6 +278,9 @@ fixCodec::validate (const void* buf,
 
     if (sval.length() > 3)
     {
+        utils_toString (tag, stag);
+        setLastField (stag);
+
         err.assign ("CheckSum tag must be a integer in range 0 - 255");
         return GW_CODEC_ERROR;
     }
@@ -277,6 +288,9 @@ fixCodec::validate (const void* buf,
     int32_t msgchecksum;
     if (!utils_parseNumber (sval, msgchecksum))
     {
+        utils_toString (tag, stag);
+        setLastField (stag);
+
         err.assign ("CheckSum tag must be a integer in range 0 - 255");
         return GW_CODEC_ERROR;
     }
@@ -287,6 +301,9 @@ fixCodec::validate (const void* buf,
 
     if (msgchecksum != checksum)
     {
+        utils_toString (tag, stag);
+        setLastField (stag);
+
         err.assign ("CheckSum invalid");
         return GW_CODEC_ERROR;
     }
@@ -303,6 +320,7 @@ fixCodec::decodeTagValue (char*& buf,
                           int64_t& tag,
                           string& sval)
 {
+    string err;
     tag = 0;
     size_t i = 0;
     sval.clear ();
@@ -310,7 +328,11 @@ fixCodec::decodeTagValue (char*& buf,
     while (buf[i] != '=')
     {
         if (!isdigit (buf[i]))
+        {
+            err.assign ("failed to parse tag to integer")
+            setLastError (err);
             return GW_CODEC_ERROR;
+        }
 
         tag = (tag * 10) + (buf[i++] - '0');
         if (i >= len)
@@ -358,7 +380,6 @@ fixCodec::decodeGroup (cdr& d,
             ret = decodeTagValue (buf, len, used, tag, sval);
             if (ret != GW_CODEC_SUCCESS)
                 return ret;
-
         }
         else
         {
@@ -406,7 +427,9 @@ fixCodec::decodeGroup (cdr& d,
             d.setArray (group->parent (), block);
             // block.clear ();
 
-            // reached a tag not in group
+            // reached a tag not in group, we store it to lastTag
+            // and it will be picked up for processing in the next
+            // iteration.
             lastTag = tag;
             lastVal.assign (sval);
             return GW_CODEC_SUCCESS;
@@ -427,9 +450,12 @@ fixCodec::decode (cdr& target,
     string err;
 
     codecState ret;
-    ret = validate (buf, len, used);
+    ret = validate (buf, len, used, err);
     if (ret != GW_CODEC_SUCCESS)
+    {
+        setLastError (err);
         return ret;
+    }
 
     string sval;
     string lastVal;
@@ -609,6 +635,8 @@ fixCodec::encode (const cdr& d,
         setLastError (err);
         return GW_CODEC_ERROR;
     }
+
+    setLastMessage (msgType);
 
     state = encodeCdr (d, buf, len, used);
     if (state != GW_CODEC_SUCCESS)

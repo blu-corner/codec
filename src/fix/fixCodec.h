@@ -68,7 +68,8 @@ private:
 
     codecState validate (const void* buf,
                          size_t len,
-                         size_t& used);
+                         size_t& used,
+                         string& err);
 
     void parseFieldType (int64_t tag, string& type);
 
