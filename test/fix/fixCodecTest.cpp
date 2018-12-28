@@ -48,7 +48,7 @@ protected:
 TEST_F(fixCodecTestHarness, HB_DECODE_NO_DICT)
 {
     stringstream msg;
-    msg << "8=FIX.4.29=6335=049=DBX2_SWX_156=swxauat34=752=20181030-14:19:49.96220310=136";
+    msg << "8=FIX.4.29=5935=049=NEUTEST56=NEUUAT34=752=20181030-14:19:49.96220310=121";
     cdr d;
     size_t used = 0;
 
@@ -63,7 +63,7 @@ TEST_F(fixCodecTestHarness, HB_DECODE_NO_DICT)
     ASSERT_TRUE (used == msg.str ().length ());
 }
 
-TEST_F(fixCodecTestHarness, ENCODE)
+TEST_F(fixCodecWithDictTestHarness, ENCODE)
 {
     cdr d;
     
@@ -83,14 +83,13 @@ TEST_F(fixCodecTestHarness, ENCODE)
     size_t u = 0;
     ret = mCodec->decode (e, buf, used, u);
     ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
-
-    cout << e.toString () << endl;
+    ASSERT_TRUE (u == used);
 }
 
 TEST_F(fixCodecWithDictTestHarness, HB_DECODE_DICT)
 {
     stringstream msg;
-    msg << "8=FIX.4.29=6335=049=DBX2_SWX_156=swxauat34=752=20181030-14:19:49.96220310=136";
+    msg << "8=FIX.4.29=5935=049=NEUTEST56=NEUUAT34=752=20181030-14:19:49.96220310=121";
     cdr d;
     size_t used = 0;
 
@@ -109,5 +108,13 @@ TEST_F(fixCodecWithDictTestHarness, HB_DECODE_DICT)
 
     int bodylen;
     ASSERT_TRUE (d.getInteger (9, bodylen));
-    ASSERT_TRUE (bodylen == 63);
+    ASSERT_TRUE (bodylen == 59);
+
+    char buf[1024];
+    size_t len = 1024;
+    size_t eused = 0;
+
+    ret = mCodec->encode (d, buf, len, eused);
+    ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
+    ASSERT_TRUE (used == eused);
 }

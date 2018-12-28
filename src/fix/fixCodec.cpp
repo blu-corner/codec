@@ -66,7 +66,7 @@ fixCodec::processDictionaryGroup (xmlNode* node, string& err)
     }
 
     mRepeatingGroups.insert (pair<int64_t, fixGroup*> (parentTag, g));
-    return false;
+    return true;
 }
 
 bool
@@ -78,7 +78,12 @@ fixCodec::processDictionaryMessages (xmlNode* node, string& err)
 
     for (cur = node; cur; cur = cur->next)
     {
-        if (xmlStrcmp (cur->name, (const xmlChar*)"messages") == 0)
+        if (xmlStrcmp (cur->name, (const xmlChar*)"fix") == 0)
+        {
+            if (!processDictionaryMessages (cur->children, err))
+                return false;
+        }
+        else if (xmlStrcmp (cur->name, (const xmlChar*)"messages") == 0)
         {
             for (msg = cur->children; msg; msg = msg->next)
             {
@@ -92,6 +97,23 @@ fixCodec::processDictionaryMessages (xmlNode* node, string& err)
                                 return false;
                         }
                     }
+                }
+            }
+        }
+        else if (xmlStrcmp (cur->name, (const xmlChar*)"header") == 0)
+        {
+            for (field = cur->children; field; field = field->next)
+            {
+                if (xmlStrcmp (field->name, (const xmlChar*)"field") == 0)
+                {
+                    fixField ff;
+                    if (!getFixFieldFromNode (field, ff))
+                    {
+                        err.assign ("failed to parse header field");
+                        return false;
+                    }
+
+                    mHeaderTags.push_back (ff.tag ());
                 }
             }
         }
@@ -299,7 +321,7 @@ fixCodec::validate (const void* buf,
     for (int i = start; i < checksumEnd; i++)
         checksum += ((char*)buf)[i]; 
 
-    if (msgchecksum != checksum)
+    if (msgchecksum != (checksum % 256))
     {
         utils_toString (tag, stag);
         setLastField (stag);
@@ -329,7 +351,7 @@ fixCodec::decodeTagValue (char*& buf,
     {
         if (!isdigit (buf[i]))
         {
-            err.assign ("failed to parse tag to integer")
+            err.assign ("failed to parse tag to integer");
             setLastError (err);
             return GW_CODEC_ERROR;
         }
@@ -526,8 +548,10 @@ fixCodec::encodeCdr (const cdr& d,
     for (cdr::const_iterator it = d.begin (); it != d.end (); ++it)
     {
         // ignore the following fields these will be filled in at the end
-        if (it->first == BeginString || it->first == BodyLen || 
-            it->first == MsgType || it->first == CheckSum)
+        // explicitly ignore BeginString, BodyLength and CheckSum for case
+        // where data dictionary is not loaded
+        if (isHeaderTag (it->first) || it->first || BeginString ||
+            it->first == BodyLength || it->first == CheckSum)
            continue; 
 
         switch (it->second.mType)
@@ -553,7 +577,7 @@ fixCodec::encodeCdr (const cdr& d,
                 }
                 break;
             }
-            case CDR_DATETIME:
+            default:
             {
                 fixField f;
                 if (!getFixFieldDefByTag (it->first, f))
@@ -568,11 +592,6 @@ fixCodec::encodeCdr (const cdr& d,
                         return state;
                 break;
             }
-            default:
-                state = fixField::setAsString (it->first, it->second, len, p, used);
-                if (state != GW_CODEC_SUCCESS)
-                    return state;
-                break;
         }
     }
 
@@ -588,7 +607,7 @@ fixCodec::encodeHeader (string& beginString,
                         size_t& used)
 {
     codecState state;
-    bodyLen += msgType.length () + 4;  // 4 represents 35= & \001
+    // bodyLen += msgType.length () + 1;  // 4 represents 35= & \001
 
     state = fixField::writeStringVal (BeginString, beginString.c_str (), len, p, used);
     if (state != GW_CODEC_SUCCESS)
@@ -599,10 +618,10 @@ fixCodec::encodeHeader (string& beginString,
     state = fixField::writeStringVal (BodyLength, bl.c_str (), len, p, used);
     if (state != GW_CODEC_SUCCESS)
         return state;
-
-    state = fixField::writeStringVal (MsgType, msgType.c_str (), len, p, used);
-    if (state != GW_CODEC_SUCCESS)
-        return state;
+    //
+    // state = fixField::writeStringVal (MsgType, msgType.c_str (), len, p, used);
+    // if (state != GW_CODEC_SUCCESS)
+    //     return state;
 
     return GW_CODEC_SUCCESS;
 }
@@ -622,6 +641,8 @@ fixCodec::encode (const cdr& d,
     string msgType;
     size_t bodyLen = 0;
 
+    char* p = (char*)buf;
+
     if (!d.getString (BeginString, beginString))
     {
         err.assign ("missing required tag BeginString");
@@ -638,11 +659,42 @@ fixCodec::encode (const cdr& d,
 
     setLastMessage (msgType);
 
+    // iterate through the header fields parsed from the data dictionary
+    // and populate these into the buffer first as order is important for
+    // these fields
+    tags::iterator it;
+    for (it = mHeaderTags.begin (); it != mHeaderTags.end (); ++it)
+    {
+        // ignore begin and length as these will be set later
+        if (*it != BeginString && *it != BodyLength)
+        {
+            if (d.contains (*it))
+            {
+                const cdrItem* item;
+                item = d.getItem (*it);
+
+                fixField ff;
+                if (!getFixFieldDefByTag (*it, ff))
+                {
+                    state = fixField::setAsString (*it, *item, len, p, used);
+                    if (state != GW_CODEC_SUCCESS)
+                        return state;
+                }
+                else
+                {
+                    state = ff.set (*it, *item, len, p, used);
+                    if (state != GW_CODEC_SUCCESS)
+                        return state;
+                }
+            }
+        }
+    }
+
     state = encodeCdr (d, buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         return state;
 
-    bodyLen = used - origUsed;
+    bodyLen = used;
 
     size_t hdrUsed = 0;
     char hdr[128];
@@ -668,7 +720,7 @@ fixCodec::encode (const cdr& d,
     used += hdrUsed;
 
     uint8_t checksum = 0;
-    for (int i = origUsed; i <= used; i++)
+    for (int i = origUsed; i < used; i++)
         checksum += ((char*)buf)[i]; 
 
     uint32_t cs = (unsigned int)(checksum % 256);
