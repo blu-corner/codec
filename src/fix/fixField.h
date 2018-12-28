@@ -87,7 +87,10 @@ public:
                     char* p,
                     size_t& used)
     {
-        return ((this)->*mSetter) (tag, i, len, p, used);
+        if (mSetter != NULL)
+            return ((this)->*mSetter) (tag, i, len, p, used);
+        else
+            return fixField::setAsString (tag, i, len, p, used);
     }
 
     bool required () const
@@ -230,19 +233,15 @@ private:
                                   size_t& used)
     {
         cdrDateTime val = i.mDateTime;
+        char t[64];
+        sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
+                 val.mYear, val.mMonth, val.mDay,
+                 val.mHour, val.mMinute, val.mSecond,
+                 val.mMillisecond);
 
-        char* tmp = p + used;
-        tmp += snprintf (p, len - used, "%lld=%04d%02d%02d-%02d:%02d:%02d.%06d\001",
-                         tag,
-                         val.mYear, val.mMonth, val.mDay,
-                         val.mHour, val.mMinute, val.mSecond,
-                         val.mMillisecond);
-        used += tmp - p;
-
-        if (used >= len)
-            return GW_CODEC_SHORT;
-
-        return GW_CODEC_SUCCESS;
+        string ts;
+        ts.assign (t);
+        return writeStringVal (tag, ts, len, p, used);
     }
 
     bool getAsUTCDate (const char* val, const int64_t tag, cdr& d)
@@ -257,16 +256,13 @@ private:
                              size_t& used)
     {
         cdrDateTime val = i.mDateTime;
+        char t[64];
+        sprintf (t, "%04d%02d%02d",
+                 val.mYear, val.mMonth, val.mDay);
 
-        char* tmp = p + used;
-        tmp += snprintf (p + used, len - used, "%lld=%04d%02d%02d\001",
-                         tag, val.mYear, val.mMonth, val.mDay);
-        used += tmp - (p + used);
-
-        if (used >= len)
-            return GW_CODEC_SHORT;
-
-        return GW_CODEC_SUCCESS;
+        string ts;
+        ts.assign (t);
+        return writeStringVal (tag, ts, len, p, used);
     }
 
     bool getAsUTCTimeOnly (const char* val, const int64_t tag, cdr& d)
@@ -282,17 +278,14 @@ private:
     {
         cdrDateTime val = i.mDateTime;
 
-        char* tmp = p + used;
-        tmp += snprintf (p + used, len - used, "%lld=%02d:%02d:%02d.%06d\001",
-                        tag,
-                        val.mHour, val.mMinute, val.mSecond,
-                        val.mMillisecond);
-        used += tmp - (p + used);
+        char t[64];
+        sprintf (t, "%02d:%02d:%02d.%06d",
+                 val.mHour, val.mMinute, val.mSecond,
+                 val.mMillisecond);
 
-        if (used >= len)
-            return GW_CODEC_SHORT;
-
-        return GW_CODEC_SUCCESS;
+        string ts;
+        ts.assign (t);
+        return writeStringVal (tag, ts, len, p, used);
     }
 
     bool getAsMonthYear (const char* val, const int64_t tag, cdr& d)
@@ -308,16 +301,13 @@ private:
     {
         cdrDateTime val = i.mDateTime;
 
-        char* tmp = p + used;
-        tmp += snprintf (p + used, len - used, "%lld=%04d%02d\001",
-                         tag,
-                         val.mYear, val.mMonth);
-        used += tmp - (p + used);
+        char t[64];
+        sprintf (t, "%04d%02d",
+                 val.mYear, val.mMonth);
 
-        if (used >= len)
-            return GW_CODEC_SHORT;
-
-        return GW_CODEC_SUCCESS;
+        string ts;
+        ts.assign (t);
+        return writeStringVal (tag, ts, len, p, used);
     }
 
     bool getAsLocalMktDate (const char* val, const int64_t tag, cdr& d)

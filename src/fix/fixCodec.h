@@ -16,6 +16,7 @@ using namespace neueda;
 class fixCodec;
 
 typedef map<int64_t, fixField*> fixFieldDefs;
+typedef vector<int64_t> tags;
 typedef vector<fixField*> fields;
 typedef map<int64_t, fixGroup*> groupMap;
 typedef map<string, int64_t> fieldNameToTagMap;
@@ -114,6 +115,15 @@ private:
         return it != mRepeatingGroups.end ();
     }
 
+    bool isHeaderTag (int64_t tag)
+    {
+        if (find (mHeaderTags.begin (), mHeaderTags.end (), tag)
+            != mHeaderTags.end ())
+            return true;
+        else
+            return false;
+    }
+
     bool getRepeatingGroup (int64_t tag, fixGroup& r)
     {
         groupMap::iterator it = mRepeatingGroups.find (tag);
@@ -137,6 +147,6 @@ private:
     fieldNameToTypeMap      mFieldNameToTypeMap;
     groupMap                mRepeatingGroups;
     msgFieldMap             mMsgFieldMap;
-    fields                  mHeaderFields;
+    tags                    mHeaderTags;
     fixFieldDefs            mFieldDefs;
 };
