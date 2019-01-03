@@ -255,7 +255,7 @@ fixCodec::validate (const void* buf,
         setLastField (stag);
 
         err.assign ("invalid fix version " + sval);
-        return GW_CODEC_ERROR;
+        return GW_CODEC_ABORT;
     }    
 
     ret = decodeTagValue (tmp, len, used, tag, sval);
@@ -266,7 +266,7 @@ fixCodec::validate (const void* buf,
     if (tag != 9)
     {
         err.assign ("second tag must be BodyLength(9)");
-        return GW_CODEC_ERROR;
+        return GW_CODEC_ABORT;
     }
 
     uint32_t bodyLen;
@@ -276,7 +276,7 @@ fixCodec::validate (const void* buf,
         setLastField (stag);
 
         err.assign ("BodyLength must be a integer");
-        return GW_CODEC_ERROR;
+        return GW_CODEC_ABORT;
     }
 
     if (used + bodyLen >= len)
@@ -295,7 +295,7 @@ fixCodec::validate (const void* buf,
     if (tag != 10)
     {
         err.assign ("last tag should be CheckSum(10)");
-        return GW_CODEC_ERROR;
+        return GW_CODEC_ABORT;
     }
 
     if (sval.length() > 3)
@@ -304,7 +304,7 @@ fixCodec::validate (const void* buf,
         setLastField (stag);
 
         err.assign ("CheckSum tag must be a integer in range 0 - 255");
-        return GW_CODEC_ERROR;
+        return GW_CODEC_ABORT;
     }
 
     int32_t msgchecksum;
@@ -314,20 +314,20 @@ fixCodec::validate (const void* buf,
         setLastField (stag);
 
         err.assign ("CheckSum tag must be a integer in range 0 - 255");
-        return GW_CODEC_ERROR;
+        return GW_CODEC_ABORT;
     }
 
     uint8_t checksum = 0;
     for (int i = start; i < checksumEnd; i++)
         checksum += ((char*)buf)[i]; 
 
-    if (msgchecksum != (checksum % 256))
+    if (msgchecksum != (checksum))
     {
         utils_toString (tag, stag);
         setLastField (stag);
 
         err.assign ("CheckSum invalid");
-        return GW_CODEC_ERROR;
+        return GW_CODEC_ABORT;
     }
 
     used = tmp - (char*)buf;
@@ -353,7 +353,7 @@ fixCodec::decodeTagValue (char*& buf,
         {
             err.assign ("failed to parse tag to integer");
             setLastError (err);
-            return GW_CODEC_ERROR;
+            return GW_CODEC_ABORT;
         }
 
         tag = (tag * 10) + (buf[i++] - '0');
