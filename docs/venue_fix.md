@@ -16,6 +16,9 @@ If no data dictionary is specified the codec will:
 
 - store all values as strings within the CDR
 - not interpret repeating groups
+- encoding will require that the CDR is populated in the required FIX field order e.g. Header fields must be entered into the CDR first
+
+BodyLength and CheckSum will be computed, the user is not required to pass these into the codec.
 
 # Data Dictionary
 
@@ -113,7 +116,7 @@ the message, and ensure that the following fields are present:
 - MsgType
 - Checksum
 
-The checksum of the message will be validated and a GW_CODEC_ERROR thrown if it
+The checksum of the message will be validated and a GW_CODEC_ABORT thrown if it
 is incorrect.
 
 When a dictionary is provided if a value cannot be converted to the type specified
