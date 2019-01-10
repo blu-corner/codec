@@ -4,10 +4,10 @@
 #include <vector>
 #include "fixField.h"
 
-using namespace std;
-
 namespace neueda
 {
+
+using namespace std;
 
 class fixGroup
 {
@@ -18,7 +18,7 @@ public:
     {
     }
 
-    void addField (fixField* f)
+    void addField (const fixField* f)
     {
         int64_t tag = f->tag ();
 
@@ -40,16 +40,16 @@ public:
         return tag == mFirstTag;
     }
 
-    bool parent () const
+    int64_t parent () const
     {
         return mParent;
     }
 
 private:
-    int64_t             mParent;
-    int64_t             mFirstTag;
-    vector<int64_t>     mTags;
-    vector<fixField*>   mFields;
+    int64_t                     mParent;
+    int64_t                     mFirstTag;
+    vector<int64_t>             mTags;
+    vector<const fixField*>     mFields;
 };
 
 }

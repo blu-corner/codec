@@ -12,17 +12,18 @@
 #define FIX_LOCALMKTDATE_FMT "%Y%m%d"
 #define FIX_UTCTIMESTAMP_FMT "%Y%m%d-%H:%M:%S"
 
-using namespace std;
 
 namespace neueda
 {
 
+using namespace std;
+
 class fixField;
 
 typedef bool (fixField::*getAsFunc) (const char*, const int64_t, cdr&);
-typedef codecState (fixField::*setAsFunc) (const int64_t&,
+typedef codecState (fixField::*setAsFunc) (const int64_t,
                                            const cdrItem&,
-                                           const size_t& len,
+                                           const size_t len,
                                            char* p,
                                            size_t& used);
 
@@ -47,9 +48,9 @@ public:
         return true;
     }
 
-    static codecState writeStringVal (const int64_t& tag,
-                                      string val,
-                                      const size_t& len,
+    static codecState writeStringVal (const int64_t tag,
+                                      const string& val,
+                                      const size_t len,
                                       char* p,
                                       size_t& used)
     {
@@ -63,9 +64,9 @@ public:
         return GW_CODEC_SUCCESS;
     }
 
-    static codecState setAsString (const int64_t& tag,
+    static codecState setAsString (const int64_t tag,
                                    const cdrItem& i,
-                                   const size_t& len,
+                                   const size_t len,
                                    char* p,
                                    size_t& used)
     {
@@ -81,9 +82,9 @@ public:
         return ((this)->*mGetter) (val, mTag, d);
     }
 
-    codecState set (const int64_t& tag,
+    codecState set (const int64_t tag,
                     const cdrItem& i,
-                    const size_t& len,
+                    const size_t len,
                     char* p,
                     size_t& used)
     {
@@ -118,12 +119,12 @@ public:
         return mName;
     }
 
-    void setName (string name)
+    void setName (const string& name)
     {
         mName = name;
     }
 
-    void setType (string& type)
+    void setType (const string& type)
     {
         mType = type;
 
@@ -195,8 +196,7 @@ private:
 
         // search for a decimal point, and if found convert everything after
         // to microseconds and insert into the datetime object
-        string t;
-        t.assign (val);
+        string t (val);
         size_t pos = t.find (".");
 
         if (pos != string::npos)
@@ -226,21 +226,19 @@ private:
         return getAsDateTime (val, tag, d, FIX_UTCTIMESTAMP_FMT);
     }
 
-    codecState setAsUTCTimestamp (const int64_t& tag,
+    codecState setAsUTCTimestamp (const int64_t tag,
                                   const cdrItem& i,
-                                  const size_t& len,
+                                  const size_t len,
                                   char* p,
                                   size_t& used)
     {
-        cdrDateTime val = i.mDateTime;
         char t[64];
         sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
-                 val.mYear, val.mMonth, val.mDay,
-                 val.mHour, val.mMinute, val.mSecond,
-                 val.mMillisecond);
+                 i.mDateTime.mYear, i.mDateTime.mMonth, i.mDateTime.mDay,
+                 i.mDateTime.mHour, i.mDateTime.mMinute, i.mDateTime.mSecond,
+                 i.mDateTime.mMillisecond);
 
-        string ts;
-        ts.assign (t);
+        string ts (t);
         return writeStringVal (tag, ts, len, p, used);
     }
 
@@ -249,16 +247,15 @@ private:
         return getAsDateTime (val, tag, d, FIX_UTCDATE_FMT);
     }
 
-    codecState setAsUTCDate (const int64_t& tag,
+    codecState setAsUTCDate (const int64_t tag,
                              const cdrItem& i,
-                             const size_t& len,
+                             const size_t len,
                              char* p,
                              size_t& used)
     {
-        cdrDateTime val = i.mDateTime;
         char t[64];
         sprintf (t, "%04d%02d%02d",
-                 val.mYear, val.mMonth, val.mDay);
+                 i.mDateTime.mYear, i.mDateTime.mMonth, i.mDateTime.mDay);
 
         string ts;
         ts.assign (t);
@@ -270,18 +267,16 @@ private:
         return getAsDateTime (val, tag, d, FIX_UTCTIMEONLY_FMT);
     }
 
-    codecState setAsUTCTimeOnly (const int64_t& tag,
+    codecState setAsUTCTimeOnly (const int64_t tag,
                                  const cdrItem& i,
-                                 const size_t& len,
+                                 const size_t len,
                                  char* p,
                                  size_t& used)
     {
-        cdrDateTime val = i.mDateTime;
-
         char t[64];
         sprintf (t, "%02d:%02d:%02d.%06d",
-                 val.mHour, val.mMinute, val.mSecond,
-                 val.mMillisecond);
+                 i.mDateTime.mHour, i.mDateTime.mMinute, i.mDateTime.mSecond,
+                 i.mDateTime.mMillisecond);
 
         string ts;
         ts.assign (t);
@@ -293,17 +288,15 @@ private:
         return getAsDateTime (val, tag, d, FIX_MONTHYEAR_FMT);
     }
 
-    codecState setAsMonthYear (const int64_t& tag,
+    codecState setAsMonthYear (const int64_t tag,
                                const cdrItem& i,
-                               const size_t& len,
+                               const size_t len,
                                char* p,
                                size_t& used)
     {
-        cdrDateTime val = i.mDateTime;
-
         char t[64];
         sprintf (t, "%04d%02d",
-                 val.mYear, val.mMonth);
+                 i.mDateTime.mYear, i.mDateTime.mMonth);
 
         string ts;
         ts.assign (t);

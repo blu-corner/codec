@@ -5,8 +5,8 @@
 #include <gtest/gtest.h>
 #include "fixCodec.h"
 #include "cdr.h"
-
-#define SOH '\01'
+#include "fields.h"
+#include "fixMsg.h"
 
 using namespace std;
 using namespace neueda;
@@ -47,20 +47,29 @@ protected:
 
 TEST_F(fixCodecTestHarness, HB_DECODE_NO_DICT)
 {
-    stringstream msg;
-    msg << "8=FIX.4.29=5935=049=NEUTEST56=NEUUAT34=752=20181030-14:19:49.96220310=121";
+    fixMsg fm;
+
+    fm.setField (35, "0");
+    fm.setField (49, "NEUTEST");
+    fm.setField (56, "NEUUAT");
+    fm.setField (34, "7");
+    fm.setField (52, "20181030-14:19:49.962203");
+
+    string msg;
+    msg = fm.encode ();
+
     cdr d;
     size_t used = 0;
 
-    codecState ret = mCodec->decode (d, msg.str ().c_str (), 1024, used);
+    codecState ret = mCodec->decode (d, msg.c_str (), 1024, used);
     ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
 
     string version;
     ASSERT_TRUE (d.getString (8, version));
 
-    ASSERT_TRUE (version == "FIX.4.2");
+    ASSERT_TRUE (version == fm.beginString ());
 
-    ASSERT_TRUE (used == msg.str ().length ());
+    ASSERT_TRUE (used == msg.length ());
 }
 
 TEST_F(fixCodecWithDictTestHarness, ENCODE)
@@ -88,27 +97,45 @@ TEST_F(fixCodecWithDictTestHarness, ENCODE)
 
 TEST_F(fixCodecWithDictTestHarness, HB_DECODE_DICT)
 {
-    stringstream msg;
-    msg << "8=FIX.4.29=5935=049=NEUTEST56=NEUUAT34=752=20181030-14:19:49.96220310=121";
+    fixMsg fm;
+
+    fm.setField (35, "0");
+    fm.setField (49, "NEUTEST");
+    fm.setField (56, "NEUUAT");
+    fm.setField (34, "7");
+    fm.setField (52, "20181030-14:19:49.962203");
+
+    string msg;
+    msg = fm.encode ();
+
     cdr d;
     size_t used = 0;
 
-    codecState ret = mCodec->decode (d, msg.str ().c_str (), 1024, used);
+    codecState ret = mCodec->decode (d, msg.c_str (), 1024, used);
     ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
 
     // extract the utctimestamp and ensure that it has been stored correctly
-    string transacttime;
-    ASSERT_TRUE (d.getItem (52)->mType == CDR_DATETIME);
-    ASSERT_TRUE (d.getString (52, transacttime));
-    ASSERT_TRUE (transacttime == "2018-10-30 14:19:49.962203");
+    const cdrItem* item = d.getItem (52);
+
+    ASSERT_TRUE (item->mType == CDR_DATETIME);
+
+    char t[64];
+    sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
+             item->mDateTime.mYear, item->mDateTime.mMonth, item->mDateTime.mDay,
+             item->mDateTime.mHour, item->mDateTime.mMinute,
+             item->mDateTime.mSecond, item->mDateTime.mMillisecond);
+
+    string sendingtime;
+    sendingtime.assign (t);
+    ASSERT_TRUE (sendingtime == fm.getField (52));
 
     string version;
     ASSERT_TRUE (d.getString (8, version));
-    ASSERT_TRUE (version == "FIX.4.2");
+    ASSERT_TRUE (version == fm.beginString ());
 
     int bodylen;
     ASSERT_TRUE (d.getInteger (9, bodylen));
-    ASSERT_TRUE (bodylen == 59);
+    ASSERT_TRUE (bodylen == fm.bodyLen ());
 
     char buf[1024];
     size_t len = 1024;
@@ -117,4 +144,62 @@ TEST_F(fixCodecWithDictTestHarness, HB_DECODE_DICT)
     ret = mCodec->encode (d, buf, len, eused);
     ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
     ASSERT_TRUE (used == eused);
+}
+
+TEST_F(fixCodecWithDictTestHarness, NOS_ALLOCS_REPEATING_GROUP)
+{
+    fixMsg fm;
+
+    fm.setField (35, "D");
+    fm.setField (49, "NEUTEST");
+    fm.setField (56, "NEUUAT");
+    fm.setField (34, "7");
+    fm.setField (52, "20181030-14:19:49.962203");
+    fm.setField (78, "2");
+    fm.setField (79, "NEUACCT1");
+    fm.setField (80, "20");
+    fm.setField (79, "NEUACCT2");
+    fm.setField (80, "20");
+
+    string msg;
+    msg = fm.encode ();
+
+    cdr d;
+    size_t used = 0;
+
+    codecState ret = mCodec->decode (d, msg.c_str (), 1024, used);
+    ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
+
+    ASSERT_TRUE (d.getArraySize (NoAllocs) == 2);
+
+    // // extract the utctimestamp and ensure that it has been stored correctly
+    // const cdrItem* item = d.getItem (52);
+    //
+    // ASSERT_TRUE (item->mType == CDR_DATETIME);
+    //
+    // char t[64];
+    // sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
+    //          item->mDateTime.mYear, item->mDateTime.mMonth, item->mDateTime.mDay,
+    //          item->mDateTime.mHour, item->mDateTime.mMinute,
+    //          item->mDateTime.mSecond, item->mDateTime.mMillisecond);
+    //
+    // string sendingtime;
+    // sendingtime.assign (t);
+    // ASSERT_TRUE (sendingtime == fm.getField (52));
+    //
+    // string version;
+    // ASSERT_TRUE (d.getString (8, version));
+    // ASSERT_TRUE (version == fm.beginString ());
+    //
+    // int bodylen;
+    // ASSERT_TRUE (d.getInteger (9, bodylen));
+    // ASSERT_TRUE (bodylen == fm.bodyLen ());
+    //
+    // char buf[1024];
+    // size_t len = 1024;
+    // size_t eused = 0;
+    //
+    // ret = mCodec->encode (d, buf, len, eused);
+    // ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
+    // ASSERT_TRUE (used == eused);
 }
