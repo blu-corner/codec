@@ -553,7 +553,7 @@ fixCodec::encodeCdr (const cdr& d,
         // ignore the following fields these will be filled in at the end
         // explicitly ignore BeginString, BodyLength and CheckSum for case
         // where data dictionary is not loaded
-        if (isHeaderTag (it->first) || it->first || BeginString ||
+        if (isHeaderTag (it->first) || it->first == BeginString ||
             it->first == BodyLength || it->first == CheckSum)
            continue; 
 
