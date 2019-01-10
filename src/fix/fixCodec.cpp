@@ -420,7 +420,7 @@ fixCodec::decodeGroup (cdr& d,
         }
         else if (group->hasTag (tag))
         {
-            if (getRepeatingGroup (tag, *nextGroup))
+            if (getRepeatingGroup (tag, nextGroup))
             {
                 // nested group
                 lastTag = 0;
@@ -509,7 +509,7 @@ fixCodec::decode (cdr& target,
             lastVal.clear ();
         }
 
-        if (getRepeatingGroup (tag, *group))
+        if (getRepeatingGroup (tag, group))
         {
             ret = decodeGroup (target,
                                group,
@@ -599,11 +599,11 @@ fixCodec::encodeCdr (const cdr& d,
 }
 
 codecState
-fixCodec::encodeHeader (string& beginString,
-                        size_t& bodyLen,
-                        string& msgType,
+fixCodec::encodeHeader (const string& beginString,
+                        const size_t& bodyLen,
+                        const string& msgType,
                         char* p,
-                        size_t& len,
+                        const size_t len,
                         size_t& used)
 {
     codecState state;

@@ -10,8 +10,10 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+namespace neueda
+{
+
 using namespace std;
-using namespace neueda;
 
 class fixCodec;
 
@@ -46,11 +48,11 @@ private:
                           size_t len,
                           size_t& used);
 
-    codecState encodeHeader (string& beginString,
-                             size_t& bodyLen,
-                             string& msgType,
+    codecState encodeHeader (const string& beginString,
+                             const size_t& bodyLen,
+                             const string& msgType,
                              char* p,
-                             size_t& len,
+                             const size_t len,
                              size_t& used);
 
     codecState decodeTagValue (char*& buf,
@@ -82,7 +84,7 @@ private:
 
     bool getFixFieldFromNode (xmlNode* node, fixField& f);
 
-    bool getFixTagByName (string& name, int64_t& tag)
+    bool getFixTagByName (const string& name, int64_t& tag)
     {
         fieldNameToTagMap::iterator it = mFieldNameToTagMap.find (name);        
         if (it == mFieldNameToTagMap.end ())
@@ -124,13 +126,13 @@ private:
             return false;
     }
 
-    bool getRepeatingGroup (int64_t tag, fixGroup& r)
+    bool getRepeatingGroup (int64_t tag, fixGroup*& group)
     {
         groupMap::iterator it = mRepeatingGroups.find (tag);
         if (it == mRepeatingGroups.end ())
             return false;
         
-        r = *(it->second);
+        group = it->second;
         return true;
     }
 
@@ -150,3 +152,5 @@ private:
     tags                    mHeaderTags;
     fixFieldDefs            mFieldDefs;
 };
+
+}
