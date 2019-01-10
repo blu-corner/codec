@@ -1,5 +1,8 @@
 #include "fixCodec.h"
 
+namespace neueda
+{
+
 bool
 fixCodec::getFixFieldFromNode (xmlNode* field, fixField& f)
 {
@@ -729,4 +732,6 @@ fixCodec::encode (const cdr& d,
 
     // write the checksum and we're done
     return fixField::writeStringVal (CheckSum, sum, len, (char*)buf, used);
+}
+
 }
