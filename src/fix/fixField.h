@@ -233,6 +233,9 @@ private:
                                   char* p,
                                   size_t& used)
     {
+        if (i.mType != CDR_DATETIME)
+            return GW_CODEC_ERROR;
+
         char t[64];
         sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
                  i.mDateTime.mYear, i.mDateTime.mMonth, i.mDateTime.mDay,
@@ -254,6 +257,9 @@ private:
                              char* p,
                              size_t& used)
     {
+        if (i.mType != CDR_DATETIME)
+            return GW_CODEC_ERROR;
+
         char t[64];
         sprintf (t, "%04d%02d%02d",
                  i.mDateTime.mYear, i.mDateTime.mMonth, i.mDateTime.mDay);
@@ -273,6 +279,9 @@ private:
                                  char* p,
                                  size_t& used)
     {
+        if (i.mType != CDR_DATETIME)
+            return GW_CODEC_ERROR;
+
         char t[64];
         sprintf (t, "%02d:%02d:%02d.%06d",
                  i.mDateTime.mHour, i.mDateTime.mMinute, i.mDateTime.mSecond,
@@ -293,6 +302,9 @@ private:
                                char* p,
                                size_t& used)
     {
+        if (i.mType != CDR_DATETIME)
+            return GW_CODEC_ERROR;
+
         char t[64];
         sprintf (t, "%04d%02d",
                  i.mDateTime.mYear, i.mDateTime.mMonth);
@@ -322,11 +334,20 @@ private:
                             char* p,
                             size_t& used)
     {
-        char t[64];
-        sprintf (t, "%g", i.mDouble);
-        string ts (t);
-
-        return writeStringVal (tag, ts, len, p, used);
+        switch (i.mType)
+        {
+            case CDR_DOUBLE:
+            {
+                char t[64];
+                sprintf (t, "%g", i.mDouble);
+                string ts (t);
+                return writeStringVal (tag, ts, len, p, used);
+            }
+            case CDR_INTEGER:
+                return fixField::setAsString (tag, i, len, p, used);
+            default:
+                return GW_CODEC_ERROR;
+        }
     }
 
     bool getAsInteger (const char* val, const int64_t tag, cdr& d)
