@@ -6,6 +6,8 @@ set(TEST_LIBS codec
               codechelpers
               gtest
               gmock)
+# find_package(LibXml2 REQUIRED)
+
 
 if(NOT WIN32)
     set(TEST_LIBS ${TEST_LIBS} pthread)
