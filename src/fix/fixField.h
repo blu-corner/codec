@@ -168,6 +168,7 @@ public:
                  type == "AMT")
         {
             mGetter = &fixField::getAsDouble;
+            mSetter = &fixField::setAsDouble;
         }
         else
         {
@@ -257,8 +258,7 @@ private:
         sprintf (t, "%04d%02d%02d",
                  i.mDateTime.mYear, i.mDateTime.mMonth, i.mDateTime.mDay);
 
-        string ts;
-        ts.assign (t);
+        string ts (t);
         return writeStringVal (tag, ts, len, p, used);
     }
 
@@ -278,8 +278,7 @@ private:
                  i.mDateTime.mHour, i.mDateTime.mMinute, i.mDateTime.mSecond,
                  i.mDateTime.mMillisecond);
 
-        string ts;
-        ts.assign (t);
+        string ts (t);
         return writeStringVal (tag, ts, len, p, used);
     }
 
@@ -298,8 +297,7 @@ private:
         sprintf (t, "%04d%02d",
                  i.mDateTime.mYear, i.mDateTime.mMonth);
 
-        string ts;
-        ts.assign (t);
+        string ts (t);
         return writeStringVal (tag, ts, len, p, used);
     }
 
@@ -316,6 +314,19 @@ private:
 
         d.setDouble (tag, v);
         return true;
+    }
+
+    codecState setAsDouble (const int64_t tag,
+                            const cdrItem& i,
+                            const size_t len,
+                            char* p,
+                            size_t& used)
+    {
+        char t[64];
+        sprintf (t, "%g", i.mDouble);
+        string ts (t);
+
+        return writeStringVal (tag, ts, len, p, used);
     }
 
     bool getAsInteger (const char* val, const int64_t tag, cdr& d)
