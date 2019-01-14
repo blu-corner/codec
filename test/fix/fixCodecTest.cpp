@@ -144,6 +144,11 @@ TEST_F(fixCodecWithDictTestHarness, HB_DECODE_DICT)
     ret = mCodec->encode (d, buf, len, eused);
     ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
     ASSERT_TRUE (used == eused);
+
+    for (size_t i = 0; i < used; i++)
+    {
+        ASSERT_TRUE (buf[i] == msg.c_str ()[i]);
+    }
 }
 
 TEST_F(fixCodecWithDictTestHarness, NOS_ALLOCS_REPEATING_GROUP)
@@ -172,34 +177,16 @@ TEST_F(fixCodecWithDictTestHarness, NOS_ALLOCS_REPEATING_GROUP)
 
     ASSERT_TRUE (d.getArraySize (NoAllocs) == 2);
 
-    // // extract the utctimestamp and ensure that it has been stored correctly
-    // const cdrItem* item = d.getItem (52);
-    //
-    // ASSERT_TRUE (item->mType == CDR_DATETIME);
-    //
-    // char t[64];
-    // sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
-    //          item->mDateTime.mYear, item->mDateTime.mMonth, item->mDateTime.mDay,
-    //          item->mDateTime.mHour, item->mDateTime.mMinute,
-    //          item->mDateTime.mSecond, item->mDateTime.mMillisecond);
-    //
-    // string sendingtime;
-    // sendingtime.assign (t);
-    // ASSERT_TRUE (sendingtime == fm.getField (52));
-    //
-    // string version;
-    // ASSERT_TRUE (d.getString (8, version));
-    // ASSERT_TRUE (version == fm.beginString ());
-    //
-    // int bodylen;
-    // ASSERT_TRUE (d.getInteger (9, bodylen));
-    // ASSERT_TRUE (bodylen == fm.bodyLen ());
-    //
-    // char buf[1024];
-    // size_t len = 1024;
-    // size_t eused = 0;
-    //
-    // ret = mCodec->encode (d, buf, len, eused);
-    // ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
-    // ASSERT_TRUE (used == eused);
+    char buf[1024];
+    size_t len = 1024;
+    size_t eused = 0;
+
+    ret = mCodec->encode (d, buf, len, eused);
+    ASSERT_TRUE (ret == GW_CODEC_SUCCESS);
+
+    ASSERT_TRUE (used == eused);
+    for (size_t i = 0; i < used; i++)
+    {
+        ASSERT_TRUE (buf[i] == msg.c_str ()[i]);
+    }
 }
