@@ -104,7 +104,7 @@ public:
         mRequired = req;
     }
 
-    int64_t tag () const
+    int64_t getTag () const
     {
         return mTag;
     }
@@ -114,7 +114,7 @@ public:
         mTag = tag;
     }
 
-    string getName () const
+    const string& getName () const
     {
         return mName;
     }
@@ -238,8 +238,12 @@ private:
 
         char t[64];
         sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
-                 i.mDateTime.mYear, i.mDateTime.mMonth, i.mDateTime.mDay,
-                 i.mDateTime.mHour, i.mDateTime.mMinute, i.mDateTime.mSecond,
+                 i.mDateTime.mYear,
+                 i.mDateTime.mMonth,
+                 i.mDateTime.mDay,
+                 i.mDateTime.mHour,
+                 i.mDateTime.mMinute,
+                 i.mDateTime.mSecond,
                  i.mDateTime.mMillisecond);
 
         string ts (t);
@@ -284,7 +288,9 @@ private:
 
         char t[64];
         sprintf (t, "%02d:%02d:%02d.%06d",
-                 i.mDateTime.mHour, i.mDateTime.mMinute, i.mDateTime.mSecond,
+                 i.mDateTime.mHour,
+                 i.mDateTime.mMinute,
+                 i.mDateTime.mSecond,
                  i.mDateTime.mMillisecond);
 
         string ts (t);

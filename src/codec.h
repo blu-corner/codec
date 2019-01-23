@@ -127,7 +127,7 @@ public:
      * set error
      * @param error
      */
-    void setLastError (const string error) { mError.assign (error); };
+    void setLastError (const string& error) { mError.assign (error); };
 
     /**
      * clear the last error
@@ -144,7 +144,7 @@ public:
      * set last message
      * @param msgType string message type being processed
      */
-    void setLastMessage (const string msgtype) { mMsgType.assign (msgtype); };
+    void setLastMessage (const string& msgtype) { mMsgType.assign (msgtype); };
 
     /**
      * clear the last error
@@ -161,7 +161,7 @@ public:
      * set last field
      * @param field string name of field being processed
      */
-    void setLastField (const string field) { mField.assign (field); };
+    void setLastField (const string& field) { mField.assign (field); };
 
     /**
      * clear the last field

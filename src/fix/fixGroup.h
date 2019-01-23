@@ -20,7 +20,7 @@ public:
 
     void addField (const fixField* f)
     {
-        int64_t tag = f->tag ();
+        int64_t tag = f->getTag ();
 
         if (mFirstTag == 0)
             mFirstTag = tag;
@@ -29,13 +29,13 @@ public:
         mFields.push_back (f);
     }
 
-    bool hasTag (int64_t tag)
+    bool hasTag (int64_t tag) const
     {
-        vector<int64_t>::iterator it = find (mTags.begin (), mTags.end (), tag);
+        vector<int64_t>::const_iterator it = find (mTags.begin (), mTags.end (), tag);
         return it != mTags.end ();
     }
 
-    bool isFirstTag (int64_t tag)
+    bool isFirstTag (int64_t tag) const
     {
         return tag == mFirstTag;
     }

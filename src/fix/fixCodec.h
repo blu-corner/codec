@@ -55,7 +55,7 @@ private:
                              const size_t len,
                              size_t& used);
 
-    codecState decodeTagValue (char*& buf,
+    codecState decodeTagValue (const char*& buf,
                                size_t len,
                                size_t& used,
                                int64_t& tag,
@@ -63,7 +63,7 @@ private:
 
     codecState decodeGroup (cdr& d,
                             fixGroup* group,
-                            char*& buf,
+                            const char*& buf,
                             size_t len,
                             size_t& used,
                             int64_t& lastTag,
@@ -82,11 +82,11 @@ private:
 
     bool processDictionaryMessages (xmlNode* node, string& err);
 
-    bool getFixFieldFromNode (xmlNode* node, fixField& f);
+    bool getFixFieldFromNode (xmlNode* node, fixField& f) const;
 
-    bool getFixTagByName (const string& name, int64_t& tag)
+    bool getFixTagByName (const string& name, int64_t& tag) const
     {
-        fieldNameToTagMap::iterator it = mFieldNameToTagMap.find (name);        
+        fieldNameToTagMap::const_iterator it = mFieldNameToTagMap.find (name);        
         if (it == mFieldNameToTagMap.end ())
             return false;
 
@@ -94,7 +94,7 @@ private:
         return true;
     }
 
-    void getFixValue (cdr& d, int64_t tag, string& val)
+    void getFixValue (cdr& d, int64_t tag, string& val) const
     {
         fixField f;
         if (!getFixFieldDefByTag (tag, f))
@@ -111,13 +111,13 @@ private:
         mRepeatingGroups.insert (pair<int64_t, fixGroup*> (tag, rg));
     }
 
-    bool isGroupTag (int64_t tag)
+    bool isGroupTag (int64_t tag) const
     {
-        groupMap::iterator it = mRepeatingGroups.find (tag);
+        groupMap::const_iterator it = mRepeatingGroups.find (tag);
         return it != mRepeatingGroups.end ();
     }
 
-    bool isHeaderTag (int64_t tag)
+    bool isHeaderTag (int64_t tag) const
     {
         if (find (mHeaderTags.begin (), mHeaderTags.end (), tag)
             != mHeaderTags.end ())
@@ -126,9 +126,9 @@ private:
             return false;
     }
 
-    bool getRepeatingGroup (int64_t tag, fixGroup*& group)
+    bool getRepeatingGroup (int64_t tag, fixGroup*& group) const
     {
-        groupMap::iterator it = mRepeatingGroups.find (tag);
+        groupMap::const_iterator it = mRepeatingGroups.find (tag);
         if (it == mRepeatingGroups.end ())
             return false;
         
@@ -136,9 +136,9 @@ private:
         return true;
     }
 
-    bool getFixFieldDefByTag (int64_t tag, fixField& f)
+    bool getFixFieldDefByTag (int64_t tag, fixField& f) const
     {
-        fixFieldDefs::iterator it = mFieldDefs.find (tag);
+        fixFieldDefs::const_iterator it = mFieldDefs.find (tag);
         if (it == mFieldDefs.end ())
             return false;
         f = *(it->second);

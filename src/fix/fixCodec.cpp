@@ -4,21 +4,19 @@ namespace neueda
 {
 
 bool
-fixCodec::getFixFieldFromNode (xmlNode* field, fixField& f)
+fixCodec::getFixFieldFromNode (xmlNode* field, fixField& f) const
 {
-    string name;
-    string req;
     string type;
     bool required;
     int64_t tag;
 
-    name.assign ((const char*)xmlGetProp (field, (const xmlChar*)"name"));
-    req.assign ((const char*)xmlGetProp (field, (const xmlChar*)"required"));
+    string name ((const char*)xmlGetProp (field, (const xmlChar*)"name"));
+    string req ((const char*)xmlGetProp (field, (const xmlChar*)"required"));
 
     if (!utils_parseBool (req, required))
         return false;
 
-    fieldNameToTypeMap::iterator it = mFieldNameToTypeMap.find (name);
+    fieldNameToTypeMap::const_iterator it = mFieldNameToTypeMap.find (name);
     if (it == mFieldNameToTypeMap.end ())
         return false;
 
@@ -38,10 +36,9 @@ bool
 fixCodec::processDictionaryGroup (xmlNode* node, string& err)
 {
     xmlNode* field;
-    string name;
     int64_t parentTag = 0;
 
-    name.assign ((const char*)xmlGetProp (node, (const xmlChar*)"name"));
+    string name ((const char*)xmlGetProp (node, (const xmlChar*)"name"));
 
     if (!getFixTagByName (name, parentTag))
     {
@@ -116,7 +113,7 @@ fixCodec::processDictionaryMessages (xmlNode* node, string& err)
                         return false;
                     }
 
-                    mHeaderTags.push_back (ff.tag ());
+                    mHeaderTags.push_back (ff.getTag ());
                 }
             }
         }
@@ -140,13 +137,11 @@ fixCodec::processDictionaryFields (xmlNode* node, string& err)
                 if (xmlStrcmp (field->name, (const xmlChar*)"field") == 0)
                 {
                     xmlChar* t = NULL;
-                    string name;
-                    string type;
                     int64_t tag;
 
                     t = xmlGetProp (field, (const xmlChar*)"number");
-                    name.assign ((const char*)xmlGetProp (field, (const xmlChar*)"name"));
-                    type.assign ((const char*)xmlGetProp (field, (const xmlChar*)"type"));
+                    string name ((const char*)xmlGetProp (field, (const xmlChar*)"name"));
+                    string type ((const char*)xmlGetProp (field, (const xmlChar*)"type"));
 
                     if (!utils_parseNumber ((const char*)t, tag))
                     {
@@ -185,7 +180,7 @@ fixCodec::loadDataDictionary (const char* xml, string& err)
     LIBXML_TEST_VERSION
 
     /*parse the file and get the DOM */
-    doc = xmlReadFile(xml, NULL, 0);
+    doc = xmlReadFile (xml, NULL, 0);
 
     if (doc == NULL)
     {
@@ -193,7 +188,7 @@ fixCodec::loadDataDictionary (const char* xml, string& err)
         return false;
     }
 
-    root_element = xmlDocGetRootElement(doc);
+    root_element = xmlDocGetRootElement (doc);
 
     if (!processDictionaryFields (root_element, err))
     {
@@ -228,7 +223,7 @@ fixCodec::validate (const void* buf,
     if (len <= 2)
         return GW_CODEC_SHORT;
 
-    char* tmp = (char*)buf;
+    const char* tmp = (const char*)buf;
 
     size_t start = used;
     size_t checksumEnd = 0;
@@ -339,7 +334,7 @@ fixCodec::validate (const void* buf,
 }
 
 codecState
-fixCodec::decodeTagValue (char*& buf,
+fixCodec::decodeTagValue (const char*& buf,
                           size_t len,
                           size_t& used,
                           int64_t& tag,
@@ -382,7 +377,7 @@ fixCodec::decodeTagValue (char*& buf,
 codecState
 fixCodec::decodeGroup (cdr& d,
                        fixGroup* group,
-                       char*& buf,
+                       const char*& buf,
                        size_t len,
                        size_t& used,
                        int64_t& lastTag,
@@ -490,7 +485,7 @@ fixCodec::decode (cdr& target,
 
     fixGroup* group = NULL;
 
-    char* tmp = (char*)buf;
+    const char* tmp = (const char*)buf;
 
     size_t msgLen = used;
     used = 0;
