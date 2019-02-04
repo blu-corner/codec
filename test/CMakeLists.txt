@@ -1,5 +1,5 @@
 set(TEST_LIBS codec
-              fixCodec
+              fixcodec
               lsecodec
               xetracodec
               oslocodec
