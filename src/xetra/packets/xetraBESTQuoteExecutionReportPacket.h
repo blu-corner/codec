@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_BESTQUOTEEXECUTIONREPORT_PACKET_H
 #define XETRA_BESTQUOTEEXECUTIONREPORT_PACKET_H
@@ -35,6 +35,12 @@ class xetraBESTQuoteExecutionReportPacket
         static const double QUOTE_EVENT_PX_MIN;
         static const double QUOTE_EVENT_PX_MAX;
         static const int64_t QUOTE_EVENT_PX_NO_VALUE;
+        static const double QUOTE_EVENT_QTY_MIN;
+        static const double QUOTE_EVENT_QTY_MAX;
+        static const int64_t QUOTE_EVENT_QTY_NO_VALUE;
+        static const double RESERVED_SIZE_MIN;
+        static const double RESERVED_SIZE_MAX;
+        static const int64_t RESERVED_SIZE_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
@@ -44,12 +50,6 @@ class xetraBESTQuoteExecutionReportPacket
         static const int32_t QUOTE_EVENT_EXEC_ID_MIN;
         static const int32_t QUOTE_EVENT_EXEC_ID_MAX;
         static const int32_t QUOTE_EVENT_EXEC_ID_NO_VALUE;
-        static const int32_t QUOTE_EVENT_QTY_MIN;
-        static const int32_t QUOTE_EVENT_QTY_MAX;
-        static const int32_t QUOTE_EVENT_QTY_NO_VALUE;
-        static const uint32_t RESERVED_SIZE_MIN;
-        static const uint32_t RESERVED_SIZE_MAX;
-        static const uint32_t RESERVED_SIZE_NO_VALUE;
         static const int8_t QUOTE_EVENT_TYPE_MIN;
         static const int8_t QUOTE_EVENT_TYPE_MAX;
         static const int8_t QUOTE_EVENT_TYPE_NO_VALUE;
@@ -66,11 +66,11 @@ class xetraBESTQuoteExecutionReportPacket
         uint64_t mQuoteMsgID;
         int64_t mSecurityID;
         int64_t mQuoteEventPx;
+        int64_t mQuoteEventQty;
+        int64_t mReservedSize;
         int32_t mMarketSegmentID;
         uint32_t mQuoteEventMatchID;
         int32_t mQuoteEventExecID;
-        int32_t mQuoteEventQty;
-        uint32_t mReservedSize;
         int8_t mQuoteEventType;
         int8_t mQuoteEventSide;
         char mPad2[2];
@@ -83,11 +83,11 @@ class xetraBESTQuoteExecutionReportPacket
             mQuoteMsgID = QUOTE_MSG_ID_NO_VALUE;
             mSecurityID = SECURITY_ID_NO_VALUE;
             mQuoteEventPx = QUOTE_EVENT_PX_NO_VALUE;
+            mQuoteEventQty = QUOTE_EVENT_QTY_NO_VALUE;
+            mReservedSize = RESERVED_SIZE_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mQuoteEventMatchID = QUOTE_EVENT_MATCH_ID_NO_VALUE;
             mQuoteEventExecID = QUOTE_EVENT_EXEC_ID_NO_VALUE;
-            mQuoteEventQty = QUOTE_EVENT_QTY_NO_VALUE;
-            mReservedSize = RESERVED_SIZE_NO_VALUE;
             mQuoteEventType = QUOTE_EVENT_TYPE_NO_VALUE;
             mQuoteEventSide = QUOTE_EVENT_SIDE_NO_VALUE;
             memcpy(mPad2, PAD2_NO_VALUE, sizeof (mPad2));
@@ -200,6 +200,48 @@ class xetraBESTQuoteExecutionReportPacket
             mQuoteEventPx = QUOTE_EVENT_PX_NO_VALUE;
         }
 
+        double getQuoteEventQty () const
+        {
+            return mQuoteEventQty / 10000.0;
+        }
+
+        bool setQuoteEventQty (double v)
+        {
+            mQuoteEventQty = v * 10000.0;
+            return ((QUOTE_EVENT_QTY_MIN <= v && v <= QUOTE_EVENT_QTY_MAX) || mQuoteEventQty == QUOTE_EVENT_QTY_NO_VALUE);
+        }
+
+        bool isQuoteEventQtyValid () const
+        {
+            return (mQuoteEventQty != QUOTE_EVENT_QTY_NO_VALUE);
+        }
+
+        void resetQuoteEventQty ()
+        {
+            mQuoteEventQty = QUOTE_EVENT_QTY_NO_VALUE;
+        }
+
+        double getReservedSize () const
+        {
+            return mReservedSize / 10000.0;
+        }
+
+        bool setReservedSize (double v)
+        {
+            mReservedSize = v * 10000.0;
+            return ((RESERVED_SIZE_MIN <= v && v <= RESERVED_SIZE_MAX) || mReservedSize == RESERVED_SIZE_NO_VALUE);
+        }
+
+        bool isReservedSizeValid () const
+        {
+            return (mReservedSize != RESERVED_SIZE_NO_VALUE);
+        }
+
+        void resetReservedSize ()
+        {
+            mReservedSize = RESERVED_SIZE_NO_VALUE;
+        }
+
         int32_t getMarketSegmentID () const
         {
             return mMarketSegmentID;
@@ -261,48 +303,6 @@ class xetraBESTQuoteExecutionReportPacket
         void resetQuoteEventExecID ()
         {
             mQuoteEventExecID = QUOTE_EVENT_EXEC_ID_NO_VALUE;
-        }
-
-        int32_t getQuoteEventQty () const
-        {
-            return mQuoteEventQty;
-        }
-
-        bool setQuoteEventQty (int32_t v)
-        {
-            mQuoteEventQty = v;
-            return ((QUOTE_EVENT_QTY_MIN <= mQuoteEventQty && mQuoteEventQty <= QUOTE_EVENT_QTY_MAX) || mQuoteEventQty == QUOTE_EVENT_QTY_NO_VALUE);
-        }
-
-        bool isQuoteEventQtyValid () const
-        {
-            return (mQuoteEventQty != QUOTE_EVENT_QTY_NO_VALUE);
-        }
-
-        void resetQuoteEventQty ()
-        {
-            mQuoteEventQty = QUOTE_EVENT_QTY_NO_VALUE;
-        }
-
-        uint32_t getReservedSize () const
-        {
-            return mReservedSize;
-        }
-
-        bool setReservedSize (uint32_t v)
-        {
-            mReservedSize = v;
-            return ((RESERVED_SIZE_MIN <= mReservedSize && mReservedSize <= RESERVED_SIZE_MAX) || mReservedSize == RESERVED_SIZE_NO_VALUE);
-        }
-
-        bool isReservedSizeValid () const
-        {
-            return (mReservedSize != RESERVED_SIZE_NO_VALUE);
-        }
-
-        void resetReservedSize ()
-        {
-            mReservedSize = RESERVED_SIZE_NO_VALUE;
         }
 
         int8_t getQuoteEventType () const
@@ -381,11 +381,11 @@ class xetraBESTQuoteExecutionReportPacket
                 + sizeof (mQuoteMsgID)
                 + sizeof (mSecurityID)
                 + sizeof (mQuoteEventPx)
+                + sizeof (mQuoteEventQty)
+                + sizeof (mReservedSize)
                 + sizeof (mMarketSegmentID)
                 + sizeof (mQuoteEventMatchID)
                 + sizeof (mQuoteEventExecID)
-                + sizeof (mQuoteEventQty)
-                + sizeof (mReservedSize)
                 + sizeof (mQuoteEventType)
                 + sizeof (mQuoteEventSide)
                 + sizeof (mPad2);
@@ -409,15 +409,15 @@ class xetraBESTQuoteExecutionReportPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mQuoteEventPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mQuoteEventQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mReservedSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mQuoteEventMatchID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mQuoteEventExecID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mQuoteEventQty, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mReservedSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mQuoteEventType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -444,15 +444,15 @@ class xetraBESTQuoteExecutionReportPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mQuoteEventPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mQuoteEventQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mReservedSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mQuoteEventMatchID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mQuoteEventExecID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mQuoteEventQty, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mReservedSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mQuoteEventType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -475,11 +475,11 @@ class xetraBESTQuoteExecutionReportPacket
                 << "[QuoteMsgID=" << getQuoteMsgID () << "],"
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[QuoteEventPx=" << getQuoteEventPx () << "],"
+                << "[QuoteEventQty=" << getQuoteEventQty () << "],"
+                << "[ReservedSize=" << getReservedSize () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[QuoteEventMatchID=" << getQuoteEventMatchID () << "],"
                 << "[QuoteEventExecID=" << getQuoteEventExecID () << "],"
-                << "[QuoteEventQty=" << getQuoteEventQty () << "],"
-                << "[ReservedSize=" << getReservedSize () << "],"
                 << "[QuoteEventType=" << getQuoteEventType () << "],"
                 << "[QuoteEventSide=" << getQuoteEventSide () << "],"
                 << "[Pad2=" << getPad2 () << "]";
@@ -499,6 +499,12 @@ const int64_t xetraBESTQuoteExecutionReportPacket::SECURITY_ID_NO_VALUE = 0x8000
 const double xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_PX_MIN = -92233720368.54775807;
 const double xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_PX_MAX = 92233720368.54775807;
 const int64_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_PX_NO_VALUE = 0x8000000000000000;
+const double xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_QTY_MIN = -922337203685477.5807;
+const double xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_QTY_MAX = 922337203685477.5807;
+const int64_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraBESTQuoteExecutionReportPacket::RESERVED_SIZE_MIN = -922337203685477.5807;
+const double xetraBESTQuoteExecutionReportPacket::RESERVED_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraBESTQuoteExecutionReportPacket::RESERVED_SIZE_NO_VALUE = 0x8000000000000000;
 const int32_t xetraBESTQuoteExecutionReportPacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraBESTQuoteExecutionReportPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraBESTQuoteExecutionReportPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
@@ -508,12 +514,6 @@ const uint32_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_MATCH_ID_NO_VALU
 const int32_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_EXEC_ID_MIN = -2147483647;
 const int32_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_EXEC_ID_MAX = 2147483647;
 const int32_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_EXEC_ID_NO_VALUE = 0x80000000;
-const int32_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_QTY_MIN = -2147483647;
-const int32_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_QTY_MAX = 2147483647;
-const int32_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_QTY_NO_VALUE = 0x80000000;
-const uint32_t xetraBESTQuoteExecutionReportPacket::RESERVED_SIZE_MIN = 0;
-const uint32_t xetraBESTQuoteExecutionReportPacket::RESERVED_SIZE_MAX = 4294967294;
-const uint32_t xetraBESTQuoteExecutionReportPacket::RESERVED_SIZE_NO_VALUE = 0xFFFFFFFF;
 const int8_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_TYPE_MIN = 0;
 const int8_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_TYPE_MAX = 5;
 const int8_t xetraBESTQuoteExecutionReportPacket::QUOTE_EVENT_TYPE_NO_VALUE = 0xFF;

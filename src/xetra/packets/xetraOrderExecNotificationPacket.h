@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_ORDEREXECNOTIFICATION_PACKET_H
 #define XETRA_ORDEREXECNOTIFICATION_PACKET_H
@@ -38,24 +38,24 @@ class xetraOrderExecNotificationPacket
         static const uint64_t EXEC_ID_MIN;
         static const uint64_t EXEC_ID_MAX;
         static const uint64_t EXEC_ID_NO_VALUE;
+        static const double LEAVES_QTY_MIN;
+        static const double LEAVES_QTY_MAX;
+        static const int64_t LEAVES_QTY_NO_VALUE;
+        static const double CUM_QTY_MIN;
+        static const double CUM_QTY_MAX;
+        static const int64_t CUM_QTY_NO_VALUE;
+        static const double CXL_QTY_MIN;
+        static const double CXL_QTY_MAX;
+        static const int64_t CXL_QTY_NO_VALUE;
+        static const double DISPLAY_QTY_MIN;
+        static const double DISPLAY_QTY_MAX;
+        static const int64_t DISPLAY_QTY_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
         static const uint32_t ORDER_IDSFX_MIN;
         static const uint32_t ORDER_IDSFX_MAX;
         static const uint32_t ORDER_IDSFX_NO_VALUE;
-        static const int32_t LEAVES_QTY_MIN;
-        static const int32_t LEAVES_QTY_MAX;
-        static const int32_t LEAVES_QTY_NO_VALUE;
-        static const int32_t CUM_QTY_MIN;
-        static const int32_t CUM_QTY_MAX;
-        static const int32_t CUM_QTY_NO_VALUE;
-        static const int32_t CXL_QTY_MIN;
-        static const int32_t CXL_QTY_MAX;
-        static const int32_t CXL_QTY_NO_VALUE;
-        static const int32_t DISPLAY_QTY_MIN;
-        static const int32_t DISPLAY_QTY_MAX;
-        static const int32_t DISPLAY_QTY_NO_VALUE;
         static const int16_t EXEC_RESTATEMENT_REASON_MIN;
         static const int16_t EXEC_RESTATEMENT_REASON_MAX;
         static const int16_t EXEC_RESTATEMENT_REASON_NO_VALUE;
@@ -93,12 +93,12 @@ class xetraOrderExecNotificationPacket
         uint64_t mOrigClOrdID;
         int64_t mSecurityID;
         uint64_t mExecID;
+        int64_t mLeavesQty;
+        int64_t mCumQty;
+        int64_t mCxlQty;
+        int64_t mDisplayQty;
         int32_t mMarketSegmentID;
         uint32_t mOrderIDSfx;
-        int32_t mLeavesQty;
-        int32_t mCumQty;
-        int32_t mCxlQty;
-        int32_t mDisplayQty;
         int16_t mExecRestatementReason;
         int8_t mSide;
         char mOrdStatus[1];
@@ -120,12 +120,12 @@ class xetraOrderExecNotificationPacket
             mOrigClOrdID = ORIG_CL_ORD_ID_NO_VALUE;
             mSecurityID = SECURITY_ID_NO_VALUE;
             mExecID = EXEC_ID_NO_VALUE;
-            mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
-            mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mLeavesQty = LEAVES_QTY_NO_VALUE;
             mCumQty = CUM_QTY_NO_VALUE;
             mCxlQty = CXL_QTY_NO_VALUE;
             mDisplayQty = DISPLAY_QTY_NO_VALUE;
+            mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
+            mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mExecRestatementReason = EXEC_RESTATEMENT_REASON_NO_VALUE;
             mSide = SIDE_NO_VALUE;
             memcpy(mOrdStatus, ORD_STATUS_NO_VALUE, sizeof (mOrdStatus));
@@ -266,6 +266,90 @@ class xetraOrderExecNotificationPacket
             mExecID = EXEC_ID_NO_VALUE;
         }
 
+        double getLeavesQty () const
+        {
+            return mLeavesQty / 10000.0;
+        }
+
+        bool setLeavesQty (double v)
+        {
+            mLeavesQty = v * 10000.0;
+            return ((LEAVES_QTY_MIN <= v && v <= LEAVES_QTY_MAX) || mLeavesQty == LEAVES_QTY_NO_VALUE);
+        }
+
+        bool isLeavesQtyValid () const
+        {
+            return (mLeavesQty != LEAVES_QTY_NO_VALUE);
+        }
+
+        void resetLeavesQty ()
+        {
+            mLeavesQty = LEAVES_QTY_NO_VALUE;
+        }
+
+        double getCumQty () const
+        {
+            return mCumQty / 10000.0;
+        }
+
+        bool setCumQty (double v)
+        {
+            mCumQty = v * 10000.0;
+            return ((CUM_QTY_MIN <= v && v <= CUM_QTY_MAX) || mCumQty == CUM_QTY_NO_VALUE);
+        }
+
+        bool isCumQtyValid () const
+        {
+            return (mCumQty != CUM_QTY_NO_VALUE);
+        }
+
+        void resetCumQty ()
+        {
+            mCumQty = CUM_QTY_NO_VALUE;
+        }
+
+        double getCxlQty () const
+        {
+            return mCxlQty / 10000.0;
+        }
+
+        bool setCxlQty (double v)
+        {
+            mCxlQty = v * 10000.0;
+            return ((CXL_QTY_MIN <= v && v <= CXL_QTY_MAX) || mCxlQty == CXL_QTY_NO_VALUE);
+        }
+
+        bool isCxlQtyValid () const
+        {
+            return (mCxlQty != CXL_QTY_NO_VALUE);
+        }
+
+        void resetCxlQty ()
+        {
+            mCxlQty = CXL_QTY_NO_VALUE;
+        }
+
+        double getDisplayQty () const
+        {
+            return mDisplayQty / 10000.0;
+        }
+
+        bool setDisplayQty (double v)
+        {
+            mDisplayQty = v * 10000.0;
+            return ((DISPLAY_QTY_MIN <= v && v <= DISPLAY_QTY_MAX) || mDisplayQty == DISPLAY_QTY_NO_VALUE);
+        }
+
+        bool isDisplayQtyValid () const
+        {
+            return (mDisplayQty != DISPLAY_QTY_NO_VALUE);
+        }
+
+        void resetDisplayQty ()
+        {
+            mDisplayQty = DISPLAY_QTY_NO_VALUE;
+        }
+
         int32_t getMarketSegmentID () const
         {
             return mMarketSegmentID;
@@ -306,90 +390,6 @@ class xetraOrderExecNotificationPacket
         void resetOrderIDSfx ()
         {
             mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
-        }
-
-        int32_t getLeavesQty () const
-        {
-            return mLeavesQty;
-        }
-
-        bool setLeavesQty (int32_t v)
-        {
-            mLeavesQty = v;
-            return ((LEAVES_QTY_MIN <= mLeavesQty && mLeavesQty <= LEAVES_QTY_MAX) || mLeavesQty == LEAVES_QTY_NO_VALUE);
-        }
-
-        bool isLeavesQtyValid () const
-        {
-            return (mLeavesQty != LEAVES_QTY_NO_VALUE);
-        }
-
-        void resetLeavesQty ()
-        {
-            mLeavesQty = LEAVES_QTY_NO_VALUE;
-        }
-
-        int32_t getCumQty () const
-        {
-            return mCumQty;
-        }
-
-        bool setCumQty (int32_t v)
-        {
-            mCumQty = v;
-            return ((CUM_QTY_MIN <= mCumQty && mCumQty <= CUM_QTY_MAX) || mCumQty == CUM_QTY_NO_VALUE);
-        }
-
-        bool isCumQtyValid () const
-        {
-            return (mCumQty != CUM_QTY_NO_VALUE);
-        }
-
-        void resetCumQty ()
-        {
-            mCumQty = CUM_QTY_NO_VALUE;
-        }
-
-        int32_t getCxlQty () const
-        {
-            return mCxlQty;
-        }
-
-        bool setCxlQty (int32_t v)
-        {
-            mCxlQty = v;
-            return ((CXL_QTY_MIN <= mCxlQty && mCxlQty <= CXL_QTY_MAX) || mCxlQty == CXL_QTY_NO_VALUE);
-        }
-
-        bool isCxlQtyValid () const
-        {
-            return (mCxlQty != CXL_QTY_NO_VALUE);
-        }
-
-        void resetCxlQty ()
-        {
-            mCxlQty = CXL_QTY_NO_VALUE;
-        }
-
-        int32_t getDisplayQty () const
-        {
-            return mDisplayQty;
-        }
-
-        bool setDisplayQty (int32_t v)
-        {
-            mDisplayQty = v;
-            return ((DISPLAY_QTY_MIN <= mDisplayQty && mDisplayQty <= DISPLAY_QTY_MAX) || mDisplayQty == DISPLAY_QTY_NO_VALUE);
-        }
-
-        bool isDisplayQtyValid () const
-        {
-            return (mDisplayQty != DISPLAY_QTY_NO_VALUE);
-        }
-
-        void resetDisplayQty ()
-        {
-            mDisplayQty = DISPLAY_QTY_NO_VALUE;
         }
 
         int16_t getExecRestatementReason () const
@@ -637,12 +637,12 @@ class xetraOrderExecNotificationPacket
                 + sizeof (mOrigClOrdID)
                 + sizeof (mSecurityID)
                 + sizeof (mExecID)
-                + sizeof (mMarketSegmentID)
-                + sizeof (mOrderIDSfx)
                 + sizeof (mLeavesQty)
                 + sizeof (mCumQty)
                 + sizeof (mCxlQty)
                 + sizeof (mDisplayQty)
+                + sizeof (mMarketSegmentID)
+                + sizeof (mOrderIDSfx)
                 + sizeof (mExecRestatementReason)
                 + sizeof (mSide)
                 + sizeof (mOrdStatus)
@@ -677,10 +677,6 @@ class xetraOrderExecNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mMarketSegmentID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mOrderIDSfx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mLeavesQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mCumQty, buf, len, used);
@@ -688,6 +684,10 @@ class xetraOrderExecNotificationPacket
             state = xetra::serialize (mCxlQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mDisplayQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mMarketSegmentID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mOrderIDSfx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecRestatementReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -735,10 +735,6 @@ class xetraOrderExecNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mMarketSegmentID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mOrderIDSfx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mLeavesQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mCumQty, buf, len, used);
@@ -746,6 +742,10 @@ class xetraOrderExecNotificationPacket
             state = xetra::deserialize (mCxlQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mDisplayQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mMarketSegmentID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mOrderIDSfx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecRestatementReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -789,12 +789,12 @@ class xetraOrderExecNotificationPacket
                 << "[OrigClOrdID=" << getOrigClOrdID () << "],"
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[ExecID=" << getExecID () << "],"
-                << "[MarketSegmentID=" << getMarketSegmentID () << "],"
-                << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[LeavesQty=" << getLeavesQty () << "],"
                 << "[CumQty=" << getCumQty () << "],"
                 << "[CxlQty=" << getCxlQty () << "],"
                 << "[DisplayQty=" << getDisplayQty () << "],"
+                << "[MarketSegmentID=" << getMarketSegmentID () << "],"
+                << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[ExecRestatementReason=" << getExecRestatementReason () << "],"
                 << "[Side=" << getSide () << "],"
                 << "[OrdStatus=" << getOrdStatus () << "],"
@@ -825,26 +825,26 @@ const int64_t xetraOrderExecNotificationPacket::SECURITY_ID_NO_VALUE = 0x8000000
 const uint64_t xetraOrderExecNotificationPacket::EXEC_ID_MIN = 0UL;
 const uint64_t xetraOrderExecNotificationPacket::EXEC_ID_MAX = 18446744073709551614UL;
 const uint64_t xetraOrderExecNotificationPacket::EXEC_ID_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
+const double xetraOrderExecNotificationPacket::LEAVES_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecNotificationPacket::LEAVES_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecNotificationPacket::LEAVES_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecNotificationPacket::CUM_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecNotificationPacket::CUM_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecNotificationPacket::CUM_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecNotificationPacket::CXL_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecNotificationPacket::CXL_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecNotificationPacket::CXL_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecNotificationPacket::DISPLAY_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecNotificationPacket::DISPLAY_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecNotificationPacket::DISPLAY_QTY_NO_VALUE = 0x8000000000000000;
 const int32_t xetraOrderExecNotificationPacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraOrderExecNotificationPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraOrderExecNotificationPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
 const uint32_t xetraOrderExecNotificationPacket::ORDER_IDSFX_MIN = 0;
 const uint32_t xetraOrderExecNotificationPacket::ORDER_IDSFX_MAX = 4294967294;
 const uint32_t xetraOrderExecNotificationPacket::ORDER_IDSFX_NO_VALUE = 0xFFFFFFFF;
-const int32_t xetraOrderExecNotificationPacket::LEAVES_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecNotificationPacket::LEAVES_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecNotificationPacket::LEAVES_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecNotificationPacket::CUM_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecNotificationPacket::CUM_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecNotificationPacket::CUM_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecNotificationPacket::CXL_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecNotificationPacket::CXL_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecNotificationPacket::CXL_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecNotificationPacket::DISPLAY_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecNotificationPacket::DISPLAY_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecNotificationPacket::DISPLAY_QTY_NO_VALUE = 0x80000000;
 const int16_t xetraOrderExecNotificationPacket::EXEC_RESTATEMENT_REASON_MIN = 0;
-const int16_t xetraOrderExecNotificationPacket::EXEC_RESTATEMENT_REASON_MAX = 300;
+const int16_t xetraOrderExecNotificationPacket::EXEC_RESTATEMENT_REASON_MAX = 344;
 const int16_t xetraOrderExecNotificationPacket::EXEC_RESTATEMENT_REASON_NO_VALUE = 0xFFFF;
 const int8_t xetraOrderExecNotificationPacket::SIDE_MIN = 1;
 const int8_t xetraOrderExecNotificationPacket::SIDE_MAX = 2;
@@ -854,7 +854,7 @@ const size_t xetraOrderExecNotificationPacket::ORD_STATUS_MAX_LENGTH = 1;
 const char xetraOrderExecNotificationPacket::EXEC_TYPE_NO_VALUE[1] = {0x00};
 const size_t xetraOrderExecNotificationPacket::EXEC_TYPE_MAX_LENGTH = 1;
 const int8_t xetraOrderExecNotificationPacket::MATCH_TYPE_MIN = 0;
-const int8_t xetraOrderExecNotificationPacket::MATCH_TYPE_MAX = 12;
+const int8_t xetraOrderExecNotificationPacket::MATCH_TYPE_MAX = 14;
 const int8_t xetraOrderExecNotificationPacket::MATCH_TYPE_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecNotificationPacket::TRIGGERED_MIN = 0;
 const int8_t xetraOrderExecNotificationPacket::TRIGGERED_MAX = 2;

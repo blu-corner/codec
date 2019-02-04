@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_BESTQUOTERESPONSE_PACKET_H
 #define XETRA_BESTQUOTERESPONSE_PACKET_H
@@ -32,15 +32,15 @@ class xetraBESTQuoteResponsePacket
         static const int64_t SECURITY_ID_MIN;
         static const int64_t SECURITY_ID_MAX;
         static const int64_t SECURITY_ID_NO_VALUE;
+        static const double BID_CXL_SIZE_MIN;
+        static const double BID_CXL_SIZE_MAX;
+        static const int64_t BID_CXL_SIZE_NO_VALUE;
+        static const double OFFER_CXL_SIZE_MIN;
+        static const double OFFER_CXL_SIZE_MAX;
+        static const int64_t OFFER_CXL_SIZE_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
-        static const int32_t BID_CXL_SIZE_MIN;
-        static const int32_t BID_CXL_SIZE_MAX;
-        static const int32_t BID_CXL_SIZE_NO_VALUE;
-        static const int32_t OFFER_CXL_SIZE_MIN;
-        static const int32_t OFFER_CXL_SIZE_MAX;
-        static const int32_t OFFER_CXL_SIZE_NO_VALUE;
         static const char PAD4_NO_VALUE[4];
         static const size_t PAD4_MAX_LENGTH;
 
@@ -50,9 +50,9 @@ class xetraBESTQuoteResponsePacket
         uint64_t mQuoteID;
         uint64_t mQuoteResponseID;
         int64_t mSecurityID;
+        int64_t mBidCxlSize;
+        int64_t mOfferCxlSize;
         int32_t mMarketSegmentID;
-        int32_t mBidCxlSize;
-        int32_t mOfferCxlSize;
         char mPad4[4];
 
         // constructor
@@ -62,9 +62,9 @@ class xetraBESTQuoteResponsePacket
             mQuoteID = QUOTE_ID_NO_VALUE;
             mQuoteResponseID = QUOTE_RESPONSE_ID_NO_VALUE;
             mSecurityID = SECURITY_ID_NO_VALUE;
-            mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mBidCxlSize = BID_CXL_SIZE_NO_VALUE;
             mOfferCxlSize = OFFER_CXL_SIZE_NO_VALUE;
+            mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             memcpy(mPad4, PAD4_NO_VALUE, sizeof (mPad4));
         }
 
@@ -154,6 +154,48 @@ class xetraBESTQuoteResponsePacket
             mSecurityID = SECURITY_ID_NO_VALUE;
         }
 
+        double getBidCxlSize () const
+        {
+            return mBidCxlSize / 10000.0;
+        }
+
+        bool setBidCxlSize (double v)
+        {
+            mBidCxlSize = v * 10000.0;
+            return ((BID_CXL_SIZE_MIN <= v && v <= BID_CXL_SIZE_MAX) || mBidCxlSize == BID_CXL_SIZE_NO_VALUE);
+        }
+
+        bool isBidCxlSizeValid () const
+        {
+            return (mBidCxlSize != BID_CXL_SIZE_NO_VALUE);
+        }
+
+        void resetBidCxlSize ()
+        {
+            mBidCxlSize = BID_CXL_SIZE_NO_VALUE;
+        }
+
+        double getOfferCxlSize () const
+        {
+            return mOfferCxlSize / 10000.0;
+        }
+
+        bool setOfferCxlSize (double v)
+        {
+            mOfferCxlSize = v * 10000.0;
+            return ((OFFER_CXL_SIZE_MIN <= v && v <= OFFER_CXL_SIZE_MAX) || mOfferCxlSize == OFFER_CXL_SIZE_NO_VALUE);
+        }
+
+        bool isOfferCxlSizeValid () const
+        {
+            return (mOfferCxlSize != OFFER_CXL_SIZE_NO_VALUE);
+        }
+
+        void resetOfferCxlSize ()
+        {
+            mOfferCxlSize = OFFER_CXL_SIZE_NO_VALUE;
+        }
+
         int32_t getMarketSegmentID () const
         {
             return mMarketSegmentID;
@@ -173,48 +215,6 @@ class xetraBESTQuoteResponsePacket
         void resetMarketSegmentID ()
         {
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
-        }
-
-        int32_t getBidCxlSize () const
-        {
-            return mBidCxlSize;
-        }
-
-        bool setBidCxlSize (int32_t v)
-        {
-            mBidCxlSize = v;
-            return ((BID_CXL_SIZE_MIN <= mBidCxlSize && mBidCxlSize <= BID_CXL_SIZE_MAX) || mBidCxlSize == BID_CXL_SIZE_NO_VALUE);
-        }
-
-        bool isBidCxlSizeValid () const
-        {
-            return (mBidCxlSize != BID_CXL_SIZE_NO_VALUE);
-        }
-
-        void resetBidCxlSize ()
-        {
-            mBidCxlSize = BID_CXL_SIZE_NO_VALUE;
-        }
-
-        int32_t getOfferCxlSize () const
-        {
-            return mOfferCxlSize;
-        }
-
-        bool setOfferCxlSize (int32_t v)
-        {
-            mOfferCxlSize = v;
-            return ((OFFER_CXL_SIZE_MIN <= mOfferCxlSize && mOfferCxlSize <= OFFER_CXL_SIZE_MAX) || mOfferCxlSize == OFFER_CXL_SIZE_NO_VALUE);
-        }
-
-        bool isOfferCxlSizeValid () const
-        {
-            return (mOfferCxlSize != OFFER_CXL_SIZE_NO_VALUE);
-        }
-
-        void resetOfferCxlSize ()
-        {
-            mOfferCxlSize = OFFER_CXL_SIZE_NO_VALUE;
         }
 
         string getPad4 () const
@@ -250,9 +250,9 @@ class xetraBESTQuoteResponsePacket
                 + sizeof (mQuoteID)
                 + sizeof (mQuoteResponseID)
                 + sizeof (mSecurityID)
-                + sizeof (mMarketSegmentID)
                 + sizeof (mBidCxlSize)
                 + sizeof (mOfferCxlSize)
+                + sizeof (mMarketSegmentID)
                 + sizeof (mPad4);
             return result;
         }
@@ -272,11 +272,11 @@ class xetraBESTQuoteResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mSecurityID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mMarketSegmentID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mBidCxlSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mOfferCxlSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mPad4, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -297,11 +297,11 @@ class xetraBESTQuoteResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mSecurityID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mMarketSegmentID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mBidCxlSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mOfferCxlSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mPad4, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -319,9 +319,9 @@ class xetraBESTQuoteResponsePacket
                 << "[QuoteID=" << getQuoteID () << "],"
                 << "[QuoteResponseID=" << getQuoteResponseID () << "],"
                 << "[SecurityID=" << getSecurityID () << "],"
-                << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[BidCxlSize=" << getBidCxlSize () << "],"
                 << "[OfferCxlSize=" << getOfferCxlSize () << "],"
+                << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[Pad4=" << getPad4 () << "]";
             return sss.str();
         }
@@ -336,15 +336,15 @@ const uint64_t xetraBESTQuoteResponsePacket::QUOTE_RESPONSE_ID_NO_VALUE = 0xFFFF
 const int64_t xetraBESTQuoteResponsePacket::SECURITY_ID_MIN = -9223372036854775807L;
 const int64_t xetraBESTQuoteResponsePacket::SECURITY_ID_MAX = 9223372036854775807L;
 const int64_t xetraBESTQuoteResponsePacket::SECURITY_ID_NO_VALUE = 0x8000000000000000;
+const double xetraBESTQuoteResponsePacket::BID_CXL_SIZE_MIN = -922337203685477.5807;
+const double xetraBESTQuoteResponsePacket::BID_CXL_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraBESTQuoteResponsePacket::BID_CXL_SIZE_NO_VALUE = 0x8000000000000000;
+const double xetraBESTQuoteResponsePacket::OFFER_CXL_SIZE_MIN = -922337203685477.5807;
+const double xetraBESTQuoteResponsePacket::OFFER_CXL_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraBESTQuoteResponsePacket::OFFER_CXL_SIZE_NO_VALUE = 0x8000000000000000;
 const int32_t xetraBESTQuoteResponsePacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraBESTQuoteResponsePacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraBESTQuoteResponsePacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
-const int32_t xetraBESTQuoteResponsePacket::BID_CXL_SIZE_MIN = -2147483647;
-const int32_t xetraBESTQuoteResponsePacket::BID_CXL_SIZE_MAX = 2147483647;
-const int32_t xetraBESTQuoteResponsePacket::BID_CXL_SIZE_NO_VALUE = 0x80000000;
-const int32_t xetraBESTQuoteResponsePacket::OFFER_CXL_SIZE_MIN = -2147483647;
-const int32_t xetraBESTQuoteResponsePacket::OFFER_CXL_SIZE_MAX = 2147483647;
-const int32_t xetraBESTQuoteResponsePacket::OFFER_CXL_SIZE_NO_VALUE = 0x80000000;
 const char xetraBESTQuoteResponsePacket::PAD4_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
 const size_t xetraBESTQuoteResponsePacket::PAD4_MAX_LENGTH = 4;
 

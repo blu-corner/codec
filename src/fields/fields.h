@@ -2140,6 +2140,44 @@ using namespace std;
 #define VarText 3965
 #define VarTextLen 3966
 #define VolumeDiscoveryPrice 3967
+#define AllocQty 3968
+#define BestBidPx 3969
+#define BestBidSize 3970
+#define BestOfferPx 3971
+#define BestOfferSize 3972
+#define ImbalanceQty 3973
+#define LastCouponDeviationIndicator 3974
+#define LastPxDisclosureInstruction 3975
+#define LastQtyDisclosureInstruction 3976
+#define LeavesQtyDisclosureInstruction 3977
+#define NoSideAllocs 3978
+#define PartyEnteringTrader 3979
+#define PartyExecutingTrader 3980
+#define PotentialExecVolume 3981
+#define PriceDisclosureInstruction 3982
+#define QuoteInstruction 3983
+#define RefinancingEligibilityIndicator 3984
+#define RegulatoryTradeID 3985
+#define RootPartyClearingOrganization 3986
+#define RootPartyIDClientID 3987
+#define RootPartyIDInvestmentDecisionMaker 3988
+#define RootPartyIDInvestmentDecisionMakerQualifier 3989
+#define SecurityStatusEventGrp 3990
+#define SecurityStatusReportID 3991
+#define SideAllocGrp 3992
+#define SideAllocGrpBC 3993
+#define SideDisclosureInstruction 3994
+#define SoldOutIndicator 3995
+#define T7EntryServiceRtmStatus 3996
+#define T7EntryServiceRtmTradeDate 3997
+#define T7EntryServiceStatus 3998
+#define T7EntryServiceTradeDate 3999
+#define TargetPartyExecutingFirm 4000
+#define TargetPartyExecutingTrader 4001
+#define TESExecID 4002
+#define TradeAllocStatus 4003
+#define TradeReportText 4004
+#define AccruedInteresAmt 4005
 
 namespace neueda
 {
@@ -2150,7 +2188,6 @@ class FieldUtils
         static map<int, string> createMap ();
         static string getFieldName (int f);
 
-    private:
         static map<int, string> mFieldNames;
 };
 

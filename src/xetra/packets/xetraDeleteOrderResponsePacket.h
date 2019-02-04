@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_DELETEORDERRESPONSE_PACKET_H
 #define XETRA_DELETEORDERRESPONSE_PACKET_H
@@ -38,15 +38,15 @@ class xetraDeleteOrderResponsePacket
         static const uint64_t EXEC_ID_MIN;
         static const uint64_t EXEC_ID_MAX;
         static const uint64_t EXEC_ID_NO_VALUE;
+        static const double CUM_QTY_MIN;
+        static const double CUM_QTY_MAX;
+        static const int64_t CUM_QTY_NO_VALUE;
+        static const double CXL_QTY_MIN;
+        static const double CXL_QTY_MAX;
+        static const int64_t CXL_QTY_NO_VALUE;
         static const uint32_t ORDER_IDSFX_MIN;
         static const uint32_t ORDER_IDSFX_MAX;
         static const uint32_t ORDER_IDSFX_NO_VALUE;
-        static const int32_t CUM_QTY_MIN;
-        static const int32_t CUM_QTY_MAX;
-        static const int32_t CUM_QTY_NO_VALUE;
-        static const int32_t CXL_QTY_MIN;
-        static const int32_t CXL_QTY_MAX;
-        static const int32_t CXL_QTY_NO_VALUE;
         static const char ORD_STATUS_NO_VALUE[1];
         static const size_t ORD_STATUS_MAX_LENGTH;
         static const char EXEC_TYPE_NO_VALUE[1];
@@ -63,9 +63,9 @@ class xetraDeleteOrderResponsePacket
         uint64_t mOrigClOrdID;
         int64_t mSecurityID;
         uint64_t mExecID;
+        int64_t mCumQty;
+        int64_t mCxlQty;
         uint32_t mOrderIDSfx;
-        int32_t mCumQty;
-        int32_t mCxlQty;
         char mOrdStatus[1];
         char mExecType[1];
         int16_t mExecRestatementReason;
@@ -79,9 +79,9 @@ class xetraDeleteOrderResponsePacket
             mOrigClOrdID = ORIG_CL_ORD_ID_NO_VALUE;
             mSecurityID = SECURITY_ID_NO_VALUE;
             mExecID = EXEC_ID_NO_VALUE;
-            mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mCumQty = CUM_QTY_NO_VALUE;
             mCxlQty = CXL_QTY_NO_VALUE;
+            mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             memcpy(mOrdStatus, ORD_STATUS_NO_VALUE, sizeof (mOrdStatus));
             memcpy(mExecType, EXEC_TYPE_NO_VALUE, sizeof (mExecType));
             mExecRestatementReason = EXEC_RESTATEMENT_REASON_NO_VALUE;
@@ -215,6 +215,48 @@ class xetraDeleteOrderResponsePacket
             mExecID = EXEC_ID_NO_VALUE;
         }
 
+        double getCumQty () const
+        {
+            return mCumQty / 10000.0;
+        }
+
+        bool setCumQty (double v)
+        {
+            mCumQty = v * 10000.0;
+            return ((CUM_QTY_MIN <= v && v <= CUM_QTY_MAX) || mCumQty == CUM_QTY_NO_VALUE);
+        }
+
+        bool isCumQtyValid () const
+        {
+            return (mCumQty != CUM_QTY_NO_VALUE);
+        }
+
+        void resetCumQty ()
+        {
+            mCumQty = CUM_QTY_NO_VALUE;
+        }
+
+        double getCxlQty () const
+        {
+            return mCxlQty / 10000.0;
+        }
+
+        bool setCxlQty (double v)
+        {
+            mCxlQty = v * 10000.0;
+            return ((CXL_QTY_MIN <= v && v <= CXL_QTY_MAX) || mCxlQty == CXL_QTY_NO_VALUE);
+        }
+
+        bool isCxlQtyValid () const
+        {
+            return (mCxlQty != CXL_QTY_NO_VALUE);
+        }
+
+        void resetCxlQty ()
+        {
+            mCxlQty = CXL_QTY_NO_VALUE;
+        }
+
         uint32_t getOrderIDSfx () const
         {
             return mOrderIDSfx;
@@ -234,48 +276,6 @@ class xetraDeleteOrderResponsePacket
         void resetOrderIDSfx ()
         {
             mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
-        }
-
-        int32_t getCumQty () const
-        {
-            return mCumQty;
-        }
-
-        bool setCumQty (int32_t v)
-        {
-            mCumQty = v;
-            return ((CUM_QTY_MIN <= mCumQty && mCumQty <= CUM_QTY_MAX) || mCumQty == CUM_QTY_NO_VALUE);
-        }
-
-        bool isCumQtyValid () const
-        {
-            return (mCumQty != CUM_QTY_NO_VALUE);
-        }
-
-        void resetCumQty ()
-        {
-            mCumQty = CUM_QTY_NO_VALUE;
-        }
-
-        int32_t getCxlQty () const
-        {
-            return mCxlQty;
-        }
-
-        bool setCxlQty (int32_t v)
-        {
-            mCxlQty = v;
-            return ((CXL_QTY_MIN <= mCxlQty && mCxlQty <= CXL_QTY_MAX) || mCxlQty == CXL_QTY_NO_VALUE);
-        }
-
-        bool isCxlQtyValid () const
-        {
-            return (mCxlQty != CXL_QTY_NO_VALUE);
-        }
-
-        void resetCxlQty ()
-        {
-            mCxlQty = CXL_QTY_NO_VALUE;
         }
 
         string getOrdStatus () const
@@ -358,9 +358,9 @@ class xetraDeleteOrderResponsePacket
                 + sizeof (mOrigClOrdID)
                 + sizeof (mSecurityID)
                 + sizeof (mExecID)
-                + sizeof (mOrderIDSfx)
                 + sizeof (mCumQty)
                 + sizeof (mCxlQty)
+                + sizeof (mOrderIDSfx)
                 + sizeof (mOrdStatus)
                 + sizeof (mExecType)
                 + sizeof (mExecRestatementReason);
@@ -386,11 +386,11 @@ class xetraDeleteOrderResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mOrderIDSfx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mCumQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mCxlQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mOrderIDSfx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mOrdStatus, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -419,11 +419,11 @@ class xetraDeleteOrderResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mOrderIDSfx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mCumQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mCxlQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mOrderIDSfx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mOrdStatus, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -447,9 +447,9 @@ class xetraDeleteOrderResponsePacket
                 << "[OrigClOrdID=" << getOrigClOrdID () << "],"
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[ExecID=" << getExecID () << "],"
-                << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[CumQty=" << getCumQty () << "],"
                 << "[CxlQty=" << getCxlQty () << "],"
+                << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[OrdStatus=" << getOrdStatus () << "],"
                 << "[ExecType=" << getExecType () << "],"
                 << "[ExecRestatementReason=" << getExecRestatementReason () << "]";
@@ -472,21 +472,21 @@ const int64_t xetraDeleteOrderResponsePacket::SECURITY_ID_NO_VALUE = 0x800000000
 const uint64_t xetraDeleteOrderResponsePacket::EXEC_ID_MIN = 0UL;
 const uint64_t xetraDeleteOrderResponsePacket::EXEC_ID_MAX = 18446744073709551614UL;
 const uint64_t xetraDeleteOrderResponsePacket::EXEC_ID_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
+const double xetraDeleteOrderResponsePacket::CUM_QTY_MIN = -922337203685477.5807;
+const double xetraDeleteOrderResponsePacket::CUM_QTY_MAX = 922337203685477.5807;
+const int64_t xetraDeleteOrderResponsePacket::CUM_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraDeleteOrderResponsePacket::CXL_QTY_MIN = -922337203685477.5807;
+const double xetraDeleteOrderResponsePacket::CXL_QTY_MAX = 922337203685477.5807;
+const int64_t xetraDeleteOrderResponsePacket::CXL_QTY_NO_VALUE = 0x8000000000000000;
 const uint32_t xetraDeleteOrderResponsePacket::ORDER_IDSFX_MIN = 0;
 const uint32_t xetraDeleteOrderResponsePacket::ORDER_IDSFX_MAX = 4294967294;
 const uint32_t xetraDeleteOrderResponsePacket::ORDER_IDSFX_NO_VALUE = 0xFFFFFFFF;
-const int32_t xetraDeleteOrderResponsePacket::CUM_QTY_MIN = -2147483647;
-const int32_t xetraDeleteOrderResponsePacket::CUM_QTY_MAX = 2147483647;
-const int32_t xetraDeleteOrderResponsePacket::CUM_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraDeleteOrderResponsePacket::CXL_QTY_MIN = -2147483647;
-const int32_t xetraDeleteOrderResponsePacket::CXL_QTY_MAX = 2147483647;
-const int32_t xetraDeleteOrderResponsePacket::CXL_QTY_NO_VALUE = 0x80000000;
 const char xetraDeleteOrderResponsePacket::ORD_STATUS_NO_VALUE[1] = {0x00};
 const size_t xetraDeleteOrderResponsePacket::ORD_STATUS_MAX_LENGTH = 1;
 const char xetraDeleteOrderResponsePacket::EXEC_TYPE_NO_VALUE[1] = {0x00};
 const size_t xetraDeleteOrderResponsePacket::EXEC_TYPE_MAX_LENGTH = 1;
 const int16_t xetraDeleteOrderResponsePacket::EXEC_RESTATEMENT_REASON_MIN = 0;
-const int16_t xetraDeleteOrderResponsePacket::EXEC_RESTATEMENT_REASON_MAX = 300;
+const int16_t xetraDeleteOrderResponsePacket::EXEC_RESTATEMENT_REASON_MAX = 344;
 const int16_t xetraDeleteOrderResponsePacket::EXEC_RESTATEMENT_REASON_NO_VALUE = 0xFFFF;
 
 

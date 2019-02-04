@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_MODIFYORDERSINGLEREQUEST_PACKET_H
 #define XETRA_MODIFYORDERSINGLEREQUEST_PACKET_H
@@ -38,6 +38,18 @@ class xetraModifyOrderSingleRequestPacket
         static const double PRICE_MIN;
         static const double PRICE_MAX;
         static const int64_t PRICE_NO_VALUE;
+        static const double ORDER_QTY_MIN;
+        static const double ORDER_QTY_MAX;
+        static const int64_t ORDER_QTY_NO_VALUE;
+        static const double DISPLAY_QTY_MIN;
+        static const double DISPLAY_QTY_MAX;
+        static const int64_t DISPLAY_QTY_NO_VALUE;
+        static const double DISPLAY_LOW_QTY_MIN;
+        static const double DISPLAY_LOW_QTY_MAX;
+        static const int64_t DISPLAY_LOW_QTY_NO_VALUE;
+        static const double DISPLAY_HIGH_QTY_MIN;
+        static const double DISPLAY_HIGH_QTY_MAX;
+        static const int64_t DISPLAY_HIGH_QTY_NO_VALUE;
         static const double STOP_PX_MIN;
         static const double STOP_PX_MAX;
         static const int64_t STOP_PX_NO_VALUE;
@@ -59,18 +71,6 @@ class xetraModifyOrderSingleRequestPacket
         static const uint64_t EXECUTING_TRADER_MIN;
         static const uint64_t EXECUTING_TRADER_MAX;
         static const uint64_t EXECUTING_TRADER_NO_VALUE;
-        static const int32_t ORDER_QTY_MIN;
-        static const int32_t ORDER_QTY_MAX;
-        static const int32_t ORDER_QTY_NO_VALUE;
-        static const int32_t DISPLAY_QTY_MIN;
-        static const int32_t DISPLAY_QTY_MAX;
-        static const int32_t DISPLAY_QTY_NO_VALUE;
-        static const int32_t DISPLAY_LOW_QTY_MIN;
-        static const int32_t DISPLAY_LOW_QTY_MAX;
-        static const int32_t DISPLAY_LOW_QTY_NO_VALUE;
-        static const int32_t DISPLAY_HIGH_QTY_MIN;
-        static const int32_t DISPLAY_HIGH_QTY_MAX;
-        static const int32_t DISPLAY_HIGH_QTY_NO_VALUE;
         static const int32_t EXPIRE_DATE_MIN;
         static const int32_t EXPIRE_DATE_MAX;
         static const int32_t EXPIRE_DATE_NO_VALUE;
@@ -150,6 +150,10 @@ class xetraModifyOrderSingleRequestPacket
         uint64_t mOrigClOrdID;
         int64_t mSecurityID;
         int64_t mPrice;
+        int64_t mOrderQty;
+        int64_t mDisplayQty;
+        int64_t mDisplayLowQty;
+        int64_t mDisplayHighQty;
         int64_t mStopPx;
         int64_t mVolumeDiscoveryPrice;
         int64_t mPegOffsetValueAbs;
@@ -157,10 +161,6 @@ class xetraModifyOrderSingleRequestPacket
         uint64_t mPartyIDClientID;
         uint64_t mPartyIdInvestmentDecisionMaker;
         uint64_t mExecutingTrader;
-        int32_t mOrderQty;
-        int32_t mDisplayQty;
-        int32_t mDisplayLowQty;
-        int32_t mDisplayHighQty;
         int32_t mExpireDate;
         int32_t mMarketSegmentID;
         uint32_t mMatchInstCrossID;
@@ -196,6 +196,10 @@ class xetraModifyOrderSingleRequestPacket
             mOrigClOrdID = ORIG_CL_ORD_ID_NO_VALUE;
             mSecurityID = SECURITY_ID_NO_VALUE;
             mPrice = PRICE_NO_VALUE;
+            mOrderQty = ORDER_QTY_NO_VALUE;
+            mDisplayQty = DISPLAY_QTY_NO_VALUE;
+            mDisplayLowQty = DISPLAY_LOW_QTY_NO_VALUE;
+            mDisplayHighQty = DISPLAY_HIGH_QTY_NO_VALUE;
             mStopPx = STOP_PX_NO_VALUE;
             mVolumeDiscoveryPrice = VOLUME_DISCOVERY_PRICE_NO_VALUE;
             mPegOffsetValueAbs = PEG_OFFSET_VALUE_ABS_NO_VALUE;
@@ -203,10 +207,6 @@ class xetraModifyOrderSingleRequestPacket
             mPartyIDClientID = PARTY_IDCLIENT_ID_NO_VALUE;
             mPartyIdInvestmentDecisionMaker = PARTY_ID_INVESTMENT_DECISION_MAKER_NO_VALUE;
             mExecutingTrader = EXECUTING_TRADER_NO_VALUE;
-            mOrderQty = ORDER_QTY_NO_VALUE;
-            mDisplayQty = DISPLAY_QTY_NO_VALUE;
-            mDisplayLowQty = DISPLAY_LOW_QTY_NO_VALUE;
-            mDisplayHighQty = DISPLAY_HIGH_QTY_NO_VALUE;
             mExpireDate = EXPIRE_DATE_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mMatchInstCrossID = MATCH_INST_CROSS_ID_NO_VALUE;
@@ -362,6 +362,90 @@ class xetraModifyOrderSingleRequestPacket
             mPrice = PRICE_NO_VALUE;
         }
 
+        double getOrderQty () const
+        {
+            return mOrderQty / 10000.0;
+        }
+
+        bool setOrderQty (double v)
+        {
+            mOrderQty = v * 10000.0;
+            return ((ORDER_QTY_MIN <= v && v <= ORDER_QTY_MAX) || mOrderQty == ORDER_QTY_NO_VALUE);
+        }
+
+        bool isOrderQtyValid () const
+        {
+            return (mOrderQty != ORDER_QTY_NO_VALUE);
+        }
+
+        void resetOrderQty ()
+        {
+            mOrderQty = ORDER_QTY_NO_VALUE;
+        }
+
+        double getDisplayQty () const
+        {
+            return mDisplayQty / 10000.0;
+        }
+
+        bool setDisplayQty (double v)
+        {
+            mDisplayQty = v * 10000.0;
+            return ((DISPLAY_QTY_MIN <= v && v <= DISPLAY_QTY_MAX) || mDisplayQty == DISPLAY_QTY_NO_VALUE);
+        }
+
+        bool isDisplayQtyValid () const
+        {
+            return (mDisplayQty != DISPLAY_QTY_NO_VALUE);
+        }
+
+        void resetDisplayQty ()
+        {
+            mDisplayQty = DISPLAY_QTY_NO_VALUE;
+        }
+
+        double getDisplayLowQty () const
+        {
+            return mDisplayLowQty / 10000.0;
+        }
+
+        bool setDisplayLowQty (double v)
+        {
+            mDisplayLowQty = v * 10000.0;
+            return ((DISPLAY_LOW_QTY_MIN <= v && v <= DISPLAY_LOW_QTY_MAX) || mDisplayLowQty == DISPLAY_LOW_QTY_NO_VALUE);
+        }
+
+        bool isDisplayLowQtyValid () const
+        {
+            return (mDisplayLowQty != DISPLAY_LOW_QTY_NO_VALUE);
+        }
+
+        void resetDisplayLowQty ()
+        {
+            mDisplayLowQty = DISPLAY_LOW_QTY_NO_VALUE;
+        }
+
+        double getDisplayHighQty () const
+        {
+            return mDisplayHighQty / 10000.0;
+        }
+
+        bool setDisplayHighQty (double v)
+        {
+            mDisplayHighQty = v * 10000.0;
+            return ((DISPLAY_HIGH_QTY_MIN <= v && v <= DISPLAY_HIGH_QTY_MAX) || mDisplayHighQty == DISPLAY_HIGH_QTY_NO_VALUE);
+        }
+
+        bool isDisplayHighQtyValid () const
+        {
+            return (mDisplayHighQty != DISPLAY_HIGH_QTY_NO_VALUE);
+        }
+
+        void resetDisplayHighQty ()
+        {
+            mDisplayHighQty = DISPLAY_HIGH_QTY_NO_VALUE;
+        }
+
         double getStopPx () const
         {
             return mStopPx / 100000000.0;
@@ -507,90 +591,6 @@ class xetraModifyOrderSingleRequestPacket
         void resetExecutingTrader ()
         {
             mExecutingTrader = EXECUTING_TRADER_NO_VALUE;
-        }
-
-        int32_t getOrderQty () const
-        {
-            return mOrderQty;
-        }
-
-        bool setOrderQty (int32_t v)
-        {
-            mOrderQty = v;
-            return ((ORDER_QTY_MIN <= mOrderQty && mOrderQty <= ORDER_QTY_MAX) || mOrderQty == ORDER_QTY_NO_VALUE);
-        }
-
-        bool isOrderQtyValid () const
-        {
-            return (mOrderQty != ORDER_QTY_NO_VALUE);
-        }
-
-        void resetOrderQty ()
-        {
-            mOrderQty = ORDER_QTY_NO_VALUE;
-        }
-
-        int32_t getDisplayQty () const
-        {
-            return mDisplayQty;
-        }
-
-        bool setDisplayQty (int32_t v)
-        {
-            mDisplayQty = v;
-            return ((DISPLAY_QTY_MIN <= mDisplayQty && mDisplayQty <= DISPLAY_QTY_MAX) || mDisplayQty == DISPLAY_QTY_NO_VALUE);
-        }
-
-        bool isDisplayQtyValid () const
-        {
-            return (mDisplayQty != DISPLAY_QTY_NO_VALUE);
-        }
-
-        void resetDisplayQty ()
-        {
-            mDisplayQty = DISPLAY_QTY_NO_VALUE;
-        }
-
-        int32_t getDisplayLowQty () const
-        {
-            return mDisplayLowQty;
-        }
-
-        bool setDisplayLowQty (int32_t v)
-        {
-            mDisplayLowQty = v;
-            return ((DISPLAY_LOW_QTY_MIN <= mDisplayLowQty && mDisplayLowQty <= DISPLAY_LOW_QTY_MAX) || mDisplayLowQty == DISPLAY_LOW_QTY_NO_VALUE);
-        }
-
-        bool isDisplayLowQtyValid () const
-        {
-            return (mDisplayLowQty != DISPLAY_LOW_QTY_NO_VALUE);
-        }
-
-        void resetDisplayLowQty ()
-        {
-            mDisplayLowQty = DISPLAY_LOW_QTY_NO_VALUE;
-        }
-
-        int32_t getDisplayHighQty () const
-        {
-            return mDisplayHighQty;
-        }
-
-        bool setDisplayHighQty (int32_t v)
-        {
-            mDisplayHighQty = v;
-            return ((DISPLAY_HIGH_QTY_MIN <= mDisplayHighQty && mDisplayHighQty <= DISPLAY_HIGH_QTY_MAX) || mDisplayHighQty == DISPLAY_HIGH_QTY_NO_VALUE);
-        }
-
-        bool isDisplayHighQtyValid () const
-        {
-            return (mDisplayHighQty != DISPLAY_HIGH_QTY_NO_VALUE);
-        }
-
-        void resetDisplayHighQty ()
-        {
-            mDisplayHighQty = DISPLAY_HIGH_QTY_NO_VALUE;
         }
 
         int32_t getExpireDate () const
@@ -1144,6 +1144,10 @@ class xetraModifyOrderSingleRequestPacket
                 + sizeof (mOrigClOrdID)
                 + sizeof (mSecurityID)
                 + sizeof (mPrice)
+                + sizeof (mOrderQty)
+                + sizeof (mDisplayQty)
+                + sizeof (mDisplayLowQty)
+                + sizeof (mDisplayHighQty)
                 + sizeof (mStopPx)
                 + sizeof (mVolumeDiscoveryPrice)
                 + sizeof (mPegOffsetValueAbs)
@@ -1151,10 +1155,6 @@ class xetraModifyOrderSingleRequestPacket
                 + sizeof (mPartyIDClientID)
                 + sizeof (mPartyIdInvestmentDecisionMaker)
                 + sizeof (mExecutingTrader)
-                + sizeof (mOrderQty)
-                + sizeof (mDisplayQty)
-                + sizeof (mDisplayLowQty)
-                + sizeof (mDisplayHighQty)
                 + sizeof (mExpireDate)
                 + sizeof (mMarketSegmentID)
                 + sizeof (mMatchInstCrossID)
@@ -1202,6 +1202,14 @@ class xetraModifyOrderSingleRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mPrice, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mOrderQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mDisplayQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mDisplayLowQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mDisplayHighQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mStopPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mVolumeDiscoveryPrice, buf, len, used);
@@ -1215,14 +1223,6 @@ class xetraModifyOrderSingleRequestPacket
             state = xetra::serialize (mPartyIdInvestmentDecisionMaker, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecutingTrader, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mOrderQty, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mDisplayQty, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mDisplayLowQty, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mDisplayHighQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExpireDate, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -1295,6 +1295,14 @@ class xetraModifyOrderSingleRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mPrice, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mOrderQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mDisplayQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mDisplayLowQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mDisplayHighQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mStopPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mVolumeDiscoveryPrice, buf, len, used);
@@ -1308,14 +1316,6 @@ class xetraModifyOrderSingleRequestPacket
             state = xetra::deserialize (mPartyIdInvestmentDecisionMaker, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecutingTrader, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mOrderQty, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mDisplayQty, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mDisplayLowQty, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mDisplayHighQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExpireDate, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -1383,6 +1383,10 @@ class xetraModifyOrderSingleRequestPacket
                 << "[OrigClOrdID=" << getOrigClOrdID () << "],"
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[Price=" << getPrice () << "],"
+                << "[OrderQty=" << getOrderQty () << "],"
+                << "[DisplayQty=" << getDisplayQty () << "],"
+                << "[DisplayLowQty=" << getDisplayLowQty () << "],"
+                << "[DisplayHighQty=" << getDisplayHighQty () << "],"
                 << "[StopPx=" << getStopPx () << "],"
                 << "[VolumeDiscoveryPrice=" << getVolumeDiscoveryPrice () << "],"
                 << "[PegOffsetValueAbs=" << getPegOffsetValueAbs () << "],"
@@ -1390,10 +1394,6 @@ class xetraModifyOrderSingleRequestPacket
                 << "[PartyIDClientID=" << getPartyIDClientID () << "],"
                 << "[PartyIdInvestmentDecisionMaker=" << getPartyIdInvestmentDecisionMaker () << "],"
                 << "[ExecutingTrader=" << getExecutingTrader () << "],"
-                << "[OrderQty=" << getOrderQty () << "],"
-                << "[DisplayQty=" << getDisplayQty () << "],"
-                << "[DisplayLowQty=" << getDisplayLowQty () << "],"
-                << "[DisplayHighQty=" << getDisplayHighQty () << "],"
                 << "[ExpireDate=" << getExpireDate () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[MatchInstCrossID=" << getMatchInstCrossID () << "],"
@@ -1438,6 +1438,18 @@ const int64_t xetraModifyOrderSingleRequestPacket::SECURITY_ID_NO_VALUE = 0x8000
 const double xetraModifyOrderSingleRequestPacket::PRICE_MIN = -92233720368.54775807;
 const double xetraModifyOrderSingleRequestPacket::PRICE_MAX = 92233720368.54775807;
 const int64_t xetraModifyOrderSingleRequestPacket::PRICE_NO_VALUE = 0x8000000000000000;
+const double xetraModifyOrderSingleRequestPacket::ORDER_QTY_MIN = -922337203685477.5807;
+const double xetraModifyOrderSingleRequestPacket::ORDER_QTY_MAX = 922337203685477.5807;
+const int64_t xetraModifyOrderSingleRequestPacket::ORDER_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraModifyOrderSingleRequestPacket::DISPLAY_QTY_MIN = -922337203685477.5807;
+const double xetraModifyOrderSingleRequestPacket::DISPLAY_QTY_MAX = 922337203685477.5807;
+const int64_t xetraModifyOrderSingleRequestPacket::DISPLAY_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraModifyOrderSingleRequestPacket::DISPLAY_LOW_QTY_MIN = -922337203685477.5807;
+const double xetraModifyOrderSingleRequestPacket::DISPLAY_LOW_QTY_MAX = 922337203685477.5807;
+const int64_t xetraModifyOrderSingleRequestPacket::DISPLAY_LOW_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraModifyOrderSingleRequestPacket::DISPLAY_HIGH_QTY_MIN = -922337203685477.5807;
+const double xetraModifyOrderSingleRequestPacket::DISPLAY_HIGH_QTY_MAX = 922337203685477.5807;
+const int64_t xetraModifyOrderSingleRequestPacket::DISPLAY_HIGH_QTY_NO_VALUE = 0x8000000000000000;
 const double xetraModifyOrderSingleRequestPacket::STOP_PX_MIN = -92233720368.54775807;
 const double xetraModifyOrderSingleRequestPacket::STOP_PX_MAX = 92233720368.54775807;
 const int64_t xetraModifyOrderSingleRequestPacket::STOP_PX_NO_VALUE = 0x8000000000000000;
@@ -1459,18 +1471,6 @@ const uint64_t xetraModifyOrderSingleRequestPacket::PARTY_ID_INVESTMENT_DECISION
 const uint64_t xetraModifyOrderSingleRequestPacket::EXECUTING_TRADER_MIN = 0UL;
 const uint64_t xetraModifyOrderSingleRequestPacket::EXECUTING_TRADER_MAX = 18446744073709551614UL;
 const uint64_t xetraModifyOrderSingleRequestPacket::EXECUTING_TRADER_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
-const int32_t xetraModifyOrderSingleRequestPacket::ORDER_QTY_MIN = -2147483647;
-const int32_t xetraModifyOrderSingleRequestPacket::ORDER_QTY_MAX = 2147483647;
-const int32_t xetraModifyOrderSingleRequestPacket::ORDER_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_QTY_MIN = -2147483647;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_QTY_MAX = 2147483647;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_LOW_QTY_MIN = -2147483647;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_LOW_QTY_MAX = 2147483647;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_LOW_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_HIGH_QTY_MIN = -2147483647;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_HIGH_QTY_MAX = 2147483647;
-const int32_t xetraModifyOrderSingleRequestPacket::DISPLAY_HIGH_QTY_NO_VALUE = 0x80000000;
 const int32_t xetraModifyOrderSingleRequestPacket::EXPIRE_DATE_MIN = 0;
 const int32_t xetraModifyOrderSingleRequestPacket::EXPIRE_DATE_MAX = 99991231;
 const int32_t xetraModifyOrderSingleRequestPacket::EXPIRE_DATE_NO_VALUE = 0xFFFFFFFF;

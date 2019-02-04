@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_FILLSGRPCOMP_PACKET_H
 #define XETRA_FILLSGRPCOMP_PACKET_H
@@ -26,9 +26,9 @@ class xetraFillsGrpCompPacket
         static const double FILL_PX_MIN;
         static const double FILL_PX_MAX;
         static const int64_t FILL_PX_NO_VALUE;
-        static const int32_t FILL_QTY_MIN;
-        static const int32_t FILL_QTY_MAX;
-        static const int32_t FILL_QTY_NO_VALUE;
+        static const double FILL_QTY_MIN;
+        static const double FILL_QTY_MAX;
+        static const int64_t FILL_QTY_NO_VALUE;
         static const uint32_t FILL_MATCH_ID_MIN;
         static const uint32_t FILL_MATCH_ID_MAX;
         static const uint32_t FILL_MATCH_ID_NO_VALUE;
@@ -38,16 +38,16 @@ class xetraFillsGrpCompPacket
         static const int8_t FILL_LIQUIDITY_IND_MIN;
         static const int8_t FILL_LIQUIDITY_IND_MAX;
         static const int8_t FILL_LIQUIDITY_IND_NO_VALUE;
-        static const char PAD3_NO_VALUE[3];
-        static const size_t PAD3_MAX_LENGTH;
+        static const char PAD7_NO_VALUE[7];
+        static const size_t PAD7_MAX_LENGTH;
 
         // fields (use with care)
         int64_t mFillPx;
-        int32_t mFillQty;
+        int64_t mFillQty;
         uint32_t mFillMatchID;
         int32_t mFillExecID;
         int8_t mFillLiquidityInd;
-        char mPad3[3];
+        char mPad7[7];
 
         // constructor
         xetraFillsGrpCompPacket ()
@@ -57,7 +57,7 @@ class xetraFillsGrpCompPacket
             mFillMatchID = FILL_MATCH_ID_NO_VALUE;
             mFillExecID = FILL_EXEC_ID_NO_VALUE;
             mFillLiquidityInd = FILL_LIQUIDITY_IND_NO_VALUE;
-            memcpy(mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            memcpy(mPad7, PAD7_NO_VALUE, sizeof (mPad7));
         }
 
         // getters & setters
@@ -82,15 +82,15 @@ class xetraFillsGrpCompPacket
             mFillPx = FILL_PX_NO_VALUE;
         }
 
-        int32_t getFillQty () const
+        double getFillQty () const
         {
-            return mFillQty;
+            return mFillQty / 10000.0;
         }
 
-        bool setFillQty (int32_t v)
+        bool setFillQty (double v)
         {
-            mFillQty = v;
-            return ((FILL_QTY_MIN <= mFillQty && mFillQty <= FILL_QTY_MAX) || mFillQty == FILL_QTY_NO_VALUE);
+            mFillQty = v * 10000.0;
+            return ((FILL_QTY_MIN <= v && v <= FILL_QTY_MAX) || mFillQty == FILL_QTY_NO_VALUE);
         }
 
         bool isFillQtyValid () const
@@ -166,28 +166,28 @@ class xetraFillsGrpCompPacket
             mFillLiquidityInd = FILL_LIQUIDITY_IND_NO_VALUE;
         }
 
-        string getPad3 () const
+        string getPad7 () const
         {
-            return string (mPad3, PAD3_MAX_LENGTH);
+            return string (mPad7, PAD7_MAX_LENGTH);
         }
 
-        bool setPad3 (const string& v)
+        bool setPad7 (const string& v)
         {
-            size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
+            size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
             for (size_t i = 0; i < size; i++)
-                mPad3[i] = v[i];
-            memset (&mPad3[size], '\0', PAD3_MAX_LENGTH-size);
-            return (v.size () <= PAD3_MAX_LENGTH);
+                mPad7[i] = v[i];
+            memset (&mPad7[size], '\0', PAD7_MAX_LENGTH-size);
+            return (v.size () <= PAD7_MAX_LENGTH);
         }
 
-        bool isPad3Valid () const
+        bool isPad7Valid () const
         {
-            return (memcmp (mPad3, PAD3_NO_VALUE, sizeof (mPad3)) != 0);
+            return (memcmp (mPad7, PAD7_NO_VALUE, sizeof (mPad7)) != 0);
         }
 
-        void resetPad3 ()
+        void resetPad7 ()
         {
-            memcpy (mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            memcpy (mPad7, PAD7_NO_VALUE, sizeof (mPad7));
         }
 
 
@@ -199,7 +199,7 @@ class xetraFillsGrpCompPacket
                 + sizeof (mFillMatchID)
                 + sizeof (mFillExecID)
                 + sizeof (mFillLiquidityInd)
-                + sizeof (mPad3);
+                + sizeof (mPad7);
             return result;
         }
 
@@ -217,7 +217,7 @@ class xetraFillsGrpCompPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mFillLiquidityInd, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad3, buf, len, used);
+            state = xetra::serialize (mPad7, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -236,7 +236,7 @@ class xetraFillsGrpCompPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mFillLiquidityInd, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad3, buf, len, used);
+            state = xetra::deserialize (mPad7, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -251,7 +251,7 @@ class xetraFillsGrpCompPacket
                 << "[FillMatchID=" << getFillMatchID () << "],"
                 << "[FillExecID=" << getFillExecID () << "],"
                 << "[FillLiquidityInd=" << getFillLiquidityInd () << "],"
-                << "[Pad3=" << getPad3 () << "]";
+                << "[Pad7=" << getPad7 () << "]";
             return sss.str();
         }
 };
@@ -259,9 +259,9 @@ class xetraFillsGrpCompPacket
 const double xetraFillsGrpCompPacket::FILL_PX_MIN = -92233720368.54775807;
 const double xetraFillsGrpCompPacket::FILL_PX_MAX = 92233720368.54775807;
 const int64_t xetraFillsGrpCompPacket::FILL_PX_NO_VALUE = 0x8000000000000000;
-const int32_t xetraFillsGrpCompPacket::FILL_QTY_MIN = -2147483647;
-const int32_t xetraFillsGrpCompPacket::FILL_QTY_MAX = 2147483647;
-const int32_t xetraFillsGrpCompPacket::FILL_QTY_NO_VALUE = 0x80000000;
+const double xetraFillsGrpCompPacket::FILL_QTY_MIN = -922337203685477.5807;
+const double xetraFillsGrpCompPacket::FILL_QTY_MAX = 922337203685477.5807;
+const int64_t xetraFillsGrpCompPacket::FILL_QTY_NO_VALUE = 0x8000000000000000;
 const uint32_t xetraFillsGrpCompPacket::FILL_MATCH_ID_MIN = 0;
 const uint32_t xetraFillsGrpCompPacket::FILL_MATCH_ID_MAX = 4294967294;
 const uint32_t xetraFillsGrpCompPacket::FILL_MATCH_ID_NO_VALUE = 0xFFFFFFFF;
@@ -271,8 +271,8 @@ const int32_t xetraFillsGrpCompPacket::FILL_EXEC_ID_NO_VALUE = 0x80000000;
 const int8_t xetraFillsGrpCompPacket::FILL_LIQUIDITY_IND_MIN = 1;
 const int8_t xetraFillsGrpCompPacket::FILL_LIQUIDITY_IND_MAX = 7;
 const int8_t xetraFillsGrpCompPacket::FILL_LIQUIDITY_IND_NO_VALUE = 0xFF;
-const char xetraFillsGrpCompPacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
-const size_t xetraFillsGrpCompPacket::PAD3_MAX_LENGTH = 3;
+const char xetraFillsGrpCompPacket::PAD7_NO_VALUE[7] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraFillsGrpCompPacket::PAD7_MAX_LENGTH = 7;
 
 
 } // namespace neueda

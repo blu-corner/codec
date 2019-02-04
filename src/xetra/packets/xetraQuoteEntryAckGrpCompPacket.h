@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_QUOTEENTRYACKGRPCOMP_PACKET_H
 #define XETRA_QUOTEENTRYACKGRPCOMP_PACKET_H
@@ -26,12 +26,12 @@ class xetraQuoteEntryAckGrpCompPacket
         static const int64_t SECURITY_ID_MIN;
         static const int64_t SECURITY_ID_MAX;
         static const int64_t SECURITY_ID_NO_VALUE;
-        static const int32_t BID_CXL_SIZE_MIN;
-        static const int32_t BID_CXL_SIZE_MAX;
-        static const int32_t BID_CXL_SIZE_NO_VALUE;
-        static const int32_t OFFER_CXL_SIZE_MIN;
-        static const int32_t OFFER_CXL_SIZE_MAX;
-        static const int32_t OFFER_CXL_SIZE_NO_VALUE;
+        static const double BID_CXL_SIZE_MIN;
+        static const double BID_CXL_SIZE_MAX;
+        static const int64_t BID_CXL_SIZE_NO_VALUE;
+        static const double OFFER_CXL_SIZE_MIN;
+        static const double OFFER_CXL_SIZE_MAX;
+        static const int64_t OFFER_CXL_SIZE_NO_VALUE;
         static const int32_t QUOTE_ENTRY_REJECT_REASON_MIN;
         static const int32_t QUOTE_ENTRY_REJECT_REASON_MAX;
         static const int32_t QUOTE_ENTRY_REJECT_REASON_NO_VALUE;
@@ -43,8 +43,8 @@ class xetraQuoteEntryAckGrpCompPacket
 
         // fields (use with care)
         int64_t mSecurityID;
-        int32_t mBidCxlSize;
-        int32_t mOfferCxlSize;
+        int64_t mBidCxlSize;
+        int64_t mOfferCxlSize;
         int32_t mQuoteEntryRejectReason;
         int8_t mQuoteEntryStatus;
         char mPad3[3];
@@ -82,15 +82,15 @@ class xetraQuoteEntryAckGrpCompPacket
             mSecurityID = SECURITY_ID_NO_VALUE;
         }
 
-        int32_t getBidCxlSize () const
+        double getBidCxlSize () const
         {
-            return mBidCxlSize;
+            return mBidCxlSize / 10000.0;
         }
 
-        bool setBidCxlSize (int32_t v)
+        bool setBidCxlSize (double v)
         {
-            mBidCxlSize = v;
-            return ((BID_CXL_SIZE_MIN <= mBidCxlSize && mBidCxlSize <= BID_CXL_SIZE_MAX) || mBidCxlSize == BID_CXL_SIZE_NO_VALUE);
+            mBidCxlSize = v * 10000.0;
+            return ((BID_CXL_SIZE_MIN <= v && v <= BID_CXL_SIZE_MAX) || mBidCxlSize == BID_CXL_SIZE_NO_VALUE);
         }
 
         bool isBidCxlSizeValid () const
@@ -103,15 +103,15 @@ class xetraQuoteEntryAckGrpCompPacket
             mBidCxlSize = BID_CXL_SIZE_NO_VALUE;
         }
 
-        int32_t getOfferCxlSize () const
+        double getOfferCxlSize () const
         {
-            return mOfferCxlSize;
+            return mOfferCxlSize / 10000.0;
         }
 
-        bool setOfferCxlSize (int32_t v)
+        bool setOfferCxlSize (double v)
         {
-            mOfferCxlSize = v;
-            return ((OFFER_CXL_SIZE_MIN <= mOfferCxlSize && mOfferCxlSize <= OFFER_CXL_SIZE_MAX) || mOfferCxlSize == OFFER_CXL_SIZE_NO_VALUE);
+            mOfferCxlSize = v * 10000.0;
+            return ((OFFER_CXL_SIZE_MIN <= v && v <= OFFER_CXL_SIZE_MAX) || mOfferCxlSize == OFFER_CXL_SIZE_NO_VALUE);
         }
 
         bool isOfferCxlSizeValid () const
@@ -259,12 +259,12 @@ class xetraQuoteEntryAckGrpCompPacket
 const int64_t xetraQuoteEntryAckGrpCompPacket::SECURITY_ID_MIN = -9223372036854775807L;
 const int64_t xetraQuoteEntryAckGrpCompPacket::SECURITY_ID_MAX = 9223372036854775807L;
 const int64_t xetraQuoteEntryAckGrpCompPacket::SECURITY_ID_NO_VALUE = 0x8000000000000000;
-const int32_t xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_MIN = -2147483647;
-const int32_t xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_MAX = 2147483647;
-const int32_t xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_NO_VALUE = 0x80000000;
-const int32_t xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_MIN = -2147483647;
-const int32_t xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_MAX = 2147483647;
-const int32_t xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_NO_VALUE = 0x80000000;
+const double xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_MIN = -922337203685477.5807;
+const double xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_NO_VALUE = 0x8000000000000000;
+const double xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_MIN = -922337203685477.5807;
+const double xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_NO_VALUE = 0x8000000000000000;
 const int32_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_REJECT_REASON_MIN = 0;
 const int32_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_REJECT_REASON_MAX = 65535;
 const int32_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_REJECT_REASON_NO_VALUE = 0xFFFFFFFF;

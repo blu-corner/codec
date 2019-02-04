@@ -17,6 +17,7 @@ class xetraCodec: public codec
     public:
         xetraCodec()
         {
+            mMsgTypes.insert (std::make_pair ("10603", "Approve TES Trade Request"));
             mMsgTypes.insert (std::make_pair ("10414", "BEST Quote Execution Report"));
             mMsgTypes.insert (std::make_pair ("10413", "BEST Quote Response"));
             mMsgTypes.insert (std::make_pair ("10032", "Broadcast Error Notification"));
@@ -34,12 +35,13 @@ class xetraCodec: public codec
             mMsgTypes.insert (std::make_pair ("10111", "Delete Order NR Response"));
             mMsgTypes.insert (std::make_pair ("10110", "Delete Order Response"));
             mMsgTypes.insert (std::make_pair ("10109", "Delete Order Single Request"));
+            mMsgTypes.insert (std::make_pair ("10602", "Delete TES Trade Request"));
             mMsgTypes.insert (std::make_pair ("10412", "Enter BEST Quote Request"));
+            mMsgTypes.insert (std::make_pair ("10600", "Enter TES Trade Request"));
             mMsgTypes.insert (std::make_pair ("10128", "Extended Deletion Report"));
             mMsgTypes.insert (std::make_pair ("10012", "Forced Logout Notification"));
             mMsgTypes.insert (std::make_pair ("10043", "Forced User Logout Notification"));
             mMsgTypes.insert (std::make_pair ("10020", "Gateway Request"));
-            mMsgTypes.insert (std::make_pair ("10021", "Gateway Response"));
             mMsgTypes.insert (std::make_pair ("10011", "Heartbeat"));
             mMsgTypes.insert (std::make_pair ("10023", "Heartbeat Notification"));
             mMsgTypes.insert (std::make_pair ("10040", "Inquire Enrichment Rule ID List Request"));
@@ -48,6 +50,9 @@ class xetraCodec: public codec
             mMsgTypes.insert (std::make_pair ("10036", "Inquire Session List Response"));
             mMsgTypes.insert (std::make_pair ("10038", "Inquire User Request"));
             mMsgTypes.insert (std::make_pair ("10039", "Inquire User Response"));
+            mMsgTypes.insert (std::make_pair ("10316", "Issuer Notification"));
+            mMsgTypes.insert (std::make_pair ("10314", "Issuer Security State Change Request"));
+            mMsgTypes.insert (std::make_pair ("10315", "Issuer Security State Change Response"));
             mMsgTypes.insert (std::make_pair ("10037", "Legal Notification Broadcast"));
             mMsgTypes.insert (std::make_pair ("10000", "Logon Request"));
             mMsgTypes.insert (std::make_pair ("10001", "Logon Response"));
@@ -59,6 +64,7 @@ class xetraCodec: public codec
             mMsgTypes.insert (std::make_pair ("10107", "Modify Order Response"));
             mMsgTypes.insert (std::make_pair ("10106", "Modify Order Single Request"));
             mMsgTypes.insert (std::make_pair ("10126", "Modify Order Single Short Request"));
+            mMsgTypes.insert (std::make_pair ("10601", "Modify TES Trade Request"));
             mMsgTypes.insert (std::make_pair ("10102", "New Order NR Response"));
             mMsgTypes.insert (std::make_pair ("10101", "New Order Response"));
             mMsgTypes.insert (std::make_pair ("10100", "New Order Single Request"));
@@ -84,6 +90,13 @@ class xetraCodec: public codec
             mMsgTypes.insert (std::make_pair ("10030", "Service Availability Broadcast"));
             mMsgTypes.insert (std::make_pair ("10025", "Subscribe Request"));
             mMsgTypes.insert (std::make_pair ("10005", "Subscribe Response"));
+            mMsgTypes.insert (std::make_pair ("10607", "TES Approve Broadcast"));
+            mMsgTypes.insert (std::make_pair ("10604", "TES Broadcast"));
+            mMsgTypes.insert (std::make_pair ("10606", "TES Delete Broadcast"));
+            mMsgTypes.insert (std::make_pair ("10610", "TES Execution Broadcast"));
+            mMsgTypes.insert (std::make_pair ("10611", "TES Response"));
+            mMsgTypes.insert (std::make_pair ("10614", "TES Trade Broadcast"));
+            mMsgTypes.insert (std::make_pair ("10615", "TES Trading Session Status Broadcast"));
             mMsgTypes.insert (std::make_pair ("10501", "TM Trading Session Status Broadcast"));
             mMsgTypes.insert (std::make_pair ("10028", "Throttle Update Notification"));
             mMsgTypes.insert (std::make_pair ("10500", "Trade Broadcast"));
@@ -103,6 +116,7 @@ class xetraCodec: public codec
 
     private:
         // get messages
+        void getApproveTESTradeRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getBESTQuoteExecutionReport (cdr& d, const void *buf, size_t len, size_t& used);
         void getBESTQuoteResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getBroadcastErrorNotification (cdr& d, const void *buf, size_t len, size_t& used);
@@ -120,12 +134,13 @@ class xetraCodec: public codec
         void getDeleteOrderNRResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getDeleteOrderResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getDeleteOrderSingleRequest (cdr& d, const void *buf, size_t len, size_t& used);
+        void getDeleteTESTradeRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getEnterBESTQuoteRequest (cdr& d, const void *buf, size_t len, size_t& used);
+        void getEnterTESTradeRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getExtendedDeletionReport (cdr& d, const void *buf, size_t len, size_t& used);
         void getForcedLogoutNotification (cdr& d, const void *buf, size_t len, size_t& used);
         void getForcedUserLogoutNotification (cdr& d, const void *buf, size_t len, size_t& used);
         void getGatewayRequest (cdr& d, const void *buf, size_t len, size_t& used);
-        void getGatewayResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getHeartbeat (cdr& d, const void *buf, size_t len, size_t& used);
         void getHeartbeatNotification (cdr& d, const void *buf, size_t len, size_t& used);
         void getInquireEnrichmentRuleIDListRequest (cdr& d, const void *buf, size_t len, size_t& used);
@@ -134,6 +149,9 @@ class xetraCodec: public codec
         void getInquireSessionListResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getInquireUserRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getInquireUserResponse (cdr& d, const void *buf, size_t len, size_t& used);
+        void getIssuerNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getIssuerSecurityStateChangeRequest (cdr& d, const void *buf, size_t len, size_t& used);
+        void getIssuerSecurityStateChangeResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getLegalNotificationBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
         void getLogonRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getLogonResponse (cdr& d, const void *buf, size_t len, size_t& used);
@@ -145,6 +163,7 @@ class xetraCodec: public codec
         void getModifyOrderResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getModifyOrderSingleRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getModifyOrderSingleShortRequest (cdr& d, const void *buf, size_t len, size_t& used);
+        void getModifyTESTradeRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getNewOrderNRResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getNewOrderResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getNewOrderSingleRequest (cdr& d, const void *buf, size_t len, size_t& used);
@@ -170,6 +189,13 @@ class xetraCodec: public codec
         void getServiceAvailabilityBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
         void getSubscribeRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getSubscribeResponse (cdr& d, const void *buf, size_t len, size_t& used);
+        void getTESApproveBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
+        void getTESBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
+        void getTESDeleteBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
+        void getTESExecutionBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
+        void getTESResponse (cdr& d, const void *buf, size_t len, size_t& used);
+        void getTESTradeBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
+        void getTESTradingSessionStatusBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
         void getTMTradingSessionStatusBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
         void getThrottleUpdateNotification (cdr& d, const void *buf, size_t len, size_t& used);
         void getTradeBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
@@ -183,6 +209,7 @@ class xetraCodec: public codec
         void getUserLogoutResponse (cdr& d, const void *buf, size_t len, size_t& used);
 
         // put messages
+        void putApproveTESTradeRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putBESTQuoteExecutionReport (const cdr& d, void *buf, size_t len, size_t& used);
         void putBESTQuoteResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putBroadcastErrorNotification (const cdr& d, void *buf, size_t len, size_t& used);
@@ -200,12 +227,13 @@ class xetraCodec: public codec
         void putDeleteOrderNRResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putDeleteOrderResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putDeleteOrderSingleRequest (const cdr& d, void *buf, size_t len, size_t& used);
+        void putDeleteTESTradeRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putEnterBESTQuoteRequest (const cdr& d, void *buf, size_t len, size_t& used);
+        void putEnterTESTradeRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putExtendedDeletionReport (const cdr& d, void *buf, size_t len, size_t& used);
         void putForcedLogoutNotification (const cdr& d, void *buf, size_t len, size_t& used);
         void putForcedUserLogoutNotification (const cdr& d, void *buf, size_t len, size_t& used);
         void putGatewayRequest (const cdr& d, void *buf, size_t len, size_t& used);
-        void putGatewayResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putHeartbeat (const cdr& d, void *buf, size_t len, size_t& used);
         void putHeartbeatNotification (const cdr& d, void *buf, size_t len, size_t& used);
         void putInquireEnrichmentRuleIDListRequest (const cdr& d, void *buf, size_t len, size_t& used);
@@ -214,6 +242,9 @@ class xetraCodec: public codec
         void putInquireSessionListResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putInquireUserRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putInquireUserResponse (const cdr& d, void *buf, size_t len, size_t& used);
+        void putIssuerNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putIssuerSecurityStateChangeRequest (const cdr& d, void *buf, size_t len, size_t& used);
+        void putIssuerSecurityStateChangeResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putLegalNotificationBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
         void putLogonRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putLogonResponse (const cdr& d, void *buf, size_t len, size_t& used);
@@ -225,6 +256,7 @@ class xetraCodec: public codec
         void putModifyOrderResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putModifyOrderSingleRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putModifyOrderSingleShortRequest (const cdr& d, void *buf, size_t len, size_t& used);
+        void putModifyTESTradeRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putNewOrderNRResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putNewOrderResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putNewOrderSingleRequest (const cdr& d, void *buf, size_t len, size_t& used);
@@ -250,6 +282,13 @@ class xetraCodec: public codec
         void putServiceAvailabilityBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
         void putSubscribeRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putSubscribeResponse (const cdr& d, void *buf, size_t len, size_t& used);
+        void putTESApproveBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
+        void putTESBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
+        void putTESDeleteBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
+        void putTESExecutionBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
+        void putTESResponse (const cdr& d, void *buf, size_t len, size_t& used);
+        void putTESTradeBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
+        void putTESTradingSessionStatusBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
         void putTMTradingSessionStatusBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
         void putThrottleUpdateNotification (const cdr& d, void *buf, size_t len, size_t& used);
         void putTradeBroadcast (const cdr& d, void *buf, size_t len, size_t& used);

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_ORDEREXECREPORTBROADCAST_PACKET_H
 #define XETRA_ORDEREXECREPORTBROADCAST_PACKET_H
@@ -47,6 +47,27 @@ class xetraOrderExecReportBroadcastPacket
         static const double PRICE_MIN;
         static const double PRICE_MAX;
         static const int64_t PRICE_NO_VALUE;
+        static const double LEAVES_QTY_MIN;
+        static const double LEAVES_QTY_MAX;
+        static const int64_t LEAVES_QTY_NO_VALUE;
+        static const double CUM_QTY_MIN;
+        static const double CUM_QTY_MAX;
+        static const int64_t CUM_QTY_NO_VALUE;
+        static const double CXL_QTY_MIN;
+        static const double CXL_QTY_MAX;
+        static const int64_t CXL_QTY_NO_VALUE;
+        static const double ORDER_QTY_MIN;
+        static const double ORDER_QTY_MAX;
+        static const int64_t ORDER_QTY_NO_VALUE;
+        static const double DISPLAY_QTY_MIN;
+        static const double DISPLAY_QTY_MAX;
+        static const int64_t DISPLAY_QTY_NO_VALUE;
+        static const double DISPLAY_LOW_QTY_MIN;
+        static const double DISPLAY_LOW_QTY_MAX;
+        static const int64_t DISPLAY_LOW_QTY_NO_VALUE;
+        static const double DISPLAY_HIGH_QTY_MIN;
+        static const double DISPLAY_HIGH_QTY_MAX;
+        static const int64_t DISPLAY_HIGH_QTY_NO_VALUE;
         static const double STOP_PX_MIN;
         static const double STOP_PX_MAX;
         static const int64_t STOP_PX_NO_VALUE;
@@ -65,27 +86,6 @@ class xetraOrderExecReportBroadcastPacket
         static const uint32_t ORDER_IDSFX_MIN;
         static const uint32_t ORDER_IDSFX_MAX;
         static const uint32_t ORDER_IDSFX_NO_VALUE;
-        static const int32_t LEAVES_QTY_MIN;
-        static const int32_t LEAVES_QTY_MAX;
-        static const int32_t LEAVES_QTY_NO_VALUE;
-        static const int32_t CUM_QTY_MIN;
-        static const int32_t CUM_QTY_MAX;
-        static const int32_t CUM_QTY_NO_VALUE;
-        static const int32_t CXL_QTY_MIN;
-        static const int32_t CXL_QTY_MAX;
-        static const int32_t CXL_QTY_NO_VALUE;
-        static const int32_t ORDER_QTY_MIN;
-        static const int32_t ORDER_QTY_MAX;
-        static const int32_t ORDER_QTY_NO_VALUE;
-        static const int32_t DISPLAY_QTY_MIN;
-        static const int32_t DISPLAY_QTY_MAX;
-        static const int32_t DISPLAY_QTY_NO_VALUE;
-        static const int32_t DISPLAY_LOW_QTY_MIN;
-        static const int32_t DISPLAY_LOW_QTY_MAX;
-        static const int32_t DISPLAY_LOW_QTY_NO_VALUE;
-        static const int32_t DISPLAY_HIGH_QTY_MIN;
-        static const int32_t DISPLAY_HIGH_QTY_MAX;
-        static const int32_t DISPLAY_HIGH_QTY_NO_VALUE;
         static const int32_t EXPIRE_DATE_MIN;
         static const int32_t EXPIRE_DATE_MAX;
         static const int32_t EXPIRE_DATE_NO_VALUE;
@@ -158,8 +158,8 @@ class xetraOrderExecReportBroadcastPacket
         static const int8_t CROSSED_INDICATOR_MIN;
         static const int8_t CROSSED_INDICATOR_MAX;
         static const int8_t CROSSED_INDICATOR_NO_VALUE;
-        static const char PAD7_NO_VALUE[7];
-        static const size_t PAD7_MAX_LENGTH;
+        static const char PAD3_NO_VALUE[3];
+        static const size_t PAD3_MAX_LENGTH;
         static const size_t FILLS_GRP_MIN;
         static const size_t FILLS_GRP_MAX;
 
@@ -174,19 +174,19 @@ class xetraOrderExecReportBroadcastPacket
         uint64_t mTrdRegTSEntryTime;
         uint64_t mTrdRegTSTimePriority;
         int64_t mPrice;
+        int64_t mLeavesQty;
+        int64_t mCumQty;
+        int64_t mCxlQty;
+        int64_t mOrderQty;
+        int64_t mDisplayQty;
+        int64_t mDisplayLowQty;
+        int64_t mDisplayHighQty;
         int64_t mStopPx;
         int64_t mVolumeDiscoveryPrice;
         int64_t mPegOffsetValueAbs;
         int64_t mPegOffsetValuePct;
         int32_t mMarketSegmentID;
         uint32_t mOrderIDSfx;
-        int32_t mLeavesQty;
-        int32_t mCumQty;
-        int32_t mCxlQty;
-        int32_t mOrderQty;
-        int32_t mDisplayQty;
-        int32_t mDisplayLowQty;
-        int32_t mDisplayHighQty;
         int32_t mExpireDate;
         uint32_t mMatchInstCrossID;
         uint32_t mPartyIDExecutingUnit;
@@ -213,7 +213,7 @@ class xetraOrderExecReportBroadcastPacket
         int8_t mNoFills;
         int8_t mTriggered;
         int8_t mCrossedIndicator;
-        char mPad7[7];
+        char mPad3[3];
         vector<xetraFillsGrpCompPacket> mFillsGrp;
 
         // constructor
@@ -228,12 +228,6 @@ class xetraOrderExecReportBroadcastPacket
             mTrdRegTSEntryTime = TRD_REG_TSENTRY_TIME_NO_VALUE;
             mTrdRegTSTimePriority = TRD_REG_TSTIME_PRIORITY_NO_VALUE;
             mPrice = PRICE_NO_VALUE;
-            mStopPx = STOP_PX_NO_VALUE;
-            mVolumeDiscoveryPrice = VOLUME_DISCOVERY_PRICE_NO_VALUE;
-            mPegOffsetValueAbs = PEG_OFFSET_VALUE_ABS_NO_VALUE;
-            mPegOffsetValuePct = PEG_OFFSET_VALUE_PCT_NO_VALUE;
-            mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
-            mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mLeavesQty = LEAVES_QTY_NO_VALUE;
             mCumQty = CUM_QTY_NO_VALUE;
             mCxlQty = CXL_QTY_NO_VALUE;
@@ -241,6 +235,12 @@ class xetraOrderExecReportBroadcastPacket
             mDisplayQty = DISPLAY_QTY_NO_VALUE;
             mDisplayLowQty = DISPLAY_LOW_QTY_NO_VALUE;
             mDisplayHighQty = DISPLAY_HIGH_QTY_NO_VALUE;
+            mStopPx = STOP_PX_NO_VALUE;
+            mVolumeDiscoveryPrice = VOLUME_DISCOVERY_PRICE_NO_VALUE;
+            mPegOffsetValueAbs = PEG_OFFSET_VALUE_ABS_NO_VALUE;
+            mPegOffsetValuePct = PEG_OFFSET_VALUE_PCT_NO_VALUE;
+            mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
+            mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mExpireDate = EXPIRE_DATE_NO_VALUE;
             mMatchInstCrossID = MATCH_INST_CROSS_ID_NO_VALUE;
             mPartyIDExecutingUnit = PARTY_IDEXECUTING_UNIT_NO_VALUE;
@@ -267,7 +267,7 @@ class xetraOrderExecReportBroadcastPacket
             mNoFills = NO_FILLS_NO_VALUE;
             mTriggered = TRIGGERED_NO_VALUE;
             mCrossedIndicator = CROSSED_INDICATOR_NO_VALUE;
-            memcpy(mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            memcpy(mPad3, PAD3_NO_VALUE, sizeof (mPad3));
         }
 
         // getters & setters
@@ -461,6 +461,153 @@ class xetraOrderExecReportBroadcastPacket
             mPrice = PRICE_NO_VALUE;
         }
 
+        double getLeavesQty () const
+        {
+            return mLeavesQty / 10000.0;
+        }
+
+        bool setLeavesQty (double v)
+        {
+            mLeavesQty = v * 10000.0;
+            return ((LEAVES_QTY_MIN <= v && v <= LEAVES_QTY_MAX) || mLeavesQty == LEAVES_QTY_NO_VALUE);
+        }
+
+        bool isLeavesQtyValid () const
+        {
+            return (mLeavesQty != LEAVES_QTY_NO_VALUE);
+        }
+
+        void resetLeavesQty ()
+        {
+            mLeavesQty = LEAVES_QTY_NO_VALUE;
+        }
+
+        double getCumQty () const
+        {
+            return mCumQty / 10000.0;
+        }
+
+        bool setCumQty (double v)
+        {
+            mCumQty = v * 10000.0;
+            return ((CUM_QTY_MIN <= v && v <= CUM_QTY_MAX) || mCumQty == CUM_QTY_NO_VALUE);
+        }
+
+        bool isCumQtyValid () const
+        {
+            return (mCumQty != CUM_QTY_NO_VALUE);
+        }
+
+        void resetCumQty ()
+        {
+            mCumQty = CUM_QTY_NO_VALUE;
+        }
+
+        double getCxlQty () const
+        {
+            return mCxlQty / 10000.0;
+        }
+
+        bool setCxlQty (double v)
+        {
+            mCxlQty = v * 10000.0;
+            return ((CXL_QTY_MIN <= v && v <= CXL_QTY_MAX) || mCxlQty == CXL_QTY_NO_VALUE);
+        }
+
+        bool isCxlQtyValid () const
+        {
+            return (mCxlQty != CXL_QTY_NO_VALUE);
+        }
+
+        void resetCxlQty ()
+        {
+            mCxlQty = CXL_QTY_NO_VALUE;
+        }
+
+        double getOrderQty () const
+        {
+            return mOrderQty / 10000.0;
+        }
+
+        bool setOrderQty (double v)
+        {
+            mOrderQty = v * 10000.0;
+            return ((ORDER_QTY_MIN <= v && v <= ORDER_QTY_MAX) || mOrderQty == ORDER_QTY_NO_VALUE);
+        }
+
+        bool isOrderQtyValid () const
+        {
+            return (mOrderQty != ORDER_QTY_NO_VALUE);
+        }
+
+        void resetOrderQty ()
+        {
+            mOrderQty = ORDER_QTY_NO_VALUE;
+        }
+
+        double getDisplayQty () const
+        {
+            return mDisplayQty / 10000.0;
+        }
+
+        bool setDisplayQty (double v)
+        {
+            mDisplayQty = v * 10000.0;
+            return ((DISPLAY_QTY_MIN <= v && v <= DISPLAY_QTY_MAX) || mDisplayQty == DISPLAY_QTY_NO_VALUE);
+        }
+
+        bool isDisplayQtyValid () const
+        {
+            return (mDisplayQty != DISPLAY_QTY_NO_VALUE);
+        }
+
+        void resetDisplayQty ()
+        {
+            mDisplayQty = DISPLAY_QTY_NO_VALUE;
+        }
+
+        double getDisplayLowQty () const
+        {
+            return mDisplayLowQty / 10000.0;
+        }
+
+        bool setDisplayLowQty (double v)
+        {
+            mDisplayLowQty = v * 10000.0;
+            return ((DISPLAY_LOW_QTY_MIN <= v && v <= DISPLAY_LOW_QTY_MAX) || mDisplayLowQty == DISPLAY_LOW_QTY_NO_VALUE);
+        }
+
+        bool isDisplayLowQtyValid () const
+        {
+            return (mDisplayLowQty != DISPLAY_LOW_QTY_NO_VALUE);
+        }
+
+        void resetDisplayLowQty ()
+        {
+            mDisplayLowQty = DISPLAY_LOW_QTY_NO_VALUE;
+        }
+
+        double getDisplayHighQty () const
+        {
+            return mDisplayHighQty / 10000.0;
+        }
+
+        bool setDisplayHighQty (double v)
+        {
+            mDisplayHighQty = v * 10000.0;
+            return ((DISPLAY_HIGH_QTY_MIN <= v && v <= DISPLAY_HIGH_QTY_MAX) || mDisplayHighQty == DISPLAY_HIGH_QTY_NO_VALUE);
+        }
+
+        bool isDisplayHighQtyValid () const
+        {
+            return (mDisplayHighQty != DISPLAY_HIGH_QTY_NO_VALUE);
+        }
+
+        void resetDisplayHighQty ()
+        {
+            mDisplayHighQty = DISPLAY_HIGH_QTY_NO_VALUE;
+        }
+
         double getStopPx () const
         {
             return mStopPx / 100000000.0;
@@ -585,153 +732,6 @@ class xetraOrderExecReportBroadcastPacket
         void resetOrderIDSfx ()
         {
             mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
-        }
-
-        int32_t getLeavesQty () const
-        {
-            return mLeavesQty;
-        }
-
-        bool setLeavesQty (int32_t v)
-        {
-            mLeavesQty = v;
-            return ((LEAVES_QTY_MIN <= mLeavesQty && mLeavesQty <= LEAVES_QTY_MAX) || mLeavesQty == LEAVES_QTY_NO_VALUE);
-        }
-
-        bool isLeavesQtyValid () const
-        {
-            return (mLeavesQty != LEAVES_QTY_NO_VALUE);
-        }
-
-        void resetLeavesQty ()
-        {
-            mLeavesQty = LEAVES_QTY_NO_VALUE;
-        }
-
-        int32_t getCumQty () const
-        {
-            return mCumQty;
-        }
-
-        bool setCumQty (int32_t v)
-        {
-            mCumQty = v;
-            return ((CUM_QTY_MIN <= mCumQty && mCumQty <= CUM_QTY_MAX) || mCumQty == CUM_QTY_NO_VALUE);
-        }
-
-        bool isCumQtyValid () const
-        {
-            return (mCumQty != CUM_QTY_NO_VALUE);
-        }
-
-        void resetCumQty ()
-        {
-            mCumQty = CUM_QTY_NO_VALUE;
-        }
-
-        int32_t getCxlQty () const
-        {
-            return mCxlQty;
-        }
-
-        bool setCxlQty (int32_t v)
-        {
-            mCxlQty = v;
-            return ((CXL_QTY_MIN <= mCxlQty && mCxlQty <= CXL_QTY_MAX) || mCxlQty == CXL_QTY_NO_VALUE);
-        }
-
-        bool isCxlQtyValid () const
-        {
-            return (mCxlQty != CXL_QTY_NO_VALUE);
-        }
-
-        void resetCxlQty ()
-        {
-            mCxlQty = CXL_QTY_NO_VALUE;
-        }
-
-        int32_t getOrderQty () const
-        {
-            return mOrderQty;
-        }
-
-        bool setOrderQty (int32_t v)
-        {
-            mOrderQty = v;
-            return ((ORDER_QTY_MIN <= mOrderQty && mOrderQty <= ORDER_QTY_MAX) || mOrderQty == ORDER_QTY_NO_VALUE);
-        }
-
-        bool isOrderQtyValid () const
-        {
-            return (mOrderQty != ORDER_QTY_NO_VALUE);
-        }
-
-        void resetOrderQty ()
-        {
-            mOrderQty = ORDER_QTY_NO_VALUE;
-        }
-
-        int32_t getDisplayQty () const
-        {
-            return mDisplayQty;
-        }
-
-        bool setDisplayQty (int32_t v)
-        {
-            mDisplayQty = v;
-            return ((DISPLAY_QTY_MIN <= mDisplayQty && mDisplayQty <= DISPLAY_QTY_MAX) || mDisplayQty == DISPLAY_QTY_NO_VALUE);
-        }
-
-        bool isDisplayQtyValid () const
-        {
-            return (mDisplayQty != DISPLAY_QTY_NO_VALUE);
-        }
-
-        void resetDisplayQty ()
-        {
-            mDisplayQty = DISPLAY_QTY_NO_VALUE;
-        }
-
-        int32_t getDisplayLowQty () const
-        {
-            return mDisplayLowQty;
-        }
-
-        bool setDisplayLowQty (int32_t v)
-        {
-            mDisplayLowQty = v;
-            return ((DISPLAY_LOW_QTY_MIN <= mDisplayLowQty && mDisplayLowQty <= DISPLAY_LOW_QTY_MAX) || mDisplayLowQty == DISPLAY_LOW_QTY_NO_VALUE);
-        }
-
-        bool isDisplayLowQtyValid () const
-        {
-            return (mDisplayLowQty != DISPLAY_LOW_QTY_NO_VALUE);
-        }
-
-        void resetDisplayLowQty ()
-        {
-            mDisplayLowQty = DISPLAY_LOW_QTY_NO_VALUE;
-        }
-
-        int32_t getDisplayHighQty () const
-        {
-            return mDisplayHighQty;
-        }
-
-        bool setDisplayHighQty (int32_t v)
-        {
-            mDisplayHighQty = v;
-            return ((DISPLAY_HIGH_QTY_MIN <= mDisplayHighQty && mDisplayHighQty <= DISPLAY_HIGH_QTY_MAX) || mDisplayHighQty == DISPLAY_HIGH_QTY_NO_VALUE);
-        }
-
-        bool isDisplayHighQtyValid () const
-        {
-            return (mDisplayHighQty != DISPLAY_HIGH_QTY_NO_VALUE);
-        }
-
-        void resetDisplayHighQty ()
-        {
-            mDisplayHighQty = DISPLAY_HIGH_QTY_NO_VALUE;
         }
 
         int32_t getExpireDate () const
@@ -1298,28 +1298,28 @@ class xetraOrderExecReportBroadcastPacket
             mCrossedIndicator = CROSSED_INDICATOR_NO_VALUE;
         }
 
-        string getPad7 () const
+        string getPad3 () const
         {
-            return string (mPad7, PAD7_MAX_LENGTH);
+            return string (mPad3, PAD3_MAX_LENGTH);
         }
 
-        bool setPad7 (const string& v)
+        bool setPad3 (const string& v)
         {
-            size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
+            size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
             for (size_t i = 0; i < size; i++)
-                mPad7[i] = v[i];
-            memset (&mPad7[size], '\0', PAD7_MAX_LENGTH-size);
-            return (v.size () <= PAD7_MAX_LENGTH);
+                mPad3[i] = v[i];
+            memset (&mPad3[size], '\0', PAD3_MAX_LENGTH-size);
+            return (v.size () <= PAD3_MAX_LENGTH);
         }
 
-        bool isPad7Valid () const
+        bool isPad3Valid () const
         {
-            return (memcmp (mPad7, PAD7_NO_VALUE, sizeof (mPad7)) != 0);
+            return (memcmp (mPad3, PAD3_NO_VALUE, sizeof (mPad3)) != 0);
         }
 
-        void resetPad7 ()
+        void resetPad3 ()
         {
-            memcpy (mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            memcpy (mPad3, PAD3_NO_VALUE, sizeof (mPad3));
         }
 
         const vector<xetraFillsGrpCompPacket>& getFillsGrp () const
@@ -1348,12 +1348,6 @@ class xetraOrderExecReportBroadcastPacket
                 + sizeof (mTrdRegTSEntryTime)
                 + sizeof (mTrdRegTSTimePriority)
                 + sizeof (mPrice)
-                + sizeof (mStopPx)
-                + sizeof (mVolumeDiscoveryPrice)
-                + sizeof (mPegOffsetValueAbs)
-                + sizeof (mPegOffsetValuePct)
-                + sizeof (mMarketSegmentID)
-                + sizeof (mOrderIDSfx)
                 + sizeof (mLeavesQty)
                 + sizeof (mCumQty)
                 + sizeof (mCxlQty)
@@ -1361,6 +1355,12 @@ class xetraOrderExecReportBroadcastPacket
                 + sizeof (mDisplayQty)
                 + sizeof (mDisplayLowQty)
                 + sizeof (mDisplayHighQty)
+                + sizeof (mStopPx)
+                + sizeof (mVolumeDiscoveryPrice)
+                + sizeof (mPegOffsetValueAbs)
+                + sizeof (mPegOffsetValuePct)
+                + sizeof (mMarketSegmentID)
+                + sizeof (mOrderIDSfx)
                 + sizeof (mExpireDate)
                 + sizeof (mMatchInstCrossID)
                 + sizeof (mPartyIDExecutingUnit)
@@ -1387,7 +1387,7 @@ class xetraOrderExecReportBroadcastPacket
                 + sizeof (mNoFills)
                 + sizeof (mTriggered)
                 + sizeof (mCrossedIndicator)
-                + sizeof (mPad7)
+                + sizeof (mPad3)
                 + xetra::getRawSize (mFillsGrp);
             return result;
         }
@@ -1418,18 +1418,6 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mPrice, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mStopPx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mVolumeDiscoveryPrice, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPegOffsetValueAbs, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPegOffsetValuePct, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mMarketSegmentID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mOrderIDSfx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mLeavesQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mCumQty, buf, len, used);
@@ -1443,6 +1431,18 @@ class xetraOrderExecReportBroadcastPacket
             state = xetra::serialize (mDisplayLowQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mDisplayHighQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mStopPx, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mVolumeDiscoveryPrice, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPegOffsetValueAbs, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPegOffsetValuePct, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mMarketSegmentID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mOrderIDSfx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExpireDate, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -1496,7 +1496,7 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mCrossedIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad7, buf, len, used);
+            state = xetra::serialize (mPad3, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             for (size_t i = 0; i < mFillsGrp.size (); i++)
             {
@@ -1530,18 +1530,6 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mPrice, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mStopPx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mVolumeDiscoveryPrice, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPegOffsetValueAbs, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPegOffsetValuePct, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mMarketSegmentID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mOrderIDSfx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mLeavesQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mCumQty, buf, len, used);
@@ -1555,6 +1543,18 @@ class xetraOrderExecReportBroadcastPacket
             state = xetra::deserialize (mDisplayLowQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mDisplayHighQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mStopPx, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mVolumeDiscoveryPrice, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPegOffsetValueAbs, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPegOffsetValuePct, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mMarketSegmentID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mOrderIDSfx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExpireDate, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -1608,7 +1608,7 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mCrossedIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad7, buf, len, used);
+            state = xetra::deserialize (mPad3, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mFillsGrp.resize (mNoFills);
             for (vector<xetraFillsGrpCompPacket>::iterator it = mFillsGrp.begin (); it != mFillsGrp.end (); ++it)
@@ -1635,12 +1635,6 @@ class xetraOrderExecReportBroadcastPacket
                 << "[TrdRegTSEntryTime=" << getTrdRegTSEntryTime () << "],"
                 << "[TrdRegTSTimePriority=" << getTrdRegTSTimePriority () << "],"
                 << "[Price=" << getPrice () << "],"
-                << "[StopPx=" << getStopPx () << "],"
-                << "[VolumeDiscoveryPrice=" << getVolumeDiscoveryPrice () << "],"
-                << "[PegOffsetValueAbs=" << getPegOffsetValueAbs () << "],"
-                << "[PegOffsetValuePct=" << getPegOffsetValuePct () << "],"
-                << "[MarketSegmentID=" << getMarketSegmentID () << "],"
-                << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[LeavesQty=" << getLeavesQty () << "],"
                 << "[CumQty=" << getCumQty () << "],"
                 << "[CxlQty=" << getCxlQty () << "],"
@@ -1648,6 +1642,12 @@ class xetraOrderExecReportBroadcastPacket
                 << "[DisplayQty=" << getDisplayQty () << "],"
                 << "[DisplayLowQty=" << getDisplayLowQty () << "],"
                 << "[DisplayHighQty=" << getDisplayHighQty () << "],"
+                << "[StopPx=" << getStopPx () << "],"
+                << "[VolumeDiscoveryPrice=" << getVolumeDiscoveryPrice () << "],"
+                << "[PegOffsetValueAbs=" << getPegOffsetValueAbs () << "],"
+                << "[PegOffsetValuePct=" << getPegOffsetValuePct () << "],"
+                << "[MarketSegmentID=" << getMarketSegmentID () << "],"
+                << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[ExpireDate=" << getExpireDate () << "],"
                 << "[MatchInstCrossID=" << getMatchInstCrossID () << "],"
                 << "[PartyIDExecutingUnit=" << getPartyIDExecutingUnit () << "],"
@@ -1674,7 +1674,7 @@ class xetraOrderExecReportBroadcastPacket
                 << "[NoFills=" << getNoFills () << "],"
                 << "[Triggered=" << getTriggered () << "],"
                 << "[CrossedIndicator=" << getCrossedIndicator () << "],"
-                << "[Pad7=" << getPad7 () << "],"
+                << "[Pad3=" << getPad3 () << "],"
                 << "[FillsGrp=" << xetra::toString (getFillsGrp ()) << "]";
             return sss.str();
         }
@@ -1704,6 +1704,27 @@ const uint64_t xetraOrderExecReportBroadcastPacket::TRD_REG_TSTIME_PRIORITY_NO_V
 const double xetraOrderExecReportBroadcastPacket::PRICE_MIN = -92233720368.54775807;
 const double xetraOrderExecReportBroadcastPacket::PRICE_MAX = 92233720368.54775807;
 const int64_t xetraOrderExecReportBroadcastPacket::PRICE_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecReportBroadcastPacket::LEAVES_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecReportBroadcastPacket::LEAVES_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecReportBroadcastPacket::LEAVES_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecReportBroadcastPacket::CUM_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecReportBroadcastPacket::CUM_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecReportBroadcastPacket::CUM_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecReportBroadcastPacket::CXL_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecReportBroadcastPacket::CXL_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecReportBroadcastPacket::CXL_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecReportBroadcastPacket::ORDER_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecReportBroadcastPacket::ORDER_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecReportBroadcastPacket::ORDER_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecReportBroadcastPacket::DISPLAY_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecReportBroadcastPacket::DISPLAY_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecReportBroadcastPacket::DISPLAY_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecReportBroadcastPacket::DISPLAY_LOW_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecReportBroadcastPacket::DISPLAY_LOW_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecReportBroadcastPacket::DISPLAY_LOW_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraOrderExecReportBroadcastPacket::DISPLAY_HIGH_QTY_MIN = -922337203685477.5807;
+const double xetraOrderExecReportBroadcastPacket::DISPLAY_HIGH_QTY_MAX = 922337203685477.5807;
+const int64_t xetraOrderExecReportBroadcastPacket::DISPLAY_HIGH_QTY_NO_VALUE = 0x8000000000000000;
 const double xetraOrderExecReportBroadcastPacket::STOP_PX_MIN = -92233720368.54775807;
 const double xetraOrderExecReportBroadcastPacket::STOP_PX_MAX = 92233720368.54775807;
 const int64_t xetraOrderExecReportBroadcastPacket::STOP_PX_NO_VALUE = 0x8000000000000000;
@@ -1722,27 +1743,6 @@ const int32_t xetraOrderExecReportBroadcastPacket::MARKET_SEGMENT_ID_NO_VALUE = 
 const uint32_t xetraOrderExecReportBroadcastPacket::ORDER_IDSFX_MIN = 0;
 const uint32_t xetraOrderExecReportBroadcastPacket::ORDER_IDSFX_MAX = 4294967294;
 const uint32_t xetraOrderExecReportBroadcastPacket::ORDER_IDSFX_NO_VALUE = 0xFFFFFFFF;
-const int32_t xetraOrderExecReportBroadcastPacket::LEAVES_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::LEAVES_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::LEAVES_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecReportBroadcastPacket::CUM_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::CUM_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::CUM_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecReportBroadcastPacket::CXL_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::CXL_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::CXL_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecReportBroadcastPacket::ORDER_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::ORDER_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::ORDER_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_LOW_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_LOW_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_LOW_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_HIGH_QTY_MIN = -2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_HIGH_QTY_MAX = 2147483647;
-const int32_t xetraOrderExecReportBroadcastPacket::DISPLAY_HIGH_QTY_NO_VALUE = 0x80000000;
 const int32_t xetraOrderExecReportBroadcastPacket::EXPIRE_DATE_MIN = 0;
 const int32_t xetraOrderExecReportBroadcastPacket::EXPIRE_DATE_MAX = 99991231;
 const int32_t xetraOrderExecReportBroadcastPacket::EXPIRE_DATE_NO_VALUE = 0xFFFFFFFF;
@@ -1762,7 +1762,7 @@ const uint32_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_TRADER_MIN 
 const uint32_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_TRADER_MAX = 4294967294;
 const uint32_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_TRADER_NO_VALUE = 0xFFFFFFFF;
 const int16_t xetraOrderExecReportBroadcastPacket::EXEC_RESTATEMENT_REASON_MIN = 0;
-const int16_t xetraOrderExecReportBroadcastPacket::EXEC_RESTATEMENT_REASON_MAX = 300;
+const int16_t xetraOrderExecReportBroadcastPacket::EXEC_RESTATEMENT_REASON_MAX = 344;
 const int16_t xetraOrderExecReportBroadcastPacket::EXEC_RESTATEMENT_REASON_NO_VALUE = 0xFFFF;
 const int8_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_FIRM_MIN = 1;
 const int8_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 2;
@@ -1772,7 +1772,7 @@ const size_t xetraOrderExecReportBroadcastPacket::ORD_STATUS_MAX_LENGTH = 1;
 const char xetraOrderExecReportBroadcastPacket::EXEC_TYPE_NO_VALUE[1] = {0x00};
 const size_t xetraOrderExecReportBroadcastPacket::EXEC_TYPE_MAX_LENGTH = 1;
 const int8_t xetraOrderExecReportBroadcastPacket::MATCH_TYPE_MIN = 0;
-const int8_t xetraOrderExecReportBroadcastPacket::MATCH_TYPE_MAX = 12;
+const int8_t xetraOrderExecReportBroadcastPacket::MATCH_TYPE_MAX = 14;
 const int8_t xetraOrderExecReportBroadcastPacket::MATCH_TYPE_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecReportBroadcastPacket::SIDE_MIN = 1;
 const int8_t xetraOrderExecReportBroadcastPacket::SIDE_MAX = 2;
@@ -1815,8 +1815,8 @@ const int8_t xetraOrderExecReportBroadcastPacket::TRIGGERED_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecReportBroadcastPacket::CROSSED_INDICATOR_MIN = 0;
 const int8_t xetraOrderExecReportBroadcastPacket::CROSSED_INDICATOR_MAX = 1;
 const int8_t xetraOrderExecReportBroadcastPacket::CROSSED_INDICATOR_NO_VALUE = 0xFF;
-const char xetraOrderExecReportBroadcastPacket::PAD7_NO_VALUE[7] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraOrderExecReportBroadcastPacket::PAD7_MAX_LENGTH = 7;
+const char xetraOrderExecReportBroadcastPacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
+const size_t xetraOrderExecReportBroadcastPacket::PAD3_MAX_LENGTH = 3;
 const size_t xetraOrderExecReportBroadcastPacket::FILLS_GRP_MIN = 0;
 const size_t xetraOrderExecReportBroadcastPacket::FILLS_GRP_MAX = 100;
 

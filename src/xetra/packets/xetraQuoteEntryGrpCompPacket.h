@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_QUOTEENTRYGRPCOMP_PACKET_H
 #define XETRA_QUOTEENTRYGRPCOMP_PACKET_H
@@ -29,30 +29,30 @@ class xetraQuoteEntryGrpCompPacket
         static const double BID_PX_MIN;
         static const double BID_PX_MAX;
         static const int64_t BID_PX_NO_VALUE;
+        static const double BID_SIZE_MIN;
+        static const double BID_SIZE_MAX;
+        static const int64_t BID_SIZE_NO_VALUE;
         static const double OFFER_PX_MIN;
         static const double OFFER_PX_MAX;
         static const int64_t OFFER_PX_NO_VALUE;
-        static const int32_t BID_SIZE_MIN;
-        static const int32_t BID_SIZE_MAX;
-        static const int32_t BID_SIZE_NO_VALUE;
-        static const int32_t OFFER_SIZE_MIN;
-        static const int32_t OFFER_SIZE_MAX;
-        static const int32_t OFFER_SIZE_NO_VALUE;
+        static const double OFFER_SIZE_MIN;
+        static const double OFFER_SIZE_MAX;
+        static const int64_t OFFER_SIZE_NO_VALUE;
 
         // fields (use with care)
         int64_t mSecurityID;
         int64_t mBidPx;
+        int64_t mBidSize;
         int64_t mOfferPx;
-        int32_t mBidSize;
-        int32_t mOfferSize;
+        int64_t mOfferSize;
 
         // constructor
         xetraQuoteEntryGrpCompPacket ()
         {
             mSecurityID = SECURITY_ID_NO_VALUE;
             mBidPx = BID_PX_NO_VALUE;
-            mOfferPx = OFFER_PX_NO_VALUE;
             mBidSize = BID_SIZE_NO_VALUE;
+            mOfferPx = OFFER_PX_NO_VALUE;
             mOfferSize = OFFER_SIZE_NO_VALUE;
         }
 
@@ -99,6 +99,27 @@ class xetraQuoteEntryGrpCompPacket
             mBidPx = BID_PX_NO_VALUE;
         }
 
+        double getBidSize () const
+        {
+            return mBidSize / 10000.0;
+        }
+
+        bool setBidSize (double v)
+        {
+            mBidSize = v * 10000.0;
+            return ((BID_SIZE_MIN <= v && v <= BID_SIZE_MAX) || mBidSize == BID_SIZE_NO_VALUE);
+        }
+
+        bool isBidSizeValid () const
+        {
+            return (mBidSize != BID_SIZE_NO_VALUE);
+        }
+
+        void resetBidSize ()
+        {
+            mBidSize = BID_SIZE_NO_VALUE;
+        }
+
         double getOfferPx () const
         {
             return mOfferPx / 100000000.0;
@@ -120,36 +141,15 @@ class xetraQuoteEntryGrpCompPacket
             mOfferPx = OFFER_PX_NO_VALUE;
         }
 
-        int32_t getBidSize () const
+        double getOfferSize () const
         {
-            return mBidSize;
+            return mOfferSize / 10000.0;
         }
 
-        bool setBidSize (int32_t v)
+        bool setOfferSize (double v)
         {
-            mBidSize = v;
-            return ((BID_SIZE_MIN <= mBidSize && mBidSize <= BID_SIZE_MAX) || mBidSize == BID_SIZE_NO_VALUE);
-        }
-
-        bool isBidSizeValid () const
-        {
-            return (mBidSize != BID_SIZE_NO_VALUE);
-        }
-
-        void resetBidSize ()
-        {
-            mBidSize = BID_SIZE_NO_VALUE;
-        }
-
-        int32_t getOfferSize () const
-        {
-            return mOfferSize;
-        }
-
-        bool setOfferSize (int32_t v)
-        {
-            mOfferSize = v;
-            return ((OFFER_SIZE_MIN <= mOfferSize && mOfferSize <= OFFER_SIZE_MAX) || mOfferSize == OFFER_SIZE_NO_VALUE);
+            mOfferSize = v * 10000.0;
+            return ((OFFER_SIZE_MIN <= v && v <= OFFER_SIZE_MAX) || mOfferSize == OFFER_SIZE_NO_VALUE);
         }
 
         bool isOfferSizeValid () const
@@ -168,8 +168,8 @@ class xetraQuoteEntryGrpCompPacket
         {
             size_t result = sizeof (mSecurityID)
                 + sizeof (mBidPx)
-                + sizeof (mOfferPx)
                 + sizeof (mBidSize)
+                + sizeof (mOfferPx)
                 + sizeof (mOfferSize);
             return result;
         }
@@ -182,9 +182,9 @@ class xetraQuoteEntryGrpCompPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mBidPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mOfferPx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mBidSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mOfferPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mOfferSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -199,9 +199,9 @@ class xetraQuoteEntryGrpCompPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mBidPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mOfferPx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mBidSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mOfferPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mOfferSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -215,8 +215,8 @@ class xetraQuoteEntryGrpCompPacket
             sss << "QuoteEntryGrpComp::"
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[BidPx=" << getBidPx () << "],"
-                << "[OfferPx=" << getOfferPx () << "],"
                 << "[BidSize=" << getBidSize () << "],"
+                << "[OfferPx=" << getOfferPx () << "],"
                 << "[OfferSize=" << getOfferSize () << "]";
             return sss.str();
         }
@@ -228,15 +228,15 @@ const int64_t xetraQuoteEntryGrpCompPacket::SECURITY_ID_NO_VALUE = 0x80000000000
 const double xetraQuoteEntryGrpCompPacket::BID_PX_MIN = -92233720368.54775807;
 const double xetraQuoteEntryGrpCompPacket::BID_PX_MAX = 92233720368.54775807;
 const int64_t xetraQuoteEntryGrpCompPacket::BID_PX_NO_VALUE = 0x8000000000000000;
+const double xetraQuoteEntryGrpCompPacket::BID_SIZE_MIN = -922337203685477.5807;
+const double xetraQuoteEntryGrpCompPacket::BID_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraQuoteEntryGrpCompPacket::BID_SIZE_NO_VALUE = 0x8000000000000000;
 const double xetraQuoteEntryGrpCompPacket::OFFER_PX_MIN = -92233720368.54775807;
 const double xetraQuoteEntryGrpCompPacket::OFFER_PX_MAX = 92233720368.54775807;
 const int64_t xetraQuoteEntryGrpCompPacket::OFFER_PX_NO_VALUE = 0x8000000000000000;
-const int32_t xetraQuoteEntryGrpCompPacket::BID_SIZE_MIN = -2147483647;
-const int32_t xetraQuoteEntryGrpCompPacket::BID_SIZE_MAX = 2147483647;
-const int32_t xetraQuoteEntryGrpCompPacket::BID_SIZE_NO_VALUE = 0x80000000;
-const int32_t xetraQuoteEntryGrpCompPacket::OFFER_SIZE_MIN = -2147483647;
-const int32_t xetraQuoteEntryGrpCompPacket::OFFER_SIZE_MAX = 2147483647;
-const int32_t xetraQuoteEntryGrpCompPacket::OFFER_SIZE_NO_VALUE = 0x80000000;
+const double xetraQuoteEntryGrpCompPacket::OFFER_SIZE_MIN = -922337203685477.5807;
+const double xetraQuoteEntryGrpCompPacket::OFFER_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraQuoteEntryGrpCompPacket::OFFER_SIZE_NO_VALUE = 0x8000000000000000;
 
 
 } // namespace neueda
