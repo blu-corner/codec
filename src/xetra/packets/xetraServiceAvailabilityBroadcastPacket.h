@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_SERVICEAVAILABILITYBROADCAST_PACKET_H
 #define XETRA_SERVICEAVAILABILITYBROADCAST_PACKET_H
@@ -32,6 +32,12 @@ class xetraServiceAvailabilityBroadcastPacket
         static const int32_t APPL_SEQ_TRADE_DATE_MIN;
         static const int32_t APPL_SEQ_TRADE_DATE_MAX;
         static const int32_t APPL_SEQ_TRADE_DATE_NO_VALUE;
+        static const int32_t T7ENTRY_SERVICE_TRADE_DATE_MIN;
+        static const int32_t T7ENTRY_SERVICE_TRADE_DATE_MAX;
+        static const int32_t T7ENTRY_SERVICE_TRADE_DATE_NO_VALUE;
+        static const int32_t T7ENTRY_SERVICE_RTM_TRADE_DATE_MIN;
+        static const int32_t T7ENTRY_SERVICE_RTM_TRADE_DATE_MAX;
+        static const int32_t T7ENTRY_SERVICE_RTM_TRADE_DATE_NO_VALUE;
         static const uint16_t PARTITION_ID_MIN;
         static const uint16_t PARTITION_ID_MAX;
         static const uint16_t PARTITION_ID_NO_VALUE;
@@ -44,8 +50,14 @@ class xetraServiceAvailabilityBroadcastPacket
         static const int8_t APPL_SEQ_STATUS_MIN;
         static const int8_t APPL_SEQ_STATUS_MAX;
         static const int8_t APPL_SEQ_STATUS_NO_VALUE;
-        static const char PAD7_NO_VALUE[7];
-        static const size_t PAD7_MAX_LENGTH;
+        static const int8_t T7ENTRY_SERVICE_STATUS_MIN;
+        static const int8_t T7ENTRY_SERVICE_STATUS_MAX;
+        static const int8_t T7ENTRY_SERVICE_STATUS_NO_VALUE;
+        static const int8_t T7ENTRY_SERVICE_RTM_STATUS_MIN;
+        static const int8_t T7ENTRY_SERVICE_RTM_STATUS_MAX;
+        static const int8_t T7ENTRY_SERVICE_RTM_STATUS_NO_VALUE;
+        static const char PAD5_NO_VALUE[5];
+        static const size_t PAD5_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -53,11 +65,15 @@ class xetraServiceAvailabilityBroadcastPacket
         int32_t mMatchingEngineTradeDate;
         int32_t mTradeManagerTradeDate;
         int32_t mApplSeqTradeDate;
+        int32_t mT7EntryServiceTradeDate;
+        int32_t mT7EntryServiceRtmTradeDate;
         uint16_t mPartitionID;
         int8_t mMatchingEngineStatus;
         int8_t mTradeManagerStatus;
         int8_t mApplSeqStatus;
-        char mPad7[7];
+        int8_t mT7EntryServiceStatus;
+        int8_t mT7EntryServiceRtmStatus;
+        char mPad5[5];
 
         // constructor
         xetraServiceAvailabilityBroadcastPacket ()
@@ -66,11 +82,15 @@ class xetraServiceAvailabilityBroadcastPacket
             mMatchingEngineTradeDate = MATCHING_ENGINE_TRADE_DATE_NO_VALUE;
             mTradeManagerTradeDate = TRADE_MANAGER_TRADE_DATE_NO_VALUE;
             mApplSeqTradeDate = APPL_SEQ_TRADE_DATE_NO_VALUE;
+            mT7EntryServiceTradeDate = T7ENTRY_SERVICE_TRADE_DATE_NO_VALUE;
+            mT7EntryServiceRtmTradeDate = T7ENTRY_SERVICE_RTM_TRADE_DATE_NO_VALUE;
             mPartitionID = PARTITION_ID_NO_VALUE;
             mMatchingEngineStatus = MATCHING_ENGINE_STATUS_NO_VALUE;
             mTradeManagerStatus = TRADE_MANAGER_STATUS_NO_VALUE;
             mApplSeqStatus = APPL_SEQ_STATUS_NO_VALUE;
-            memcpy(mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            mT7EntryServiceStatus = T7ENTRY_SERVICE_STATUS_NO_VALUE;
+            mT7EntryServiceRtmStatus = T7ENTRY_SERVICE_RTM_STATUS_NO_VALUE;
+            memcpy(mPad5, PAD5_NO_VALUE, sizeof (mPad5));
         }
 
         // getters & setters
@@ -159,6 +179,48 @@ class xetraServiceAvailabilityBroadcastPacket
             mApplSeqTradeDate = APPL_SEQ_TRADE_DATE_NO_VALUE;
         }
 
+        int32_t getT7EntryServiceTradeDate () const
+        {
+            return mT7EntryServiceTradeDate;
+        }
+
+        bool setT7EntryServiceTradeDate (int32_t v)
+        {
+            mT7EntryServiceTradeDate = v;
+            return ((T7ENTRY_SERVICE_TRADE_DATE_MIN <= mT7EntryServiceTradeDate && mT7EntryServiceTradeDate <= T7ENTRY_SERVICE_TRADE_DATE_MAX) || mT7EntryServiceTradeDate == T7ENTRY_SERVICE_TRADE_DATE_NO_VALUE);
+        }
+
+        bool isT7EntryServiceTradeDateValid () const
+        {
+            return (mT7EntryServiceTradeDate != T7ENTRY_SERVICE_TRADE_DATE_NO_VALUE);
+        }
+
+        void resetT7EntryServiceTradeDate ()
+        {
+            mT7EntryServiceTradeDate = T7ENTRY_SERVICE_TRADE_DATE_NO_VALUE;
+        }
+
+        int32_t getT7EntryServiceRtmTradeDate () const
+        {
+            return mT7EntryServiceRtmTradeDate;
+        }
+
+        bool setT7EntryServiceRtmTradeDate (int32_t v)
+        {
+            mT7EntryServiceRtmTradeDate = v;
+            return ((T7ENTRY_SERVICE_RTM_TRADE_DATE_MIN <= mT7EntryServiceRtmTradeDate && mT7EntryServiceRtmTradeDate <= T7ENTRY_SERVICE_RTM_TRADE_DATE_MAX) || mT7EntryServiceRtmTradeDate == T7ENTRY_SERVICE_RTM_TRADE_DATE_NO_VALUE);
+        }
+
+        bool isT7EntryServiceRtmTradeDateValid () const
+        {
+            return (mT7EntryServiceRtmTradeDate != T7ENTRY_SERVICE_RTM_TRADE_DATE_NO_VALUE);
+        }
+
+        void resetT7EntryServiceRtmTradeDate ()
+        {
+            mT7EntryServiceRtmTradeDate = T7ENTRY_SERVICE_RTM_TRADE_DATE_NO_VALUE;
+        }
+
         uint16_t getPartitionID () const
         {
             return mPartitionID;
@@ -243,28 +305,70 @@ class xetraServiceAvailabilityBroadcastPacket
             mApplSeqStatus = APPL_SEQ_STATUS_NO_VALUE;
         }
 
-        string getPad7 () const
+        int8_t getT7EntryServiceStatus () const
         {
-            return string (mPad7, PAD7_MAX_LENGTH);
+            return mT7EntryServiceStatus;
         }
 
-        bool setPad7 (const string& v)
+        bool setT7EntryServiceStatus (int8_t v)
         {
-            size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
+            mT7EntryServiceStatus = v;
+            return ((T7ENTRY_SERVICE_STATUS_MIN <= mT7EntryServiceStatus && mT7EntryServiceStatus <= T7ENTRY_SERVICE_STATUS_MAX) || mT7EntryServiceStatus == T7ENTRY_SERVICE_STATUS_NO_VALUE);
+        }
+
+        bool isT7EntryServiceStatusValid () const
+        {
+            return (mT7EntryServiceStatus != T7ENTRY_SERVICE_STATUS_NO_VALUE);
+        }
+
+        void resetT7EntryServiceStatus ()
+        {
+            mT7EntryServiceStatus = T7ENTRY_SERVICE_STATUS_NO_VALUE;
+        }
+
+        int8_t getT7EntryServiceRtmStatus () const
+        {
+            return mT7EntryServiceRtmStatus;
+        }
+
+        bool setT7EntryServiceRtmStatus (int8_t v)
+        {
+            mT7EntryServiceRtmStatus = v;
+            return ((T7ENTRY_SERVICE_RTM_STATUS_MIN <= mT7EntryServiceRtmStatus && mT7EntryServiceRtmStatus <= T7ENTRY_SERVICE_RTM_STATUS_MAX) || mT7EntryServiceRtmStatus == T7ENTRY_SERVICE_RTM_STATUS_NO_VALUE);
+        }
+
+        bool isT7EntryServiceRtmStatusValid () const
+        {
+            return (mT7EntryServiceRtmStatus != T7ENTRY_SERVICE_RTM_STATUS_NO_VALUE);
+        }
+
+        void resetT7EntryServiceRtmStatus ()
+        {
+            mT7EntryServiceRtmStatus = T7ENTRY_SERVICE_RTM_STATUS_NO_VALUE;
+        }
+
+        string getPad5 () const
+        {
+            return string (mPad5, PAD5_MAX_LENGTH);
+        }
+
+        bool setPad5 (const string& v)
+        {
+            size_t size = min ((size_t) v.size (), (size_t) PAD5_MAX_LENGTH);
             for (size_t i = 0; i < size; i++)
-                mPad7[i] = v[i];
-            memset (&mPad7[size], '\0', PAD7_MAX_LENGTH-size);
-            return (v.size () <= PAD7_MAX_LENGTH);
+                mPad5[i] = v[i];
+            memset (&mPad5[size], '\0', PAD5_MAX_LENGTH-size);
+            return (v.size () <= PAD5_MAX_LENGTH);
         }
 
-        bool isPad7Valid () const
+        bool isPad5Valid () const
         {
-            return (memcmp (mPad7, PAD7_NO_VALUE, sizeof (mPad7)) != 0);
+            return (memcmp (mPad5, PAD5_NO_VALUE, sizeof (mPad5)) != 0);
         }
 
-        void resetPad7 ()
+        void resetPad5 ()
         {
-            memcpy (mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            memcpy (mPad5, PAD5_NO_VALUE, sizeof (mPad5));
         }
 
 
@@ -276,11 +380,15 @@ class xetraServiceAvailabilityBroadcastPacket
                 + sizeof (mMatchingEngineTradeDate)
                 + sizeof (mTradeManagerTradeDate)
                 + sizeof (mApplSeqTradeDate)
+                + sizeof (mT7EntryServiceTradeDate)
+                + sizeof (mT7EntryServiceRtmTradeDate)
                 + sizeof (mPartitionID)
                 + sizeof (mMatchingEngineStatus)
                 + sizeof (mTradeManagerStatus)
                 + sizeof (mApplSeqStatus)
-                + sizeof (mPad7);
+                + sizeof (mT7EntryServiceStatus)
+                + sizeof (mT7EntryServiceRtmStatus)
+                + sizeof (mPad5);
             return result;
         }
 
@@ -299,6 +407,10 @@ class xetraServiceAvailabilityBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mApplSeqTradeDate, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mT7EntryServiceTradeDate, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mT7EntryServiceRtmTradeDate, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mPartitionID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mMatchingEngineStatus, buf, len, used);
@@ -307,7 +419,11 @@ class xetraServiceAvailabilityBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mApplSeqStatus, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad7, buf, len, used);
+            state = xetra::serialize (mT7EntryServiceStatus, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mT7EntryServiceRtmStatus, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPad5, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -326,6 +442,10 @@ class xetraServiceAvailabilityBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mApplSeqTradeDate, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mT7EntryServiceTradeDate, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mT7EntryServiceRtmTradeDate, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mPartitionID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mMatchingEngineStatus, buf, len, used);
@@ -334,7 +454,11 @@ class xetraServiceAvailabilityBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mApplSeqStatus, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad7, buf, len, used);
+            state = xetra::deserialize (mT7EntryServiceStatus, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mT7EntryServiceRtmStatus, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPad5, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -350,11 +474,15 @@ class xetraServiceAvailabilityBroadcastPacket
                 << "[MatchingEngineTradeDate=" << getMatchingEngineTradeDate () << "],"
                 << "[TradeManagerTradeDate=" << getTradeManagerTradeDate () << "],"
                 << "[ApplSeqTradeDate=" << getApplSeqTradeDate () << "],"
+                << "[T7EntryServiceTradeDate=" << getT7EntryServiceTradeDate () << "],"
+                << "[T7EntryServiceRtmTradeDate=" << getT7EntryServiceRtmTradeDate () << "],"
                 << "[PartitionID=" << getPartitionID () << "],"
                 << "[MatchingEngineStatus=" << getMatchingEngineStatus () << "],"
                 << "[TradeManagerStatus=" << getTradeManagerStatus () << "],"
                 << "[ApplSeqStatus=" << getApplSeqStatus () << "],"
-                << "[Pad7=" << getPad7 () << "]";
+                << "[T7EntryServiceStatus=" << getT7EntryServiceStatus () << "],"
+                << "[T7EntryServiceRtmStatus=" << getT7EntryServiceRtmStatus () << "],"
+                << "[Pad5=" << getPad5 () << "]";
             return sss.str();
         }
 };
@@ -368,6 +496,12 @@ const int32_t xetraServiceAvailabilityBroadcastPacket::TRADE_MANAGER_TRADE_DATE_
 const int32_t xetraServiceAvailabilityBroadcastPacket::APPL_SEQ_TRADE_DATE_MIN = 0;
 const int32_t xetraServiceAvailabilityBroadcastPacket::APPL_SEQ_TRADE_DATE_MAX = 99991231;
 const int32_t xetraServiceAvailabilityBroadcastPacket::APPL_SEQ_TRADE_DATE_NO_VALUE = 0xFFFFFFFF;
+const int32_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_TRADE_DATE_MIN = 0;
+const int32_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_TRADE_DATE_MAX = 99991231;
+const int32_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_TRADE_DATE_NO_VALUE = 0xFFFFFFFF;
+const int32_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_RTM_TRADE_DATE_MIN = 0;
+const int32_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_RTM_TRADE_DATE_MAX = 99991231;
+const int32_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_RTM_TRADE_DATE_NO_VALUE = 0xFFFFFFFF;
 const uint16_t xetraServiceAvailabilityBroadcastPacket::PARTITION_ID_MIN = 0;
 const uint16_t xetraServiceAvailabilityBroadcastPacket::PARTITION_ID_MAX = 65534;
 const uint16_t xetraServiceAvailabilityBroadcastPacket::PARTITION_ID_NO_VALUE = 0xFFFF;
@@ -380,8 +514,14 @@ const int8_t xetraServiceAvailabilityBroadcastPacket::TRADE_MANAGER_STATUS_NO_VA
 const int8_t xetraServiceAvailabilityBroadcastPacket::APPL_SEQ_STATUS_MIN = 0;
 const int8_t xetraServiceAvailabilityBroadcastPacket::APPL_SEQ_STATUS_MAX = 1;
 const int8_t xetraServiceAvailabilityBroadcastPacket::APPL_SEQ_STATUS_NO_VALUE = 0xFF;
-const char xetraServiceAvailabilityBroadcastPacket::PAD7_NO_VALUE[7] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraServiceAvailabilityBroadcastPacket::PAD7_MAX_LENGTH = 7;
+const int8_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_STATUS_MIN = 0;
+const int8_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_STATUS_MAX = 1;
+const int8_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_STATUS_NO_VALUE = 0xFF;
+const int8_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_RTM_STATUS_MIN = 0;
+const int8_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_RTM_STATUS_MAX = 1;
+const int8_t xetraServiceAvailabilityBroadcastPacket::T7ENTRY_SERVICE_RTM_STATUS_NO_VALUE = 0xFF;
+const char xetraServiceAvailabilityBroadcastPacket::PAD5_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraServiceAvailabilityBroadcastPacket::PAD5_MAX_LENGTH = 5;
 
 
 } // namespace neueda

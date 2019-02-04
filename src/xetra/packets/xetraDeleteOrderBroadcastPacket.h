@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_DELETEORDERBROADCAST_PACKET_H
 #define XETRA_DELETEORDERBROADCAST_PACKET_H
@@ -38,21 +38,24 @@ class xetraDeleteOrderBroadcastPacket
         static const uint64_t EXEC_ID_MIN;
         static const uint64_t EXEC_ID_MAX;
         static const uint64_t EXEC_ID_NO_VALUE;
+        static const double CUM_QTY_MIN;
+        static const double CUM_QTY_MAX;
+        static const int64_t CUM_QTY_NO_VALUE;
+        static const double CXL_QTY_MIN;
+        static const double CXL_QTY_MAX;
+        static const int64_t CXL_QTY_NO_VALUE;
         static const uint32_t ORDER_IDSFX_MIN;
         static const uint32_t ORDER_IDSFX_MAX;
         static const uint32_t ORDER_IDSFX_NO_VALUE;
-        static const int32_t CUM_QTY_MIN;
-        static const int32_t CUM_QTY_MAX;
-        static const int32_t CUM_QTY_NO_VALUE;
-        static const int32_t CXL_QTY_MIN;
-        static const int32_t CXL_QTY_MAX;
-        static const int32_t CXL_QTY_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
         static const uint32_t PARTY_IDENTERING_TRADER_MIN;
         static const uint32_t PARTY_IDENTERING_TRADER_MAX;
         static const uint32_t PARTY_IDENTERING_TRADER_NO_VALUE;
+        static const uint32_t PARTY_IDSESSION_ID_MIN;
+        static const uint32_t PARTY_IDSESSION_ID_MAX;
+        static const uint32_t PARTY_IDSESSION_ID_NO_VALUE;
         static const int16_t EXEC_RESTATEMENT_REASON_MIN;
         static const int16_t EXEC_RESTATEMENT_REASON_MAX;
         static const int16_t EXEC_RESTATEMENT_REASON_NO_VALUE;
@@ -68,8 +71,8 @@ class xetraDeleteOrderBroadcastPacket
         static const int8_t SIDE_NO_VALUE;
         static const char FIXCL_ORD_ID_NO_VALUE[20];
         static const size_t FIXCL_ORD_ID_MAX_LENGTH;
-        static const char PAD2_NO_VALUE[2];
-        static const size_t PAD2_MAX_LENGTH;
+        static const char PAD6_NO_VALUE[6];
+        static const size_t PAD6_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -79,18 +82,19 @@ class xetraDeleteOrderBroadcastPacket
         uint64_t mOrigClOrdID;
         int64_t mSecurityID;
         uint64_t mExecID;
+        int64_t mCumQty;
+        int64_t mCxlQty;
         uint32_t mOrderIDSfx;
-        int32_t mCumQty;
-        int32_t mCxlQty;
         int32_t mMarketSegmentID;
         uint32_t mPartyIDEnteringTrader;
+        uint32_t mPartyIDSessionID;
         int16_t mExecRestatementReason;
         int8_t mPartyIDEnteringFirm;
         char mOrdStatus[1];
         char mExecType[1];
         int8_t mSide;
         char mFIXClOrdID[20];
-        char mPad2[2];
+        char mPad6[6];
 
         // constructor
         xetraDeleteOrderBroadcastPacket ()
@@ -101,18 +105,19 @@ class xetraDeleteOrderBroadcastPacket
             mOrigClOrdID = ORIG_CL_ORD_ID_NO_VALUE;
             mSecurityID = SECURITY_ID_NO_VALUE;
             mExecID = EXEC_ID_NO_VALUE;
-            mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mCumQty = CUM_QTY_NO_VALUE;
             mCxlQty = CXL_QTY_NO_VALUE;
+            mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mPartyIDEnteringTrader = PARTY_IDENTERING_TRADER_NO_VALUE;
+            mPartyIDSessionID = PARTY_IDSESSION_ID_NO_VALUE;
             mExecRestatementReason = EXEC_RESTATEMENT_REASON_NO_VALUE;
             mPartyIDEnteringFirm = PARTY_IDENTERING_FIRM_NO_VALUE;
             memcpy(mOrdStatus, ORD_STATUS_NO_VALUE, sizeof (mOrdStatus));
             memcpy(mExecType, EXEC_TYPE_NO_VALUE, sizeof (mExecType));
             mSide = SIDE_NO_VALUE;
             memcpy(mFIXClOrdID, FIXCL_ORD_ID_NO_VALUE, sizeof (mFIXClOrdID));
-            memcpy(mPad2, PAD2_NO_VALUE, sizeof (mPad2));
+            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
         // getters & setters
@@ -243,6 +248,48 @@ class xetraDeleteOrderBroadcastPacket
             mExecID = EXEC_ID_NO_VALUE;
         }
 
+        double getCumQty () const
+        {
+            return mCumQty / 10000.0;
+        }
+
+        bool setCumQty (double v)
+        {
+            mCumQty = v * 10000.0;
+            return ((CUM_QTY_MIN <= v && v <= CUM_QTY_MAX) || mCumQty == CUM_QTY_NO_VALUE);
+        }
+
+        bool isCumQtyValid () const
+        {
+            return (mCumQty != CUM_QTY_NO_VALUE);
+        }
+
+        void resetCumQty ()
+        {
+            mCumQty = CUM_QTY_NO_VALUE;
+        }
+
+        double getCxlQty () const
+        {
+            return mCxlQty / 10000.0;
+        }
+
+        bool setCxlQty (double v)
+        {
+            mCxlQty = v * 10000.0;
+            return ((CXL_QTY_MIN <= v && v <= CXL_QTY_MAX) || mCxlQty == CXL_QTY_NO_VALUE);
+        }
+
+        bool isCxlQtyValid () const
+        {
+            return (mCxlQty != CXL_QTY_NO_VALUE);
+        }
+
+        void resetCxlQty ()
+        {
+            mCxlQty = CXL_QTY_NO_VALUE;
+        }
+
         uint32_t getOrderIDSfx () const
         {
             return mOrderIDSfx;
@@ -262,48 +309,6 @@ class xetraDeleteOrderBroadcastPacket
         void resetOrderIDSfx ()
         {
             mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
-        }
-
-        int32_t getCumQty () const
-        {
-            return mCumQty;
-        }
-
-        bool setCumQty (int32_t v)
-        {
-            mCumQty = v;
-            return ((CUM_QTY_MIN <= mCumQty && mCumQty <= CUM_QTY_MAX) || mCumQty == CUM_QTY_NO_VALUE);
-        }
-
-        bool isCumQtyValid () const
-        {
-            return (mCumQty != CUM_QTY_NO_VALUE);
-        }
-
-        void resetCumQty ()
-        {
-            mCumQty = CUM_QTY_NO_VALUE;
-        }
-
-        int32_t getCxlQty () const
-        {
-            return mCxlQty;
-        }
-
-        bool setCxlQty (int32_t v)
-        {
-            mCxlQty = v;
-            return ((CXL_QTY_MIN <= mCxlQty && mCxlQty <= CXL_QTY_MAX) || mCxlQty == CXL_QTY_NO_VALUE);
-        }
-
-        bool isCxlQtyValid () const
-        {
-            return (mCxlQty != CXL_QTY_NO_VALUE);
-        }
-
-        void resetCxlQty ()
-        {
-            mCxlQty = CXL_QTY_NO_VALUE;
         }
 
         int32_t getMarketSegmentID () const
@@ -346,6 +351,27 @@ class xetraDeleteOrderBroadcastPacket
         void resetPartyIDEnteringTrader ()
         {
             mPartyIDEnteringTrader = PARTY_IDENTERING_TRADER_NO_VALUE;
+        }
+
+        uint32_t getPartyIDSessionID () const
+        {
+            return mPartyIDSessionID;
+        }
+
+        bool setPartyIDSessionID (uint32_t v)
+        {
+            mPartyIDSessionID = v;
+            return ((PARTY_IDSESSION_ID_MIN <= mPartyIDSessionID && mPartyIDSessionID <= PARTY_IDSESSION_ID_MAX) || mPartyIDSessionID == PARTY_IDSESSION_ID_NO_VALUE);
+        }
+
+        bool isPartyIDSessionIDValid () const
+        {
+            return (mPartyIDSessionID != PARTY_IDSESSION_ID_NO_VALUE);
+        }
+
+        void resetPartyIDSessionID ()
+        {
+            mPartyIDSessionID = PARTY_IDSESSION_ID_NO_VALUE;
         }
 
         int16_t getExecRestatementReason () const
@@ -483,28 +509,28 @@ class xetraDeleteOrderBroadcastPacket
             memcpy (mFIXClOrdID, FIXCL_ORD_ID_NO_VALUE, sizeof (mFIXClOrdID));
         }
 
-        string getPad2 () const
+        string getPad6 () const
         {
-            return string (mPad2, PAD2_MAX_LENGTH);
+            return string (mPad6, PAD6_MAX_LENGTH);
         }
 
-        bool setPad2 (const string& v)
+        bool setPad6 (const string& v)
         {
-            size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
+            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
             for (size_t i = 0; i < size; i++)
-                mPad2[i] = v[i];
-            memset (&mPad2[size], '\0', PAD2_MAX_LENGTH-size);
-            return (v.size () <= PAD2_MAX_LENGTH);
+                mPad6[i] = v[i];
+            memset (&mPad6[size], '\0', PAD6_MAX_LENGTH-size);
+            return (v.size () <= PAD6_MAX_LENGTH);
         }
 
-        bool isPad2Valid () const
+        bool isPad6Valid () const
         {
-            return (memcmp (mPad2, PAD2_NO_VALUE, sizeof (mPad2)) != 0);
+            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
         }
 
-        void resetPad2 ()
+        void resetPad6 ()
         {
-            memcpy (mPad2, PAD2_NO_VALUE, sizeof (mPad2));
+            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
 
@@ -518,18 +544,19 @@ class xetraDeleteOrderBroadcastPacket
                 + sizeof (mOrigClOrdID)
                 + sizeof (mSecurityID)
                 + sizeof (mExecID)
-                + sizeof (mOrderIDSfx)
                 + sizeof (mCumQty)
                 + sizeof (mCxlQty)
+                + sizeof (mOrderIDSfx)
                 + sizeof (mMarketSegmentID)
                 + sizeof (mPartyIDEnteringTrader)
+                + sizeof (mPartyIDSessionID)
                 + sizeof (mExecRestatementReason)
                 + sizeof (mPartyIDEnteringFirm)
                 + sizeof (mOrdStatus)
                 + sizeof (mExecType)
                 + sizeof (mSide)
                 + sizeof (mFIXClOrdID)
-                + sizeof (mPad2);
+                + sizeof (mPad6);
             return result;
         }
 
@@ -552,15 +579,17 @@ class xetraDeleteOrderBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mOrderIDSfx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mCumQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mCxlQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mOrderIDSfx, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mPartyIDEnteringTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPartyIDSessionID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecRestatementReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -574,7 +603,7 @@ class xetraDeleteOrderBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mFIXClOrdID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad2, buf, len, used);
+            state = xetra::serialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -597,15 +626,17 @@ class xetraDeleteOrderBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mOrderIDSfx, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mCumQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mCxlQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mOrderIDSfx, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mPartyIDEnteringTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPartyIDSessionID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecRestatementReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -619,7 +650,7 @@ class xetraDeleteOrderBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mFIXClOrdID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad2, buf, len, used);
+            state = xetra::deserialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -637,18 +668,19 @@ class xetraDeleteOrderBroadcastPacket
                 << "[OrigClOrdID=" << getOrigClOrdID () << "],"
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[ExecID=" << getExecID () << "],"
-                << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[CumQty=" << getCumQty () << "],"
                 << "[CxlQty=" << getCxlQty () << "],"
+                << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[PartyIDEnteringTrader=" << getPartyIDEnteringTrader () << "],"
+                << "[PartyIDSessionID=" << getPartyIDSessionID () << "],"
                 << "[ExecRestatementReason=" << getExecRestatementReason () << "],"
                 << "[PartyIDEnteringFirm=" << getPartyIDEnteringFirm () << "],"
                 << "[OrdStatus=" << getOrdStatus () << "],"
                 << "[ExecType=" << getExecType () << "],"
                 << "[Side=" << getSide () << "],"
                 << "[FIXClOrdID=" << getFIXClOrdID () << "],"
-                << "[Pad2=" << getPad2 () << "]";
+                << "[Pad6=" << getPad6 () << "]";
             return sss.str();
         }
 };
@@ -668,23 +700,26 @@ const int64_t xetraDeleteOrderBroadcastPacket::SECURITY_ID_NO_VALUE = 0x80000000
 const uint64_t xetraDeleteOrderBroadcastPacket::EXEC_ID_MIN = 0UL;
 const uint64_t xetraDeleteOrderBroadcastPacket::EXEC_ID_MAX = 18446744073709551614UL;
 const uint64_t xetraDeleteOrderBroadcastPacket::EXEC_ID_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
+const double xetraDeleteOrderBroadcastPacket::CUM_QTY_MIN = -922337203685477.5807;
+const double xetraDeleteOrderBroadcastPacket::CUM_QTY_MAX = 922337203685477.5807;
+const int64_t xetraDeleteOrderBroadcastPacket::CUM_QTY_NO_VALUE = 0x8000000000000000;
+const double xetraDeleteOrderBroadcastPacket::CXL_QTY_MIN = -922337203685477.5807;
+const double xetraDeleteOrderBroadcastPacket::CXL_QTY_MAX = 922337203685477.5807;
+const int64_t xetraDeleteOrderBroadcastPacket::CXL_QTY_NO_VALUE = 0x8000000000000000;
 const uint32_t xetraDeleteOrderBroadcastPacket::ORDER_IDSFX_MIN = 0;
 const uint32_t xetraDeleteOrderBroadcastPacket::ORDER_IDSFX_MAX = 4294967294;
 const uint32_t xetraDeleteOrderBroadcastPacket::ORDER_IDSFX_NO_VALUE = 0xFFFFFFFF;
-const int32_t xetraDeleteOrderBroadcastPacket::CUM_QTY_MIN = -2147483647;
-const int32_t xetraDeleteOrderBroadcastPacket::CUM_QTY_MAX = 2147483647;
-const int32_t xetraDeleteOrderBroadcastPacket::CUM_QTY_NO_VALUE = 0x80000000;
-const int32_t xetraDeleteOrderBroadcastPacket::CXL_QTY_MIN = -2147483647;
-const int32_t xetraDeleteOrderBroadcastPacket::CXL_QTY_MAX = 2147483647;
-const int32_t xetraDeleteOrderBroadcastPacket::CXL_QTY_NO_VALUE = 0x80000000;
 const int32_t xetraDeleteOrderBroadcastPacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraDeleteOrderBroadcastPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraDeleteOrderBroadcastPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
 const uint32_t xetraDeleteOrderBroadcastPacket::PARTY_IDENTERING_TRADER_MIN = 0;
 const uint32_t xetraDeleteOrderBroadcastPacket::PARTY_IDENTERING_TRADER_MAX = 4294967294;
 const uint32_t xetraDeleteOrderBroadcastPacket::PARTY_IDENTERING_TRADER_NO_VALUE = 0xFFFFFFFF;
+const uint32_t xetraDeleteOrderBroadcastPacket::PARTY_IDSESSION_ID_MIN = 0;
+const uint32_t xetraDeleteOrderBroadcastPacket::PARTY_IDSESSION_ID_MAX = 4294967294;
+const uint32_t xetraDeleteOrderBroadcastPacket::PARTY_IDSESSION_ID_NO_VALUE = 0xFFFFFFFF;
 const int16_t xetraDeleteOrderBroadcastPacket::EXEC_RESTATEMENT_REASON_MIN = 0;
-const int16_t xetraDeleteOrderBroadcastPacket::EXEC_RESTATEMENT_REASON_MAX = 300;
+const int16_t xetraDeleteOrderBroadcastPacket::EXEC_RESTATEMENT_REASON_MAX = 344;
 const int16_t xetraDeleteOrderBroadcastPacket::EXEC_RESTATEMENT_REASON_NO_VALUE = 0xFFFF;
 const int8_t xetraDeleteOrderBroadcastPacket::PARTY_IDENTERING_FIRM_MIN = 1;
 const int8_t xetraDeleteOrderBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 2;
@@ -698,8 +733,8 @@ const int8_t xetraDeleteOrderBroadcastPacket::SIDE_MAX = 2;
 const int8_t xetraDeleteOrderBroadcastPacket::SIDE_NO_VALUE = 0xFF;
 const char xetraDeleteOrderBroadcastPacket::FIXCL_ORD_ID_NO_VALUE[20] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraDeleteOrderBroadcastPacket::FIXCL_ORD_ID_MAX_LENGTH = 20;
-const char xetraDeleteOrderBroadcastPacket::PAD2_NO_VALUE[2] = {0x00, 0x00};
-const size_t xetraDeleteOrderBroadcastPacket::PAD2_MAX_LENGTH = 2;
+const char xetraDeleteOrderBroadcastPacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraDeleteOrderBroadcastPacket::PAD6_MAX_LENGTH = 6;
 
 
 } // namespace neueda

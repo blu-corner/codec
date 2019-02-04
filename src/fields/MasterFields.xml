@@ -2124,4 +2124,42 @@
   <field name="VarText" number="3965" venue="Xetra"/>
   <field name="VarTextLen" number="3966" venue="Xetra"/>
   <field name="VolumeDiscoveryPrice" number="3967" venue="Xetra"/>
+  <field name="AllocQty" number="3968" venue="Xetra"/>
+  <field name="BestBidPx" number="3969" venue="Xetra"/>
+  <field name="BestBidSize" number="3970" venue="Xetra"/>
+  <field name="BestOfferPx" number="3971" venue="Xetra"/>
+  <field name="BestOfferSize" number="3972" venue="Xetra"/>
+  <field name="ImbalanceQty" number="3973" venue="Xetra"/>
+  <field name="LastCouponDeviationIndicator" number="3974" venue="Xetra"/>
+  <field name="LastPxDisclosureInstruction" number="3975" venue="Xetra"/>
+  <field name="LastQtyDisclosureInstruction" number="3976" venue="Xetra"/>
+  <field name="LeavesQtyDisclosureInstruction" number="3977" venue="Xetra"/>
+  <field name="NoSideAllocs" number="3978" venue="Xetra"/>
+  <field name="PartyEnteringTrader" number="3979" venue="Xetra"/>
+  <field name="PartyExecutingTrader" number="3980" venue="Xetra"/>
+  <field name="PotentialExecVolume" number="3981" venue="Xetra"/>
+  <field name="PriceDisclosureInstruction" number="3982" venue="Xetra"/>
+  <field name="QuoteInstruction" number="3983" venue="Xetra"/>
+  <field name="RefinancingEligibilityIndicator" number="3984" venue="Xetra"/>
+  <field name="RegulatoryTradeID" number="3985" venue="Xetra"/>
+  <field name="RootPartyClearingOrganization" number="3986" venue="Xetra"/>
+  <field name="RootPartyIDClientID" number="3987" venue="Xetra"/>
+  <field name="RootPartyIDInvestmentDecisionMaker" number="3988" venue="Xetra"/>
+  <field name="RootPartyIDInvestmentDecisionMakerQualifier" number="3989" venue="Xetra"/>
+  <field name="SecurityStatusEventGrp" number="3990" venue="Xetra"/>
+  <field name="SecurityStatusReportID" number="3991" venue="Xetra"/>
+  <field name="SideAllocGrp" number="3992" venue="Xetra"/>
+  <field name="SideAllocGrpBC" number="3993" venue="Xetra"/>
+  <field name="SideDisclosureInstruction" number="3994" venue="Xetra"/>
+  <field name="SoldOutIndicator" number="3995" venue="Xetra"/>
+  <field name="T7EntryServiceRtmStatus" number="3996" venue="Xetra"/>
+  <field name="T7EntryServiceRtmTradeDate" number="3997" venue="Xetra"/>
+  <field name="T7EntryServiceStatus" number="3998" venue="Xetra"/>
+  <field name="T7EntryServiceTradeDate" number="3999" venue="Xetra"/>
+  <field name="TargetPartyExecutingFirm" number="4000" venue="Xetra"/>
+  <field name="TargetPartyExecutingTrader" number="4001" venue="Xetra"/>
+  <field name="TESExecID" number="4002" venue="Xetra"/>
+  <field name="TradeAllocStatus" number="4003" venue="Xetra"/>
+  <field name="TradeReportText" number="4004" venue="Xetra"/>
+  <field name="AccruedInteresAmt" number="4005" venue="Xetra"/>
 </fields>

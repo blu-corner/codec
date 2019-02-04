@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_TRAILINGSTOPUPDATENOTIFICATION_PACKET_H
 #define XETRA_TRAILINGSTOPUPDATENOTIFICATION_PACKET_H
@@ -41,15 +41,15 @@ class xetraTrailingStopUpdateNotificationPacket
         static const double STOP_PX_MIN;
         static const double STOP_PX_MAX;
         static const int64_t STOP_PX_NO_VALUE;
+        static const double ORDER_QTY_MIN;
+        static const double ORDER_QTY_MAX;
+        static const int64_t ORDER_QTY_NO_VALUE;
         static const uint32_t ORDER_IDSFX_MIN;
         static const uint32_t ORDER_IDSFX_MAX;
         static const uint32_t ORDER_IDSFX_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
-        static const int32_t ORDER_QTY_MIN;
-        static const int32_t ORDER_QTY_MAX;
-        static const int32_t ORDER_QTY_NO_VALUE;
         static const int16_t EXEC_RESTATEMENT_REASON_MIN;
         static const int16_t EXEC_RESTATEMENT_REASON_MAX;
         static const int16_t EXEC_RESTATEMENT_REASON_NO_VALUE;
@@ -62,8 +62,8 @@ class xetraTrailingStopUpdateNotificationPacket
         static const int8_t SIDE_NO_VALUE;
         static const char FIXCL_ORD_ID_NO_VALUE[20];
         static const size_t FIXCL_ORD_ID_MAX_LENGTH;
-        static const char PAD3_NO_VALUE[3];
-        static const size_t PAD3_MAX_LENGTH;
+        static const char PAD7_NO_VALUE[7];
+        static const size_t PAD7_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -74,15 +74,15 @@ class xetraTrailingStopUpdateNotificationPacket
         int64_t mSecurityID;
         uint64_t mExecID;
         int64_t mStopPx;
+        int64_t mOrderQty;
         uint32_t mOrderIDSfx;
         int32_t mMarketSegmentID;
-        int32_t mOrderQty;
         int16_t mExecRestatementReason;
         char mOrdStatus[1];
         char mExecType[1];
         int8_t mSide;
         char mFIXClOrdID[20];
-        char mPad3[3];
+        char mPad7[7];
 
         // constructor
         xetraTrailingStopUpdateNotificationPacket ()
@@ -94,15 +94,15 @@ class xetraTrailingStopUpdateNotificationPacket
             mSecurityID = SECURITY_ID_NO_VALUE;
             mExecID = EXEC_ID_NO_VALUE;
             mStopPx = STOP_PX_NO_VALUE;
+            mOrderQty = ORDER_QTY_NO_VALUE;
             mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
-            mOrderQty = ORDER_QTY_NO_VALUE;
             mExecRestatementReason = EXEC_RESTATEMENT_REASON_NO_VALUE;
             memcpy(mOrdStatus, ORD_STATUS_NO_VALUE, sizeof (mOrdStatus));
             memcpy(mExecType, EXEC_TYPE_NO_VALUE, sizeof (mExecType));
             mSide = SIDE_NO_VALUE;
             memcpy(mFIXClOrdID, FIXCL_ORD_ID_NO_VALUE, sizeof (mFIXClOrdID));
-            memcpy(mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            memcpy(mPad7, PAD7_NO_VALUE, sizeof (mPad7));
         }
 
         // getters & setters
@@ -254,6 +254,27 @@ class xetraTrailingStopUpdateNotificationPacket
             mStopPx = STOP_PX_NO_VALUE;
         }
 
+        double getOrderQty () const
+        {
+            return mOrderQty / 10000.0;
+        }
+
+        bool setOrderQty (double v)
+        {
+            mOrderQty = v * 10000.0;
+            return ((ORDER_QTY_MIN <= v && v <= ORDER_QTY_MAX) || mOrderQty == ORDER_QTY_NO_VALUE);
+        }
+
+        bool isOrderQtyValid () const
+        {
+            return (mOrderQty != ORDER_QTY_NO_VALUE);
+        }
+
+        void resetOrderQty ()
+        {
+            mOrderQty = ORDER_QTY_NO_VALUE;
+        }
+
         uint32_t getOrderIDSfx () const
         {
             return mOrderIDSfx;
@@ -294,27 +315,6 @@ class xetraTrailingStopUpdateNotificationPacket
         void resetMarketSegmentID ()
         {
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
-        }
-
-        int32_t getOrderQty () const
-        {
-            return mOrderQty;
-        }
-
-        bool setOrderQty (int32_t v)
-        {
-            mOrderQty = v;
-            return ((ORDER_QTY_MIN <= mOrderQty && mOrderQty <= ORDER_QTY_MAX) || mOrderQty == ORDER_QTY_NO_VALUE);
-        }
-
-        bool isOrderQtyValid () const
-        {
-            return (mOrderQty != ORDER_QTY_NO_VALUE);
-        }
-
-        void resetOrderQty ()
-        {
-            mOrderQty = ORDER_QTY_NO_VALUE;
         }
 
         int16_t getExecRestatementReason () const
@@ -431,28 +431,28 @@ class xetraTrailingStopUpdateNotificationPacket
             memcpy (mFIXClOrdID, FIXCL_ORD_ID_NO_VALUE, sizeof (mFIXClOrdID));
         }
 
-        string getPad3 () const
+        string getPad7 () const
         {
-            return string (mPad3, PAD3_MAX_LENGTH);
+            return string (mPad7, PAD7_MAX_LENGTH);
         }
 
-        bool setPad3 (const string& v)
+        bool setPad7 (const string& v)
         {
-            size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
+            size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
             for (size_t i = 0; i < size; i++)
-                mPad3[i] = v[i];
-            memset (&mPad3[size], '\0', PAD3_MAX_LENGTH-size);
-            return (v.size () <= PAD3_MAX_LENGTH);
+                mPad7[i] = v[i];
+            memset (&mPad7[size], '\0', PAD7_MAX_LENGTH-size);
+            return (v.size () <= PAD7_MAX_LENGTH);
         }
 
-        bool isPad3Valid () const
+        bool isPad7Valid () const
         {
-            return (memcmp (mPad3, PAD3_NO_VALUE, sizeof (mPad3)) != 0);
+            return (memcmp (mPad7, PAD7_NO_VALUE, sizeof (mPad7)) != 0);
         }
 
-        void resetPad3 ()
+        void resetPad7 ()
         {
-            memcpy (mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            memcpy (mPad7, PAD7_NO_VALUE, sizeof (mPad7));
         }
 
 
@@ -467,15 +467,15 @@ class xetraTrailingStopUpdateNotificationPacket
                 + sizeof (mSecurityID)
                 + sizeof (mExecID)
                 + sizeof (mStopPx)
+                + sizeof (mOrderQty)
                 + sizeof (mOrderIDSfx)
                 + sizeof (mMarketSegmentID)
-                + sizeof (mOrderQty)
                 + sizeof (mExecRestatementReason)
                 + sizeof (mOrdStatus)
                 + sizeof (mExecType)
                 + sizeof (mSide)
                 + sizeof (mFIXClOrdID)
-                + sizeof (mPad3);
+                + sizeof (mPad7);
             return result;
         }
 
@@ -500,11 +500,11 @@ class xetraTrailingStopUpdateNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mStopPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mOrderQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mOrderIDSfx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mMarketSegmentID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mOrderQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecRestatementReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -516,7 +516,7 @@ class xetraTrailingStopUpdateNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mFIXClOrdID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad3, buf, len, used);
+            state = xetra::serialize (mPad7, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -541,11 +541,11 @@ class xetraTrailingStopUpdateNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mStopPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mOrderQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mOrderIDSfx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mMarketSegmentID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mOrderQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecRestatementReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -557,7 +557,7 @@ class xetraTrailingStopUpdateNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mFIXClOrdID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad3, buf, len, used);
+            state = xetra::deserialize (mPad7, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -576,15 +576,15 @@ class xetraTrailingStopUpdateNotificationPacket
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[ExecID=" << getExecID () << "],"
                 << "[StopPx=" << getStopPx () << "],"
+                << "[OrderQty=" << getOrderQty () << "],"
                 << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
-                << "[OrderQty=" << getOrderQty () << "],"
                 << "[ExecRestatementReason=" << getExecRestatementReason () << "],"
                 << "[OrdStatus=" << getOrdStatus () << "],"
                 << "[ExecType=" << getExecType () << "],"
                 << "[Side=" << getSide () << "],"
                 << "[FIXClOrdID=" << getFIXClOrdID () << "],"
-                << "[Pad3=" << getPad3 () << "]";
+                << "[Pad7=" << getPad7 () << "]";
             return sss.str();
         }
 };
@@ -607,17 +607,17 @@ const uint64_t xetraTrailingStopUpdateNotificationPacket::EXEC_ID_NO_VALUE = 0xF
 const double xetraTrailingStopUpdateNotificationPacket::STOP_PX_MIN = -92233720368.54775807;
 const double xetraTrailingStopUpdateNotificationPacket::STOP_PX_MAX = 92233720368.54775807;
 const int64_t xetraTrailingStopUpdateNotificationPacket::STOP_PX_NO_VALUE = 0x8000000000000000;
+const double xetraTrailingStopUpdateNotificationPacket::ORDER_QTY_MIN = -922337203685477.5807;
+const double xetraTrailingStopUpdateNotificationPacket::ORDER_QTY_MAX = 922337203685477.5807;
+const int64_t xetraTrailingStopUpdateNotificationPacket::ORDER_QTY_NO_VALUE = 0x8000000000000000;
 const uint32_t xetraTrailingStopUpdateNotificationPacket::ORDER_IDSFX_MIN = 0;
 const uint32_t xetraTrailingStopUpdateNotificationPacket::ORDER_IDSFX_MAX = 4294967294;
 const uint32_t xetraTrailingStopUpdateNotificationPacket::ORDER_IDSFX_NO_VALUE = 0xFFFFFFFF;
 const int32_t xetraTrailingStopUpdateNotificationPacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraTrailingStopUpdateNotificationPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraTrailingStopUpdateNotificationPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
-const int32_t xetraTrailingStopUpdateNotificationPacket::ORDER_QTY_MIN = -2147483647;
-const int32_t xetraTrailingStopUpdateNotificationPacket::ORDER_QTY_MAX = 2147483647;
-const int32_t xetraTrailingStopUpdateNotificationPacket::ORDER_QTY_NO_VALUE = 0x80000000;
 const int16_t xetraTrailingStopUpdateNotificationPacket::EXEC_RESTATEMENT_REASON_MIN = 0;
-const int16_t xetraTrailingStopUpdateNotificationPacket::EXEC_RESTATEMENT_REASON_MAX = 300;
+const int16_t xetraTrailingStopUpdateNotificationPacket::EXEC_RESTATEMENT_REASON_MAX = 344;
 const int16_t xetraTrailingStopUpdateNotificationPacket::EXEC_RESTATEMENT_REASON_NO_VALUE = 0xFFFF;
 const char xetraTrailingStopUpdateNotificationPacket::ORD_STATUS_NO_VALUE[1] = {0x00};
 const size_t xetraTrailingStopUpdateNotificationPacket::ORD_STATUS_MAX_LENGTH = 1;
@@ -628,8 +628,8 @@ const int8_t xetraTrailingStopUpdateNotificationPacket::SIDE_MAX = 2;
 const int8_t xetraTrailingStopUpdateNotificationPacket::SIDE_NO_VALUE = 0xFF;
 const char xetraTrailingStopUpdateNotificationPacket::FIXCL_ORD_ID_NO_VALUE[20] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraTrailingStopUpdateNotificationPacket::FIXCL_ORD_ID_MAX_LENGTH = 20;
-const char xetraTrailingStopUpdateNotificationPacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
-const size_t xetraTrailingStopUpdateNotificationPacket::PAD3_MAX_LENGTH = 3;
+const char xetraTrailingStopUpdateNotificationPacket::PAD7_NO_VALUE[7] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraTrailingStopUpdateNotificationPacket::PAD7_MAX_LENGTH = 7;
 
 
 } // namespace neueda

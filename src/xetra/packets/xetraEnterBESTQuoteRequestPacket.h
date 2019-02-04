@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_ENTERBESTQUOTEREQUEST_PACKET_H
 #define XETRA_ENTERBESTQUOTEREQUEST_PACKET_H
@@ -32,9 +32,21 @@ class xetraEnterBESTQuoteRequestPacket
         static const double BID_PX_MIN;
         static const double BID_PX_MAX;
         static const int64_t BID_PX_NO_VALUE;
+        static const double BID_SIZE_MIN;
+        static const double BID_SIZE_MAX;
+        static const int64_t BID_SIZE_NO_VALUE;
+        static const double RESERVED_BID_SIZE_MIN;
+        static const double RESERVED_BID_SIZE_MAX;
+        static const int64_t RESERVED_BID_SIZE_NO_VALUE;
         static const double OFFER_PX_MIN;
         static const double OFFER_PX_MAX;
         static const int64_t OFFER_PX_NO_VALUE;
+        static const double OFFER_SIZE_MIN;
+        static const double OFFER_SIZE_MAX;
+        static const int64_t OFFER_SIZE_NO_VALUE;
+        static const double RESERVED_OFFER_SIZE_MIN;
+        static const double RESERVED_OFFER_SIZE_MAX;
+        static const int64_t RESERVED_OFFER_SIZE_NO_VALUE;
         static const double PEG_OFFSET_VALUE_BID_PX_MIN;
         static const double PEG_OFFSET_VALUE_BID_PX_MAX;
         static const int64_t PEG_OFFSET_VALUE_BID_PX_NO_VALUE;
@@ -47,18 +59,6 @@ class xetraEnterBESTQuoteRequestPacket
         static const uint64_t EXECUTING_TRADER_MIN;
         static const uint64_t EXECUTING_TRADER_MAX;
         static const uint64_t EXECUTING_TRADER_NO_VALUE;
-        static const int32_t BID_SIZE_MIN;
-        static const int32_t BID_SIZE_MAX;
-        static const int32_t BID_SIZE_NO_VALUE;
-        static const int32_t OFFER_SIZE_MIN;
-        static const int32_t OFFER_SIZE_MAX;
-        static const int32_t OFFER_SIZE_NO_VALUE;
-        static const uint32_t RESERVED_BID_SIZE_MIN;
-        static const uint32_t RESERVED_BID_SIZE_MAX;
-        static const uint32_t RESERVED_BID_SIZE_NO_VALUE;
-        static const uint32_t RESERVED_OFFER_SIZE_MIN;
-        static const uint32_t RESERVED_OFFER_SIZE_MAX;
-        static const uint32_t RESERVED_OFFER_SIZE_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
@@ -86,15 +86,15 @@ class xetraEnterBESTQuoteRequestPacket
         uint64_t mQuoteID;
         int64_t mSecurityID;
         int64_t mBidPx;
+        int64_t mBidSize;
+        int64_t mReservedBidSize;
         int64_t mOfferPx;
+        int64_t mOfferSize;
+        int64_t mReservedOfferSize;
         int64_t mPegOffsetValueBidPx;
         int64_t mPegOffsetValueOfferPx;
         uint64_t mPartyIdInvestmentDecisionMaker;
         uint64_t mExecutingTrader;
-        int32_t mBidSize;
-        int32_t mOfferSize;
-        uint32_t mReservedBidSize;
-        uint32_t mReservedOfferSize;
         int32_t mMarketSegmentID;
         int16_t mEnrichmentRuleID;
         int8_t mOrderAttributeLiquidityProvision;
@@ -110,15 +110,15 @@ class xetraEnterBESTQuoteRequestPacket
             mQuoteID = QUOTE_ID_NO_VALUE;
             mSecurityID = SECURITY_ID_NO_VALUE;
             mBidPx = BID_PX_NO_VALUE;
+            mBidSize = BID_SIZE_NO_VALUE;
+            mReservedBidSize = RESERVED_BID_SIZE_NO_VALUE;
             mOfferPx = OFFER_PX_NO_VALUE;
+            mOfferSize = OFFER_SIZE_NO_VALUE;
+            mReservedOfferSize = RESERVED_OFFER_SIZE_NO_VALUE;
             mPegOffsetValueBidPx = PEG_OFFSET_VALUE_BID_PX_NO_VALUE;
             mPegOffsetValueOfferPx = PEG_OFFSET_VALUE_OFFER_PX_NO_VALUE;
             mPartyIdInvestmentDecisionMaker = PARTY_ID_INVESTMENT_DECISION_MAKER_NO_VALUE;
             mExecutingTrader = EXECUTING_TRADER_NO_VALUE;
-            mBidSize = BID_SIZE_NO_VALUE;
-            mOfferSize = OFFER_SIZE_NO_VALUE;
-            mReservedBidSize = RESERVED_BID_SIZE_NO_VALUE;
-            mReservedOfferSize = RESERVED_OFFER_SIZE_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mEnrichmentRuleID = ENRICHMENT_RULE_ID_NO_VALUE;
             mOrderAttributeLiquidityProvision = ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_NO_VALUE;
@@ -214,6 +214,48 @@ class xetraEnterBESTQuoteRequestPacket
             mBidPx = BID_PX_NO_VALUE;
         }
 
+        double getBidSize () const
+        {
+            return mBidSize / 10000.0;
+        }
+
+        bool setBidSize (double v)
+        {
+            mBidSize = v * 10000.0;
+            return ((BID_SIZE_MIN <= v && v <= BID_SIZE_MAX) || mBidSize == BID_SIZE_NO_VALUE);
+        }
+
+        bool isBidSizeValid () const
+        {
+            return (mBidSize != BID_SIZE_NO_VALUE);
+        }
+
+        void resetBidSize ()
+        {
+            mBidSize = BID_SIZE_NO_VALUE;
+        }
+
+        double getReservedBidSize () const
+        {
+            return mReservedBidSize / 10000.0;
+        }
+
+        bool setReservedBidSize (double v)
+        {
+            mReservedBidSize = v * 10000.0;
+            return ((RESERVED_BID_SIZE_MIN <= v && v <= RESERVED_BID_SIZE_MAX) || mReservedBidSize == RESERVED_BID_SIZE_NO_VALUE);
+        }
+
+        bool isReservedBidSizeValid () const
+        {
+            return (mReservedBidSize != RESERVED_BID_SIZE_NO_VALUE);
+        }
+
+        void resetReservedBidSize ()
+        {
+            mReservedBidSize = RESERVED_BID_SIZE_NO_VALUE;
+        }
+
         double getOfferPx () const
         {
             return mOfferPx / 100000000.0;
@@ -233,6 +275,48 @@ class xetraEnterBESTQuoteRequestPacket
         void resetOfferPx ()
         {
             mOfferPx = OFFER_PX_NO_VALUE;
+        }
+
+        double getOfferSize () const
+        {
+            return mOfferSize / 10000.0;
+        }
+
+        bool setOfferSize (double v)
+        {
+            mOfferSize = v * 10000.0;
+            return ((OFFER_SIZE_MIN <= v && v <= OFFER_SIZE_MAX) || mOfferSize == OFFER_SIZE_NO_VALUE);
+        }
+
+        bool isOfferSizeValid () const
+        {
+            return (mOfferSize != OFFER_SIZE_NO_VALUE);
+        }
+
+        void resetOfferSize ()
+        {
+            mOfferSize = OFFER_SIZE_NO_VALUE;
+        }
+
+        double getReservedOfferSize () const
+        {
+            return mReservedOfferSize / 10000.0;
+        }
+
+        bool setReservedOfferSize (double v)
+        {
+            mReservedOfferSize = v * 10000.0;
+            return ((RESERVED_OFFER_SIZE_MIN <= v && v <= RESERVED_OFFER_SIZE_MAX) || mReservedOfferSize == RESERVED_OFFER_SIZE_NO_VALUE);
+        }
+
+        bool isReservedOfferSizeValid () const
+        {
+            return (mReservedOfferSize != RESERVED_OFFER_SIZE_NO_VALUE);
+        }
+
+        void resetReservedOfferSize ()
+        {
+            mReservedOfferSize = RESERVED_OFFER_SIZE_NO_VALUE;
         }
 
         double getPegOffsetValueBidPx () const
@@ -317,90 +401,6 @@ class xetraEnterBESTQuoteRequestPacket
         void resetExecutingTrader ()
         {
             mExecutingTrader = EXECUTING_TRADER_NO_VALUE;
-        }
-
-        int32_t getBidSize () const
-        {
-            return mBidSize;
-        }
-
-        bool setBidSize (int32_t v)
-        {
-            mBidSize = v;
-            return ((BID_SIZE_MIN <= mBidSize && mBidSize <= BID_SIZE_MAX) || mBidSize == BID_SIZE_NO_VALUE);
-        }
-
-        bool isBidSizeValid () const
-        {
-            return (mBidSize != BID_SIZE_NO_VALUE);
-        }
-
-        void resetBidSize ()
-        {
-            mBidSize = BID_SIZE_NO_VALUE;
-        }
-
-        int32_t getOfferSize () const
-        {
-            return mOfferSize;
-        }
-
-        bool setOfferSize (int32_t v)
-        {
-            mOfferSize = v;
-            return ((OFFER_SIZE_MIN <= mOfferSize && mOfferSize <= OFFER_SIZE_MAX) || mOfferSize == OFFER_SIZE_NO_VALUE);
-        }
-
-        bool isOfferSizeValid () const
-        {
-            return (mOfferSize != OFFER_SIZE_NO_VALUE);
-        }
-
-        void resetOfferSize ()
-        {
-            mOfferSize = OFFER_SIZE_NO_VALUE;
-        }
-
-        uint32_t getReservedBidSize () const
-        {
-            return mReservedBidSize;
-        }
-
-        bool setReservedBidSize (uint32_t v)
-        {
-            mReservedBidSize = v;
-            return ((RESERVED_BID_SIZE_MIN <= mReservedBidSize && mReservedBidSize <= RESERVED_BID_SIZE_MAX) || mReservedBidSize == RESERVED_BID_SIZE_NO_VALUE);
-        }
-
-        bool isReservedBidSizeValid () const
-        {
-            return (mReservedBidSize != RESERVED_BID_SIZE_NO_VALUE);
-        }
-
-        void resetReservedBidSize ()
-        {
-            mReservedBidSize = RESERVED_BID_SIZE_NO_VALUE;
-        }
-
-        uint32_t getReservedOfferSize () const
-        {
-            return mReservedOfferSize;
-        }
-
-        bool setReservedOfferSize (uint32_t v)
-        {
-            mReservedOfferSize = v;
-            return ((RESERVED_OFFER_SIZE_MIN <= mReservedOfferSize && mReservedOfferSize <= RESERVED_OFFER_SIZE_MAX) || mReservedOfferSize == RESERVED_OFFER_SIZE_NO_VALUE);
-        }
-
-        bool isReservedOfferSizeValid () const
-        {
-            return (mReservedOfferSize != RESERVED_OFFER_SIZE_NO_VALUE);
-        }
-
-        void resetReservedOfferSize ()
-        {
-            mReservedOfferSize = RESERVED_OFFER_SIZE_NO_VALUE;
         }
 
         int32_t getMarketSegmentID () const
@@ -562,15 +562,15 @@ class xetraEnterBESTQuoteRequestPacket
                 + sizeof (mQuoteID)
                 + sizeof (mSecurityID)
                 + sizeof (mBidPx)
+                + sizeof (mBidSize)
+                + sizeof (mReservedBidSize)
                 + sizeof (mOfferPx)
+                + sizeof (mOfferSize)
+                + sizeof (mReservedOfferSize)
                 + sizeof (mPegOffsetValueBidPx)
                 + sizeof (mPegOffsetValueOfferPx)
                 + sizeof (mPartyIdInvestmentDecisionMaker)
                 + sizeof (mExecutingTrader)
-                + sizeof (mBidSize)
-                + sizeof (mOfferSize)
-                + sizeof (mReservedBidSize)
-                + sizeof (mReservedOfferSize)
                 + sizeof (mMarketSegmentID)
                 + sizeof (mEnrichmentRuleID)
                 + sizeof (mOrderAttributeLiquidityProvision)
@@ -596,7 +596,15 @@ class xetraEnterBESTQuoteRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mBidPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mBidSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mReservedBidSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mOfferPx, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mOfferSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mReservedOfferSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mPegOffsetValueBidPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -605,14 +613,6 @@ class xetraEnterBESTQuoteRequestPacket
             state = xetra::serialize (mPartyIdInvestmentDecisionMaker, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecutingTrader, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mBidSize, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mOfferSize, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mReservedBidSize, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mReservedOfferSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -645,7 +645,15 @@ class xetraEnterBESTQuoteRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mBidPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mBidSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mReservedBidSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mOfferPx, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mOfferSize, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mReservedOfferSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mPegOffsetValueBidPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -654,14 +662,6 @@ class xetraEnterBESTQuoteRequestPacket
             state = xetra::deserialize (mPartyIdInvestmentDecisionMaker, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecutingTrader, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mBidSize, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mOfferSize, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mReservedBidSize, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mReservedOfferSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -691,15 +691,15 @@ class xetraEnterBESTQuoteRequestPacket
                 << "[QuoteID=" << getQuoteID () << "],"
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[BidPx=" << getBidPx () << "],"
+                << "[BidSize=" << getBidSize () << "],"
+                << "[ReservedBidSize=" << getReservedBidSize () << "],"
                 << "[OfferPx=" << getOfferPx () << "],"
+                << "[OfferSize=" << getOfferSize () << "],"
+                << "[ReservedOfferSize=" << getReservedOfferSize () << "],"
                 << "[PegOffsetValueBidPx=" << getPegOffsetValueBidPx () << "],"
                 << "[PegOffsetValueOfferPx=" << getPegOffsetValueOfferPx () << "],"
                 << "[PartyIdInvestmentDecisionMaker=" << getPartyIdInvestmentDecisionMaker () << "],"
                 << "[ExecutingTrader=" << getExecutingTrader () << "],"
-                << "[BidSize=" << getBidSize () << "],"
-                << "[OfferSize=" << getOfferSize () << "],"
-                << "[ReservedBidSize=" << getReservedBidSize () << "],"
-                << "[ReservedOfferSize=" << getReservedOfferSize () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[EnrichmentRuleID=" << getEnrichmentRuleID () << "],"
                 << "[OrderAttributeLiquidityProvision=" << getOrderAttributeLiquidityProvision () << "],"
@@ -720,9 +720,21 @@ const int64_t xetraEnterBESTQuoteRequestPacket::SECURITY_ID_NO_VALUE = 0x8000000
 const double xetraEnterBESTQuoteRequestPacket::BID_PX_MIN = -92233720368.54775807;
 const double xetraEnterBESTQuoteRequestPacket::BID_PX_MAX = 92233720368.54775807;
 const int64_t xetraEnterBESTQuoteRequestPacket::BID_PX_NO_VALUE = 0x8000000000000000;
+const double xetraEnterBESTQuoteRequestPacket::BID_SIZE_MIN = -922337203685477.5807;
+const double xetraEnterBESTQuoteRequestPacket::BID_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraEnterBESTQuoteRequestPacket::BID_SIZE_NO_VALUE = 0x8000000000000000;
+const double xetraEnterBESTQuoteRequestPacket::RESERVED_BID_SIZE_MIN = -922337203685477.5807;
+const double xetraEnterBESTQuoteRequestPacket::RESERVED_BID_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraEnterBESTQuoteRequestPacket::RESERVED_BID_SIZE_NO_VALUE = 0x8000000000000000;
 const double xetraEnterBESTQuoteRequestPacket::OFFER_PX_MIN = -92233720368.54775807;
 const double xetraEnterBESTQuoteRequestPacket::OFFER_PX_MAX = 92233720368.54775807;
 const int64_t xetraEnterBESTQuoteRequestPacket::OFFER_PX_NO_VALUE = 0x8000000000000000;
+const double xetraEnterBESTQuoteRequestPacket::OFFER_SIZE_MIN = -922337203685477.5807;
+const double xetraEnterBESTQuoteRequestPacket::OFFER_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraEnterBESTQuoteRequestPacket::OFFER_SIZE_NO_VALUE = 0x8000000000000000;
+const double xetraEnterBESTQuoteRequestPacket::RESERVED_OFFER_SIZE_MIN = -922337203685477.5807;
+const double xetraEnterBESTQuoteRequestPacket::RESERVED_OFFER_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraEnterBESTQuoteRequestPacket::RESERVED_OFFER_SIZE_NO_VALUE = 0x8000000000000000;
 const double xetraEnterBESTQuoteRequestPacket::PEG_OFFSET_VALUE_BID_PX_MIN = -92233720368.54775807;
 const double xetraEnterBESTQuoteRequestPacket::PEG_OFFSET_VALUE_BID_PX_MAX = 92233720368.54775807;
 const int64_t xetraEnterBESTQuoteRequestPacket::PEG_OFFSET_VALUE_BID_PX_NO_VALUE = 0x8000000000000000;
@@ -735,18 +747,6 @@ const uint64_t xetraEnterBESTQuoteRequestPacket::PARTY_ID_INVESTMENT_DECISION_MA
 const uint64_t xetraEnterBESTQuoteRequestPacket::EXECUTING_TRADER_MIN = 0UL;
 const uint64_t xetraEnterBESTQuoteRequestPacket::EXECUTING_TRADER_MAX = 18446744073709551614UL;
 const uint64_t xetraEnterBESTQuoteRequestPacket::EXECUTING_TRADER_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
-const int32_t xetraEnterBESTQuoteRequestPacket::BID_SIZE_MIN = -2147483647;
-const int32_t xetraEnterBESTQuoteRequestPacket::BID_SIZE_MAX = 2147483647;
-const int32_t xetraEnterBESTQuoteRequestPacket::BID_SIZE_NO_VALUE = 0x80000000;
-const int32_t xetraEnterBESTQuoteRequestPacket::OFFER_SIZE_MIN = -2147483647;
-const int32_t xetraEnterBESTQuoteRequestPacket::OFFER_SIZE_MAX = 2147483647;
-const int32_t xetraEnterBESTQuoteRequestPacket::OFFER_SIZE_NO_VALUE = 0x80000000;
-const uint32_t xetraEnterBESTQuoteRequestPacket::RESERVED_BID_SIZE_MIN = 0;
-const uint32_t xetraEnterBESTQuoteRequestPacket::RESERVED_BID_SIZE_MAX = 4294967294;
-const uint32_t xetraEnterBESTQuoteRequestPacket::RESERVED_BID_SIZE_NO_VALUE = 0xFFFFFFFF;
-const uint32_t xetraEnterBESTQuoteRequestPacket::RESERVED_OFFER_SIZE_MIN = 0;
-const uint32_t xetraEnterBESTQuoteRequestPacket::RESERVED_OFFER_SIZE_MAX = 4294967294;
-const uint32_t xetraEnterBESTQuoteRequestPacket::RESERVED_OFFER_SIZE_NO_VALUE = 0xFFFFFFFF;
 const int32_t xetraEnterBESTQuoteRequestPacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraEnterBESTQuoteRequestPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraEnterBESTQuoteRequestPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;

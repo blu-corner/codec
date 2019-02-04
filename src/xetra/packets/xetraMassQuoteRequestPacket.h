@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_MASSQUOTEREQUEST_PACKET_H
 #define XETRA_MASSQUOTEREQUEST_PACKET_H
@@ -53,6 +53,9 @@ class xetraMassQuoteRequestPacket
         static const int8_t QUOTE_SIZE_TYPE_MIN;
         static const int8_t QUOTE_SIZE_TYPE_MAX;
         static const int8_t QUOTE_SIZE_TYPE_NO_VALUE;
+        static const int8_t QUOTE_TYPE_MIN;
+        static const int8_t QUOTE_TYPE_MAX;
+        static const int8_t QUOTE_TYPE_NO_VALUE;
         static const int8_t ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_MIN;
         static const int8_t ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_MAX;
         static const int8_t ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_NO_VALUE;
@@ -65,8 +68,8 @@ class xetraMassQuoteRequestPacket
         static const int8_t EXECUTING_TRADER_QUALIFIER_MIN;
         static const int8_t EXECUTING_TRADER_QUALIFIER_MAX;
         static const int8_t EXECUTING_TRADER_QUALIFIER_NO_VALUE;
-        static const char PAD6_NO_VALUE[6];
-        static const size_t PAD6_MAX_LENGTH;
+        static const char PAD5_NO_VALUE[5];
+        static const size_t PAD5_MAX_LENGTH;
         static const size_t QUOTE_ENTRY_GRP_MIN;
         static const size_t QUOTE_ENTRY_GRP_MAX;
 
@@ -83,11 +86,12 @@ class xetraMassQuoteRequestPacket
         int8_t mValueCheckTypeValue;
         int8_t mValueCheckTypeQuantity;
         int8_t mQuoteSizeType;
+        int8_t mQuoteType;
         int8_t mOrderAttributeLiquidityProvision;
         int8_t mNoQuoteEntries;
         int8_t mPartyIdInvestmentDecisionMakerQualifier;
         int8_t mExecutingTraderQualifier;
-        char mPad6[6];
+        char mPad5[5];
         vector<xetraQuoteEntryGrpCompPacket> mQuoteEntryGrp;
 
         // constructor
@@ -104,11 +108,12 @@ class xetraMassQuoteRequestPacket
             mValueCheckTypeValue = VALUE_CHECK_TYPE_VALUE_NO_VALUE;
             mValueCheckTypeQuantity = VALUE_CHECK_TYPE_QUANTITY_NO_VALUE;
             mQuoteSizeType = QUOTE_SIZE_TYPE_NO_VALUE;
+            mQuoteType = QUOTE_TYPE_NO_VALUE;
             mOrderAttributeLiquidityProvision = ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_NO_VALUE;
             mNoQuoteEntries = NO_QUOTE_ENTRIES_NO_VALUE;
             mPartyIdInvestmentDecisionMakerQualifier = PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_NO_VALUE;
             mExecutingTraderQualifier = EXECUTING_TRADER_QUALIFIER_NO_VALUE;
-            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+            memcpy(mPad5, PAD5_NO_VALUE, sizeof (mPad5));
         }
 
         // getters & setters
@@ -344,6 +349,27 @@ class xetraMassQuoteRequestPacket
             mQuoteSizeType = QUOTE_SIZE_TYPE_NO_VALUE;
         }
 
+        int8_t getQuoteType () const
+        {
+            return mQuoteType;
+        }
+
+        bool setQuoteType (int8_t v)
+        {
+            mQuoteType = v;
+            return ((QUOTE_TYPE_MIN <= mQuoteType && mQuoteType <= QUOTE_TYPE_MAX) || mQuoteType == QUOTE_TYPE_NO_VALUE);
+        }
+
+        bool isQuoteTypeValid () const
+        {
+            return (mQuoteType != QUOTE_TYPE_NO_VALUE);
+        }
+
+        void resetQuoteType ()
+        {
+            mQuoteType = QUOTE_TYPE_NO_VALUE;
+        }
+
         int8_t getOrderAttributeLiquidityProvision () const
         {
             return mOrderAttributeLiquidityProvision;
@@ -428,28 +454,28 @@ class xetraMassQuoteRequestPacket
             mExecutingTraderQualifier = EXECUTING_TRADER_QUALIFIER_NO_VALUE;
         }
 
-        string getPad6 () const
+        string getPad5 () const
         {
-            return string (mPad6, PAD6_MAX_LENGTH);
+            return string (mPad5, PAD5_MAX_LENGTH);
         }
 
-        bool setPad6 (const string& v)
+        bool setPad5 (const string& v)
         {
-            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
+            size_t size = min ((size_t) v.size (), (size_t) PAD5_MAX_LENGTH);
             for (size_t i = 0; i < size; i++)
-                mPad6[i] = v[i];
-            memset (&mPad6[size], '\0', PAD6_MAX_LENGTH-size);
-            return (v.size () <= PAD6_MAX_LENGTH);
+                mPad5[i] = v[i];
+            memset (&mPad5[size], '\0', PAD5_MAX_LENGTH-size);
+            return (v.size () <= PAD5_MAX_LENGTH);
         }
 
-        bool isPad6Valid () const
+        bool isPad5Valid () const
         {
-            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
+            return (memcmp (mPad5, PAD5_NO_VALUE, sizeof (mPad5)) != 0);
         }
 
-        void resetPad6 ()
+        void resetPad5 ()
         {
-            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+            memcpy (mPad5, PAD5_NO_VALUE, sizeof (mPad5));
         }
 
         const vector<xetraQuoteEntryGrpCompPacket>& getQuoteEntryGrp () const
@@ -480,11 +506,12 @@ class xetraMassQuoteRequestPacket
                 + sizeof (mValueCheckTypeValue)
                 + sizeof (mValueCheckTypeQuantity)
                 + sizeof (mQuoteSizeType)
+                + sizeof (mQuoteType)
                 + sizeof (mOrderAttributeLiquidityProvision)
                 + sizeof (mNoQuoteEntries)
                 + sizeof (mPartyIdInvestmentDecisionMakerQualifier)
                 + sizeof (mExecutingTraderQualifier)
-                + sizeof (mPad6)
+                + sizeof (mPad5)
                 + xetra::getRawSize (mQuoteEntryGrp);
             return result;
         }
@@ -519,6 +546,8 @@ class xetraMassQuoteRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mQuoteSizeType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mQuoteType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mOrderAttributeLiquidityProvision, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mNoQuoteEntries, buf, len, used);
@@ -527,7 +556,7 @@ class xetraMassQuoteRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecutingTraderQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad6, buf, len, used);
+            state = xetra::serialize (mPad5, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             for (size_t i = 0; i < mQuoteEntryGrp.size (); i++)
             {
@@ -565,6 +594,8 @@ class xetraMassQuoteRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mQuoteSizeType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mQuoteType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mOrderAttributeLiquidityProvision, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mNoQuoteEntries, buf, len, used);
@@ -573,7 +604,7 @@ class xetraMassQuoteRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecutingTraderQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad6, buf, len, used);
+            state = xetra::deserialize (mPad5, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mQuoteEntryGrp.resize (mNoQuoteEntries);
             for (vector<xetraQuoteEntryGrpCompPacket>::iterator it = mQuoteEntryGrp.begin (); it != mQuoteEntryGrp.end (); ++it)
@@ -602,11 +633,12 @@ class xetraMassQuoteRequestPacket
                 << "[ValueCheckTypeValue=" << getValueCheckTypeValue () << "],"
                 << "[ValueCheckTypeQuantity=" << getValueCheckTypeQuantity () << "],"
                 << "[QuoteSizeType=" << getQuoteSizeType () << "],"
+                << "[QuoteType=" << getQuoteType () << "],"
                 << "[OrderAttributeLiquidityProvision=" << getOrderAttributeLiquidityProvision () << "],"
                 << "[NoQuoteEntries=" << getNoQuoteEntries () << "],"
                 << "[PartyIdInvestmentDecisionMakerQualifier=" << getPartyIdInvestmentDecisionMakerQualifier () << "],"
                 << "[ExecutingTraderQualifier=" << getExecutingTraderQualifier () << "],"
-                << "[Pad6=" << getPad6 () << "],"
+                << "[Pad5=" << getPad5 () << "],"
                 << "[QuoteEntryGrp=" << xetra::toString (getQuoteEntryGrp ()) << "]";
             return sss.str();
         }
@@ -642,6 +674,9 @@ const int8_t xetraMassQuoteRequestPacket::VALUE_CHECK_TYPE_QUANTITY_NO_VALUE = 0
 const int8_t xetraMassQuoteRequestPacket::QUOTE_SIZE_TYPE_MIN = 1;
 const int8_t xetraMassQuoteRequestPacket::QUOTE_SIZE_TYPE_MAX = 2;
 const int8_t xetraMassQuoteRequestPacket::QUOTE_SIZE_TYPE_NO_VALUE = 0xFF;
+const int8_t xetraMassQuoteRequestPacket::QUOTE_TYPE_MIN = 0;
+const int8_t xetraMassQuoteRequestPacket::QUOTE_TYPE_MAX = 102;
+const int8_t xetraMassQuoteRequestPacket::QUOTE_TYPE_NO_VALUE = 0xFF;
 const int8_t xetraMassQuoteRequestPacket::ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_MIN = 0;
 const int8_t xetraMassQuoteRequestPacket::ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_MAX = 1;
 const int8_t xetraMassQuoteRequestPacket::ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_NO_VALUE = 0xFF;
@@ -654,8 +689,8 @@ const int8_t xetraMassQuoteRequestPacket::PARTY_ID_INVESTMENT_DECISION_MAKER_QUA
 const int8_t xetraMassQuoteRequestPacket::EXECUTING_TRADER_QUALIFIER_MIN = 22;
 const int8_t xetraMassQuoteRequestPacket::EXECUTING_TRADER_QUALIFIER_MAX = 24;
 const int8_t xetraMassQuoteRequestPacket::EXECUTING_TRADER_QUALIFIER_NO_VALUE = 0xFF;
-const char xetraMassQuoteRequestPacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraMassQuoteRequestPacket::PAD6_MAX_LENGTH = 6;
+const char xetraMassQuoteRequestPacket::PAD5_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraMassQuoteRequestPacket::PAD5_MAX_LENGTH = 5;
 const size_t xetraMassQuoteRequestPacket::QUOTE_ENTRY_GRP_MIN = 0;
 const size_t xetraMassQuoteRequestPacket::QUOTE_ENTRY_GRP_MAX = 100;
 

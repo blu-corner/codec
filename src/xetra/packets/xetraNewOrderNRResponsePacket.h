@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_NEWORDERNRRESPONSE_PACKET_H
 #define XETRA_NEWORDERNRRESPONSE_PACKET_H
@@ -479,7 +479,7 @@ const size_t xetraNewOrderNRResponsePacket::ORD_STATUS_MAX_LENGTH = 1;
 const char xetraNewOrderNRResponsePacket::EXEC_TYPE_NO_VALUE[1] = {0x00};
 const size_t xetraNewOrderNRResponsePacket::EXEC_TYPE_MAX_LENGTH = 1;
 const int16_t xetraNewOrderNRResponsePacket::EXEC_RESTATEMENT_REASON_MIN = 0;
-const int16_t xetraNewOrderNRResponsePacket::EXEC_RESTATEMENT_REASON_MAX = 300;
+const int16_t xetraNewOrderNRResponsePacket::EXEC_RESTATEMENT_REASON_MAX = 344;
 const int16_t xetraNewOrderNRResponsePacket::EXEC_RESTATEMENT_REASON_NO_VALUE = 0xFFFF;
 const int8_t xetraNewOrderNRResponsePacket::CROSSED_INDICATOR_MIN = 0;
 const int8_t xetraNewOrderNRResponsePacket::CROSSED_INDICATOR_MAX = 1;

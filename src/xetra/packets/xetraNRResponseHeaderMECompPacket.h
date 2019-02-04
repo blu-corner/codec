@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/10/2018
+ * Generated 04/02/2019
  */
 #ifndef XETRA_NRRESPONSEHEADERMECOMP_PACKET_H
 #define XETRA_NRRESPONSEHEADERMECOMP_PACKET_H
@@ -26,9 +26,6 @@ class xetraNRResponseHeaderMECompPacket
         static const uint64_t REQUEST_TIME_MIN;
         static const uint64_t REQUEST_TIME_MAX;
         static const uint64_t REQUEST_TIME_NO_VALUE;
-        static const uint64_t REQUEST_OUT_MIN;
-        static const uint64_t REQUEST_OUT_MAX;
-        static const uint64_t REQUEST_OUT_NO_VALUE;
         static const uint64_t TRD_REG_TSTIME_IN_MIN;
         static const uint64_t TRD_REG_TSTIME_IN_MAX;
         static const uint64_t TRD_REG_TSTIME_IN_NO_VALUE;
@@ -52,7 +49,6 @@ class xetraNRResponseHeaderMECompPacket
 
         // fields (use with care)
         uint64_t mRequestTime;
-        uint64_t mRequestOut;
         uint64_t mTrdRegTSTimeIn;
         uint64_t mTrdRegTSTimeOut;
         uint64_t mResponseIn;
@@ -65,7 +61,6 @@ class xetraNRResponseHeaderMECompPacket
         xetraNRResponseHeaderMECompPacket ()
         {
             mRequestTime = REQUEST_TIME_NO_VALUE;
-            mRequestOut = REQUEST_OUT_NO_VALUE;
             mTrdRegTSTimeIn = TRD_REG_TSTIME_IN_NO_VALUE;
             mTrdRegTSTimeOut = TRD_REG_TSTIME_OUT_NO_VALUE;
             mResponseIn = RESPONSE_IN_NO_VALUE;
@@ -95,27 +90,6 @@ class xetraNRResponseHeaderMECompPacket
         void resetRequestTime ()
         {
             mRequestTime = REQUEST_TIME_NO_VALUE;
-        }
-
-        uint64_t getRequestOut () const
-        {
-            return mRequestOut;
-        }
-
-        bool setRequestOut (uint64_t v)
-        {
-            mRequestOut = v;
-            return ((REQUEST_OUT_MIN <= mRequestOut && mRequestOut <= REQUEST_OUT_MAX) || mRequestOut == REQUEST_OUT_NO_VALUE);
-        }
-
-        bool isRequestOutValid () const
-        {
-            return (mRequestOut != REQUEST_OUT_NO_VALUE);
-        }
-
-        void resetRequestOut ()
-        {
-            mRequestOut = REQUEST_OUT_NO_VALUE;
         }
 
         uint64_t getTrdRegTSTimeIn () const
@@ -273,7 +247,6 @@ class xetraNRResponseHeaderMECompPacket
         size_t getRawSize () const
         {
             size_t result = sizeof (mRequestTime)
-                + sizeof (mRequestOut)
                 + sizeof (mTrdRegTSTimeIn)
                 + sizeof (mTrdRegTSTimeOut)
                 + sizeof (mResponseIn)
@@ -289,8 +262,6 @@ class xetraNRResponseHeaderMECompPacket
         {
             codecState state;
             state = xetra::serialize (mRequestTime, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mRequestOut, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mTrdRegTSTimeIn, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -315,8 +286,6 @@ class xetraNRResponseHeaderMECompPacket
             codecState state;
             state = xetra::deserialize (mRequestTime, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mRequestOut, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mTrdRegTSTimeIn, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mTrdRegTSTimeOut, buf, len, used);
@@ -340,7 +309,6 @@ class xetraNRResponseHeaderMECompPacket
             stringstream sss;
             sss << "NRResponseHeaderMEComp::"
                 << "[RequestTime=" << getRequestTime () << "],"
-                << "[RequestOut=" << getRequestOut () << "],"
                 << "[TrdRegTSTimeIn=" << getTrdRegTSTimeIn () << "],"
                 << "[TrdRegTSTimeOut=" << getTrdRegTSTimeOut () << "],"
                 << "[ResponseIn=" << getResponseIn () << "],"
@@ -355,9 +323,6 @@ class xetraNRResponseHeaderMECompPacket
 const uint64_t xetraNRResponseHeaderMECompPacket::REQUEST_TIME_MIN = 0UL;
 const uint64_t xetraNRResponseHeaderMECompPacket::REQUEST_TIME_MAX = 18446744073709551614UL;
 const uint64_t xetraNRResponseHeaderMECompPacket::REQUEST_TIME_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
-const uint64_t xetraNRResponseHeaderMECompPacket::REQUEST_OUT_MIN = 0UL;
-const uint64_t xetraNRResponseHeaderMECompPacket::REQUEST_OUT_MAX = 18446744073709551614UL;
-const uint64_t xetraNRResponseHeaderMECompPacket::REQUEST_OUT_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
 const uint64_t xetraNRResponseHeaderMECompPacket::TRD_REG_TSTIME_IN_MIN = 0UL;
 const uint64_t xetraNRResponseHeaderMECompPacket::TRD_REG_TSTIME_IN_MAX = 18446744073709551614UL;
 const uint64_t xetraNRResponseHeaderMECompPacket::TRD_REG_TSTIME_IN_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
