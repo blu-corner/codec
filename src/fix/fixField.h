@@ -32,7 +32,9 @@ class fixField
 public:
     fixField () :
         mRequired (false),
-        mTag (0)
+        mTag (0),
+        mGetter (NULL),
+        mSetter (NULL)
     {
         string t ("STRING");
         setType (t);

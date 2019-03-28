@@ -722,11 +722,12 @@ fixCodec::encode (const cdr& d,
         checksum += ((char*)buf)[i]; 
 
     uint32_t cs = (unsigned int)(checksum % 256);
-    string sum;
-    utils_toString (cs, sum);
+
+    char s[4];
+    snprintf (s, sizeof (s), "%03d", cs);
 
     // write the checksum and we're done
-    return fixField::writeStringVal (CheckSum, sum, len, (char*)buf, used);
+    return fixField::writeStringVal (CheckSum, s, len, (char*)buf, used);
 }
 
 }
