@@ -7,6 +7,7 @@
 #include "cdr.h"
 #include "fields.h"
 #include "fixMsg.h"
+#include "utils.h"
 
 using namespace std;
 using namespace neueda;
@@ -34,8 +35,14 @@ protected:
     {
         mCodec = new fixCodec ();
         string err;
-        if (!mCodec->loadDataDictionary ("/Users/colinp/dev/cpp/scratch/FIX42.xml", err))
-            cout << err << endl;
+
+        string envVar ("CONFIG_PATH");
+        string filename ("FIX42.xml");
+        string dict;
+
+        ASSERT_TRUE (utils_findFileInEnvPath (envVar, filename, dict));
+
+        ASSERT_TRUE (mCodec->loadDataDictionary (dict.c_str (), err));
     }
 
     virtual void TearDown ()

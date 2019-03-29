@@ -15,6 +15,7 @@ add_library(fixcodec SHARED
 set(FIX_CODEC_HEADERS
     fixCodec.h
     fixGroup.h
+    fixField.h
   )
 
 target_link_libraries (fixcodec cdr codechelpers fields xml2)
