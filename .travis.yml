@@ -10,7 +10,7 @@ branches:
 
 addons:
     sonarcloud:
-        organization: "blu-corner_codec"
+        organization: "neueda-blu-corner"
 
 before_install:
     - sudo apt-get update
