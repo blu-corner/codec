@@ -1,4 +1,4 @@
-# codec
+# codec [![Build Status](https://travis-ci.com/blu-corner/codec.svg?branch=master)](https://travis-ci.com/blu-corner/codec) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=blu-corner_codec&metric=alert_status)](https://sonarcloud.io/dashboard?id=blu-corner_codec)
 
 - [Overview](#overview)
     - [Getting Started](#getting-started)
