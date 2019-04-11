@@ -39,8 +39,18 @@ void pcapHandler (u_char* args,
     }
     else
     {
-        std::cout << "Received  : " << ctime((const time_t*)&hdr->ts.tv_sec);
-        std::cout << "Micro Sec : " << hdr->ts.tv_usec <<std::endl;
+        time_t nowtime;
+        struct tm* nowtm;
+        char tmbuf[64], buf[64];
+
+        nowtime = hdr->ts.tv_sec;
+        nowtm = localtime(&nowtime);
+        strftime(tmbuf, sizeof tmbuf, "%Y-%m-%d %H:%M:%S", nowtm);
+        snprintf(buf, sizeof buf, "%s.%06d", tmbuf, hdr->ts.tv_usec);
+
+        std::cout << "Received  : " << buf << std::endl;
+        std::cout << "Timestamp : " << hdr->ts.tv_sec << hdr->ts.tv_usec
+                  << "\t" << hdr->ts.tv_sec << "." << hdr->ts.tv_usec << std::endl;
         std::cout << "Msg Num   : " << ++num << std::endl;
         std::cout << codec->prettyPrintCdr (cdr) << std::endl;
     }
