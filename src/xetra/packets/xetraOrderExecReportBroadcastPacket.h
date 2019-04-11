@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_ORDEREXECREPORTBROADCAST_PACKET_H
 #define XETRA_ORDEREXECREPORTBROADCAST_PACKET_H
@@ -909,10 +909,9 @@ class xetraOrderExecReportBroadcastPacket
 
         bool setOrdStatus (const string& v)
         {
+            memset (mOrdStatus, '\0', sizeof (mOrdStatus));
             size_t size = min ((size_t) v.size (), (size_t) ORD_STATUS_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mOrdStatus[i] = v[i];
-            memset (&mOrdStatus[size], '\0', ORD_STATUS_MAX_LENGTH-size);
+            strncpy (mOrdStatus, v.c_str (), size);
             return (v.size () <= ORD_STATUS_MAX_LENGTH);
         }
 
@@ -933,10 +932,9 @@ class xetraOrderExecReportBroadcastPacket
 
         bool setExecType (const string& v)
         {
+            memset (mExecType, '\0', sizeof (mExecType));
             size_t size = min ((size_t) v.size (), (size_t) EXEC_TYPE_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mExecType[i] = v[i];
-            memset (&mExecType[size], '\0', EXEC_TYPE_MAX_LENGTH-size);
+            strncpy (mExecType, v.c_str (), size);
             return (v.size () <= EXEC_TYPE_MAX_LENGTH);
         }
 
@@ -1146,10 +1144,9 @@ class xetraOrderExecReportBroadcastPacket
 
         bool setFreeText1 (const string& v)
         {
+            memset (mFreeText1, '\0', sizeof (mFreeText1));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT1_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText1[i] = v[i];
-            memset (&mFreeText1[size], '\0', FREE_TEXT1_MAX_LENGTH-size);
+            strncpy (mFreeText1, v.c_str (), size);
             return (v.size () <= FREE_TEXT1_MAX_LENGTH);
         }
 
@@ -1170,10 +1167,9 @@ class xetraOrderExecReportBroadcastPacket
 
         bool setFreeText2 (const string& v)
         {
+            memset (mFreeText2, '\0', sizeof (mFreeText2));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT2_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText2[i] = v[i];
-            memset (&mFreeText2[size], '\0', FREE_TEXT2_MAX_LENGTH-size);
+            strncpy (mFreeText2, v.c_str (), size);
             return (v.size () <= FREE_TEXT2_MAX_LENGTH);
         }
 
@@ -1194,10 +1190,9 @@ class xetraOrderExecReportBroadcastPacket
 
         bool setFreeText4 (const string& v)
         {
+            memset (mFreeText4, '\0', sizeof (mFreeText4));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT4_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText4[i] = v[i];
-            memset (&mFreeText4[size], '\0', FREE_TEXT4_MAX_LENGTH-size);
+            strncpy (mFreeText4, v.c_str (), size);
             return (v.size () <= FREE_TEXT4_MAX_LENGTH);
         }
 
@@ -1218,10 +1213,9 @@ class xetraOrderExecReportBroadcastPacket
 
         bool setFIXClOrdID (const string& v)
         {
+            memset (mFIXClOrdID, '\0', sizeof (mFIXClOrdID));
             size_t size = min ((size_t) v.size (), (size_t) FIXCL_ORD_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFIXClOrdID[i] = v[i];
-            memset (&mFIXClOrdID[size], '\0', FIXCL_ORD_ID_MAX_LENGTH-size);
+            strncpy (mFIXClOrdID, v.c_str (), size);
             return (v.size () <= FIXCL_ORD_ID_MAX_LENGTH);
         }
 
@@ -1305,10 +1299,9 @@ class xetraOrderExecReportBroadcastPacket
 
         bool setPad3 (const string& v)
         {
+            memset (mPad3, '\0', sizeof (mPad3));
             size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad3[i] = v[i];
-            memset (&mPad3[size], '\0', PAD3_MAX_LENGTH-size);
+            strncpy (mPad3, v.c_str (), size);
             return (v.size () <= PAD3_MAX_LENGTH);
         }
 

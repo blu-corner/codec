@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_NEWORDERSINGLEREQUEST_PACKET_H
 #define XETRA_NEWORDERSINGLEREQUEST_PACKET_H
@@ -890,10 +890,9 @@ class xetraNewOrderSingleRequestPacket
 
         bool setFreeText1 (const string& v)
         {
+            memset (mFreeText1, '\0', sizeof (mFreeText1));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT1_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText1[i] = v[i];
-            memset (&mFreeText1[size], '\0', FREE_TEXT1_MAX_LENGTH-size);
+            strncpy (mFreeText1, v.c_str (), size);
             return (v.size () <= FREE_TEXT1_MAX_LENGTH);
         }
 
@@ -914,10 +913,9 @@ class xetraNewOrderSingleRequestPacket
 
         bool setFreeText2 (const string& v)
         {
+            memset (mFreeText2, '\0', sizeof (mFreeText2));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT2_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText2[i] = v[i];
-            memset (&mFreeText2[size], '\0', FREE_TEXT2_MAX_LENGTH-size);
+            strncpy (mFreeText2, v.c_str (), size);
             return (v.size () <= FREE_TEXT2_MAX_LENGTH);
         }
 
@@ -938,10 +936,9 @@ class xetraNewOrderSingleRequestPacket
 
         bool setFreeText4 (const string& v)
         {
+            memset (mFreeText4, '\0', sizeof (mFreeText4));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT4_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText4[i] = v[i];
-            memset (&mFreeText4[size], '\0', FREE_TEXT4_MAX_LENGTH-size);
+            strncpy (mFreeText4, v.c_str (), size);
             return (v.size () <= FREE_TEXT4_MAX_LENGTH);
         }
 
@@ -962,10 +959,9 @@ class xetraNewOrderSingleRequestPacket
 
         bool setFIXClOrdID (const string& v)
         {
+            memset (mFIXClOrdID, '\0', sizeof (mFIXClOrdID));
             size_t size = min ((size_t) v.size (), (size_t) FIXCL_ORD_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFIXClOrdID[i] = v[i];
-            memset (&mFIXClOrdID[size], '\0', FIXCL_ORD_ID_MAX_LENGTH-size);
+            strncpy (mFIXClOrdID, v.c_str (), size);
             return (v.size () <= FIXCL_ORD_ID_MAX_LENGTH);
         }
 
@@ -986,10 +982,9 @@ class xetraNewOrderSingleRequestPacket
 
         bool setPad2 (const string& v)
         {
+            memset (mPad2, '\0', sizeof (mPad2));
             size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad2[i] = v[i];
-            memset (&mPad2[size], '\0', PAD2_MAX_LENGTH-size);
+            strncpy (mPad2, v.c_str (), size);
             return (v.size () <= PAD2_MAX_LENGTH);
         }
 

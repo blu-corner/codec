@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_RETRANSMITMEMESSAGERESPONSE_PACKET_H
 #define XETRA_RETRANSMITMEMESSAGERESPONSE_PACKET_H
@@ -102,10 +102,9 @@ class xetraRetransmitMEMessageResponsePacket
 
         bool setApplEndMsgID (const string& v)
         {
+            memset (mApplEndMsgID, '\0', sizeof (mApplEndMsgID));
             size_t size = min ((size_t) v.size (), (size_t) APPL_END_MSG_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mApplEndMsgID[i] = v[i];
-            memset (&mApplEndMsgID[size], '\0', APPL_END_MSG_ID_MAX_LENGTH-size);
+            strncpy (mApplEndMsgID, v.c_str (), size);
             return (v.size () <= APPL_END_MSG_ID_MAX_LENGTH);
         }
 
@@ -126,10 +125,9 @@ class xetraRetransmitMEMessageResponsePacket
 
         bool setRefApplLastMsgID (const string& v)
         {
+            memset (mRefApplLastMsgID, '\0', sizeof (mRefApplLastMsgID));
             size_t size = min ((size_t) v.size (), (size_t) REF_APPL_LAST_MSG_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRefApplLastMsgID[i] = v[i];
-            memset (&mRefApplLastMsgID[size], '\0', REF_APPL_LAST_MSG_ID_MAX_LENGTH-size);
+            strncpy (mRefApplLastMsgID, v.c_str (), size);
             return (v.size () <= REF_APPL_LAST_MSG_ID_MAX_LENGTH);
         }
 
@@ -150,10 +148,9 @@ class xetraRetransmitMEMessageResponsePacket
 
         bool setPad6 (const string& v)
         {
+            memset (mPad6, '\0', sizeof (mPad6));
             size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad6[i] = v[i];
-            memset (&mPad6[size], '\0', PAD6_MAX_LENGTH-size);
+            strncpy (mPad6, v.c_str (), size);
             return (v.size () <= PAD6_MAX_LENGTH);
         }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_DELETETESTRADEREQUEST_PACKET_H
 #define XETRA_DELETETESTRADEREQUEST_PACKET_H
@@ -202,10 +202,9 @@ class xetraDeleteTESTradeRequestPacket
 
         bool setTradeReportID (const string& v)
         {
+            memset (mTradeReportID, '\0', sizeof (mTradeReportID));
             size_t size = min ((size_t) v.size (), (size_t) TRADE_REPORT_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mTradeReportID[i] = v[i];
-            memset (&mTradeReportID[size], '\0', TRADE_REPORT_ID_MAX_LENGTH-size);
+            strncpy (mTradeReportID, v.c_str (), size);
             return (v.size () <= TRADE_REPORT_ID_MAX_LENGTH);
         }
 
@@ -226,10 +225,9 @@ class xetraDeleteTESTradeRequestPacket
 
         bool setPad5 (const string& v)
         {
+            memset (mPad5, '\0', sizeof (mPad5));
             size_t size = min ((size_t) v.size (), (size_t) PAD5_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad5[i] = v[i];
-            memset (&mPad5[size], '\0', PAD5_MAX_LENGTH-size);
+            strncpy (mPad5, v.c_str (), size);
             return (v.size () <= PAD5_MAX_LENGTH);
         }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_ORDEREXECRESPONSE_PACKET_H
 #define XETRA_ORDEREXECRESPONSE_PACKET_H
@@ -489,10 +489,9 @@ class xetraOrderExecResponsePacket
 
         bool setOrdStatus (const string& v)
         {
+            memset (mOrdStatus, '\0', sizeof (mOrdStatus));
             size_t size = min ((size_t) v.size (), (size_t) ORD_STATUS_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mOrdStatus[i] = v[i];
-            memset (&mOrdStatus[size], '\0', ORD_STATUS_MAX_LENGTH-size);
+            strncpy (mOrdStatus, v.c_str (), size);
             return (v.size () <= ORD_STATUS_MAX_LENGTH);
         }
 
@@ -513,10 +512,9 @@ class xetraOrderExecResponsePacket
 
         bool setExecType (const string& v)
         {
+            memset (mExecType, '\0', sizeof (mExecType));
             size_t size = min ((size_t) v.size (), (size_t) EXEC_TYPE_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mExecType[i] = v[i];
-            memset (&mExecType[size], '\0', EXEC_TYPE_MAX_LENGTH-size);
+            strncpy (mExecType, v.c_str (), size);
             return (v.size () <= EXEC_TYPE_MAX_LENGTH);
         }
 
@@ -621,10 +619,9 @@ class xetraOrderExecResponsePacket
 
         bool setPad7 (const string& v)
         {
+            memset (mPad7, '\0', sizeof (mPad7));
             size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad7[i] = v[i];
-            memset (&mPad7[size], '\0', PAD7_MAX_LENGTH-size);
+            strncpy (mPad7, v.c_str (), size);
             return (v.size () <= PAD7_MAX_LENGTH);
         }
 

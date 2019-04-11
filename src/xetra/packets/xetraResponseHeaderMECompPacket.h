@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_RESPONSEHEADERMECOMP_PACKET_H
 #define XETRA_RESPONSEHEADERMECOMP_PACKET_H
@@ -256,10 +256,9 @@ class xetraResponseHeaderMECompPacket
 
         bool setApplMsgID (const string& v)
         {
+            memset (mApplMsgID, '\0', sizeof (mApplMsgID));
             size_t size = min ((size_t) v.size (), (size_t) APPL_MSG_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mApplMsgID[i] = v[i];
-            memset (&mApplMsgID[size], '\0', APPL_MSG_ID_MAX_LENGTH-size);
+            strncpy (mApplMsgID, v.c_str (), size);
             return (v.size () <= APPL_MSG_ID_MAX_LENGTH);
         }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_NEWSBROADCAST_PACKET_H
 #define XETRA_NEWSBROADCAST_PACKET_H
@@ -127,10 +127,9 @@ class xetraNewsBroadcastPacket
 
         bool setHeadline (const string& v)
         {
+            memset (mHeadline, '\0', sizeof (mHeadline));
             size_t size = min ((size_t) v.size (), (size_t) HEADLINE_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mHeadline[i] = v[i];
-            memset (&mHeadline[size], '\0', HEADLINE_MAX_LENGTH-size);
+            strncpy (mHeadline, v.c_str (), size);
             return (v.size () <= HEADLINE_MAX_LENGTH);
         }
 
@@ -151,10 +150,9 @@ class xetraNewsBroadcastPacket
 
         bool setPad6 (const string& v)
         {
+            memset (mPad6, '\0', sizeof (mPad6));
             size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad6[i] = v[i];
-            memset (&mPad6[size], '\0', PAD6_MAX_LENGTH-size);
+            strncpy (mPad6, v.c_str (), size);
             return (v.size () <= PAD6_MAX_LENGTH);
         }
 
