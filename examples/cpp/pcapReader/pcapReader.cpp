@@ -25,7 +25,6 @@ void pcapHandler (u_char* args,
                   const struct pcap_pkthdr* hdr, 
                   const u_char* packet)
 {
-    u_int              num = 0;
     std::string        cdrbuffer;
     neueda::cdr        cdr;
     size_t             used;
@@ -39,10 +38,9 @@ void pcapHandler (u_char* args,
     }
     else
     {
-        std::cout << "Recieved  : " << ctime((const time_t*)&hdr->ts.tv_sec);
-        std::cout << "Micro Sec : " << hdr->ts.tv_usec <<std::endl;
-        std::cout << "Msg Num   : " << ++num << std::endl;
-        codec->prettyPrintCdr (cdr);
+        std::cout << "Received Time    : " << ctime ((const time_t*)&hdr->ts.tv_sec);
+        std::cout << "Timestamp (Nanos):" << hdr->ts.tv_sec << "." << hdr->ts.tv_usec << std::endl;
+        std::cout << codec->prettyPrintCdr (cdr) << std::endl;
     }
 };
 
