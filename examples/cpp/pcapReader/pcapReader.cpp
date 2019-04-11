@@ -42,7 +42,7 @@ void pcapHandler (u_char* args,
         std::cout << "Received  : " << ctime((const time_t*)&hdr->ts.tv_sec);
         std::cout << "Micro Sec : " << hdr->ts.tv_usec <<std::endl;
         std::cout << "Msg Num   : " << ++num << std::endl;
-        codec->prettyPrintCdr (cdr);
+        std::cout << codec->prettyPrintCdr (cdr) << std::endl;
     }
 };
 
