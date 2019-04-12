@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_QUOTEEVENTGRPCOMP_PACKET_H
 #define XETRA_QUOTEEVENTGRPCOMP_PACKET_H
@@ -303,10 +303,9 @@ class xetraQuoteEventGrpCompPacket
 
         bool setPad4 (const string& v)
         {
+            memset (mPad4, '\0', sizeof (mPad4));
             size_t size = min ((size_t) v.size (), (size_t) PAD4_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad4[i] = v[i];
-            memset (&mPad4[size], '\0', PAD4_MAX_LENGTH-size);
+            strncpy (mPad4, v.c_str (), size);
             return (v.size () <= PAD4_MAX_LENGTH);
         }
 

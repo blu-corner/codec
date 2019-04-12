@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_TARGETPARTIESCOMP_PACKET_H
 #define XETRA_TARGETPARTIESCOMP_PACKET_H
@@ -207,10 +207,9 @@ class xetraTargetPartiesCompPacket
 
         bool setTargetPartyExecutingFirm (const string& v)
         {
+            memset (mTargetPartyExecutingFirm, '\0', sizeof (mTargetPartyExecutingFirm));
             size_t size = min ((size_t) v.size (), (size_t) TARGET_PARTY_EXECUTING_FIRM_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mTargetPartyExecutingFirm[i] = v[i];
-            memset (&mTargetPartyExecutingFirm[size], '\0', TARGET_PARTY_EXECUTING_FIRM_MAX_LENGTH-size);
+            strncpy (mTargetPartyExecutingFirm, v.c_str (), size);
             return (v.size () <= TARGET_PARTY_EXECUTING_FIRM_MAX_LENGTH);
         }
 
@@ -231,10 +230,9 @@ class xetraTargetPartiesCompPacket
 
         bool setTargetPartyExecutingTrader (const string& v)
         {
+            memset (mTargetPartyExecutingTrader, '\0', sizeof (mTargetPartyExecutingTrader));
             size_t size = min ((size_t) v.size (), (size_t) TARGET_PARTY_EXECUTING_TRADER_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mTargetPartyExecutingTrader[i] = v[i];
-            memset (&mTargetPartyExecutingTrader[size], '\0', TARGET_PARTY_EXECUTING_TRADER_MAX_LENGTH-size);
+            strncpy (mTargetPartyExecutingTrader, v.c_str (), size);
             return (v.size () <= TARGET_PARTY_EXECUTING_TRADER_MAX_LENGTH);
         }
 
@@ -255,10 +253,9 @@ class xetraTargetPartiesCompPacket
 
         bool setPad7 (const string& v)
         {
+            memset (mPad7, '\0', sizeof (mPad7));
             size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad7[i] = v[i];
-            memset (&mPad7[size], '\0', PAD7_MAX_LENGTH-size);
+            strncpy (mPad7, v.c_str (), size);
             return (v.size () <= PAD7_MAX_LENGTH);
         }
 

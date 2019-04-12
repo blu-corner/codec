@@ -61,7 +61,10 @@ fixCodec::processDictionaryGroup (xmlNode* node, string& err)
         else if (xmlStrcmp (field->name, (const xmlChar*)"group") == 0)
         {
             if (!processDictionaryGroup (field, err))
+            {
+                delete g;
                 return false;
+            }
         }
     }
 

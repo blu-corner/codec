@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_LOGONREQUEST_PACKET_H
 #define XETRA_LOGONREQUEST_PACKET_H
@@ -167,10 +167,9 @@ class xetraLogonRequestPacket
 
         bool setDefaultCstmApplVerID (const string& v)
         {
+            memset (mDefaultCstmApplVerID, '\0', sizeof (mDefaultCstmApplVerID));
             size_t size = min ((size_t) v.size (), (size_t) DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mDefaultCstmApplVerID[i] = v[i];
-            memset (&mDefaultCstmApplVerID[size], '\0', DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH-size);
+            strncpy (mDefaultCstmApplVerID, v.c_str (), size);
             return (v.size () <= DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH);
         }
 
@@ -194,10 +193,9 @@ class xetraLogonRequestPacket
 
         bool setPassword (const string& v)
         {
+            memset (mPassword, '\0', sizeof (mPassword));
             size_t size = min ((size_t) v.size (), (size_t) PASSWORD_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPassword[i] = v[i];
-            memset (&mPassword[size], '\0', PASSWORD_MAX_LENGTH-size);
+            strncpy (mPassword, v.c_str (), size);
             return (v.size () <= PASSWORD_MAX_LENGTH);
         }
 
@@ -218,10 +216,9 @@ class xetraLogonRequestPacket
 
         bool setApplUsageOrders (const string& v)
         {
+            memset (mApplUsageOrders, '\0', sizeof (mApplUsageOrders));
             size_t size = min ((size_t) v.size (), (size_t) APPL_USAGE_ORDERS_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mApplUsageOrders[i] = v[i];
-            memset (&mApplUsageOrders[size], '\0', APPL_USAGE_ORDERS_MAX_LENGTH-size);
+            strncpy (mApplUsageOrders, v.c_str (), size);
             return (v.size () <= APPL_USAGE_ORDERS_MAX_LENGTH);
         }
 
@@ -242,10 +239,9 @@ class xetraLogonRequestPacket
 
         bool setApplUsageQuotes (const string& v)
         {
+            memset (mApplUsageQuotes, '\0', sizeof (mApplUsageQuotes));
             size_t size = min ((size_t) v.size (), (size_t) APPL_USAGE_QUOTES_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mApplUsageQuotes[i] = v[i];
-            memset (&mApplUsageQuotes[size], '\0', APPL_USAGE_QUOTES_MAX_LENGTH-size);
+            strncpy (mApplUsageQuotes, v.c_str (), size);
             return (v.size () <= APPL_USAGE_QUOTES_MAX_LENGTH);
         }
 
@@ -266,10 +262,9 @@ class xetraLogonRequestPacket
 
         bool setOrderRoutingIndicator (const string& v)
         {
+            memset (mOrderRoutingIndicator, '\0', sizeof (mOrderRoutingIndicator));
             size_t size = min ((size_t) v.size (), (size_t) ORDER_ROUTING_INDICATOR_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mOrderRoutingIndicator[i] = v[i];
-            memset (&mOrderRoutingIndicator[size], '\0', ORDER_ROUTING_INDICATOR_MAX_LENGTH-size);
+            strncpy (mOrderRoutingIndicator, v.c_str (), size);
             return (v.size () <= ORDER_ROUTING_INDICATOR_MAX_LENGTH);
         }
 
@@ -293,10 +288,9 @@ class xetraLogonRequestPacket
 
         bool setFIXEngineName (const string& v)
         {
+            memset (mFIXEngineName, '\0', sizeof (mFIXEngineName));
             size_t size = min ((size_t) v.size (), (size_t) FIXENGINE_NAME_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFIXEngineName[i] = v[i];
-            memset (&mFIXEngineName[size], '\0', FIXENGINE_NAME_MAX_LENGTH-size);
+            strncpy (mFIXEngineName, v.c_str (), size);
             return (v.size () <= FIXENGINE_NAME_MAX_LENGTH);
         }
 
@@ -320,10 +314,9 @@ class xetraLogonRequestPacket
 
         bool setFIXEngineVersion (const string& v)
         {
+            memset (mFIXEngineVersion, '\0', sizeof (mFIXEngineVersion));
             size_t size = min ((size_t) v.size (), (size_t) FIXENGINE_VERSION_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFIXEngineVersion[i] = v[i];
-            memset (&mFIXEngineVersion[size], '\0', FIXENGINE_VERSION_MAX_LENGTH-size);
+            strncpy (mFIXEngineVersion, v.c_str (), size);
             return (v.size () <= FIXENGINE_VERSION_MAX_LENGTH);
         }
 
@@ -347,10 +340,9 @@ class xetraLogonRequestPacket
 
         bool setFIXEngineVendor (const string& v)
         {
+            memset (mFIXEngineVendor, '\0', sizeof (mFIXEngineVendor));
             size_t size = min ((size_t) v.size (), (size_t) FIXENGINE_VENDOR_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFIXEngineVendor[i] = v[i];
-            memset (&mFIXEngineVendor[size], '\0', FIXENGINE_VENDOR_MAX_LENGTH-size);
+            strncpy (mFIXEngineVendor, v.c_str (), size);
             return (v.size () <= FIXENGINE_VENDOR_MAX_LENGTH);
         }
 
@@ -374,10 +366,9 @@ class xetraLogonRequestPacket
 
         bool setApplicationSystemName (const string& v)
         {
+            memset (mApplicationSystemName, '\0', sizeof (mApplicationSystemName));
             size_t size = min ((size_t) v.size (), (size_t) APPLICATION_SYSTEM_NAME_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mApplicationSystemName[i] = v[i];
-            memset (&mApplicationSystemName[size], '\0', APPLICATION_SYSTEM_NAME_MAX_LENGTH-size);
+            strncpy (mApplicationSystemName, v.c_str (), size);
             return (v.size () <= APPLICATION_SYSTEM_NAME_MAX_LENGTH);
         }
 
@@ -401,10 +392,9 @@ class xetraLogonRequestPacket
 
         bool setApplicationSystemVersion (const string& v)
         {
+            memset (mApplicationSystemVersion, '\0', sizeof (mApplicationSystemVersion));
             size_t size = min ((size_t) v.size (), (size_t) APPLICATION_SYSTEM_VERSION_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mApplicationSystemVersion[i] = v[i];
-            memset (&mApplicationSystemVersion[size], '\0', APPLICATION_SYSTEM_VERSION_MAX_LENGTH-size);
+            strncpy (mApplicationSystemVersion, v.c_str (), size);
             return (v.size () <= APPLICATION_SYSTEM_VERSION_MAX_LENGTH);
         }
 
@@ -428,10 +418,9 @@ class xetraLogonRequestPacket
 
         bool setApplicationSystemVendor (const string& v)
         {
+            memset (mApplicationSystemVendor, '\0', sizeof (mApplicationSystemVendor));
             size_t size = min ((size_t) v.size (), (size_t) APPLICATION_SYSTEM_VENDOR_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mApplicationSystemVendor[i] = v[i];
-            memset (&mApplicationSystemVendor[size], '\0', APPLICATION_SYSTEM_VENDOR_MAX_LENGTH-size);
+            strncpy (mApplicationSystemVendor, v.c_str (), size);
             return (v.size () <= APPLICATION_SYSTEM_VENDOR_MAX_LENGTH);
         }
 
@@ -452,10 +441,9 @@ class xetraLogonRequestPacket
 
         bool setPad3 (const string& v)
         {
+            memset (mPad3, '\0', sizeof (mPad3));
             size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad3[i] = v[i];
-            memset (&mPad3[size], '\0', PAD3_MAX_LENGTH-size);
+            strncpy (mPad3, v.c_str (), size);
             return (v.size () <= PAD3_MAX_LENGTH);
         }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_GATEWAYREQUEST_PACKET_H
 #define XETRA_GATEWAYREQUEST_PACKET_H
@@ -131,10 +131,9 @@ class xetraGatewayRequestPacket
 
         bool setDefaultCstmApplVerID (const string& v)
         {
+            memset (mDefaultCstmApplVerID, '\0', sizeof (mDefaultCstmApplVerID));
             size_t size = min ((size_t) v.size (), (size_t) DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mDefaultCstmApplVerID[i] = v[i];
-            memset (&mDefaultCstmApplVerID[size], '\0', DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH-size);
+            strncpy (mDefaultCstmApplVerID, v.c_str (), size);
             return (v.size () <= DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH);
         }
 
@@ -158,10 +157,9 @@ class xetraGatewayRequestPacket
 
         bool setPassword (const string& v)
         {
+            memset (mPassword, '\0', sizeof (mPassword));
             size_t size = min ((size_t) v.size (), (size_t) PASSWORD_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPassword[i] = v[i];
-            memset (&mPassword[size], '\0', PASSWORD_MAX_LENGTH-size);
+            strncpy (mPassword, v.c_str (), size);
             return (v.size () <= PASSWORD_MAX_LENGTH);
         }
 
@@ -182,10 +180,9 @@ class xetraGatewayRequestPacket
 
         bool setPad4 (const string& v)
         {
+            memset (mPad4, '\0', sizeof (mPad4));
             size_t size = min ((size_t) v.size (), (size_t) PAD4_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad4[i] = v[i];
-            memset (&mPad4[size], '\0', PAD4_MAX_LENGTH-size);
+            strncpy (mPad4, v.c_str (), size);
             return (v.size () <= PAD4_MAX_LENGTH);
         }
 

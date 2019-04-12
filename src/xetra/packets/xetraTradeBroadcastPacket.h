@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_TRADEBROADCAST_PACKET_H
 #define XETRA_TRADEBROADCAST_PACKET_H
@@ -1423,10 +1423,9 @@ class xetraTradeBroadcastPacket
 
         bool setAccount (const string& v)
         {
+            memset (mAccount, '\0', sizeof (mAccount));
             size_t size = min ((size_t) v.size (), (size_t) ACCOUNT_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mAccount[i] = v[i];
-            memset (&mAccount[size], '\0', ACCOUNT_MAX_LENGTH-size);
+            strncpy (mAccount, v.c_str (), size);
             return (v.size () <= ACCOUNT_MAX_LENGTH);
         }
 
@@ -1447,10 +1446,9 @@ class xetraTradeBroadcastPacket
 
         bool setSettlCurrency (const string& v)
         {
+            memset (mSettlCurrency, '\0', sizeof (mSettlCurrency));
             size_t size = min ((size_t) v.size (), (size_t) SETTL_CURRENCY_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mSettlCurrency[i] = v[i];
-            memset (&mSettlCurrency[size], '\0', SETTL_CURRENCY_MAX_LENGTH-size);
+            strncpy (mSettlCurrency, v.c_str (), size);
             return (v.size () <= SETTL_CURRENCY_MAX_LENGTH);
         }
 
@@ -1471,10 +1469,9 @@ class xetraTradeBroadcastPacket
 
         bool setCurrency (const string& v)
         {
+            memset (mCurrency, '\0', sizeof (mCurrency));
             size_t size = min ((size_t) v.size (), (size_t) CURRENCY_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mCurrency[i] = v[i];
-            memset (&mCurrency[size], '\0', CURRENCY_MAX_LENGTH-size);
+            strncpy (mCurrency, v.c_str (), size);
             return (v.size () <= CURRENCY_MAX_LENGTH);
         }
 
@@ -1495,10 +1492,9 @@ class xetraTradeBroadcastPacket
 
         bool setFreeText1 (const string& v)
         {
+            memset (mFreeText1, '\0', sizeof (mFreeText1));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT1_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText1[i] = v[i];
-            memset (&mFreeText1[size], '\0', FREE_TEXT1_MAX_LENGTH-size);
+            strncpy (mFreeText1, v.c_str (), size);
             return (v.size () <= FREE_TEXT1_MAX_LENGTH);
         }
 
@@ -1519,10 +1515,9 @@ class xetraTradeBroadcastPacket
 
         bool setFreeText2 (const string& v)
         {
+            memset (mFreeText2, '\0', sizeof (mFreeText2));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT2_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText2[i] = v[i];
-            memset (&mFreeText2[size], '\0', FREE_TEXT2_MAX_LENGTH-size);
+            strncpy (mFreeText2, v.c_str (), size);
             return (v.size () <= FREE_TEXT2_MAX_LENGTH);
         }
 
@@ -1543,10 +1538,9 @@ class xetraTradeBroadcastPacket
 
         bool setFreeText4 (const string& v)
         {
+            memset (mFreeText4, '\0', sizeof (mFreeText4));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT4_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText4[i] = v[i];
-            memset (&mFreeText4[size], '\0', FREE_TEXT4_MAX_LENGTH-size);
+            strncpy (mFreeText4, v.c_str (), size);
             return (v.size () <= FREE_TEXT4_MAX_LENGTH);
         }
 
@@ -1567,10 +1561,9 @@ class xetraTradeBroadcastPacket
 
         bool setOrderCategory (const string& v)
         {
+            memset (mOrderCategory, '\0', sizeof (mOrderCategory));
             size_t size = min ((size_t) v.size (), (size_t) ORDER_CATEGORY_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mOrderCategory[i] = v[i];
-            memset (&mOrderCategory[size], '\0', ORDER_CATEGORY_MAX_LENGTH-size);
+            strncpy (mOrderCategory, v.c_str (), size);
             return (v.size () <= ORDER_CATEGORY_MAX_LENGTH);
         }
 
@@ -1612,10 +1605,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyExecutingFirm (const string& v)
         {
+            memset (mRootPartyExecutingFirm, '\0', sizeof (mRootPartyExecutingFirm));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_EXECUTING_FIRM_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyExecutingFirm[i] = v[i];
-            memset (&mRootPartyExecutingFirm[size], '\0', ROOT_PARTY_EXECUTING_FIRM_MAX_LENGTH-size);
+            strncpy (mRootPartyExecutingFirm, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_EXECUTING_FIRM_MAX_LENGTH);
         }
 
@@ -1636,10 +1628,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyExecutingTrader (const string& v)
         {
+            memset (mRootPartyExecutingTrader, '\0', sizeof (mRootPartyExecutingTrader));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_EXECUTING_TRADER_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyExecutingTrader[i] = v[i];
-            memset (&mRootPartyExecutingTrader[size], '\0', ROOT_PARTY_EXECUTING_TRADER_MAX_LENGTH-size);
+            strncpy (mRootPartyExecutingTrader, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_EXECUTING_TRADER_MAX_LENGTH);
         }
 
@@ -1660,10 +1651,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyClearingFirm (const string& v)
         {
+            memset (mRootPartyClearingFirm, '\0', sizeof (mRootPartyClearingFirm));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_CLEARING_FIRM_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyClearingFirm[i] = v[i];
-            memset (&mRootPartyClearingFirm[size], '\0', ROOT_PARTY_CLEARING_FIRM_MAX_LENGTH-size);
+            strncpy (mRootPartyClearingFirm, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_CLEARING_FIRM_MAX_LENGTH);
         }
 
@@ -1684,10 +1674,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyExecutingFirmKVNumber (const string& v)
         {
+            memset (mRootPartyExecutingFirmKVNumber, '\0', sizeof (mRootPartyExecutingFirmKVNumber));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_EXECUTING_FIRM_KVNUMBER_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyExecutingFirmKVNumber[i] = v[i];
-            memset (&mRootPartyExecutingFirmKVNumber[size], '\0', ROOT_PARTY_EXECUTING_FIRM_KVNUMBER_MAX_LENGTH-size);
+            strncpy (mRootPartyExecutingFirmKVNumber, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_EXECUTING_FIRM_KVNUMBER_MAX_LENGTH);
         }
 
@@ -1708,10 +1697,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartySettlementAccount (const string& v)
         {
+            memset (mRootPartySettlementAccount, '\0', sizeof (mRootPartySettlementAccount));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_SETTLEMENT_ACCOUNT_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartySettlementAccount[i] = v[i];
-            memset (&mRootPartySettlementAccount[size], '\0', ROOT_PARTY_SETTLEMENT_ACCOUNT_MAX_LENGTH-size);
+            strncpy (mRootPartySettlementAccount, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_SETTLEMENT_ACCOUNT_MAX_LENGTH);
         }
 
@@ -1732,10 +1720,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartySettlementLocation (const string& v)
         {
+            memset (mRootPartySettlementLocation, '\0', sizeof (mRootPartySettlementLocation));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_SETTLEMENT_LOCATION_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartySettlementLocation[i] = v[i];
-            memset (&mRootPartySettlementLocation[size], '\0', ROOT_PARTY_SETTLEMENT_LOCATION_MAX_LENGTH-size);
+            strncpy (mRootPartySettlementLocation, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_SETTLEMENT_LOCATION_MAX_LENGTH);
         }
 
@@ -1756,10 +1743,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartySettlementFirm (const string& v)
         {
+            memset (mRootPartySettlementFirm, '\0', sizeof (mRootPartySettlementFirm));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_SETTLEMENT_FIRM_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartySettlementFirm[i] = v[i];
-            memset (&mRootPartySettlementFirm[size], '\0', ROOT_PARTY_SETTLEMENT_FIRM_MAX_LENGTH-size);
+            strncpy (mRootPartySettlementFirm, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_SETTLEMENT_FIRM_MAX_LENGTH);
         }
 
@@ -1780,10 +1766,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyContraFirm (const string& v)
         {
+            memset (mRootPartyContraFirm, '\0', sizeof (mRootPartyContraFirm));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_CONTRA_FIRM_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyContraFirm[i] = v[i];
-            memset (&mRootPartyContraFirm[size], '\0', ROOT_PARTY_CONTRA_FIRM_MAX_LENGTH-size);
+            strncpy (mRootPartyContraFirm, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_CONTRA_FIRM_MAX_LENGTH);
         }
 
@@ -1804,10 +1789,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyContraSettlementFirm (const string& v)
         {
+            memset (mRootPartyContraSettlementFirm, '\0', sizeof (mRootPartyContraSettlementFirm));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_CONTRA_SETTLEMENT_FIRM_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyContraSettlementFirm[i] = v[i];
-            memset (&mRootPartyContraSettlementFirm[size], '\0', ROOT_PARTY_CONTRA_SETTLEMENT_FIRM_MAX_LENGTH-size);
+            strncpy (mRootPartyContraSettlementFirm, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_CONTRA_SETTLEMENT_FIRM_MAX_LENGTH);
         }
 
@@ -1828,10 +1812,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyContraFirmKVNumber (const string& v)
         {
+            memset (mRootPartyContraFirmKVNumber, '\0', sizeof (mRootPartyContraFirmKVNumber));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_CONTRA_FIRM_KVNUMBER_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyContraFirmKVNumber[i] = v[i];
-            memset (&mRootPartyContraFirmKVNumber[size], '\0', ROOT_PARTY_CONTRA_FIRM_KVNUMBER_MAX_LENGTH-size);
+            strncpy (mRootPartyContraFirmKVNumber, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_CONTRA_FIRM_KVNUMBER_MAX_LENGTH);
         }
 
@@ -1852,10 +1835,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyContraSettlementAccount (const string& v)
         {
+            memset (mRootPartyContraSettlementAccount, '\0', sizeof (mRootPartyContraSettlementAccount));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_CONTRA_SETTLEMENT_ACCOUNT_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyContraSettlementAccount[i] = v[i];
-            memset (&mRootPartyContraSettlementAccount[size], '\0', ROOT_PARTY_CONTRA_SETTLEMENT_ACCOUNT_MAX_LENGTH-size);
+            strncpy (mRootPartyContraSettlementAccount, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_CONTRA_SETTLEMENT_ACCOUNT_MAX_LENGTH);
         }
 
@@ -1876,10 +1858,9 @@ class xetraTradeBroadcastPacket
 
         bool setRootPartyContraSettlementLocation (const string& v)
         {
+            memset (mRootPartyContraSettlementLocation, '\0', sizeof (mRootPartyContraSettlementLocation));
             size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRootPartyContraSettlementLocation[i] = v[i];
-            memset (&mRootPartyContraSettlementLocation[size], '\0', ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_MAX_LENGTH-size);
+            strncpy (mRootPartyContraSettlementLocation, v.c_str (), size);
             return (v.size () <= ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_MAX_LENGTH);
         }
 
@@ -1900,10 +1881,9 @@ class xetraTradeBroadcastPacket
 
         bool setRegulatoryTradeID (const string& v)
         {
+            memset (mRegulatoryTradeID, '\0', sizeof (mRegulatoryTradeID));
             size_t size = min ((size_t) v.size (), (size_t) REGULATORY_TRADE_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRegulatoryTradeID[i] = v[i];
-            memset (&mRegulatoryTradeID[size], '\0', REGULATORY_TRADE_ID_MAX_LENGTH-size);
+            strncpy (mRegulatoryTradeID, v.c_str (), size);
             return (v.size () <= REGULATORY_TRADE_ID_MAX_LENGTH);
         }
 

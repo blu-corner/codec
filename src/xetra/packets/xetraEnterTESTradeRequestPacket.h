@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_ENTERTESTRADEREQUEST_PACKET_H
 #define XETRA_ENTERTESTRADEREQUEST_PACKET_H
@@ -313,10 +313,9 @@ class xetraEnterTESTradeRequestPacket
 
         bool setTradeReportText (const string& v)
         {
+            memset (mTradeReportText, '\0', sizeof (mTradeReportText));
             size_t size = min ((size_t) v.size (), (size_t) TRADE_REPORT_TEXT_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mTradeReportText[i] = v[i];
-            memset (&mTradeReportText[size], '\0', TRADE_REPORT_TEXT_MAX_LENGTH-size);
+            strncpy (mTradeReportText, v.c_str (), size);
             return (v.size () <= TRADE_REPORT_TEXT_MAX_LENGTH);
         }
 
@@ -337,10 +336,9 @@ class xetraEnterTESTradeRequestPacket
 
         bool setTradeReportID (const string& v)
         {
+            memset (mTradeReportID, '\0', sizeof (mTradeReportID));
             size_t size = min ((size_t) v.size (), (size_t) TRADE_REPORT_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mTradeReportID[i] = v[i];
-            memset (&mTradeReportID[size], '\0', TRADE_REPORT_ID_MAX_LENGTH-size);
+            strncpy (mTradeReportID, v.c_str (), size);
             return (v.size () <= TRADE_REPORT_ID_MAX_LENGTH);
         }
 
@@ -361,10 +359,9 @@ class xetraEnterTESTradeRequestPacket
 
         bool setPad4 (const string& v)
         {
+            memset (mPad4, '\0', sizeof (mPad4));
             size_t size = min ((size_t) v.size (), (size_t) PAD4_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad4[i] = v[i];
-            memset (&mPad4[size], '\0', PAD4_MAX_LENGTH-size);
+            strncpy (mPad4, v.c_str (), size);
             return (v.size () <= PAD4_MAX_LENGTH);
         }
 

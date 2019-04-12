@@ -317,10 +317,9 @@ def render_getters_and_setters(struct, venue):
 				format['CODE']  = '{0}return string (m{1}, {2});\n'.format(spaces, field.attrib['name'], get_constname(field.attrib['name'], 'MAX_LENGTH'))
 			result += PACKET_H_GETTER.format(**format) + '\n'
 			format['TYPE'] = 'const string&'
-			format['CODE']  = '{0}size_t size = min ((size_t) v.size (), (size_t) {1});\n'.format(spaces, get_constname(field.attrib['name'], 'MAX_LENGTH'))
-			format['CODE'] += '{0}for (size_t i = 0; i < size; i++)\n'.format(spaces)
-			format['CODE'] += '{0}    m{1}[i] = v[i];\n'.format(spaces, field.attrib['name'])
-			format['CODE'] += '{0}memset (&m{1}[size], \'\\0\', {2}-size);\n'.format(spaces, field.attrib['name'], get_constname(field.attrib['name'], 'MAX_LENGTH'))
+			format['CODE'] = '{0}memset (m{1}, \'\\0\', sizeof (m{1}));\n'.format(spaces, field.attrib['name'])
+			format['CODE'] += '{0}size_t size = min ((size_t) v.size (), (size_t) {1});\n'.format(spaces, get_constname(field.attrib['name'], 'MAX_LENGTH'))
+			format['CODE'] += '{0}strncpy (m{1}, v.c_str (), size);\n'.format(spaces, field.attrib['name'])
 			format['CODE'] += '{0}return (v.size () <= {1});\n'.format(spaces, get_constname(field.attrib['name'], 'MAX_LENGTH'))
 			result += PACKET_H_SETTER.format(**format) + '\n'
 			format['CODE'] = '{0}return (memcmp (m{1}, {2}, sizeof (m{1})) != 0);\n'.format (spaces, field.attrib['name'], get_constname(field.attrib['name'], 'NO_VALUE'))

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_NRRESPONSEHEADERMECOMP_PACKET_H
 #define XETRA_NRRESPONSEHEADERMECOMP_PACKET_H
@@ -225,10 +225,9 @@ class xetraNRResponseHeaderMECompPacket
 
         bool setPad3 (const string& v)
         {
+            memset (mPad3, '\0', sizeof (mPad3));
             size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad3[i] = v[i];
-            memset (&mPad3[size], '\0', PAD3_MAX_LENGTH-size);
+            strncpy (mPad3, v.c_str (), size);
             return (v.size () <= PAD3_MAX_LENGTH);
         }
 
