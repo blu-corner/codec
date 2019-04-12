@@ -147,7 +147,7 @@ TEST_F(XetraCodecTestHarness, XETRA_CODEC_GATEWAYREQUEST_ENCODE_DECODE)
 TEST_F(XetraCodecTestHarness, XETRA_CODEC_REJECT_ENCODE_DECODE)
 {
     // common variables
-    const size_t MSG_LENGTH = 72 + 8; // VarTextLen
+    const size_t MSG_LENGTH = 72;
     unsigned char msg[MSG_LENGTH];
     size_t used;
     cdr inputCdr;
@@ -157,7 +157,6 @@ TEST_F(XetraCodecTestHarness, XETRA_CODEC_REJECT_ENCODE_DECODE)
     // fill input CDR
     inputCdr.setInteger (TemplateID, 10010);
     inputCdr.setInteger (RequestTime, 1);
-    inputCdr.setInteger (RequestOut, 2);
     inputCdr.setInteger (TrdRegTSTimeIn, 3);
     inputCdr.setInteger (TrdRegTSTimeOut, 4);
     inputCdr.setInteger (ResponseIn, 5);
@@ -190,7 +189,7 @@ TEST_F(XetraCodecTestHarness, XETRA_CODEC_DELETEALLORDERRESPONSE_ENCODE_DECODE)
         // common variables
     const size_t NUM_NOT_AFFECTED_ORDERS_GRP = 2;
     const size_t NUM_AFFECTED_ORD_GRP = 4;
-    const size_t MSG_LENGTH = 96 + NUM_NOT_AFFECTED_ORDERS_GRP * 16 + NUM_AFFECTED_ORD_GRP * 16;
+    const size_t MSG_LENGTH = 88 + NUM_NOT_AFFECTED_ORDERS_GRP * 16 + NUM_AFFECTED_ORD_GRP * 16;
     unsigned char msg[MSG_LENGTH];
     size_t used;
     cdr inputCdr;
@@ -200,7 +199,6 @@ TEST_F(XetraCodecTestHarness, XETRA_CODEC_DELETEALLORDERRESPONSE_ENCODE_DECODE)
     // fill input CDR
     inputCdr.setInteger (TemplateID, 10121);
     inputCdr.setInteger (RequestTime, 18446744073709551610u);
-    inputCdr.setInteger (RequestOut, 2);
     inputCdr.setInteger (TrdRegTSTimeIn, 3);
     inputCdr.setInteger (TrdRegTSTimeOut, 4);
     inputCdr.setInteger (ResponseIn, 5);
