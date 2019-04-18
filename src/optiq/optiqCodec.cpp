@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 22:51:13 05/10/18
+ * Generated 08:18:20 18/04/19
  */
 #include "optiqCodec.h"
 #include "optiqPackets.h"
@@ -7941,8 +7941,6 @@ optiqCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
             setLastError ("unknown message type");
             return GW_CODEC_ERROR;
     }
-
-    return GW_CODEC_ERROR;
 }
 
 codecState

@@ -1567,8 +1567,6 @@ swxCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
             setLastError ("unknown message type");
             return GW_CODEC_ERROR;
     }
-
-    return GW_CODEC_SUCCESS;
 }
 
 codecState

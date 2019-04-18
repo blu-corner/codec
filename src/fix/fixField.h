@@ -154,11 +154,6 @@ public:
             mGetter = &fixField::getAsMonthYear;
             mSetter = &fixField::setAsMonthYear;
         }
-        else if (type == "UTCDATE")
-        {
-            mGetter = &fixField::getAsUTCDate;
-            mSetter = &fixField::setAsUTCDate;
-        }
         else if (type == "LOCALMKTDATE")
         {
             mGetter = &fixField::getAsLocalMktDate;
