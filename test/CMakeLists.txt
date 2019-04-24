@@ -2,6 +2,7 @@ set(TEST_LIBS codec
               fixcodec
               lsecodec
               xetracodec
+              eurexcodec
               oslocodec
               codechelpers
               gtest
@@ -30,6 +31,9 @@ include_directories(
   #xetra
   ${PROJECT_SOURCE_DIR}/src/xetra
   ${PROJECT_SOURCE_DIR}/src/xetra/packets
+  #eurex
+  ${PROJECT_SOURCE_DIR}/src/eurex
+  ${PROJECT_SOURCE_DIR}/src/eurex/packets
   #fix
   ${PROJECT_SOURCE_DIR}/src/fix
   ${LIBXML2_INCLUDE_DIR}
@@ -48,6 +52,7 @@ file(GLOB_RECURSE SRC_FILES
   ${PROJECT_SOURCE_DIR}/test/millennium/*.cpp
   ${PROJECT_SOURCE_DIR}/test/swx/*.cpp
   ${PROJECT_SOURCE_DIR}/test/xetra/*.cpp
+  ${PROJECT_SOURCE_DIR}/test/eurex/*.cpp
   ${PROJECT_SOURCE_DIR}/test/fix/*.cpp
   )
 
