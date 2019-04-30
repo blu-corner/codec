@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 14:16:38 30/04/19
  */
 #ifndef _OPTIQ_CANCELREQUEST_PACKET_H_
 #define _OPTIQ_CANCELREQUEST_PACKET_H_
@@ -35,6 +35,7 @@ public:
         uint8_t mEMM;
         uint8_t mOrderSide;
         uint8_t mOrderType;
+        uint8_t mOrderCategory;
 
     optiqCancelRequestPacket ()
     {
@@ -57,6 +58,7 @@ public:
         mEMM = 0;
         mOrderSide = 0;
         mOrderType = 0;
+        mOrderCategory = 0;
     }
 
     
@@ -188,6 +190,17 @@ public:
     bool setOrderType (uint8_t val)
     {
         mOrderType = val;
+        return true;
+    }
+    
+    uint8_t getOrderCategory () const
+    {
+        return mOrderCategory;
+    }
+
+    bool setOrderCategory (uint8_t val)
+    {
+        mOrderCategory = val;
         return true;
     }
 });

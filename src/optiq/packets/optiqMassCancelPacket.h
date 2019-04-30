@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 14:16:38 30/04/19
  */
 #ifndef _OPTIQ_MASSCANCEL_PACKET_H_
 #define _OPTIQ_MASSCANCEL_PACKET_H_
@@ -39,6 +39,7 @@ public:
         char mMaturity[8];
         uint8_t mAccountType;
         uint8_t mOptionType;
+        uint8_t mOrderCategory;
 
     optiqMassCancelPacket ()
     {
@@ -65,6 +66,7 @@ public:
         memset (mMaturity, 0, 8);
         mAccountType = 0;
         mOptionType = 0;
+        mOrderCategory = 0;
     }
 
     
@@ -238,6 +240,17 @@ public:
     bool setOptionType (uint8_t val)
     {
         mOptionType = val;
+        return true;
+    }
+    
+    uint8_t getOrderCategory () const
+    {
+        return mOrderCategory;
+    }
+
+    bool setOrderCategory (uint8_t val)
+    {
+        mOrderCategory = val;
         return true;
     }
 });

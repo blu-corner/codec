@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 14:16:38 30/04/19
  */
 #pragma once
 
@@ -31,14 +31,8 @@ namespace neueda
 #define OptiqRequestForExecutionTemplateId 34
 #define OptiqRFQNotificationTemplateId 35
 #define OptiqRFQMatchingStatusTemplateId 36
+#define OptiqRFQLPMatchingStatusTemplateId 37
 #define OptiqUserNotificationTemplateId 39
-#define OptiqDeclarationEntryTemplateId 40
-#define OptiqDeclarationEntryAckTemplateId 41
-#define OptiqDeclarationNoticeTemplateId 42
-#define OptiqDeclarationCancelAndRefusalTemplateId 43
-#define OptiqFundPriceInputTemplateId 44
-#define OptiqFundPriceInputAckTemplateId 45
-#define OptiqDeclarationEntryRejectTemplateId 46
 #define OptiqInstrumentSynchronizationListTemplateId 50
 #define OptiqSynchronizationTimeTemplateId 51
 #define OptiqLogonTemplateId 100
@@ -48,6 +42,13 @@ namespace neueda
 #define OptiqHeartbeatTemplateId 106
 #define OptiqTestRequestTemplateId 107
 #define OptiqTechnicalRejectTemplateId 108
+#define OptiqDeclarationEntryTemplateId 40
+#define OptiqDeclarationEntryAckTemplateId 41
+#define OptiqDeclarationNoticeTemplateId 42
+#define OptiqDeclarationCancelAndRefusalTemplateId 43
+#define OptiqFundPriceInputTemplateId 44
+#define OptiqFundPriceInputAckTemplateId 45
+#define OptiqDeclarationEntryRejectTemplateId 46
 
 // enum for ClearingInstruction
 #define OPTIQ_CLEARINGINSTRUCTION_PROCESS_NORMALLY__FORMERLY_SYSTEMATIC_POSTING_ 0
@@ -76,11 +77,18 @@ namespace neueda
 #define OPTIQ_EMM_EURONEXT_OFF_EXCHANGE_TRADE_REPORTS 6
 #define OPTIQ_EMM_DERIVATIVES_ON_EXCHANGE_OFF_BOOK 7
 #define OPTIQ_EMM_ETF_MTF_NAV_CENTRAL_ORDER_BOOK 8
+#define OPTIQ_EMM_LISTED_NOT_TRADED 9
 #define OPTIQ_EMM_NOT_APPLICABLE 99
 
 // enum for GuaranteeFlag
 #define OPTIQ_GUARANTEEFLAG_CLEARED_BUT_NOT_GUARANTEED 1
 #define OPTIQ_GUARANTEEFLAG_CLEARED_AND_GUARANTEED 2
+
+// enum for OrderCategory
+#define OPTIQ_ORDERCATEGORY_LIT_ORDER 1
+#define OPTIQ_ORDERCATEGORY_LIS_ORDER 2
+#define OPTIQ_ORDERCATEGORY_QUOTE_REQUEST 3
+#define OPTIQ_ORDERCATEGORY_RFQ_LP_ANSWER 4
 
 // enum for BuyRevisionIndicator
 #define OPTIQ_BUYREVISIONINDICATOR_NEW 0
@@ -138,6 +146,9 @@ namespace neueda
 #define OPTIQ_TRADETYPE_ETF_MTF_NAV_DARK_TRADE_PRICE_IN_BP 38
 #define OPTIQ_TRADETYPE_GUARANTEED_CROSS_NEGOTIATED_DEAL_NLIQ 39
 #define OPTIQ_TRADETYPE_GUARANTEED_CROSS_NEGOTIATED_DEAL_OILQ 40
+#define OPTIQ_TRADETYPE_LARGE_IN_SCALE_TRADE_IN_BASIS_POINTS 42
+#define OPTIQ_TRADETYPE_LARGE_IN_SCALE_PACKAGE_TRADE_IN_BASIS_POINTS 43
+#define OPTIQ_TRADETYPE_STRATEGY_LEG_LARGE_IN_SCALE_TRADE_IN_BASIS_POINTS 44
 #define OPTIQ_TRADETYPE_LARGE_IN_SCALE_TRADE 41
 
 // enum for CollarRejectionType
@@ -196,6 +207,10 @@ namespace neueda
 #define OPTIQ_LOGOUTREASONCODE_EXCESSIVE_AMOUNT_OF_DATA_IN_BYTES 4
 #define OPTIQ_LOGOUTREASONCODE_EXCESSIVE_NUMBER_OF_MESSAGES_AMOUNT_OF_DATA_IN_BYTES 5
 
+// enum for CCPID
+#define OPTIQ_CCPID_LCH_SA 1
+#define OPTIQ_CCPID_EUROCCP 6
+
 // enum for KillReason
 #define OPTIQ_KILLREASON_ORDER_CANCELLED_BY_CLIENT 1
 #define OPTIQ_KILLREASON_ORDER_EXPIRED 2
@@ -213,6 +228,10 @@ namespace neueda
 #define OPTIQ_KILLREASON_RFQ_NOT_MATCHED_DUE_TO_ISSUER_ORDERS_FEATURES 15
 #define OPTIQ_KILLREASON_QUOTE_CANCELLED_DUE_TO_KNOCK_OUT 16
 #define OPTIQ_KILLREASON_ORDER_CANCELLED_DUE_TO_A_KILL_COMMAND 17
+#define OPTIQ_KILLREASON_LP_ORDER_CANCELLED_DUE_TO_RFQ_EXPIRATION 19
+#define OPTIQ_KILLREASON_LP_ORDER_CANCELLED_DUE_TO_RFQ_CANCELLATION 20
+#define OPTIQ_KILLREASON_RFQ_REMAINING_QUANTITY_KILLED 21
+#define OPTIQ_KILLREASON_LP_ORDER_CANCELLED_DUE_TO_RFQ_CONFIRMATION 22
 
 // enum for OrderSide
 #define OPTIQ_ORDERSIDE_BUY 1
@@ -271,6 +290,7 @@ namespace neueda
 // enum for LPRole
 #define OPTIQ_LPROLE_LIQUIDITY_PROVIDER_OR_MARKET_MAKER 1
 #define OPTIQ_LPROLE_RETAIL_LIQUIDITY_PROVIDER 3
+#define OPTIQ_LPROLE_RFQ_LIQUIDITY_PROVIDER 12
 
 // enum for UserStatus
 #define OPTIQ_USERSTATUS_TRADER_ALGO_SUSPENDED 1
@@ -441,6 +461,7 @@ namespace neueda
 #define OPTIQ_TRADEQUALIFIER_TRADECREATIONBYMARKETOPERATIONS 4
 #define OPTIQ_TRADEQUALIFIER_NAVTRADEEXPRESSEDINBPS 5
 #define OPTIQ_TRADEQUALIFIER_NAVTRADEEXPRESSEDINPRICECURRENCY 6
+#define OPTIQ_TRADEQUALIFIER_DEFERREDPUBLICATION 7
 
 // set for MiFIDIndicators
 #define OPTIQ_MIFIDINDICATORS_DEAINDICATOR 0

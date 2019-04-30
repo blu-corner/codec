@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 14:16:38 30/04/19
  */
 #ifndef _OPTIQ_FILL_PACKET_H_
 #define _OPTIQ_FILL_PACKET_H_
@@ -270,6 +270,16 @@ public:
     void setTradeQualifier_NAVTradeExpressedInPriceCurrency ()
     {
         mTradeQualifier |= OPTIQ_TRADEQUALIFIER_NAVTRADEEXPRESSEDINPRICECURRENCY;
+    }
+
+    bool getTradeQualifier_DeferredPublication () const
+    {
+        return ((mTradeQualifier >> OPTIQ_TRADEQUALIFIER_DEFERREDPUBLICATION) & 1);
+    }
+
+    void setTradeQualifier_DeferredPublication ()
+    {
+        mTradeQualifier |= OPTIQ_TRADEQUALIFIER_DEFERREDPUBLICATION;
     }
 
     

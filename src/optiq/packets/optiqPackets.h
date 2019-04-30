@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 14:16:38 30/04/19
  */
 #ifndef OPTIQ_PACKETS_H
 #define OPTIQ_PACKETS_H
@@ -33,14 +33,8 @@
 #include "optiqRequestForExecutionPacket.h"
 #include "optiqRFQNotificationPacket.h"
 #include "optiqRFQMatchingStatusPacket.h"
+#include "optiqRFQLPMatchingStatusPacket.h"
 #include "optiqUserNotificationPacket.h"
-#include "optiqDeclarationEntryPacket.h"
-#include "optiqDeclarationEntryAckPacket.h"
-#include "optiqDeclarationNoticePacket.h"
-#include "optiqDeclarationCancelAndRefusalPacket.h"
-#include "optiqFundPriceInputPacket.h"
-#include "optiqFundPriceInputAckPacket.h"
-#include "optiqDeclarationEntryRejectPacket.h"
 #include "optiqInstrumentSynchronizationListPacket.h"
 #include "optiqSynchronizationTimePacket.h"
 #include "optiqLogonPacket.h"
@@ -50,20 +44,35 @@
 #include "optiqHeartbeatPacket.h"
 #include "optiqTestRequestPacket.h"
 #include "optiqTechnicalRejectPacket.h"
+#include "optiqDeclarationEntryPacket.h"
+#include "optiqDeclarationEntryAckPacket.h"
+#include "optiqDeclarationNoticePacket.h"
+#include "optiqDeclarationCancelAndRefusalPacket.h"
+#include "optiqFundPriceInputPacket.h"
+#include "optiqFundPriceInputAckPacket.h"
+#include "optiqDeclarationEntryRejectPacket.h"
 #include "optiqNewOrderFreeTextSectionPacket.h"
 #include "optiqNewOrderMiFIDShortcodesPacket.h"
 #include "optiqNewOrderOptionalFieldsPacket.h"
 #include "optiqNewOrderClearingFieldsPacket.h"
+#include "optiqNewOrderNotUsedGroup1Packet.h"
+#include "optiqNewOrderNotUsedGroup2Packet.h"
 #include "optiqFillOptionalFieldsFillPacket.h"
 #include "optiqFillStrategyFieldsPacket.h"
 #include "optiqCancelReplaceFreeTextSectionPacket.h"
 #include "optiqCancelReplaceOptionalFieldsPacket.h"
 #include "optiqCancelReplaceClearingFieldsPacket.h"
+#include "optiqCancelReplaceNotUsedGroup1Packet.h"
+#include "optiqCancelReplaceNotUsedGroup2Packet.h"
 #include "optiqRejectCollarFieldsPacket.h"
 #include "optiqQuotesMiFIDShortcodesPacket.h"
 #include "optiqQuotesClearingDatasetPacket.h"
 #include "optiqQuotesQuotesRepPacket.h"
 #include "optiqQuoteAckQuoteAcksPacket.h"
+#include "optiqCancelRequestNotUsedGroup1Packet.h"
+#include "optiqCancelRequestNotUsedGroup2Packet.h"
+#include "optiqMassCancelNotUsedGroup1Packet.h"
+#include "optiqMassCancelNotUsedGroup2Packet.h"
 #include "optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket.h"
 
 #endif

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 14:16:38 30/04/19
  */
 #ifndef _OPTIQ_OWNERSHIPREQUESTACK_PACKET_H_
 #define _OPTIQ_OWNERSHIPREQUESTACK_PACKET_H_
@@ -31,6 +31,7 @@ public:
         uint32_t mLogicalAccessID;
         uint16_t mOEPartitionID;
         int32_t mTotalAffectedOrders;
+        uint8_t mOrderCategory;
 
     optiqOwnershipRequestAckPacket ()
     {
@@ -49,6 +50,7 @@ public:
         mLogicalAccessID = UINT32_MAX;
         mOEPartitionID = UINT16_MAX;
         mTotalAffectedOrders = 0;
+        mOrderCategory = 0;
     }
 
     
@@ -136,6 +138,17 @@ public:
     bool setTotalAffectedOrders (int32_t val)
     {
         mTotalAffectedOrders = val;
+        return true;
+    }
+    
+    uint8_t getOrderCategory () const
+    {
+        return mOrderCategory;
+    }
+
+    bool setOrderCategory (uint8_t val)
+    {
+        mOrderCategory = val;
         return true;
     }
 });
