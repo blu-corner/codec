@@ -38,7 +38,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (@{Venue}@{msg_name}TemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
 @for field in msg_data[msg_name]:
     @if not field.is_group():
         @get_default_value(field)

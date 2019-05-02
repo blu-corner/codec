@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 14:16:38 30/04/19
+ * Generated 12:26:55 02/05/19
  */
 #ifndef _OPTIQ_FUNDPRICEINPUT_PACKET_H_
 #define _OPTIQ_FUNDPRICEINPUT_PACKET_H_
@@ -40,7 +40,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (OptiqFundPriceInputTemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
         mClMsgSeqNum = 0;
         memset (mFirmID, 0, 8);
         mSendingTime = 0;

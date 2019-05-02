@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 14:16:38 30/04/19
+ * Generated 12:26:55 02/05/19
  */
 #ifndef _OPTIQ_LOGON_PACKET_H_
 #define _OPTIQ_LOGON_PACKET_H_
@@ -37,7 +37,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (OptiqLogonTemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
         mLogicalAccessID = 0;
         mOEPartitionID = 0;
         mLastMsgSeqNum = UINT32_MAX;
