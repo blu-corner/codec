@@ -1,4 +1,4 @@
-@require(get_field_type, msg_data, msg_name, Venue, venue, generation_date, types, packet_get_set, get_default_value, get_field_initialise) 
+@require(get_field_type, msg_data, msg_name, Venue, venue, generation_date, types, schema_id, version, packet_get_set, get_default_value, get_field_initialise)
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
@@ -37,8 +37,8 @@ public:
                                 sizeof (optiqMessageHeaderPacket) -
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (@{Venue}@{msg_name}TemplateId);
-        mHeader.setSchemaId (0);
-        mHeader.setVersion (109);
+        mHeader.setSchemaId (@{schema_id});
+        mHeader.setVersion (@{version});
 @for field in msg_data[msg_name]:
     @if not field.is_group():
         @get_default_value(field)
