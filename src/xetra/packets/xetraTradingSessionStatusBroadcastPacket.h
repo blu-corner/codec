@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_TRADINGSESSIONSTATUSBROADCAST_PACKET_H
 #define XETRA_TRADINGSESSIONSTATUSBROADCAST_PACKET_H
@@ -150,10 +150,9 @@ class xetraTradingSessionStatusBroadcastPacket
 
         bool setRefApplLastMsgID (const string& v)
         {
+            memset (mRefApplLastMsgID, '\0', sizeof (mRefApplLastMsgID));
             size_t size = min ((size_t) v.size (), (size_t) REF_APPL_LAST_MSG_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mRefApplLastMsgID[i] = v[i];
-            memset (&mRefApplLastMsgID[size], '\0', REF_APPL_LAST_MSG_ID_MAX_LENGTH-size);
+            strncpy (mRefApplLastMsgID, v.c_str (), size);
             return (v.size () <= REF_APPL_LAST_MSG_ID_MAX_LENGTH);
         }
 
@@ -174,10 +173,9 @@ class xetraTradingSessionStatusBroadcastPacket
 
         bool setPad7 (const string& v)
         {
+            memset (mPad7, '\0', sizeof (mPad7));
             size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad7[i] = v[i];
-            memset (&mPad7[size], '\0', PAD7_MAX_LENGTH-size);
+            strncpy (mPad7, v.c_str (), size);
             return (v.size () <= PAD7_MAX_LENGTH);
         }
 

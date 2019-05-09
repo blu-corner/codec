@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 22:51:13 05/10/18
+ * Generated 11:10:58 07/05/19
  */
 #ifndef _OPTIQ_OPENORDERREQUEST_PACKET_H_
 #define _OPTIQ_OPENORDERREQUEST_PACKET_H_
@@ -33,6 +33,7 @@ public:
         int64_t mOrigClientOrderID;
         uint32_t mSymbolIndex;
         uint8_t mEMM;
+        uint8_t mOrderCategory;
 
     optiqOpenOrderRequestPacket ()
     {
@@ -42,7 +43,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (OptiqOpenOrderRequestTemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
         mClMsgSeqNum = 0;
         memset (mFirmID, 0, 8);
         mSendingTime = 0;
@@ -53,6 +54,7 @@ public:
         mOrigClientOrderID = INT64_MIN;
         mSymbolIndex = 0;
         mEMM = 0;
+        mOrderCategory = 0;
     }
 
     
@@ -162,6 +164,17 @@ public:
     bool setEMM (uint8_t val)
     {
         mEMM = val;
+        return true;
+    }
+    
+    uint8_t getOrderCategory () const
+    {
+        return mOrderCategory;
+    }
+
+    bool setOrderCategory (uint8_t val)
+    {
+        mOrderCategory = val;
         return true;
     }
 });

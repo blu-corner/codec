@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_ENRICHMENTRULESGRPCOMP_PACKET_H
 #define XETRA_ENRICHMENTRULESGRPCOMP_PACKET_H
@@ -81,10 +81,9 @@ class xetraEnrichmentRulesGrpCompPacket
 
         bool setFreeText1 (const string& v)
         {
+            memset (mFreeText1, '\0', sizeof (mFreeText1));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT1_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText1[i] = v[i];
-            memset (&mFreeText1[size], '\0', FREE_TEXT1_MAX_LENGTH-size);
+            strncpy (mFreeText1, v.c_str (), size);
             return (v.size () <= FREE_TEXT1_MAX_LENGTH);
         }
 
@@ -105,10 +104,9 @@ class xetraEnrichmentRulesGrpCompPacket
 
         bool setFreeText2 (const string& v)
         {
+            memset (mFreeText2, '\0', sizeof (mFreeText2));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT2_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText2[i] = v[i];
-            memset (&mFreeText2[size], '\0', FREE_TEXT2_MAX_LENGTH-size);
+            strncpy (mFreeText2, v.c_str (), size);
             return (v.size () <= FREE_TEXT2_MAX_LENGTH);
         }
 
@@ -129,10 +127,9 @@ class xetraEnrichmentRulesGrpCompPacket
 
         bool setFreeText4 (const string& v)
         {
+            memset (mFreeText4, '\0', sizeof (mFreeText4));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT4_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText4[i] = v[i];
-            memset (&mFreeText4[size], '\0', FREE_TEXT4_MAX_LENGTH-size);
+            strncpy (mFreeText4, v.c_str (), size);
             return (v.size () <= FREE_TEXT4_MAX_LENGTH);
         }
 
@@ -153,10 +150,9 @@ class xetraEnrichmentRulesGrpCompPacket
 
         bool setPad6 (const string& v)
         {
+            memset (mPad6, '\0', sizeof (mPad6));
             size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad6[i] = v[i];
-            memset (&mPad6[size], '\0', PAD6_MAX_LENGTH-size);
+            strncpy (mPad6, v.c_str (), size);
             return (v.size () <= PAD6_MAX_LENGTH);
         }
 

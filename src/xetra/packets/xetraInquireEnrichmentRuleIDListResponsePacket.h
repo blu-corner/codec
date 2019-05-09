@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_INQUIREENRICHMENTRULEIDLISTRESPONSE_PACKET_H
 #define XETRA_INQUIREENRICHMENTRULEIDLISTRESPONSE_PACKET_H
@@ -80,10 +80,9 @@ class xetraInquireEnrichmentRuleIDListResponsePacket
 
         bool setLastEntityProcessed (const string& v)
         {
+            memset (mLastEntityProcessed, '\0', sizeof (mLastEntityProcessed));
             size_t size = min ((size_t) v.size (), (size_t) LAST_ENTITY_PROCESSED_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mLastEntityProcessed[i] = v[i];
-            memset (&mLastEntityProcessed[size], '\0', LAST_ENTITY_PROCESSED_MAX_LENGTH-size);
+            strncpy (mLastEntityProcessed, v.c_str (), size);
             return (v.size () <= LAST_ENTITY_PROCESSED_MAX_LENGTH);
         }
 
@@ -125,10 +124,9 @@ class xetraInquireEnrichmentRuleIDListResponsePacket
 
         bool setPad6 (const string& v)
         {
+            memset (mPad6, '\0', sizeof (mPad6));
             size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad6[i] = v[i];
-            memset (&mPad6[size], '\0', PAD6_MAX_LENGTH-size);
+            strncpy (mPad6, v.c_str (), size);
             return (v.size () <= PAD6_MAX_LENGTH);
         }
 

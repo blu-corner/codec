@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 22:51:13 05/10/18
+ * Generated 11:10:58 07/05/19
  */
 #ifndef _OPTIQ_MASSCANCELACK_PACKET_H_
 #define _OPTIQ_MASSCANCELACK_PACKET_H_
@@ -44,6 +44,7 @@ public:
         char mMaturity[8];
         uint8_t mAccountType;
         uint8_t mOptionType;
+        uint8_t mOrderCategory;
 
     optiqMassCancelAckPacket ()
     {
@@ -53,7 +54,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (OptiqMassCancelAckTemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
         mMsgSeqNum = 0;
         memset (mFirmID, 0, 8);
         mSendingTime = UINT64_MAX;
@@ -75,6 +76,7 @@ public:
         memset (mMaturity, 0, 8);
         mAccountType = 0;
         mOptionType = 0;
+        mOrderCategory = 0;
     }
 
     
@@ -303,6 +305,17 @@ public:
     bool setOptionType (uint8_t val)
     {
         mOptionType = val;
+        return true;
+    }
+    
+    uint8_t getOrderCategory () const
+    {
+        return mOrderCategory;
+    }
+
+    bool setOrderCategory (uint8_t val)
+    {
+        mOrderCategory = val;
         return true;
     }
 });

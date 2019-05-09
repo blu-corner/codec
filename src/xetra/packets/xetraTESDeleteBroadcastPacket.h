@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_TESDELETEBROADCAST_PACKET_H
 #define XETRA_TESDELETEBROADCAST_PACKET_H
@@ -258,10 +258,9 @@ class xetraTESDeleteBroadcastPacket
 
         bool setMessageEventSource (const string& v)
         {
+            memset (mMessageEventSource, '\0', sizeof (mMessageEventSource));
             size_t size = min ((size_t) v.size (), (size_t) MESSAGE_EVENT_SOURCE_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mMessageEventSource[i] = v[i];
-            memset (&mMessageEventSource[size], '\0', MESSAGE_EVENT_SOURCE_MAX_LENGTH-size);
+            strncpy (mMessageEventSource, v.c_str (), size);
             return (v.size () <= MESSAGE_EVENT_SOURCE_MAX_LENGTH);
         }
 
@@ -282,10 +281,9 @@ class xetraTESDeleteBroadcastPacket
 
         bool setTradeReportID (const string& v)
         {
+            memset (mTradeReportID, '\0', sizeof (mTradeReportID));
             size_t size = min ((size_t) v.size (), (size_t) TRADE_REPORT_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mTradeReportID[i] = v[i];
-            memset (&mTradeReportID[size], '\0', TRADE_REPORT_ID_MAX_LENGTH-size);
+            strncpy (mTradeReportID, v.c_str (), size);
             return (v.size () <= TRADE_REPORT_ID_MAX_LENGTH);
         }
 
@@ -306,10 +304,9 @@ class xetraTESDeleteBroadcastPacket
 
         bool setPad3 (const string& v)
         {
+            memset (mPad3, '\0', sizeof (mPad3));
             size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad3[i] = v[i];
-            memset (&mPad3[size], '\0', PAD3_MAX_LENGTH-size);
+            strncpy (mPad3, v.c_str (), size);
             return (v.size () <= PAD3_MAX_LENGTH);
         }
 

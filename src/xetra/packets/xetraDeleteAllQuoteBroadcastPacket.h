@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_DELETEALLQUOTEBROADCAST_PACKET_H
 #define XETRA_DELETEALLQUOTEBROADCAST_PACKET_H
@@ -309,10 +309,9 @@ class xetraDeleteAllQuoteBroadcastPacket
 
         bool setTargetPartyIDDeskID (const string& v)
         {
+            memset (mTargetPartyIDDeskID, '\0', sizeof (mTargetPartyIDDeskID));
             size_t size = min ((size_t) v.size (), (size_t) TARGET_PARTY_IDDESK_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mTargetPartyIDDeskID[i] = v[i];
-            memset (&mTargetPartyIDDeskID[size], '\0', TARGET_PARTY_IDDESK_ID_MAX_LENGTH-size);
+            strncpy (mTargetPartyIDDeskID, v.c_str (), size);
             return (v.size () <= TARGET_PARTY_IDDESK_ID_MAX_LENGTH);
         }
 
@@ -333,10 +332,9 @@ class xetraDeleteAllQuoteBroadcastPacket
 
         bool setPad1 (const string& v)
         {
+            memset (mPad1, '\0', sizeof (mPad1));
             size_t size = min ((size_t) v.size (), (size_t) PAD1_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad1[i] = v[i];
-            memset (&mPad1[size], '\0', PAD1_MAX_LENGTH-size);
+            strncpy (mPad1, v.c_str (), size);
             return (v.size () <= PAD1_MAX_LENGTH);
         }
 

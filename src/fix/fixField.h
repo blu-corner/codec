@@ -6,15 +6,14 @@
 #include "utils.h"
 #include "codec.h"
 
-#define FIX_MONTHYEAR_FMT "%Y%m"
-#define FIX_UTCTIMEONLY_FMT "%H:%M:%S"
-#define FIX_UTCDATE_FMT "%Y%m%d"
-#define FIX_LOCALMKTDATE_FMT "%Y%m%d"
-#define FIX_UTCTIMESTAMP_FMT "%Y%m%d-%H:%M:%S"
-
-
 namespace neueda
 {
+
+static const string FIX_MONTHYEAR_FMT = "%Y%m";
+static const string FIX_UTCTIMEONLY_FMT = "%H:%M:%S";
+static const string FIX_UTCDATE_FMT = "%Y%m%d";
+static const string FIX_LOCALMKTDATE_FMT = "%Y%m%d";
+static const string FIX_UTCTIMESTAMP_FMT = "%Y%m%d-%H:%M:%S";
 
 using namespace std;
 
@@ -155,11 +154,6 @@ public:
             mGetter = &fixField::getAsMonthYear;
             mSetter = &fixField::setAsMonthYear;
         }
-        else if (type == "UTCDATE")
-        {
-            mGetter = &fixField::getAsUTCDate;
-            mSetter = &fixField::setAsUTCDate;
-        }
         else if (type == "LOCALMKTDATE")
         {
             mGetter = &fixField::getAsLocalMktDate;
@@ -226,7 +220,7 @@ private:
 
     bool getAsUTCTimestamp (const char* val, const int64_t tag, cdr& d)
     {
-        return getAsDateTime (val, tag, d, FIX_UTCTIMESTAMP_FMT);
+        return getAsDateTime (val, tag, d, FIX_UTCTIMESTAMP_FMT.c_str ());
     }
 
     codecState setAsUTCTimestamp (const int64_t tag,
@@ -238,8 +232,8 @@ private:
         if (i.mType != CDR_DATETIME)
             return GW_CODEC_ERROR;
 
-        char t[64];
-        sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
+        char t[25];
+        snprintf (t, sizeof (t), "%04d%02d%02d-%02d:%02d:%02d.%06d",
                  i.mDateTime.mYear,
                  i.mDateTime.mMonth,
                  i.mDateTime.mDay,
@@ -254,7 +248,7 @@ private:
 
     bool getAsUTCDate (const char* val, const int64_t tag, cdr& d)
     {
-        return getAsDateTime (val, tag, d, FIX_UTCDATE_FMT);
+        return getAsDateTime (val, tag, d, FIX_UTCDATE_FMT.c_str ());
     }
 
     codecState setAsUTCDate (const int64_t tag,
@@ -266,8 +260,8 @@ private:
         if (i.mType != CDR_DATETIME)
             return GW_CODEC_ERROR;
 
-        char t[64];
-        sprintf (t, "%04d%02d%02d",
+        char t[9];
+        snprintf (t, sizeof (t), "%04d%02d%02d",
                  i.mDateTime.mYear, i.mDateTime.mMonth, i.mDateTime.mDay);
 
         string ts (t);
@@ -276,7 +270,7 @@ private:
 
     bool getAsUTCTimeOnly (const char* val, const int64_t tag, cdr& d)
     {
-        return getAsDateTime (val, tag, d, FIX_UTCTIMEONLY_FMT);
+        return getAsDateTime (val, tag, d, FIX_UTCTIMEONLY_FMT.c_str ());
     }
 
     codecState setAsUTCTimeOnly (const int64_t tag,
@@ -288,8 +282,8 @@ private:
         if (i.mType != CDR_DATETIME)
             return GW_CODEC_ERROR;
 
-        char t[64];
-        sprintf (t, "%02d:%02d:%02d.%06d",
+        char t[16];
+        snprintf (t, sizeof (t), "%02d:%02d:%02d.%06d",
                  i.mDateTime.mHour,
                  i.mDateTime.mMinute,
                  i.mDateTime.mSecond,
@@ -301,7 +295,7 @@ private:
 
     bool getAsMonthYear (const char* val, const int64_t tag, cdr& d)
     {
-        return getAsDateTime (val, tag, d, FIX_MONTHYEAR_FMT);
+        return getAsDateTime (val, tag, d, FIX_MONTHYEAR_FMT.c_str ());
     }
 
     codecState setAsMonthYear (const int64_t tag,
@@ -313,8 +307,8 @@ private:
         if (i.mType != CDR_DATETIME)
             return GW_CODEC_ERROR;
 
-        char t[64];
-        sprintf (t, "%04d%02d",
+        char t[7];
+        snprintf (t, sizeof (t), "%04d%02d",
                  i.mDateTime.mYear, i.mDateTime.mMonth);
 
         string ts (t);
@@ -323,7 +317,7 @@ private:
 
     bool getAsLocalMktDate (const char* val, const int64_t tag, cdr& d)
     {
-        return getAsDateTime (val, tag, d, FIX_LOCALMKTDATE_FMT);
+        return getAsDateTime (val, tag, d, FIX_LOCALMKTDATE_FMT.c_str ());
     }
 
     bool getAsDouble (const char* val, const int64_t tag, cdr& d)
@@ -347,7 +341,7 @@ private:
             case CDR_DOUBLE:
             {
                 char t[64];
-                sprintf (t, "%g", i.mDouble);
+                snprintf (t, sizeof (t), "%g", i.mDouble);
                 string ts (t);
                 return writeStringVal (tag, ts, len, p, used);
             }

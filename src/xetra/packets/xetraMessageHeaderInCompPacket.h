@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_MESSAGEHEADERINCOMP_PACKET_H
 #define XETRA_MESSAGEHEADERINCOMP_PACKET_H
@@ -99,10 +99,9 @@ class xetraMessageHeaderInCompPacket
 
         bool setNetworkMsgID (const string& v)
         {
+            memset (mNetworkMsgID, '\0', sizeof (mNetworkMsgID));
             size_t size = min ((size_t) v.size (), (size_t) NETWORK_MSG_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mNetworkMsgID[i] = v[i];
-            memset (&mNetworkMsgID[size], '\0', NETWORK_MSG_ID_MAX_LENGTH-size);
+            strncpy (mNetworkMsgID, v.c_str (), size);
             return (v.size () <= NETWORK_MSG_ID_MAX_LENGTH);
         }
 
@@ -123,10 +122,9 @@ class xetraMessageHeaderInCompPacket
 
         bool setPad2 (const string& v)
         {
+            memset (mPad2, '\0', sizeof (mPad2));
             size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad2[i] = v[i];
-            memset (&mPad2[size], '\0', PAD2_MAX_LENGTH-size);
+            strncpy (mPad2, v.c_str (), size);
             return (v.size () <= PAD2_MAX_LENGTH);
         }
 

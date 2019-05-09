@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 22:51:13 05/10/18
+ * Generated 11:10:58 07/05/19
  */
 #ifndef _OPTIQ_TRADEBUSTNOTIFICATION_PACKET_H_
 #define _OPTIQ_TRADEBUSTNOTIFICATION_PACKET_H_
@@ -43,7 +43,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (OptiqTradeBustNotificationTemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
         mMsgSeqNum = 0;
         memset (mFirmID, 0, 8);
         mBookIn = 0;

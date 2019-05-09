@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 22:51:13 05/10/18
+ * Generated 11:10:58 07/05/19
  */
 #include "optiqCodec.h"
 #include "optiqPackets.h"
@@ -225,6 +225,34 @@ optiqCodec::getNewOrder (cdr& d, const void* buf)
         ClearingFieldsArray.push_back (item);
     }
     d.setArray (ClearingFields, ClearingFieldsArray);
+
+    
+    optiqGroupSizeEncodingPacket* gse24 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray NotUsedGroup1Array;
+    for (int i = 0; i < gse24->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqNewOrderNotUsedGroup1Packet* gNewOrderNotUsedGroup1 = (optiqNewOrderNotUsedGroup1Packet*) ((char*)buf + offset);
+
+        NotUsedGroup1Array.push_back (item);
+    }
+    d.setArray (NotUsedGroup1, NotUsedGroup1Array);
+
+    
+    optiqGroupSizeEncodingPacket* gse25 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray NotUsedGroup2Array;
+    for (int i = 0; i < gse25->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqNewOrderNotUsedGroup2Packet* gNewOrderNotUsedGroup2 = (optiqNewOrderNotUsedGroup2Packet*) ((char*)buf + offset);
+
+        NotUsedGroup2Array.push_back (item);
+    }
+    d.setArray (NotUsedGroup2, NotUsedGroup2Array);
 
     return GW_CODEC_SUCCESS;
 }
@@ -684,6 +712,34 @@ optiqCodec::getCancelReplace (cdr& d, const void* buf)
     }
     d.setArray (ClearingFields, ClearingFieldsArray);
 
+    
+    optiqGroupSizeEncodingPacket* gse25 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray NotUsedGroup1Array;
+    for (int i = 0; i < gse25->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqCancelReplaceNotUsedGroup1Packet* gCancelReplaceNotUsedGroup1 = (optiqCancelReplaceNotUsedGroup1Packet*) ((char*)buf + offset);
+
+        NotUsedGroup1Array.push_back (item);
+    }
+    d.setArray (NotUsedGroup1, NotUsedGroup1Array);
+
+    
+    optiqGroupSizeEncodingPacket* gse26 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray NotUsedGroup2Array;
+    for (int i = 0; i < gse26->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqCancelReplaceNotUsedGroup2Packet* gCancelReplaceNotUsedGroup2 = (optiqCancelReplaceNotUsedGroup2Packet*) ((char*)buf + offset);
+
+        NotUsedGroup2Array.push_back (item);
+    }
+    d.setArray (NotUsedGroup2, NotUsedGroup2Array);
+
     return GW_CODEC_SUCCESS;
 }
 
@@ -756,11 +812,11 @@ optiqCodec::getReject (cdr& d, const void* buf)
         d.setInteger (RejectedMessageID, packet->getRejectedMessageID ());
     offset += sizeof (uint16_t);
     
-    optiqGroupSizeEncodingPacket* gse16 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    optiqGroupSizeEncodingPacket* gse17 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
     offset += sizeof (optiqGroupSizeEncodingPacket);
     
     cdrArray CollarFieldsArray;
-    for (int i = 0; i < gse16->getNumInGroup (); i++)
+    for (int i = 0; i < gse17->getNumInGroup (); i++)
     {
         cdr item;
         optiqRejectCollarFieldsPacket* gRejectCollarFields = (optiqRejectCollarFieldsPacket*) ((char*)buf + offset);
@@ -1056,11 +1112,19 @@ optiqCodec::getQuoteRequest (cdr& d, const void* buf)
         d.setInteger (OrderSide, packet->getOrderSide ());
     offset += sizeof (uint8_t);
     
-    d.setInteger (FirmIDPublication, packet->getFirmIDPublication ());
+    if (packet->getFirmIDPublication () != UINT8_MAX)
+        d.setInteger (FirmIDPublication, packet->getFirmIDPublication ());
     offset += sizeof (uint8_t);
     
     d.setString (EndClient, packet->getEndClient ());
     offset += 11;
+    
+    d.setInteger (DarkExecutionInstruction, packet->getDarkExecutionInstruction ());
+    offset += sizeof (uint8_t);
+    
+    if (packet->getMinOrderQty () != UINT64_MAX)
+        d.setInteger (MinOrderQty, packet->getMinOrderQty ());
+    offset += sizeof (uint64_t);
     return GW_CODEC_SUCCESS;
 }
 
@@ -1110,6 +1174,38 @@ optiqCodec::getCancelRequest (cdr& d, const void* buf)
     
     d.setInteger (OrderType, packet->getOrderType ());
     offset += sizeof (uint8_t);
+    
+    if (packet->getOrderCategory () != UINT8_MAX)
+        d.setInteger (OrderCategory, packet->getOrderCategory ());
+    offset += sizeof (uint8_t);
+    
+    optiqGroupSizeEncodingPacket* gse14 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray NotUsedGroup1Array;
+    for (int i = 0; i < gse14->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqCancelRequestNotUsedGroup1Packet* gCancelRequestNotUsedGroup1 = (optiqCancelRequestNotUsedGroup1Packet*) ((char*)buf + offset);
+
+        NotUsedGroup1Array.push_back (item);
+    }
+    d.setArray (NotUsedGroup1, NotUsedGroup1Array);
+
+    
+    optiqGroupSizeEncodingPacket* gse15 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray NotUsedGroup2Array;
+    for (int i = 0; i < gse15->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqCancelRequestNotUsedGroup2Packet* gCancelRequestNotUsedGroup2 = (optiqCancelRequestNotUsedGroup2Packet*) ((char*)buf + offset);
+
+        NotUsedGroup2Array.push_back (item);
+    }
+    d.setArray (NotUsedGroup2, NotUsedGroup2Array);
+
     return GW_CODEC_SUCCESS;
 }
 
@@ -1177,6 +1273,38 @@ optiqCodec::getMassCancel (cdr& d, const void* buf)
     if (packet->getOptionType () != UINT8_MAX)
         d.setInteger (OptionType, packet->getOptionType ());
     offset += sizeof (uint8_t);
+    
+    if (packet->getOrderCategory () != UINT8_MAX)
+        d.setInteger (OrderCategory, packet->getOrderCategory ());
+    offset += sizeof (uint8_t);
+    
+    optiqGroupSizeEncodingPacket* gse18 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray NotUsedGroup1Array;
+    for (int i = 0; i < gse18->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqMassCancelNotUsedGroup1Packet* gMassCancelNotUsedGroup1 = (optiqMassCancelNotUsedGroup1Packet*) ((char*)buf + offset);
+
+        NotUsedGroup1Array.push_back (item);
+    }
+    d.setArray (NotUsedGroup1, NotUsedGroup1Array);
+
+    
+    optiqGroupSizeEncodingPacket* gse19 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray NotUsedGroup2Array;
+    for (int i = 0; i < gse19->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqMassCancelNotUsedGroup2Packet* gMassCancelNotUsedGroup2 = (optiqMassCancelNotUsedGroup2Packet*) ((char*)buf + offset);
+
+        NotUsedGroup2Array.push_back (item);
+    }
+    d.setArray (NotUsedGroup2, NotUsedGroup2Array);
+
     return GW_CODEC_SUCCESS;
 }
 
@@ -1261,6 +1389,10 @@ optiqCodec::getMassCancelAck (cdr& d, const void* buf)
     if (packet->getOptionType () != UINT8_MAX)
         d.setInteger (OptionType, packet->getOptionType ());
     offset += sizeof (uint8_t);
+    
+    if (packet->getOrderCategory () != UINT8_MAX)
+        d.setInteger (OrderCategory, packet->getOrderCategory ());
+    offset += sizeof (uint8_t);
     return GW_CODEC_SUCCESS;
 }
 
@@ -1304,6 +1436,10 @@ optiqCodec::getOpenOrderRequest (cdr& d, const void* buf)
     
     d.setInteger (EMM, packet->getEMM ());
     offset += sizeof (uint8_t);
+    
+    if (packet->getOrderCategory () != UINT8_MAX)
+        d.setInteger (OrderCategory, packet->getOrderCategory ());
+    offset += sizeof (uint8_t);
     return GW_CODEC_SUCCESS;
 }
 
@@ -1341,6 +1477,10 @@ optiqCodec::getOwnershipRequestAck (cdr& d, const void* buf)
     
     d.setInteger (TotalAffectedOrders, packet->getTotalAffectedOrders ());
     offset += sizeof (int32_t);
+    
+    if (packet->getOrderCategory () != UINT8_MAX)
+        d.setInteger (OrderCategory, packet->getOrderCategory ());
+    offset += sizeof (uint8_t);
     return GW_CODEC_SUCCESS;
 }
 
@@ -1392,6 +1532,10 @@ optiqCodec::getOwnershipRequest (cdr& d, const void* buf)
     if (packet->getOEPartitionID () != UINT16_MAX)
         d.setInteger (OEPartitionID, packet->getOEPartitionID ());
     offset += sizeof (uint16_t);
+    
+    if (packet->getOrderCategory () != UINT8_MAX)
+        d.setInteger (OrderCategory, packet->getOrderCategory ());
+    offset += sizeof (uint8_t);
     return GW_CODEC_SUCCESS;
 }
 
@@ -1664,6 +1808,13 @@ optiqCodec::getRFQNotification (cdr& d, const void* buf)
     
     d.setString (EndClient, packet->getEndClient ());
     offset += 11;
+    
+    d.setInteger (DarkExecutionInstruction, packet->getDarkExecutionInstruction ());
+    offset += sizeof (uint8_t);
+    
+    if (packet->getMinOrderQty () != UINT64_MAX)
+        d.setInteger (MinOrderQty, packet->getMinOrderQty ());
+    offset += sizeof (uint64_t);
     return GW_CODEC_SUCCESS;
 }
 
@@ -1725,6 +1876,52 @@ optiqCodec::getRFQMatchingStatus (cdr& d, const void* buf)
 }
 
 codecState
+optiqCodec::getRFQLPMatchingStatus (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "RFQLPMatchingStatus");
+
+    const optiqRFQLPMatchingStatusPacket* packet = (optiqRFQLPMatchingStatusPacket*)buf;
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+    
+    d.setInteger (MsgSeqNum, packet->getMsgSeqNum ());
+    offset += sizeof (uint32_t);
+    
+    d.setString (FirmID, packet->getFirmID ());
+    offset += 8;
+    
+    d.setInteger (BookIn, packet->getBookIn ());
+    offset += sizeof (uint64_t);
+    
+    if (packet->getBookOUTTime () != UINT64_MAX)
+        d.setInteger (BookOUTTime, packet->getBookOUTTime ());
+    offset += sizeof (uint64_t);
+    
+    if (packet->getOEGINFromME () != UINT64_MAX)
+        d.setInteger (OEGINFromME, packet->getOEGINFromME ());
+    offset += sizeof (uint64_t);
+    
+    if (packet->getOEGOUTToMember () != UINT64_MAX)
+        d.setInteger (OEGOUTToMember, packet->getOEGOUTToMember ());
+    offset += sizeof (uint64_t);
+    
+    d.setInteger (QuoteReqID, packet->getQuoteReqID ());
+    offset += sizeof (uint64_t);
+    
+    d.setInteger (PotentialMatchingQty, packet->getPotentialMatchingQty ());
+    offset += sizeof (uint64_t);
+    
+    d.setInteger (SymbolIndex, packet->getSymbolIndex ());
+    offset += sizeof (uint32_t);
+    
+    d.setInteger (EMM, packet->getEMM ());
+    offset += sizeof (uint8_t);
+    
+    d.setInteger (OrderSide, packet->getOrderSide ());
+    offset += sizeof (uint8_t);
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
 optiqCodec::getUserNotification (cdr& d, const void* buf)
 {
     d.setString (MessageName, "UserNotification");
@@ -1755,6 +1952,191 @@ optiqCodec::getUserNotification (cdr& d, const void* buf)
     
     d.setInteger (UserStatus, packet->getUserStatus ());
     offset += sizeof (uint8_t);
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getInstrumentSynchronizationList (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "InstrumentSynchronizationList");
+
+    const optiqInstrumentSynchronizationListPacket* packet = (optiqInstrumentSynchronizationListPacket*)buf;
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+    
+    d.setInteger (MsgSeqNum, packet->getMsgSeqNum ());
+    offset += sizeof (uint32_t);
+    
+    if (packet->getOEGOUTToMember () != UINT64_MAX)
+        d.setInteger (OEGOUTToMember, packet->getOEGOUTToMember ());
+    offset += sizeof (uint64_t);
+    
+    d.setInteger (ResynchronizationID, packet->getResynchronizationID ());
+    offset += sizeof (uint16_t);
+    
+    optiqGroupSizeEncodingPacket* gse4 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    cdrArray InstrumentSynchronizationSectionArray;
+    for (int i = 0; i < gse4->getNumInGroup (); i++)
+    {
+        cdr item;
+        optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket* gInstrumentSynchronizationListInstrumentSynchronizationSection = (optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket*) ((char*)buf + offset);
+
+        item.setInteger (SymbolIndex, gInstrumentSynchronizationListInstrumentSynchronizationSection->getSymbolIndex ());
+        offset += sizeof (uint32_t);
+
+        item.setInteger (EMM, gInstrumentSynchronizationListInstrumentSynchronizationSection->getEMM ());
+        offset += sizeof (uint8_t);
+
+        InstrumentSynchronizationSectionArray.push_back (item);
+    }
+    d.setArray (InstrumentSynchronizationSection, InstrumentSynchronizationSectionArray);
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getSynchronizationTime (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "SynchronizationTime");
+
+    const optiqSynchronizationTimePacket* packet = (optiqSynchronizationTimePacket*)buf;
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+    
+    d.setInteger (MsgSeqNum, packet->getMsgSeqNum ());
+    offset += sizeof (uint32_t);
+    
+    if (packet->getOEGOUTToMember () != UINT64_MAX)
+        d.setInteger (OEGOUTToMember, packet->getOEGOUTToMember ());
+    offset += sizeof (uint64_t);
+    
+    d.setInteger (ResynchronizationID, packet->getResynchronizationID ());
+    offset += sizeof (uint16_t);
+    
+    d.setInteger (LastBookInTime, packet->getLastBookInTime ());
+    offset += sizeof (uint64_t);
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getLogon (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "Logon");
+
+    const optiqLogonPacket* packet = (optiqLogonPacket*)buf;
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+    
+    d.setInteger (LogicalAccessID, packet->getLogicalAccessID ());
+    offset += sizeof (uint32_t);
+    
+    d.setInteger (OEPartitionID, packet->getOEPartitionID ());
+    offset += sizeof (uint16_t);
+    
+    if (packet->getLastMsgSeqNum () != UINT32_MAX)
+        d.setInteger (LastMsgSeqNum, packet->getLastMsgSeqNum ());
+    offset += sizeof (uint32_t);
+    
+    d.setString (SoftwareProvider, packet->getSoftwareProvider ());
+    offset += 8;
+    
+    d.setInteger (QueueingIndicator, packet->getQueueingIndicator ());
+    offset += sizeof (uint8_t);
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getLogonAck (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "LogonAck");
+
+    const optiqLogonAckPacket* packet = (optiqLogonAckPacket*)buf;
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+    
+    d.setString (ExchangeID, packet->getExchangeID ());
+    offset += 8;
+    
+    d.setInteger (LastClMsgSeqNum, packet->getLastClMsgSeqNum ());
+    offset += sizeof (uint32_t);
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getLogonReject (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "LogonReject");
+
+    const optiqLogonRejectPacket* packet = (optiqLogonRejectPacket*)buf;
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+    
+    d.setString (ExchangeID, packet->getExchangeID ());
+    offset += 8;
+    
+    d.setInteger (LogonRejectCode, packet->getLogonRejectCode ());
+    offset += sizeof (uint8_t);
+    
+    d.setInteger (LastClMsgSeqNum, packet->getLastClMsgSeqNum ());
+    offset += sizeof (uint32_t);
+    
+    d.setInteger (LastMsgSeqNum, packet->getLastMsgSeqNum ());
+    offset += sizeof (uint32_t);
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getLogout (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "Logout");
+
+    const optiqLogoutPacket* packet = (optiqLogoutPacket*)buf;
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+    
+    d.setInteger (LogOutReasonCode, packet->getLogOutReasonCode ());
+    offset += sizeof (uint8_t);
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getHeartbeat (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "Heartbeat");
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getTestRequest (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "TestRequest");
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::getTechnicalReject (cdr& d, const void* buf)
+{
+    d.setString (MessageName, "TechnicalReject");
+
+    const optiqTechnicalRejectPacket* packet = (optiqTechnicalRejectPacket*)buf;
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+    
+    if (packet->getOEGOUTToMember () != UINT64_MAX)
+        d.setInteger (OEGOUTToMember, packet->getOEGOUTToMember ());
+    offset += sizeof (uint64_t);
+    
+    if (packet->getRejectedClientMessageSequenceNumber () != UINT32_MAX)
+        d.setInteger (RejectedClientMessageSequenceNumber, packet->getRejectedClientMessageSequenceNumber ());
+    offset += sizeof (uint32_t);
+    
+    if (packet->getRejectedMessage () != UINT8_MAX)
+        d.setInteger (RejectedMessage, packet->getRejectedMessage ());
+    offset += sizeof (uint8_t);
+    
+    d.setInteger (ErrorCode, packet->getErrorCode ());
+    offset += sizeof (uint16_t);
+    
+    if (packet->getRejectedMessageID () != UINT16_MAX)
+        d.setInteger (RejectedMessageID, packet->getRejectedMessageID ());
+    offset += sizeof (uint16_t);
     return GW_CODEC_SUCCESS;
 }
 
@@ -2068,6 +2450,10 @@ optiqCodec::getDeclarationNotice (cdr& d, const void* buf)
     if (packet->getMiscellaneousFeeAmount () != INT64_MIN)
         d.setInteger (MiscellaneousFeeAmount, packet->getMiscellaneousFeeAmount ());
     offset += sizeof (int64_t);
+    
+    if (packet->getCCPID () != UINT8_MAX)
+        d.setInteger (CCPID, packet->getCCPID ());
+    offset += sizeof (uint8_t);
     return GW_CODEC_SUCCESS;
 }
 
@@ -2208,191 +2594,6 @@ optiqCodec::getDeclarationEntryReject (cdr& d, const void* buf)
     if (packet->getRejectedMessage () != UINT8_MAX)
         d.setInteger (RejectedMessage, packet->getRejectedMessage ());
     offset += sizeof (uint8_t);
-    
-    if (packet->getRejectedMessageID () != UINT16_MAX)
-        d.setInteger (RejectedMessageID, packet->getRejectedMessageID ());
-    offset += sizeof (uint16_t);
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getInstrumentSynchronizationList (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "InstrumentSynchronizationList");
-
-    const optiqInstrumentSynchronizationListPacket* packet = (optiqInstrumentSynchronizationListPacket*)buf;
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-    
-    d.setInteger (MsgSeqNum, packet->getMsgSeqNum ());
-    offset += sizeof (uint32_t);
-    
-    if (packet->getOEGOUTToMember () != UINT64_MAX)
-        d.setInteger (OEGOUTToMember, packet->getOEGOUTToMember ());
-    offset += sizeof (uint64_t);
-    
-    d.setInteger (ResynchronizationID, packet->getResynchronizationID ());
-    offset += sizeof (uint16_t);
-    
-    optiqGroupSizeEncodingPacket* gse4 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
-    offset += sizeof (optiqGroupSizeEncodingPacket);
-    
-    cdrArray InstrumentSynchronizationSectionArray;
-    for (int i = 0; i < gse4->getNumInGroup (); i++)
-    {
-        cdr item;
-        optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket* gInstrumentSynchronizationListInstrumentSynchronizationSection = (optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket*) ((char*)buf + offset);
-
-        item.setInteger (SymbolIndex, gInstrumentSynchronizationListInstrumentSynchronizationSection->getSymbolIndex ());
-        offset += sizeof (uint32_t);
-
-        item.setInteger (EMM, gInstrumentSynchronizationListInstrumentSynchronizationSection->getEMM ());
-        offset += sizeof (uint8_t);
-
-        InstrumentSynchronizationSectionArray.push_back (item);
-    }
-    d.setArray (InstrumentSynchronizationSection, InstrumentSynchronizationSectionArray);
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getSynchronizationTime (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "SynchronizationTime");
-
-    const optiqSynchronizationTimePacket* packet = (optiqSynchronizationTimePacket*)buf;
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-    
-    d.setInteger (MsgSeqNum, packet->getMsgSeqNum ());
-    offset += sizeof (uint32_t);
-    
-    if (packet->getOEGOUTToMember () != UINT64_MAX)
-        d.setInteger (OEGOUTToMember, packet->getOEGOUTToMember ());
-    offset += sizeof (uint64_t);
-    
-    d.setInteger (ResynchronizationID, packet->getResynchronizationID ());
-    offset += sizeof (uint16_t);
-    
-    d.setInteger (LastBookInTime, packet->getLastBookInTime ());
-    offset += sizeof (uint64_t);
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getLogon (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "Logon");
-
-    const optiqLogonPacket* packet = (optiqLogonPacket*)buf;
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-    
-    d.setInteger (LogicalAccessID, packet->getLogicalAccessID ());
-    offset += sizeof (uint32_t);
-    
-    d.setInteger (OEPartitionID, packet->getOEPartitionID ());
-    offset += sizeof (uint16_t);
-    
-    if (packet->getLastMsgSeqNum () != UINT32_MAX)
-        d.setInteger (LastMsgSeqNum, packet->getLastMsgSeqNum ());
-    offset += sizeof (uint32_t);
-    
-    d.setString (SoftwareProvider, packet->getSoftwareProvider ());
-    offset += 8;
-    
-    d.setInteger (QueueingIndicator, packet->getQueueingIndicator ());
-    offset += sizeof (uint8_t);
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getLogonAck (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "LogonAck");
-
-    const optiqLogonAckPacket* packet = (optiqLogonAckPacket*)buf;
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-    
-    d.setString (ExchangeID, packet->getExchangeID ());
-    offset += 8;
-    
-    d.setInteger (LastClMsgSeqNum, packet->getLastClMsgSeqNum ());
-    offset += sizeof (uint32_t);
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getLogonReject (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "LogonReject");
-
-    const optiqLogonRejectPacket* packet = (optiqLogonRejectPacket*)buf;
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-    
-    d.setString (ExchangeID, packet->getExchangeID ());
-    offset += 8;
-    
-    d.setInteger (LogonRejectCode, packet->getLogonRejectCode ());
-    offset += sizeof (uint8_t);
-    
-    d.setInteger (LastClMsgSeqNum, packet->getLastClMsgSeqNum ());
-    offset += sizeof (uint32_t);
-    
-    d.setInteger (LastMsgSeqNum, packet->getLastMsgSeqNum ());
-    offset += sizeof (uint32_t);
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getLogout (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "Logout");
-
-    const optiqLogoutPacket* packet = (optiqLogoutPacket*)buf;
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-    
-    d.setInteger (LogOutReasonCode, packet->getLogOutReasonCode ());
-    offset += sizeof (uint8_t);
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getHeartbeat (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "Heartbeat");
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getTestRequest (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "TestRequest");
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::getTechnicalReject (cdr& d, const void* buf)
-{
-    d.setString (MessageName, "TechnicalReject");
-
-    const optiqTechnicalRejectPacket* packet = (optiqTechnicalRejectPacket*)buf;
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-    
-    if (packet->getOEGOUTToMember () != UINT64_MAX)
-        d.setInteger (OEGOUTToMember, packet->getOEGOUTToMember ());
-    offset += sizeof (uint64_t);
-    
-    if (packet->getRejectedClientMessageSequenceNumber () != UINT32_MAX)
-        d.setInteger (RejectedClientMessageSequenceNumber, packet->getRejectedClientMessageSequenceNumber ());
-    offset += sizeof (uint32_t);
-    
-    if (packet->getRejectedMessage () != UINT8_MAX)
-        d.setInteger (RejectedMessage, packet->getRejectedMessage ());
-    offset += sizeof (uint8_t);
-    
-    d.setInteger (ErrorCode, packet->getErrorCode ());
-    offset += sizeof (uint16_t);
     
     if (packet->getRejectedMessageID () != UINT16_MAX)
         d.setInteger (RejectedMessageID, packet->getRejectedMessageID ());
@@ -2830,6 +3031,42 @@ optiqCodec::putNewOrder (const cdr& d, void* buf, size_t len, size_t& used)
                 clearingfields->setAccountTypeCross (accounttypecross);
             offset += sizeof (uint8_t);
             
+
+        }
+    }
+    
+    optiqGroupSizeEncodingPacket* gse24 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse24->setNumInGroup (d.getArraySize (NotUsedGroup1));
+    gse24->setBlockLength (sizeof (optiqNewOrderNotUsedGroup1Packet));
+    
+    if (d.getArraySize (NotUsedGroup1) > 0)
+    {
+        cdrArray* NotUsedGroup1Array = NULL;
+        d.getArray (NotUsedGroup1, (const cdrArray**)(&NotUsedGroup1Array));
+        for (cdrArray::iterator it = NotUsedGroup1Array->begin(); it != NotUsedGroup1Array->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqNewOrderNotUsedGroup1Packet* notusedgroup1 = (optiqNewOrderNotUsedGroup1Packet*) ((char*)buf + offset);
+
+        }
+    }
+    
+    optiqGroupSizeEncodingPacket* gse25 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse25->setNumInGroup (d.getArraySize (NotUsedGroup2));
+    gse25->setBlockLength (sizeof (optiqNewOrderNotUsedGroup2Packet));
+    
+    if (d.getArraySize (NotUsedGroup2) > 0)
+    {
+        cdrArray* NotUsedGroup2Array = NULL;
+        d.getArray (NotUsedGroup2, (const cdrArray**)(&NotUsedGroup2Array));
+        for (cdrArray::iterator it = NotUsedGroup2Array->begin(); it != NotUsedGroup2Array->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqNewOrderNotUsedGroup2Packet* notusedgroup2 = (optiqNewOrderNotUsedGroup2Packet*) ((char*)buf + offset);
 
         }
     }
@@ -3831,6 +4068,42 @@ optiqCodec::putCancelReplace (const cdr& d, void* buf, size_t len, size_t& used)
 
         }
     }
+    
+    optiqGroupSizeEncodingPacket* gse25 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse25->setNumInGroup (d.getArraySize (NotUsedGroup1));
+    gse25->setBlockLength (sizeof (optiqCancelReplaceNotUsedGroup1Packet));
+    
+    if (d.getArraySize (NotUsedGroup1) > 0)
+    {
+        cdrArray* NotUsedGroup1Array = NULL;
+        d.getArray (NotUsedGroup1, (const cdrArray**)(&NotUsedGroup1Array));
+        for (cdrArray::iterator it = NotUsedGroup1Array->begin(); it != NotUsedGroup1Array->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqCancelReplaceNotUsedGroup1Packet* notusedgroup1 = (optiqCancelReplaceNotUsedGroup1Packet*) ((char*)buf + offset);
+
+        }
+    }
+    
+    optiqGroupSizeEncodingPacket* gse26 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse26->setNumInGroup (d.getArraySize (NotUsedGroup2));
+    gse26->setBlockLength (sizeof (optiqCancelReplaceNotUsedGroup2Packet));
+    
+    if (d.getArraySize (NotUsedGroup2) > 0)
+    {
+        cdrArray* NotUsedGroup2Array = NULL;
+        d.getArray (NotUsedGroup2, (const cdrArray**)(&NotUsedGroup2Array));
+        for (cdrArray::iterator it = NotUsedGroup2Array->begin(); it != NotUsedGroup2Array->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqCancelReplaceNotUsedGroup2Packet* notusedgroup2 = (optiqCancelReplaceNotUsedGroup2Packet*) ((char*)buf + offset);
+
+        }
+    }
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -3980,11 +4253,11 @@ optiqCodec::putReject (const cdr& d, void* buf, size_t len, size_t& used)
     offset += sizeof (uint16_t);
     
     
-    optiqGroupSizeEncodingPacket* gse16 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    optiqGroupSizeEncodingPacket* gse17 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
     offset += sizeof (optiqGroupSizeEncodingPacket);
     
-    gse16->setNumInGroup (d.getArraySize (CollarFields));
-    gse16->setBlockLength (sizeof (optiqRejectCollarFieldsPacket));
+    gse17->setNumInGroup (d.getArraySize (CollarFields));
+    gse17->setBlockLength (sizeof (optiqRejectCollarFieldsPacket));
     
     if (d.getArraySize (CollarFields) > 0)
     {
@@ -4619,12 +4892,11 @@ optiqCodec::putQuoteRequest (const cdr& d, void* buf, size_t len, size_t& used)
     
     uint8_t firmidpublication;
     if (!d.getInteger (FirmIDPublication, firmidpublication))
-    {
-        setLastError ("FirmIDPublication missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setFirmIDPublication (firmidpublication);
+        packet->setFirmIDPublication (UINT8_MAX);
+    else
+        packet->setFirmIDPublication (firmidpublication);
     offset += sizeof (uint8_t);
+    
     
     string endclient;
     if (!d.getString (EndClient, endclient))
@@ -4634,6 +4906,23 @@ optiqCodec::putQuoteRequest (const cdr& d, void* buf, size_t len, size_t& used)
     }
     packet->setEndClient (endclient);
     offset += 11;
+    
+    uint8_t darkexecutioninstruction;
+    if (!d.getInteger (DarkExecutionInstruction, darkexecutioninstruction))
+    {
+        setLastError ("DarkExecutionInstruction missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setDarkExecutionInstruction (darkexecutioninstruction);
+    offset += sizeof (uint8_t);
+    
+    uint64_t minorderqty;
+    if (!d.getInteger (MinOrderQty, minorderqty))
+        packet->setMinOrderQty (UINT64_MAX);
+    else
+        packet->setMinOrderQty (minorderqty);
+    offset += sizeof (uint64_t);
+    
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -4756,6 +5045,50 @@ optiqCodec::putCancelRequest (const cdr& d, void* buf, size_t len, size_t& used)
     }
     packet->setOrderType (ordertype);
     offset += sizeof (uint8_t);
+    
+    uint8_t ordercategory;
+    if (!d.getInteger (OrderCategory, ordercategory))
+        packet->setOrderCategory (UINT8_MAX);
+    else
+        packet->setOrderCategory (ordercategory);
+    offset += sizeof (uint8_t);
+    
+    
+    optiqGroupSizeEncodingPacket* gse14 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse14->setNumInGroup (d.getArraySize (NotUsedGroup1));
+    gse14->setBlockLength (sizeof (optiqCancelRequestNotUsedGroup1Packet));
+    
+    if (d.getArraySize (NotUsedGroup1) > 0)
+    {
+        cdrArray* NotUsedGroup1Array = NULL;
+        d.getArray (NotUsedGroup1, (const cdrArray**)(&NotUsedGroup1Array));
+        for (cdrArray::iterator it = NotUsedGroup1Array->begin(); it != NotUsedGroup1Array->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqCancelRequestNotUsedGroup1Packet* notusedgroup1 = (optiqCancelRequestNotUsedGroup1Packet*) ((char*)buf + offset);
+
+        }
+    }
+    
+    optiqGroupSizeEncodingPacket* gse15 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse15->setNumInGroup (d.getArraySize (NotUsedGroup2));
+    gse15->setBlockLength (sizeof (optiqCancelRequestNotUsedGroup2Packet));
+    
+    if (d.getArraySize (NotUsedGroup2) > 0)
+    {
+        cdrArray* NotUsedGroup2Array = NULL;
+        d.getArray (NotUsedGroup2, (const cdrArray**)(&NotUsedGroup2Array));
+        for (cdrArray::iterator it = NotUsedGroup2Array->begin(); it != NotUsedGroup2Array->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqCancelRequestNotUsedGroup2Packet* notusedgroup2 = (optiqCancelRequestNotUsedGroup2Packet*) ((char*)buf + offset);
+
+        }
+    }
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -4908,6 +5241,50 @@ optiqCodec::putMassCancel (const cdr& d, void* buf, size_t len, size_t& used)
         packet->setOptionType (optiontype);
     offset += sizeof (uint8_t);
     
+    
+    uint8_t ordercategory;
+    if (!d.getInteger (OrderCategory, ordercategory))
+        packet->setOrderCategory (UINT8_MAX);
+    else
+        packet->setOrderCategory (ordercategory);
+    offset += sizeof (uint8_t);
+    
+    
+    optiqGroupSizeEncodingPacket* gse18 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse18->setNumInGroup (d.getArraySize (NotUsedGroup1));
+    gse18->setBlockLength (sizeof (optiqMassCancelNotUsedGroup1Packet));
+    
+    if (d.getArraySize (NotUsedGroup1) > 0)
+    {
+        cdrArray* NotUsedGroup1Array = NULL;
+        d.getArray (NotUsedGroup1, (const cdrArray**)(&NotUsedGroup1Array));
+        for (cdrArray::iterator it = NotUsedGroup1Array->begin(); it != NotUsedGroup1Array->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqMassCancelNotUsedGroup1Packet* notusedgroup1 = (optiqMassCancelNotUsedGroup1Packet*) ((char*)buf + offset);
+
+        }
+    }
+    
+    optiqGroupSizeEncodingPacket* gse19 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse19->setNumInGroup (d.getArraySize (NotUsedGroup2));
+    gse19->setBlockLength (sizeof (optiqMassCancelNotUsedGroup2Packet));
+    
+    if (d.getArraySize (NotUsedGroup2) > 0)
+    {
+        cdrArray* NotUsedGroup2Array = NULL;
+        d.getArray (NotUsedGroup2, (const cdrArray**)(&NotUsedGroup2Array));
+        for (cdrArray::iterator it = NotUsedGroup2Array->begin(); it != NotUsedGroup2Array->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqMassCancelNotUsedGroup2Packet* notusedgroup2 = (optiqMassCancelNotUsedGroup2Packet*) ((char*)buf + offset);
+
+        }
+    }
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -5103,6 +5480,14 @@ optiqCodec::putMassCancelAck (const cdr& d, void* buf, size_t len, size_t& used)
         packet->setOptionType (optiontype);
     offset += sizeof (uint8_t);
     
+    
+    uint8_t ordercategory;
+    if (!d.getInteger (OrderCategory, ordercategory))
+        packet->setOrderCategory (UINT8_MAX);
+    else
+        packet->setOrderCategory (ordercategory);
+    offset += sizeof (uint8_t);
+    
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -5207,6 +5592,14 @@ optiqCodec::putOpenOrderRequest (const cdr& d, void* buf, size_t len, size_t& us
     }
     packet->setEMM (emm);
     offset += sizeof (uint8_t);
+    
+    uint8_t ordercategory;
+    if (!d.getInteger (OrderCategory, ordercategory))
+        packet->setOrderCategory (UINT8_MAX);
+    else
+        packet->setOrderCategory (ordercategory);
+    offset += sizeof (uint8_t);
+    
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -5293,6 +5686,14 @@ optiqCodec::putOwnershipRequestAck (const cdr& d, void* buf, size_t len, size_t&
     }
     packet->setTotalAffectedOrders (totalaffectedorders);
     offset += sizeof (int32_t);
+    
+    uint8_t ordercategory;
+    if (!d.getInteger (OrderCategory, ordercategory))
+        packet->setOrderCategory (UINT8_MAX);
+    else
+        packet->setOrderCategory (ordercategory);
+    offset += sizeof (uint8_t);
+    
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -5412,6 +5813,14 @@ optiqCodec::putOwnershipRequest (const cdr& d, void* buf, size_t len, size_t& us
     else
         packet->setOEPartitionID (oepartitionid);
     offset += sizeof (uint16_t);
+    
+    
+    uint8_t ordercategory;
+    if (!d.getInteger (OrderCategory, ordercategory))
+        packet->setOrderCategory (UINT8_MAX);
+    else
+        packet->setOrderCategory (ordercategory);
+    offset += sizeof (uint8_t);
     
     used += offset;
 
@@ -6086,6 +6495,23 @@ optiqCodec::putRFQNotification (const cdr& d, void* buf, size_t len, size_t& use
     }
     packet->setEndClient (endclient);
     offset += 11;
+    
+    uint8_t darkexecutioninstruction;
+    if (!d.getInteger (DarkExecutionInstruction, darkexecutioninstruction))
+    {
+        setLastError ("DarkExecutionInstruction missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setDarkExecutionInstruction (darkexecutioninstruction);
+    offset += sizeof (uint8_t);
+    
+    uint64_t minorderqty;
+    if (!d.getInteger (MinOrderQty, minorderqty))
+        packet->setMinOrderQty (UINT64_MAX);
+    else
+        packet->setMinOrderQty (minorderqty);
+    offset += sizeof (uint64_t);
+    
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -6230,6 +6656,119 @@ optiqCodec::putRFQMatchingStatus (const cdr& d, void* buf, size_t len, size_t& u
 }
 
 codecState
+optiqCodec::putRFQLPMatchingStatus (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqRFQLPMatchingStatusPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    optiqRFQLPMatchingStatusPacket* packet = (optiqRFQLPMatchingStatusPacket*)((char*)buf);
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqRFQLPMatchingStatusPacket))
+        return GW_CODEC_SHORT;
+
+    
+    uint32_t msgseqnum;
+    if (!d.getInteger (MsgSeqNum, msgseqnum))
+    {
+        setLastError ("MsgSeqNum missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setMsgSeqNum (msgseqnum);
+    offset += sizeof (uint32_t);
+    
+    string firmid;
+    if (!d.getString (FirmID, firmid))
+    {
+        setLastError ("FirmID missing or not string");
+        return GW_CODEC_ERROR;
+    }
+    packet->setFirmID (firmid);
+    offset += 8;
+    
+    uint64_t bookin;
+    if (!d.getInteger (BookIn, bookin))
+    {
+        setLastError ("BookIn missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setBookIn (bookin);
+    offset += sizeof (uint64_t);
+    
+    uint64_t bookouttime;
+    if (!d.getInteger (BookOUTTime, bookouttime))
+        packet->setBookOUTTime (UINT64_MAX);
+    else
+        packet->setBookOUTTime (bookouttime);
+    offset += sizeof (uint64_t);
+    
+    
+    uint64_t oeginfromme;
+    if (!d.getInteger (OEGINFromME, oeginfromme))
+        packet->setOEGINFromME (UINT64_MAX);
+    else
+        packet->setOEGINFromME (oeginfromme);
+    offset += sizeof (uint64_t);
+    
+    
+    uint64_t oegouttomember;
+    if (!d.getInteger (OEGOUTToMember, oegouttomember))
+        packet->setOEGOUTToMember (UINT64_MAX);
+    else
+        packet->setOEGOUTToMember (oegouttomember);
+    offset += sizeof (uint64_t);
+    
+    
+    uint64_t quotereqid;
+    if (!d.getInteger (QuoteReqID, quotereqid))
+    {
+        setLastError ("QuoteReqID missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setQuoteReqID (quotereqid);
+    offset += sizeof (uint64_t);
+    
+    uint64_t potentialmatchingqty;
+    if (!d.getInteger (PotentialMatchingQty, potentialmatchingqty))
+    {
+        setLastError ("PotentialMatchingQty missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setPotentialMatchingQty (potentialmatchingqty);
+    offset += sizeof (uint64_t);
+    
+    uint32_t symbolindex;
+    if (!d.getInteger (SymbolIndex, symbolindex))
+    {
+        setLastError ("SymbolIndex missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setSymbolIndex (symbolindex);
+    offset += sizeof (uint32_t);
+    
+    uint8_t emm;
+    if (!d.getInteger (EMM, emm))
+    {
+        setLastError ("EMM missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setEMM (emm);
+    offset += sizeof (uint8_t);
+    
+    uint8_t orderside;
+    if (!d.getInteger (OrderSide, orderside))
+    {
+        setLastError ("OrderSide missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setOrderSide (orderside);
+    offset += sizeof (uint8_t);
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
 optiqCodec::putUserNotification (const cdr& d, void* buf, size_t len, size_t& used)
 {
     optiqUserNotificationPacket base;
@@ -6301,6 +6840,402 @@ optiqCodec::putUserNotification (const cdr& d, void* buf, size_t len, size_t& us
     }
     packet->setUserStatus (userstatus);
     offset += sizeof (uint8_t);
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putInstrumentSynchronizationList (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqInstrumentSynchronizationListPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    optiqInstrumentSynchronizationListPacket* packet = (optiqInstrumentSynchronizationListPacket*)((char*)buf);
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqInstrumentSynchronizationListPacket))
+        return GW_CODEC_SHORT;
+
+    
+    uint32_t msgseqnum;
+    if (!d.getInteger (MsgSeqNum, msgseqnum))
+    {
+        setLastError ("MsgSeqNum missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setMsgSeqNum (msgseqnum);
+    offset += sizeof (uint32_t);
+    
+    uint64_t oegouttomember;
+    if (!d.getInteger (OEGOUTToMember, oegouttomember))
+        packet->setOEGOUTToMember (UINT64_MAX);
+    else
+        packet->setOEGOUTToMember (oegouttomember);
+    offset += sizeof (uint64_t);
+    
+    
+    uint16_t resynchronizationid;
+    if (!d.getInteger (ResynchronizationID, resynchronizationid))
+    {
+        setLastError ("ResynchronizationID missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setResynchronizationID (resynchronizationid);
+    offset += sizeof (uint16_t);
+    
+    optiqGroupSizeEncodingPacket* gse4 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
+    offset += sizeof (optiqGroupSizeEncodingPacket);
+    
+    gse4->setNumInGroup (d.getArraySize (InstrumentSynchronizationSection));
+    gse4->setBlockLength (sizeof (optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket));
+    
+    if (d.getArraySize (InstrumentSynchronizationSection) > 0)
+    {
+        cdrArray* InstrumentSynchronizationSectionArray = NULL;
+        d.getArray (InstrumentSynchronizationSection, (const cdrArray**)(&InstrumentSynchronizationSectionArray));
+        for (cdrArray::iterator it = InstrumentSynchronizationSectionArray->begin(); it != InstrumentSynchronizationSectionArray->end(); ++it)
+        {
+            cdr& item = *it;
+            optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket* instrumentsynchronizationsection = (optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket*) ((char*)buf + offset);
+
+            uint32_t symbolindex;
+            if (!item.getInteger (SymbolIndex, symbolindex))
+            {
+                setLastError ("SymbolIndex missing or not integer");
+                return GW_CODEC_ERROR;
+            }
+            instrumentsynchronizationsection->setSymbolIndex (symbolindex);
+            offset += sizeof (uint32_t);
+
+            uint8_t emm;
+            if (!item.getInteger (EMM, emm))
+            {
+                setLastError ("EMM missing or not integer");
+                return GW_CODEC_ERROR;
+            }
+            instrumentsynchronizationsection->setEMM (emm);
+            offset += sizeof (uint8_t);
+
+        }
+    }
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putSynchronizationTime (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqSynchronizationTimePacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    optiqSynchronizationTimePacket* packet = (optiqSynchronizationTimePacket*)((char*)buf);
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqSynchronizationTimePacket))
+        return GW_CODEC_SHORT;
+
+    
+    uint32_t msgseqnum;
+    if (!d.getInteger (MsgSeqNum, msgseqnum))
+    {
+        setLastError ("MsgSeqNum missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setMsgSeqNum (msgseqnum);
+    offset += sizeof (uint32_t);
+    
+    uint64_t oegouttomember;
+    if (!d.getInteger (OEGOUTToMember, oegouttomember))
+        packet->setOEGOUTToMember (UINT64_MAX);
+    else
+        packet->setOEGOUTToMember (oegouttomember);
+    offset += sizeof (uint64_t);
+    
+    
+    uint16_t resynchronizationid;
+    if (!d.getInteger (ResynchronizationID, resynchronizationid))
+    {
+        setLastError ("ResynchronizationID missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setResynchronizationID (resynchronizationid);
+    offset += sizeof (uint16_t);
+    
+    uint64_t lastbookintime;
+    if (!d.getInteger (LastBookInTime, lastbookintime))
+    {
+        setLastError ("LastBookInTime missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setLastBookInTime (lastbookintime);
+    offset += sizeof (uint64_t);
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putLogon (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqLogonPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    optiqLogonPacket* packet = (optiqLogonPacket*)((char*)buf);
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqLogonPacket))
+        return GW_CODEC_SHORT;
+
+    
+    uint32_t logicalaccessid;
+    if (!d.getInteger (LogicalAccessID, logicalaccessid))
+    {
+        setLastError ("LogicalAccessID missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setLogicalAccessID (logicalaccessid);
+    offset += sizeof (uint32_t);
+    
+    uint16_t oepartitionid;
+    if (!d.getInteger (OEPartitionID, oepartitionid))
+    {
+        setLastError ("OEPartitionID missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setOEPartitionID (oepartitionid);
+    offset += sizeof (uint16_t);
+    
+    uint32_t lastmsgseqnum;
+    if (!d.getInteger (LastMsgSeqNum, lastmsgseqnum))
+        packet->setLastMsgSeqNum (UINT32_MAX);
+    else
+        packet->setLastMsgSeqNum (lastmsgseqnum);
+    offset += sizeof (uint32_t);
+    
+    
+    string softwareprovider;
+    if (!d.getString (SoftwareProvider, softwareprovider))
+    {
+        setLastError ("SoftwareProvider missing or not string");
+        return GW_CODEC_ERROR;
+    }
+    packet->setSoftwareProvider (softwareprovider);
+    offset += 8;
+    
+    uint8_t queueingindicator;
+    if (!d.getInteger (QueueingIndicator, queueingindicator))
+    {
+        setLastError ("QueueingIndicator missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setQueueingIndicator (queueingindicator);
+    offset += sizeof (uint8_t);
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putLogonAck (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqLogonAckPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    optiqLogonAckPacket* packet = (optiqLogonAckPacket*)((char*)buf);
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqLogonAckPacket))
+        return GW_CODEC_SHORT;
+
+    
+    string exchangeid;
+    if (!d.getString (ExchangeID, exchangeid))
+    {
+        setLastError ("ExchangeID missing or not string");
+        return GW_CODEC_ERROR;
+    }
+    packet->setExchangeID (exchangeid);
+    offset += 8;
+    
+    uint32_t lastclmsgseqnum;
+    if (!d.getInteger (LastClMsgSeqNum, lastclmsgseqnum))
+    {
+        setLastError ("LastClMsgSeqNum missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setLastClMsgSeqNum (lastclmsgseqnum);
+    offset += sizeof (uint32_t);
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putLogonReject (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqLogonRejectPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    optiqLogonRejectPacket* packet = (optiqLogonRejectPacket*)((char*)buf);
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqLogonRejectPacket))
+        return GW_CODEC_SHORT;
+
+    
+    string exchangeid;
+    if (!d.getString (ExchangeID, exchangeid))
+    {
+        setLastError ("ExchangeID missing or not string");
+        return GW_CODEC_ERROR;
+    }
+    packet->setExchangeID (exchangeid);
+    offset += 8;
+    
+    uint8_t logonrejectcode;
+    if (!d.getInteger (LogonRejectCode, logonrejectcode))
+    {
+        setLastError ("LogonRejectCode missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setLogonRejectCode (logonrejectcode);
+    offset += sizeof (uint8_t);
+    
+    uint32_t lastclmsgseqnum;
+    if (!d.getInteger (LastClMsgSeqNum, lastclmsgseqnum))
+    {
+        setLastError ("LastClMsgSeqNum missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setLastClMsgSeqNum (lastclmsgseqnum);
+    offset += sizeof (uint32_t);
+    
+    uint32_t lastmsgseqnum;
+    if (!d.getInteger (LastMsgSeqNum, lastmsgseqnum))
+    {
+        setLastError ("LastMsgSeqNum missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setLastMsgSeqNum (lastmsgseqnum);
+    offset += sizeof (uint32_t);
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putLogout (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqLogoutPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    optiqLogoutPacket* packet = (optiqLogoutPacket*)((char*)buf);
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqLogoutPacket))
+        return GW_CODEC_SHORT;
+
+    
+    uint8_t logoutreasoncode;
+    if (!d.getInteger (LogOutReasonCode, logoutreasoncode))
+    {
+        setLastError ("LogOutReasonCode missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setLogOutReasonCode (logoutreasoncode);
+    offset += sizeof (uint8_t);
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putHeartbeat (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqHeartbeatPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqHeartbeatPacket))
+        return GW_CODEC_SHORT;
+
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putTestRequest (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqTestRequestPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqTestRequestPacket))
+        return GW_CODEC_SHORT;
+
+    used += offset;
+
+    return GW_CODEC_SUCCESS;
+}
+
+codecState
+optiqCodec::putTechnicalReject (const cdr& d, void* buf, size_t len, size_t& used)
+{
+    optiqTechnicalRejectPacket base;
+    memcpy (buf, &base, sizeof(base));
+
+    optiqTechnicalRejectPacket* packet = (optiqTechnicalRejectPacket*)((char*)buf);
+    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
+
+    if (len < sizeof (optiqTechnicalRejectPacket))
+        return GW_CODEC_SHORT;
+
+    
+    uint64_t oegouttomember;
+    if (!d.getInteger (OEGOUTToMember, oegouttomember))
+        packet->setOEGOUTToMember (UINT64_MAX);
+    else
+        packet->setOEGOUTToMember (oegouttomember);
+    offset += sizeof (uint64_t);
+    
+    
+    uint32_t rejectedclientmessagesequencenumber;
+    if (!d.getInteger (RejectedClientMessageSequenceNumber, rejectedclientmessagesequencenumber))
+        packet->setRejectedClientMessageSequenceNumber (UINT32_MAX);
+    else
+        packet->setRejectedClientMessageSequenceNumber (rejectedclientmessagesequencenumber);
+    offset += sizeof (uint32_t);
+    
+    
+    uint8_t rejectedmessage;
+    if (!d.getInteger (RejectedMessage, rejectedmessage))
+        packet->setRejectedMessage (UINT8_MAX);
+    else
+        packet->setRejectedMessage (rejectedmessage);
+    offset += sizeof (uint8_t);
+    
+    
+    uint16_t errorcode;
+    if (!d.getInteger (ErrorCode, errorcode))
+    {
+        setLastError ("ErrorCode missing or not integer");
+        return GW_CODEC_ERROR;
+    }
+    packet->setErrorCode (errorcode);
+    offset += sizeof (uint16_t);
+    
+    uint16_t rejectedmessageid;
+    if (!d.getInteger (RejectedMessageID, rejectedmessageid))
+        packet->setRejectedMessageID (UINT16_MAX);
+    else
+        packet->setRejectedMessageID (rejectedmessageid);
+    offset += sizeof (uint16_t);
+    
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -7065,6 +8000,14 @@ optiqCodec::putDeclarationNotice (const cdr& d, void* buf, size_t len, size_t& u
         packet->setMiscellaneousFeeAmount (miscellaneousfeeamount);
     offset += sizeof (int64_t);
     
+    
+    uint8_t ccpid;
+    if (!d.getInteger (CCPID, ccpid))
+        packet->setCCPID (UINT8_MAX);
+    else
+        packet->setCCPID (ccpid);
+    offset += sizeof (uint8_t);
+    
     used += offset;
 
     return GW_CODEC_SUCCESS;
@@ -7430,402 +8373,6 @@ optiqCodec::putDeclarationEntryReject (const cdr& d, void* buf, size_t len, size
     return GW_CODEC_SUCCESS;
 }
 
-codecState
-optiqCodec::putInstrumentSynchronizationList (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqInstrumentSynchronizationListPacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    optiqInstrumentSynchronizationListPacket* packet = (optiqInstrumentSynchronizationListPacket*)((char*)buf);
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqInstrumentSynchronizationListPacket))
-        return GW_CODEC_SHORT;
-
-    
-    uint32_t msgseqnum;
-    if (!d.getInteger (MsgSeqNum, msgseqnum))
-    {
-        setLastError ("MsgSeqNum missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setMsgSeqNum (msgseqnum);
-    offset += sizeof (uint32_t);
-    
-    uint64_t oegouttomember;
-    if (!d.getInteger (OEGOUTToMember, oegouttomember))
-        packet->setOEGOUTToMember (UINT64_MAX);
-    else
-        packet->setOEGOUTToMember (oegouttomember);
-    offset += sizeof (uint64_t);
-    
-    
-    uint16_t resynchronizationid;
-    if (!d.getInteger (ResynchronizationID, resynchronizationid))
-    {
-        setLastError ("ResynchronizationID missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setResynchronizationID (resynchronizationid);
-    offset += sizeof (uint16_t);
-    
-    optiqGroupSizeEncodingPacket* gse4 = (optiqGroupSizeEncodingPacket*)((char*)buf + offset);
-    offset += sizeof (optiqGroupSizeEncodingPacket);
-    
-    gse4->setNumInGroup (d.getArraySize (InstrumentSynchronizationSection));
-    gse4->setBlockLength (sizeof (optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket));
-    
-    if (d.getArraySize (InstrumentSynchronizationSection) > 0)
-    {
-        cdrArray* InstrumentSynchronizationSectionArray = NULL;
-        d.getArray (InstrumentSynchronizationSection, (const cdrArray**)(&InstrumentSynchronizationSectionArray));
-        for (cdrArray::iterator it = InstrumentSynchronizationSectionArray->begin(); it != InstrumentSynchronizationSectionArray->end(); ++it)
-        {
-            cdr& item = *it;
-            optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket* instrumentsynchronizationsection = (optiqInstrumentSynchronizationListInstrumentSynchronizationSectionPacket*) ((char*)buf + offset);
-
-            uint32_t symbolindex;
-            if (!item.getInteger (SymbolIndex, symbolindex))
-            {
-                setLastError ("SymbolIndex missing or not integer");
-                return GW_CODEC_ERROR;
-            }
-            instrumentsynchronizationsection->setSymbolIndex (symbolindex);
-            offset += sizeof (uint32_t);
-
-            uint8_t emm;
-            if (!item.getInteger (EMM, emm))
-            {
-                setLastError ("EMM missing or not integer");
-                return GW_CODEC_ERROR;
-            }
-            instrumentsynchronizationsection->setEMM (emm);
-            offset += sizeof (uint8_t);
-
-        }
-    }
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::putSynchronizationTime (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqSynchronizationTimePacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    optiqSynchronizationTimePacket* packet = (optiqSynchronizationTimePacket*)((char*)buf);
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqSynchronizationTimePacket))
-        return GW_CODEC_SHORT;
-
-    
-    uint32_t msgseqnum;
-    if (!d.getInteger (MsgSeqNum, msgseqnum))
-    {
-        setLastError ("MsgSeqNum missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setMsgSeqNum (msgseqnum);
-    offset += sizeof (uint32_t);
-    
-    uint64_t oegouttomember;
-    if (!d.getInteger (OEGOUTToMember, oegouttomember))
-        packet->setOEGOUTToMember (UINT64_MAX);
-    else
-        packet->setOEGOUTToMember (oegouttomember);
-    offset += sizeof (uint64_t);
-    
-    
-    uint16_t resynchronizationid;
-    if (!d.getInteger (ResynchronizationID, resynchronizationid))
-    {
-        setLastError ("ResynchronizationID missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setResynchronizationID (resynchronizationid);
-    offset += sizeof (uint16_t);
-    
-    uint64_t lastbookintime;
-    if (!d.getInteger (LastBookInTime, lastbookintime))
-    {
-        setLastError ("LastBookInTime missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setLastBookInTime (lastbookintime);
-    offset += sizeof (uint64_t);
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::putLogon (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqLogonPacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    optiqLogonPacket* packet = (optiqLogonPacket*)((char*)buf);
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqLogonPacket))
-        return GW_CODEC_SHORT;
-
-    
-    uint32_t logicalaccessid;
-    if (!d.getInteger (LogicalAccessID, logicalaccessid))
-    {
-        setLastError ("LogicalAccessID missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setLogicalAccessID (logicalaccessid);
-    offset += sizeof (uint32_t);
-    
-    uint16_t oepartitionid;
-    if (!d.getInteger (OEPartitionID, oepartitionid))
-    {
-        setLastError ("OEPartitionID missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setOEPartitionID (oepartitionid);
-    offset += sizeof (uint16_t);
-    
-    uint32_t lastmsgseqnum;
-    if (!d.getInteger (LastMsgSeqNum, lastmsgseqnum))
-        packet->setLastMsgSeqNum (UINT32_MAX);
-    else
-        packet->setLastMsgSeqNum (lastmsgseqnum);
-    offset += sizeof (uint32_t);
-    
-    
-    string softwareprovider;
-    if (!d.getString (SoftwareProvider, softwareprovider))
-    {
-        setLastError ("SoftwareProvider missing or not string");
-        return GW_CODEC_ERROR;
-    }
-    packet->setSoftwareProvider (softwareprovider);
-    offset += 8;
-    
-    uint8_t queueingindicator;
-    if (!d.getInteger (QueueingIndicator, queueingindicator))
-    {
-        setLastError ("QueueingIndicator missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setQueueingIndicator (queueingindicator);
-    offset += sizeof (uint8_t);
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::putLogonAck (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqLogonAckPacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    optiqLogonAckPacket* packet = (optiqLogonAckPacket*)((char*)buf);
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqLogonAckPacket))
-        return GW_CODEC_SHORT;
-
-    
-    string exchangeid;
-    if (!d.getString (ExchangeID, exchangeid))
-    {
-        setLastError ("ExchangeID missing or not string");
-        return GW_CODEC_ERROR;
-    }
-    packet->setExchangeID (exchangeid);
-    offset += 8;
-    
-    uint32_t lastclmsgseqnum;
-    if (!d.getInteger (LastClMsgSeqNum, lastclmsgseqnum))
-    {
-        setLastError ("LastClMsgSeqNum missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setLastClMsgSeqNum (lastclmsgseqnum);
-    offset += sizeof (uint32_t);
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::putLogonReject (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqLogonRejectPacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    optiqLogonRejectPacket* packet = (optiqLogonRejectPacket*)((char*)buf);
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqLogonRejectPacket))
-        return GW_CODEC_SHORT;
-
-    
-    string exchangeid;
-    if (!d.getString (ExchangeID, exchangeid))
-    {
-        setLastError ("ExchangeID missing or not string");
-        return GW_CODEC_ERROR;
-    }
-    packet->setExchangeID (exchangeid);
-    offset += 8;
-    
-    uint8_t logonrejectcode;
-    if (!d.getInteger (LogonRejectCode, logonrejectcode))
-    {
-        setLastError ("LogonRejectCode missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setLogonRejectCode (logonrejectcode);
-    offset += sizeof (uint8_t);
-    
-    uint32_t lastclmsgseqnum;
-    if (!d.getInteger (LastClMsgSeqNum, lastclmsgseqnum))
-    {
-        setLastError ("LastClMsgSeqNum missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setLastClMsgSeqNum (lastclmsgseqnum);
-    offset += sizeof (uint32_t);
-    
-    uint32_t lastmsgseqnum;
-    if (!d.getInteger (LastMsgSeqNum, lastmsgseqnum))
-    {
-        setLastError ("LastMsgSeqNum missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setLastMsgSeqNum (lastmsgseqnum);
-    offset += sizeof (uint32_t);
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::putLogout (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqLogoutPacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    optiqLogoutPacket* packet = (optiqLogoutPacket*)((char*)buf);
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqLogoutPacket))
-        return GW_CODEC_SHORT;
-
-    
-    uint8_t logoutreasoncode;
-    if (!d.getInteger (LogOutReasonCode, logoutreasoncode))
-    {
-        setLastError ("LogOutReasonCode missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setLogOutReasonCode (logoutreasoncode);
-    offset += sizeof (uint8_t);
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::putHeartbeat (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqHeartbeatPacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqHeartbeatPacket))
-        return GW_CODEC_SHORT;
-
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::putTestRequest (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqTestRequestPacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqTestRequestPacket))
-        return GW_CODEC_SHORT;
-
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
-codecState
-optiqCodec::putTechnicalReject (const cdr& d, void* buf, size_t len, size_t& used)
-{
-    optiqTechnicalRejectPacket base;
-    memcpy (buf, &base, sizeof(base));
-
-    optiqTechnicalRejectPacket* packet = (optiqTechnicalRejectPacket*)((char*)buf);
-    size_t offset = sizeof (optiqMessageHeaderPacket) + 2;
-
-    if (len < sizeof (optiqTechnicalRejectPacket))
-        return GW_CODEC_SHORT;
-
-    
-    uint64_t oegouttomember;
-    if (!d.getInteger (OEGOUTToMember, oegouttomember))
-        packet->setOEGOUTToMember (UINT64_MAX);
-    else
-        packet->setOEGOUTToMember (oegouttomember);
-    offset += sizeof (uint64_t);
-    
-    
-    uint32_t rejectedclientmessagesequencenumber;
-    if (!d.getInteger (RejectedClientMessageSequenceNumber, rejectedclientmessagesequencenumber))
-        packet->setRejectedClientMessageSequenceNumber (UINT32_MAX);
-    else
-        packet->setRejectedClientMessageSequenceNumber (rejectedclientmessagesequencenumber);
-    offset += sizeof (uint32_t);
-    
-    
-    uint8_t rejectedmessage;
-    if (!d.getInteger (RejectedMessage, rejectedmessage))
-        packet->setRejectedMessage (UINT8_MAX);
-    else
-        packet->setRejectedMessage (rejectedmessage);
-    offset += sizeof (uint8_t);
-    
-    
-    uint16_t errorcode;
-    if (!d.getInteger (ErrorCode, errorcode))
-    {
-        setLastError ("ErrorCode missing or not integer");
-        return GW_CODEC_ERROR;
-    }
-    packet->setErrorCode (errorcode);
-    offset += sizeof (uint16_t);
-    
-    uint16_t rejectedmessageid;
-    if (!d.getInteger (RejectedMessageID, rejectedmessageid))
-        packet->setRejectedMessageID (UINT16_MAX);
-    else
-        packet->setRejectedMessageID (rejectedmessageid);
-    offset += sizeof (uint16_t);
-    
-    used += offset;
-
-    return GW_CODEC_SUCCESS;
-}
-
 
 codecState
 optiqCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
@@ -7903,22 +8450,10 @@ optiqCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
             return getRFQNotification (d, buf);
         case 36:
             return getRFQMatchingStatus (d, buf);
+        case 37:
+            return getRFQLPMatchingStatus (d, buf);
         case 39:
             return getUserNotification (d, buf);
-        case 40:
-            return getDeclarationEntry (d, buf);
-        case 41:
-            return getDeclarationEntryAck (d, buf);
-        case 42:
-            return getDeclarationNotice (d, buf);
-        case 43:
-            return getDeclarationCancelAndRefusal (d, buf);
-        case 44:
-            return getFundPriceInput (d, buf);
-        case 45:
-            return getFundPriceInputAck (d, buf);
-        case 46:
-            return getDeclarationEntryReject (d, buf);
         case 50:
             return getInstrumentSynchronizationList (d, buf);
         case 51:
@@ -7937,12 +8472,24 @@ optiqCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
             return getTestRequest (d, buf);
         case 108:
             return getTechnicalReject (d, buf);
+        case 40:
+            return getDeclarationEntry (d, buf);
+        case 41:
+            return getDeclarationEntryAck (d, buf);
+        case 42:
+            return getDeclarationNotice (d, buf);
+        case 43:
+            return getDeclarationCancelAndRefusal (d, buf);
+        case 44:
+            return getFundPriceInput (d, buf);
+        case 45:
+            return getFundPriceInputAck (d, buf);
+        case 46:
+            return getDeclarationEntryReject (d, buf);
         default:
             setLastError ("unknown message type");
             return GW_CODEC_ERROR;
     }
-
-    return GW_CODEC_ERROR;
 }
 
 codecState
@@ -8033,29 +8580,11 @@ optiqCodec::encode (const cdr& d, void* buf, size_t len, size_t& used)
         case 36:
             state = putRFQMatchingStatus (d, buf, len, used);
             break;
+        case 37:
+            state = putRFQLPMatchingStatus (d, buf, len, used);
+            break;
         case 39:
             state = putUserNotification (d, buf, len, used);
-            break;
-        case 40:
-            state = putDeclarationEntry (d, buf, len, used);
-            break;
-        case 41:
-            state = putDeclarationEntryAck (d, buf, len, used);
-            break;
-        case 42:
-            state = putDeclarationNotice (d, buf, len, used);
-            break;
-        case 43:
-            state = putDeclarationCancelAndRefusal (d, buf, len, used);
-            break;
-        case 44:
-            state = putFundPriceInput (d, buf, len, used);
-            break;
-        case 45:
-            state = putFundPriceInputAck (d, buf, len, used);
-            break;
-        case 46:
-            state = putDeclarationEntryReject (d, buf, len, used);
             break;
         case 50:
             state = putInstrumentSynchronizationList (d, buf, len, used);
@@ -8083,6 +8612,27 @@ optiqCodec::encode (const cdr& d, void* buf, size_t len, size_t& used)
             break;
         case 108:
             state = putTechnicalReject (d, buf, len, used);
+            break;
+        case 40:
+            state = putDeclarationEntry (d, buf, len, used);
+            break;
+        case 41:
+            state = putDeclarationEntryAck (d, buf, len, used);
+            break;
+        case 42:
+            state = putDeclarationNotice (d, buf, len, used);
+            break;
+        case 43:
+            state = putDeclarationCancelAndRefusal (d, buf, len, used);
+            break;
+        case 44:
+            state = putFundPriceInput (d, buf, len, used);
+            break;
+        case 45:
+            state = putFundPriceInputAck (d, buf, len, used);
+            break;
+        case 46:
+            state = putDeclarationEntryReject (d, buf, len, used);
             break;
         default:
             setLastError ("unknown message type");

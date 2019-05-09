@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_APPROVETESTRADEREQUEST_PACKET_H
 #define XETRA_APPROVETESTRADEREQUEST_PACKET_H
@@ -534,10 +534,9 @@ class xetraApproveTESTradeRequestPacket
 
         bool setTradeReportID (const string& v)
         {
+            memset (mTradeReportID, '\0', sizeof (mTradeReportID));
             size_t size = min ((size_t) v.size (), (size_t) TRADE_REPORT_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mTradeReportID[i] = v[i];
-            memset (&mTradeReportID[size], '\0', TRADE_REPORT_ID_MAX_LENGTH-size);
+            strncpy (mTradeReportID, v.c_str (), size);
             return (v.size () <= TRADE_REPORT_ID_MAX_LENGTH);
         }
 
@@ -558,10 +557,9 @@ class xetraApproveTESTradeRequestPacket
 
         bool setPartyExecutingFirm (const string& v)
         {
+            memset (mPartyExecutingFirm, '\0', sizeof (mPartyExecutingFirm));
             size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_FIRM_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPartyExecutingFirm[i] = v[i];
-            memset (&mPartyExecutingFirm[size], '\0', PARTY_EXECUTING_FIRM_MAX_LENGTH-size);
+            strncpy (mPartyExecutingFirm, v.c_str (), size);
             return (v.size () <= PARTY_EXECUTING_FIRM_MAX_LENGTH);
         }
 
@@ -582,10 +580,9 @@ class xetraApproveTESTradeRequestPacket
 
         bool setPartyExecutingTrader (const string& v)
         {
+            memset (mPartyExecutingTrader, '\0', sizeof (mPartyExecutingTrader));
             size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_TRADER_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPartyExecutingTrader[i] = v[i];
-            memset (&mPartyExecutingTrader[size], '\0', PARTY_EXECUTING_TRADER_MAX_LENGTH-size);
+            strncpy (mPartyExecutingTrader, v.c_str (), size);
             return (v.size () <= PARTY_EXECUTING_TRADER_MAX_LENGTH);
         }
 
@@ -606,10 +603,9 @@ class xetraApproveTESTradeRequestPacket
 
         bool setFreeText1 (const string& v)
         {
+            memset (mFreeText1, '\0', sizeof (mFreeText1));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT1_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText1[i] = v[i];
-            memset (&mFreeText1[size], '\0', FREE_TEXT1_MAX_LENGTH-size);
+            strncpy (mFreeText1, v.c_str (), size);
             return (v.size () <= FREE_TEXT1_MAX_LENGTH);
         }
 
@@ -630,10 +626,9 @@ class xetraApproveTESTradeRequestPacket
 
         bool setFreeText2 (const string& v)
         {
+            memset (mFreeText2, '\0', sizeof (mFreeText2));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT2_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText2[i] = v[i];
-            memset (&mFreeText2[size], '\0', FREE_TEXT2_MAX_LENGTH-size);
+            strncpy (mFreeText2, v.c_str (), size);
             return (v.size () <= FREE_TEXT2_MAX_LENGTH);
         }
 
@@ -654,10 +649,9 @@ class xetraApproveTESTradeRequestPacket
 
         bool setFreeText4 (const string& v)
         {
+            memset (mFreeText4, '\0', sizeof (mFreeText4));
             size_t size = min ((size_t) v.size (), (size_t) FREE_TEXT4_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mFreeText4[i] = v[i];
-            memset (&mFreeText4[size], '\0', FREE_TEXT4_MAX_LENGTH-size);
+            strncpy (mFreeText4, v.c_str (), size);
             return (v.size () <= FREE_TEXT4_MAX_LENGTH);
         }
 
@@ -678,10 +672,9 @@ class xetraApproveTESTradeRequestPacket
 
         bool setPad7 (const string& v)
         {
+            memset (mPad7, '\0', sizeof (mPad7));
             size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad7[i] = v[i];
-            memset (&mPad7[size], '\0', PAD7_MAX_LENGTH-size);
+            strncpy (mPad7, v.c_str (), size);
             return (v.size () <= PAD7_MAX_LENGTH);
         }
 

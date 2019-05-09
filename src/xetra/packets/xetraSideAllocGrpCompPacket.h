@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_SIDEALLOCGRPCOMP_PACKET_H
 #define XETRA_SIDEALLOCGRPCOMP_PACKET_H
@@ -125,10 +125,9 @@ class xetraSideAllocGrpCompPacket
 
         bool setPartyExecutingFirm (const string& v)
         {
+            memset (mPartyExecutingFirm, '\0', sizeof (mPartyExecutingFirm));
             size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_FIRM_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPartyExecutingFirm[i] = v[i];
-            memset (&mPartyExecutingFirm[size], '\0', PARTY_EXECUTING_FIRM_MAX_LENGTH-size);
+            strncpy (mPartyExecutingFirm, v.c_str (), size);
             return (v.size () <= PARTY_EXECUTING_FIRM_MAX_LENGTH);
         }
 
@@ -149,10 +148,9 @@ class xetraSideAllocGrpCompPacket
 
         bool setPartyExecutingTrader (const string& v)
         {
+            memset (mPartyExecutingTrader, '\0', sizeof (mPartyExecutingTrader));
             size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_TRADER_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPartyExecutingTrader[i] = v[i];
-            memset (&mPartyExecutingTrader[size], '\0', PARTY_EXECUTING_TRADER_MAX_LENGTH-size);
+            strncpy (mPartyExecutingTrader, v.c_str (), size);
             return (v.size () <= PARTY_EXECUTING_TRADER_MAX_LENGTH);
         }
 

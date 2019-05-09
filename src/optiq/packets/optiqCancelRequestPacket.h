@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 22:51:13 05/10/18
+ * Generated 11:10:58 07/05/19
  */
 #ifndef _OPTIQ_CANCELREQUEST_PACKET_H_
 #define _OPTIQ_CANCELREQUEST_PACKET_H_
@@ -35,6 +35,7 @@ public:
         uint8_t mEMM;
         uint8_t mOrderSide;
         uint8_t mOrderType;
+        uint8_t mOrderCategory;
 
     optiqCancelRequestPacket ()
     {
@@ -44,7 +45,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (OptiqCancelRequestTemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
         mClMsgSeqNum = 0;
         memset (mFirmID, 0, 8);
         mSendingTime = 0;
@@ -57,6 +58,7 @@ public:
         mEMM = 0;
         mOrderSide = 0;
         mOrderType = 0;
+        mOrderCategory = 0;
     }
 
     
@@ -188,6 +190,17 @@ public:
     bool setOrderType (uint8_t val)
     {
         mOrderType = val;
+        return true;
+    }
+    
+    uint8_t getOrderCategory () const
+    {
+        return mOrderCategory;
+    }
+
+    bool setOrderCategory (uint8_t val)
+    {
+        mOrderCategory = val;
         return true;
     }
 });

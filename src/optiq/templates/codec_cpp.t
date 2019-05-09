@@ -101,8 +101,6 @@ codecState
             setLastError ("unknown message type");
             return GW_CODEC_ERROR;
     }
-
-    return GW_CODEC_ERROR;
 }
 
 codecState

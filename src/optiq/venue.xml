@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe" xmlns:enx="http://www.euronext.com/dd" xmlns:str="http://exslt.org/strings" xmlns:ext="http://exslt.org/common" package="com.euronext.optiq.dd" id="0" version="102" semanticVersion="1.3.2" description="OEG Binary" byteOrder="littleEndian">
+<?xml version="1.0"?>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe" xmlns:enx="http://www.euronext.com/dd" xmlns:str="http://exslt.org/strings" xmlns:ext="http://exslt.org/common" package="com.euronext.optiq.dd" id="0" version="109" semanticVersion="1.5.0" description="OEG Binary" byteOrder="littleEndian">
   <types>
     <type name="unsigned_char" primitiveType="uint8" nullValue="255" presence="optional" minValue="0" maxValue="254"/>
     <type name="int8_t" primitiveType="int8" nullValue="-128" presence="optional" minValue="-127" maxValue="127"/>
@@ -65,6 +65,7 @@
     <enum name="LPRole_enum" encodingType="uint8">
       <validValue name="Liquidity_Provider_or_Market_Maker">1</validValue>
       <validValue name="Retail_Liquidity_Provider">3</validValue>
+      <validValue name="RFQ_Liquidity_Provider" sinceVersion="107">12</validValue>
     </enum>
     <enum name="BuyRevisionIndicator_enum" encodingType="uint8">
       <validValue name="New">0</validValue>
@@ -97,6 +98,16 @@
     <enum name="CollarRejectionType_enum" encodingType="uint8">
       <validValue name="Low_dynamic_collar">1</validValue>
       <validValue name="High_dynamic_collar">2</validValue>
+    </enum>
+    <enum name="OrderCategory_enum" encodingType="uint8">
+      <validValue name="Lit_Order">1</validValue>
+      <validValue name="LIS_Order">2</validValue>
+      <validValue name="Quote_Request">3</validValue>
+      <validValue name="RFQ_LP_Answer">4</validValue>
+    </enum>
+    <enum name="CCPID_enum" encodingType="uint8">
+      <validValue name="LCH_SA">1</validValue>
+      <validValue name="EuroCCP">6</validValue>
     </enum>
     <enum name="LogonRejectCode_enum" encodingType="uint8">
       <validValue name="Unknown_Connection_Identifier">1</validValue>
@@ -143,6 +154,7 @@
       <validValue name="Euronext_off_exchange_trade_reports">6</validValue>
       <validValue name="Derivatives_On_Exchange_Off_book">7</validValue>
       <validValue name="ETF_MTF_NAV_Central_Order_Book">8</validValue>
+      <validValue name="Listed_not_traded" sinceVersion="107">9</validValue>
       <validValue name="Not_Applicable">99</validValue>
     </enum>
     <enum name="RFQUpdateType_enum" encodingType="uint8">
@@ -151,7 +163,7 @@
       <validValue name="Expired">3</validValue>
       <validValue name="Partially_or_Fully_Matched">4</validValue>
     </enum>
-    <enum name="RecipientType_enum" encodingType="uint8">
+    <enum name="RecipientType_enum" encodingType="uint8" deprecated="106">
       <validValue name="RFQ_Issuer">1</validValue>
       <validValue name="RFQ_recipient__LP_">2</validValue>
     </enum>
@@ -235,11 +247,15 @@
       <validValue name="Beginning_of_PAKO_Period">9</validValue>
       <validValue name="Order_Cancelled_due_to_Cancel_On_Disconnect_Mechanism">11</validValue>
       <validValue name="RFQ_expired_">12</validValue>
-      <validValue name="RFQ_partially_or_fully_matched_with_other_counterparts">13</validValue>
+      <validValue name="RFQ_partially_or_fully_matched_with_other_counterparts" deprecated="106">13</validValue>
       <validValue name="RFQ_cancelled_by_the_issuer">14</validValue>
-      <validValue name="RFQ_Not_matched_due_to_issuer_orders_features">15</validValue>
+      <validValue name="RFQ_Not_matched_due_to_issuer_orders_features" deprecated="106">15</validValue>
       <validValue name="Quote_cancelled_due_to_Knock_Out">16</validValue>
       <validValue name="Order_cancelled_due_to_a_Kill_command">17</validValue>
+      <validValue name="LP_Order_cancelled_due_to_RFQ_expiration" sinceVersion="107">19</validValue>
+      <validValue name="LP_Order_cancelled_due_to_RFQ_cancellation" sinceVersion="107">20</validValue>
+      <validValue name="RFQ_Remaining_quantity_killed" sinceVersion="107">21</validValue>
+      <validValue name="LP_Order_cancelled_due_to_RFQ_confirmation" sinceVersion="107">22</validValue>
     </enum>
     <enum name="SellRevisionIndicator_enum" encodingType="uint8">
       <validValue name="New">0</validValue>
@@ -301,10 +317,13 @@
       <validValue name="Dark_Trade">33</validValue>
       <validValue name="Delta_Neutral_Trade_Underlying_Future_Leg">34</validValue>
       <validValue name="Total_Traded_Volume">36</validValue>
-      <validValue name="ETF_MTF_NAV_Trade_price_in_bp">37</validValue>
-      <validValue name="ETF_MTF_NAV_Dark_Trade_price_in_bp">38</validValue>
+      <validValue name="ETF_MTF_NAV_Trade_price_in_bp" deprecated="107">37</validValue>
+      <validValue name="ETF_MTF_NAV_Dark_Trade_price_in_bp" deprecated="107">38</validValue>
       <validValue name="Guaranteed_Cross_Negotiated_deal_NLIQ">39</validValue>
       <validValue name="Guaranteed_Cross_Negotiated_deal_OILQ">40</validValue>
+      <validValue name="Large_in_Scale_Trade_in_basis_points" sinceVersion="107">42</validValue>
+      <validValue name="Large_in_Scale_Package_Trade_in_basis_points" sinceVersion="107">43</validValue>
+      <validValue name="Strategy_Leg_Large_in_Scale_Trade_in_basis_points" sinceVersion="107">44</validValue>
       <validValue name="Large_in_Scale_Trade">41</validValue>
     </enum>
     <enum name="OptionType_enum" encodingType="uint8">
@@ -406,8 +425,8 @@
     </set>
     <set name="DarkExecutionInstruction_set" encodingType="uint8">
       <choice name="DarkIndicator">0</choice>
-      <choice name="DeferredTradeIndicator">1</choice>
-      <choice name="DisplayedOrderInteraction">2</choice>
+      <choice name="DeferredTradeIndicator" deprecated="107">1</choice>
+      <choice name="DisplayedOrderInteraction" deprecated="107">2</choice>
       <choice name="SweepOrderIndicator">3</choice>
       <choice name="MinimumQuantityType">4</choice>
     </set>
@@ -442,6 +461,7 @@
       <choice name="TradeCreationByMarketOperations">4</choice>
       <choice name="NAVTradeExpressedInBps">5</choice>
       <choice name="NAVTradeExpressedInPriceCurrency">6</choice>
+      <choice name="DeferredPublication" sinceVersion="107">7</choice>
     </set>
     <set name="TradingSessionValidity_set" encodingType="uint8">
       <choice name="Session1">1</choice>
@@ -509,6 +529,10 @@
       <field id="5" name="openClose" presence="optional" type="OpenClose_set"/>
       <field id="6" name="clearingInstruction" presence="optional" type="ClearingInstruction_enum"/>
       <field id="7" name="accountTypeCross" presence="optional" type="AccountTypeCross_enum"/>
+    </group>
+    <group dimensionType="groupSizeEncoding" id="24" name="NotUsedGroup1" sinceVersion="106">
+    </group>
+    <group dimensionType="groupSizeEncoding" id="25" name="NotUsedGroup2" sinceVersion="106">
     </group>
   </sbe:message>
   <sbe:message name="Ack" id="3">
@@ -631,6 +655,10 @@
       <field id="5" name="openClose" presence="optional" type="OpenClose_set"/>
       <field id="6" name="clearingInstruction" presence="optional" type="ClearingInstruction_enum"/>
     </group>
+    <group dimensionType="groupSizeEncoding" id="25" name="NotUsedGroup1" sinceVersion="106">
+    </group>
+    <group dimensionType="groupSizeEncoding" id="26" name="NotUsedGroup2" sinceVersion="106">
+    </group>
   </sbe:message>
   <sbe:message name="Reject" id="7">
     <field id="1" name="msgSeqNum" type="uint32_t"/>
@@ -649,7 +677,7 @@
     <field id="14" name="rejectedMessage" presence="optional" type="unsigned_char"/>
     <field id="15" name="errorCode" type="uint16_t"/>
     <field id="16" name="rejectedMessageID" presence="optional" type="uint16_t" sinceVersion="102"/>
-    <group dimensionType="groupSizeEncoding" id="16" name="CollarFields">
+    <group dimensionType="groupSizeEncoding" id="17" name="CollarFields">
       <field id="1" name="collarRejType" presence="optional" type="CollarRejectionType_enum"/>
       <field id="2" name="breachedCollarPrice" presence="optional" type="int64_t"/>
     </group>
@@ -726,8 +754,10 @@
     <field id="8" name="symbolIndex" type="uint32_t"/>
     <field id="9" name="eMM" type="EMM_enum"/>
     <field id="10" name="orderSide" presence="optional" type="QuoteRequestOrderSide_enum"/>
-    <field id="11" name="firmIDPublication" type="unsigned_char"/>
+    <field id="11" name="firmIDPublication" presence="optional" type="unsigned_char"/>
     <field id="12" name="endClient" presence="optional" type="char11"/>
+    <field id="13" name="darkExecutionInstruction" type="DarkExecutionInstruction_set" sinceVersion="107"/>
+    <field id="14" name="minOrderQty" presence="optional" type="uint64_t" sinceVersion="107"/>
   </sbe:message>
   <sbe:message name="CancelRequest" id="12">
     <!--Expanding sub message-->
@@ -743,6 +773,11 @@
     <field id="10" name="eMM" type="EMM_enum"/>
     <field id="11" name="orderSide" type="CancelRequestOrderSide_enum"/>
     <field id="12" name="orderType" type="OrderType_enum"/>
+    <field id="13" name="orderCategory" presence="optional" type="OrderCategory_enum" sinceVersion="107"/>
+    <group dimensionType="groupSizeEncoding" id="14" name="NotUsedGroup1" sinceVersion="106">
+    </group>
+    <group dimensionType="groupSizeEncoding" id="15" name="NotUsedGroup2" sinceVersion="106">
+    </group>
   </sbe:message>
   <sbe:message name="MassCancel" id="13">
     <!--Expanding sub message-->
@@ -762,6 +797,11 @@
     <field id="14" name="maturity" presence="optional" type="char8"/>
     <field id="15" name="accountType" presence="optional" type="AccountType_enum"/>
     <field id="16" name="optionType" presence="optional" type="OptionType_enum"/>
+    <field id="17" name="orderCategory" presence="optional" type="OrderCategory_enum" sinceVersion="107"/>
+    <group dimensionType="groupSizeEncoding" id="18" name="NotUsedGroup1" sinceVersion="106">
+    </group>
+    <group dimensionType="groupSizeEncoding" id="19" name="NotUsedGroup2" sinceVersion="106">
+    </group>
   </sbe:message>
   <sbe:message name="MassCancelAck" id="14">
     <!--Expanding sub message-->
@@ -786,6 +826,7 @@
     <field id="19" name="maturity" presence="optional" type="char8"/>
     <field id="20" name="accountType" presence="optional" type="AccountType_enum"/>
     <field id="21" name="optionType" presence="optional" type="OptionType_enum"/>
+    <field id="22" name="orderCategory" presence="optional" type="OrderCategory_enum" sinceVersion="107"/>
   </sbe:message>
   <sbe:message name="OpenOrderRequest" id="15">
     <!--Expanding sub message-->
@@ -799,6 +840,7 @@
     <field id="8" name="origClientOrderID" presence="optional" type="int64_t"/>
     <field id="9" name="symbolIndex" type="uint32_t"/>
     <field id="10" name="eMM" type="EMM_enum"/>
+    <field id="11" name="orderCategory" presence="optional" type="OrderCategory_enum" sinceVersion="107"/>
   </sbe:message>
   <sbe:message name="OwnershipRequestAck" id="17">
     <!--Expanding sub message-->
@@ -810,6 +852,7 @@
     <field id="6" name="logicalAccessID" presence="optional" type="uint32_t"/>
     <field id="7" name="oEPartitionID" presence="optional" type="uint16_t"/>
     <field id="8" name="totalAffectedOrders" type="int32_t"/>
+    <field id="9" name="orderCategory" presence="optional" type="OrderCategory_enum" sinceVersion="107"/>
   </sbe:message>
   <sbe:message name="OwnershipRequest" id="18">
     <!--Expanding sub message-->
@@ -825,6 +868,7 @@
     <field id="10" name="eMM" type="EMM_enum"/>
     <field id="11" name="logicalAccessID" presence="optional" type="uint32_t"/>
     <field id="12" name="oEPartitionID" presence="optional" type="uint16_t"/>
+    <field id="13" name="orderCategory" presence="optional" type="OrderCategory_enum" sinceVersion="107"/>
   </sbe:message>
   <sbe:message name="TradeBustNotification" id="19">
     <!--Expanding sub message-->
@@ -906,9 +950,11 @@
     <field id="9" name="counterpartFirmID" presence="optional" type="char8"/>
     <field id="10" name="symbolIndex" type="uint32_t"/>
     <field id="11" name="eMM" type="EMM_enum"/>
-    <field id="12" name="rFQUpdateType" type="RFQUpdateType_enum"/>
+    <field id="12" name="rFQUpdateType" type="RFQUpdateType_enum" deprecated="107"/>
     <field id="13" name="orderSide" presence="optional" type="RFQNotificationOrderSide_enum"/>
     <field id="14" name="endClient" presence="optional" type="char11"/>
+    <field id="15" name="darkExecutionInstruction" type="DarkExecutionInstruction_set" sinceVersion="107"/>
+    <field id="16" name="minOrderQty" presence="optional" type="uint64_t" sinceVersion="107"/>
   </sbe:message>
   <sbe:message name="RFQMatchingStatus" id="36">
     <!--Expanding sub message-->
@@ -925,7 +971,21 @@
     <field id="11" name="eMM" type="EMM_enum"/>
     <field id="12" name="orderSide" type="RFQMatchingStatusOrderSide_enum"/>
     <field id="13" name="numberOfLPs" presence="optional" type="unsigned_char"/>
-    <field id="14" name="recipientType" type="RecipientType_enum"/>
+    <field id="14" name="recipientType" type="RecipientType_enum" deprecated="106"/>
+  </sbe:message>
+  <sbe:message name="RFQLPMatchingStatus" id="37">
+    <!--Expanding sub message-->
+    <field id="1" name="msgSeqNum" type="uint32_t"/>
+    <field id="2" name="firmID" type="char8"/>
+    <field id="3" name="bookIn" type="uint64_t"/>
+    <field id="4" name="bookOUTTime" presence="optional" type="uint64_t"/>
+    <field id="5" name="oEGINFromME" presence="optional" type="uint64_t"/>
+    <field id="6" name="oEGOUTToMember" presence="optional" type="uint64_t"/>
+    <field id="7" name="quoteReqID" type="uint64_t"/>
+    <field id="8" name="potentialMatchingQty" type="uint64_t"/>
+    <field id="9" name="symbolIndex" type="uint32_t"/>
+    <field id="10" name="eMM" type="EMM_enum"/>
+    <field id="11" name="orderSide" type="OrderSide_enum"/>
   </sbe:message>
   <sbe:message name="UserNotification" id="39">
     <!--Expanding sub message-->
@@ -936,6 +996,50 @@
     <field id="5" name="familyID" presence="optional" type="char8"/>
     <field id="6" name="symbolIndex" presence="optional" type="uint32_t"/>
     <field id="7" name="userStatus" type="UserStatus_enum"/>
+  </sbe:message>
+  <sbe:message name="InstrumentSynchronizationList" id="50">
+    <field id="1" name="msgSeqNum" type="uint32_t"/>
+    <field id="2" name="oEGOUTToMember" presence="optional" type="uint64_t"/>
+    <field id="3" name="resynchronizationID" type="uint16_t"/>
+    <group dimensionType="groupSizeEncoding" id="4" name="InstrumentSynchronizationSection">
+      <field id="1" name="symbolIndex" type="uint32_t"/>
+      <field id="2" name="eMM" type="EMM_enum"/>
+    </group>
+  </sbe:message>
+  <sbe:message name="SynchronizationTime" id="51">
+    <field id="1" name="msgSeqNum" type="uint32_t"/>
+    <field id="2" name="oEGOUTToMember" presence="optional" type="uint64_t"/>
+    <field id="3" name="resynchronizationID" type="uint16_t"/>
+    <field id="4" name="lastBookInTime" type="uint64_t"/>
+  </sbe:message>
+  <sbe:message name="Logon" id="100">
+    <field id="1" name="logicalAccessID" type="uint32_t"/>
+    <field id="2" name="oEPartitionID" type="uint16_t"/>
+    <field id="3" name="lastMsgSeqNum" presence="optional" type="uint32_t"/>
+    <field id="4" name="softwareProvider" presence="optional" type="char8"/>
+    <field id="5" name="queueingIndicator" type="unsigned_char"/>
+  </sbe:message>
+  <sbe:message name="LogonAck" id="101">
+    <field id="1" name="exchangeID" type="char8"/>
+    <field id="2" name="lastClMsgSeqNum" type="uint32_t"/>
+  </sbe:message>
+  <sbe:message name="LogonReject" id="102">
+    <field id="1" name="exchangeID" type="char8"/>
+    <field id="2" name="logonRejectCode" type="LogonRejectCode_enum"/>
+    <field id="3" name="lastClMsgSeqNum" type="uint32_t"/>
+    <field id="4" name="lastMsgSeqNum" type="uint32_t"/>
+  </sbe:message>
+  <sbe:message name="Logout" id="103">
+    <field id="1" name="logOutReasonCode" type="LogOutReasonCode_enum"/>
+  </sbe:message>
+  <sbe:message name="Heartbeat" id="106"/>
+  <sbe:message name="TestRequest" id="107"/>
+  <sbe:message name="TechnicalReject" id="108">
+    <field id="1" name="oEGOUTToMember" presence="optional" type="uint64_t"/>
+    <field id="2" name="rejectedClientMessageSequenceNumber" presence="optional" type="uint32_t"/>
+    <field id="3" name="rejectedMessage" presence="optional" type="unsigned_char"/>
+    <field id="4" name="errorCode" type="uint16_t"/>
+    <field id="5" name="rejectedMessageID" presence="optional" type="uint16_t" sinceVersion="102"/>
   </sbe:message>
   <sbe:message name="DeclarationEntry" id="40">
     <!--Expanding sub message-->
@@ -1028,6 +1132,7 @@
     <field id="35" name="waiverIndicator" presence="optional" type="WaiverIndicator_set"/>
     <field id="36" name="previousDayIndicator" presence="optional" type="unsigned_char"/>
     <field id="37" name="miscellaneousFeeAmount" presence="optional" type="int64_t"/>
+    <field id="38" name="cCPID" presence="optional" type="CCPID_enum" sinceVersion="105"/>
   </sbe:message>
   <sbe:message name="DeclarationCancelAndRefusal" id="43">
     <!--Expanding sub message-->
@@ -1073,49 +1178,5 @@
     <field id="8" name="errorCode" type="uint16_t"/>
     <field id="9" name="rejectedMessage" presence="optional" type="unsigned_char"/>
     <field id="10" name="rejectedMessageID" presence="optional" type="uint16_t" sinceVersion="102"/>
-  </sbe:message>
-  <sbe:message name="InstrumentSynchronizationList" id="50">
-    <field id="1" name="msgSeqNum" type="uint32_t"/>
-    <field id="2" name="oEGOUTToMember" presence="optional" type="uint64_t"/>
-    <field id="3" name="resynchronizationID" type="uint16_t"/>
-    <group dimensionType="groupSizeEncoding" id="4" name="InstrumentSynchronizationSection">
-      <field id="1" name="symbolIndex" type="uint32_t"/>
-      <field id="2" name="eMM" type="EMM_enum"/>
-    </group>
-  </sbe:message>
-  <sbe:message name="SynchronizationTime" id="51">
-    <field id="1" name="msgSeqNum" type="uint32_t"/>
-    <field id="2" name="oEGOUTToMember" presence="optional" type="uint64_t"/>
-    <field id="3" name="resynchronizationID" type="uint16_t"/>
-    <field id="4" name="lastBookInTime" type="uint64_t"/>
-  </sbe:message>
-  <sbe:message name="Logon" id="100">
-    <field id="1" name="logicalAccessID" type="uint32_t"/>
-    <field id="2" name="oEPartitionID" type="uint16_t"/>
-    <field id="3" name="lastMsgSeqNum" presence="optional" type="uint32_t"/>
-    <field id="4" name="softwareProvider" presence="optional" type="char8"/>
-    <field id="5" name="queueingIndicator" type="unsigned_char"/>
-  </sbe:message>
-  <sbe:message name="LogonAck" id="101">
-    <field id="1" name="exchangeID" type="char8"/>
-    <field id="2" name="lastClMsgSeqNum" type="uint32_t"/>
-  </sbe:message>
-  <sbe:message name="LogonReject" id="102">
-    <field id="1" name="exchangeID" type="char8"/>
-    <field id="2" name="logonRejectCode" type="LogonRejectCode_enum"/>
-    <field id="3" name="lastClMsgSeqNum" type="uint32_t"/>
-    <field id="4" name="lastMsgSeqNum" type="uint32_t"/>
-  </sbe:message>
-  <sbe:message name="Logout" id="103">
-    <field id="1" name="logOutReasonCode" type="LogOutReasonCode_enum"/>
-  </sbe:message>
-  <sbe:message name="Heartbeat" id="106"/>
-  <sbe:message name="TestRequest" id="107"/>
-  <sbe:message name="TechnicalReject" id="108">
-    <field id="1" name="oEGOUTToMember" presence="optional" type="uint64_t"/>
-    <field id="2" name="rejectedClientMessageSequenceNumber" presence="optional" type="uint32_t"/>
-    <field id="3" name="rejectedMessage" presence="optional" type="unsigned_char"/>
-    <field id="4" name="errorCode" type="uint16_t"/>
-    <field id="5" name="rejectedMessageID" presence="optional" type="uint16_t" sinceVersion="102"/>
   </sbe:message>
 </sbe:messageSchema>

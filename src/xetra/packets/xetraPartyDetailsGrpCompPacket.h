@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_PARTYDETAILSGRPCOMP_PACKET_H
 #define XETRA_PARTYDETAILSGRPCOMP_PACKET_H
@@ -87,10 +87,9 @@ class xetraPartyDetailsGrpCompPacket
 
         bool setPartyDetailExecutingTrader (const string& v)
         {
+            memset (mPartyDetailExecutingTrader, '\0', sizeof (mPartyDetailExecutingTrader));
             size_t size = min ((size_t) v.size (), (size_t) PARTY_DETAIL_EXECUTING_TRADER_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPartyDetailExecutingTrader[i] = v[i];
-            memset (&mPartyDetailExecutingTrader[size], '\0', PARTY_DETAIL_EXECUTING_TRADER_MAX_LENGTH-size);
+            strncpy (mPartyDetailExecutingTrader, v.c_str (), size);
             return (v.size () <= PARTY_DETAIL_EXECUTING_TRADER_MAX_LENGTH);
         }
 
@@ -153,10 +152,9 @@ class xetraPartyDetailsGrpCompPacket
 
         bool setPartyDetailDeskID (const string& v)
         {
+            memset (mPartyDetailDeskID, '\0', sizeof (mPartyDetailDeskID));
             size_t size = min ((size_t) v.size (), (size_t) PARTY_DETAIL_DESK_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPartyDetailDeskID[i] = v[i];
-            memset (&mPartyDetailDeskID[size], '\0', PARTY_DETAIL_DESK_ID_MAX_LENGTH-size);
+            strncpy (mPartyDetailDeskID, v.c_str (), size);
             return (v.size () <= PARTY_DETAIL_DESK_ID_MAX_LENGTH);
         }
 
@@ -177,10 +175,9 @@ class xetraPartyDetailsGrpCompPacket
 
         bool setPad1 (const string& v)
         {
+            memset (mPad1, '\0', sizeof (mPad1));
             size_t size = min ((size_t) v.size (), (size_t) PAD1_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad1[i] = v[i];
-            memset (&mPad1[size], '\0', PAD1_MAX_LENGTH-size);
+            strncpy (mPad1, v.c_str (), size);
             return (v.size () <= PAD1_MAX_LENGTH);
         }
 

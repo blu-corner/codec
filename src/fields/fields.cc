@@ -2178,6 +2178,17 @@ FieldUtils::createMap ()
     m[4003] = "TradeAllocStatus";
     m[4004] = "TradeReportText";
     m[4005] = "AccruedInteresAmt";
+    m[4200] = "NotUsedGroup1";
+    m[4201] = "NewOrderNotUsedGroup1";
+    m[4202] = "NotUsedGroup2";
+    m[4203] = "NewOrderNotUsedGroup2";
+    m[4204] = "CancelReplaceNotUsedGroup1";
+    m[4205] = "CancelReplaceNotUsedGroup2";
+    m[4206] = "CancelRequestNotUsedGroup1";
+    m[4207] = "CancelRequestNotUsedGroup2";
+    m[4208] = "MassCancelNotUsedGroup1";
+    m[4209] = "MassCancelNotUsedGroup2";
+    m[4210] = "CCPID";
 
     FieldMapCreated = true;
     return m;

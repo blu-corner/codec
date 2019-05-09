@@ -54,14 +54,20 @@ fixCodec::processDictionaryGroup (xmlNode* node, string& err)
         {
             fixField* f = new fixField ();
             if (!getFixFieldFromNode (field, *f))
+            {
+                delete g;
                 return false;
+            }
 
             g->addField (f);
         }
         else if (xmlStrcmp (field->name, (const xmlChar*)"group") == 0)
         {
             if (!processDictionaryGroup (field, err))
+            {
+                delete g;
                 return false;
+            }
         }
     }
 

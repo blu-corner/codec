@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 04/02/2019
+ * Generated 11/04/2019
  */
 #ifndef XETRA_LOGONRESPONSE_PACKET_H
 #define XETRA_LOGONRESPONSE_PACKET_H
@@ -261,10 +261,9 @@ class xetraLogonResponsePacket
 
         bool setDefaultCstmApplVerID (const string& v)
         {
+            memset (mDefaultCstmApplVerID, '\0', sizeof (mDefaultCstmApplVerID));
             size_t size = min ((size_t) v.size (), (size_t) DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mDefaultCstmApplVerID[i] = v[i];
-            memset (&mDefaultCstmApplVerID[size], '\0', DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH-size);
+            strncpy (mDefaultCstmApplVerID, v.c_str (), size);
             return (v.size () <= DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH);
         }
 
@@ -285,10 +284,9 @@ class xetraLogonResponsePacket
 
         bool setDefaultCstmApplVerSubID (const string& v)
         {
+            memset (mDefaultCstmApplVerSubID, '\0', sizeof (mDefaultCstmApplVerSubID));
             size_t size = min ((size_t) v.size (), (size_t) DEFAULT_CSTM_APPL_VER_SUB_ID_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mDefaultCstmApplVerSubID[i] = v[i];
-            memset (&mDefaultCstmApplVerSubID[size], '\0', DEFAULT_CSTM_APPL_VER_SUB_ID_MAX_LENGTH-size);
+            strncpy (mDefaultCstmApplVerSubID, v.c_str (), size);
             return (v.size () <= DEFAULT_CSTM_APPL_VER_SUB_ID_MAX_LENGTH);
         }
 
@@ -309,10 +307,9 @@ class xetraLogonResponsePacket
 
         bool setPad2 (const string& v)
         {
+            memset (mPad2, '\0', sizeof (mPad2));
             size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
-            for (size_t i = 0; i < size; i++)
-                mPad2[i] = v[i];
-            memset (&mPad2[size], '\0', PAD2_MAX_LENGTH-size);
+            strncpy (mPad2, v.c_str (), size);
             return (v.size () <= PAD2_MAX_LENGTH);
         }
 
