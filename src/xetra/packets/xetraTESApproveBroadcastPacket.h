@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_TESAPPROVEBROADCAST_PACKET_H
 #define XETRA_TESAPPROVEBROADCAST_PACKET_H
@@ -1106,7 +1106,7 @@ const int32_t xetraTESApproveBroadcastPacket::SETTL_DATE_MIN = 0;
 const int32_t xetraTESApproveBroadcastPacket::SETTL_DATE_MAX = 99991231;
 const int32_t xetraTESApproveBroadcastPacket::SETTL_DATE_NO_VALUE = 0xFFFFFFFF;
 const int16_t xetraTESApproveBroadcastPacket::TRD_TYPE_MIN = 1;
-const int16_t xetraTESApproveBroadcastPacket::TRD_TYPE_MAX = 1005;
+const int16_t xetraTESApproveBroadcastPacket::TRD_TYPE_MAX = 1010;
 const int16_t xetraTESApproveBroadcastPacket::TRD_TYPE_NO_VALUE = 0xFFFF;
 const int8_t xetraTESApproveBroadcastPacket::SIDE_MIN = 1;
 const int8_t xetraTESApproveBroadcastPacket::SIDE_MAX = 2;

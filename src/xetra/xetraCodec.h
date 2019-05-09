@@ -41,7 +41,6 @@ class xetraCodec: public codec
             mMsgTypes.insert (std::make_pair ("10128", "Extended Deletion Report"));
             mMsgTypes.insert (std::make_pair ("10012", "Forced Logout Notification"));
             mMsgTypes.insert (std::make_pair ("10043", "Forced User Logout Notification"));
-            mMsgTypes.insert (std::make_pair ("10020", "Gateway Request"));
             mMsgTypes.insert (std::make_pair ("10011", "Heartbeat"));
             mMsgTypes.insert (std::make_pair ("10023", "Heartbeat Notification"));
             mMsgTypes.insert (std::make_pair ("10040", "Inquire Enrichment Rule ID List Request"));
@@ -88,6 +87,7 @@ class xetraCodec: public codec
             mMsgTypes.insert (std::make_pair ("10008", "Retransmit Request"));
             mMsgTypes.insert (std::make_pair ("10009", "Retransmit Response"));
             mMsgTypes.insert (std::make_pair ("10030", "Service Availability Broadcast"));
+            mMsgTypes.insert (std::make_pair ("10044", "Service Availability Market Broadcast"));
             mMsgTypes.insert (std::make_pair ("10025", "Subscribe Request"));
             mMsgTypes.insert (std::make_pair ("10005", "Subscribe Response"));
             mMsgTypes.insert (std::make_pair ("10607", "TES Approve Broadcast"));
@@ -108,6 +108,22 @@ class xetraCodec: public codec
             mMsgTypes.insert (std::make_pair ("10019", "User Login Response"));
             mMsgTypes.insert (std::make_pair ("10029", "User Logout Request"));
             mMsgTypes.insert (std::make_pair ("10024", "User Logout Response"));
+            mMsgTypes.insert (std::make_pair ("10808", "Xetra En Light Create Deal Notification"));
+            mMsgTypes.insert (std::make_pair ("10805", "Xetra En Light Deal Response"));
+            mMsgTypes.insert (std::make_pair ("10802", "Xetra En Light Enter Quote Request"));
+            mMsgTypes.insert (std::make_pair ("10804", "Xetra En Light Hit Quote Request"));
+            mMsgTypes.insert (std::make_pair ("10813", "Xetra En Light Negotiation Notification"));
+            mMsgTypes.insert (std::make_pair ("10812", "Xetra En Light Negotiation Requester Notification"));
+            mMsgTypes.insert (std::make_pair ("10815", "Xetra En Light Negotiation Status Notification"));
+            mMsgTypes.insert (std::make_pair ("10811", "Xetra En Light Open Negotiation Notification"));
+            mMsgTypes.insert (std::make_pair ("10800", "Xetra En Light Open Negotiation Request"));
+            mMsgTypes.insert (std::make_pair ("10810", "Xetra En Light Open Negotiation Requester Notification"));
+            mMsgTypes.insert (std::make_pair ("10807", "Xetra En Light Quote Notification"));
+            mMsgTypes.insert (std::make_pair ("10816", "Xetra En Light Quote Requester Notification"));
+            mMsgTypes.insert (std::make_pair ("10803", "Xetra En Light Quote Response"));
+            mMsgTypes.insert (std::make_pair ("10817", "Xetra En Light Quoting Status Request"));
+            mMsgTypes.insert (std::make_pair ("10814", "Xetra En Light Status Broadcast"));
+            mMsgTypes.insert (std::make_pair ("10801", "Xetra En Light Update Negotiation Request"));
         }
 
         codecState decode (cdr& d, const void* buf, size_t len, size_t& used);
@@ -140,7 +156,6 @@ class xetraCodec: public codec
         void getExtendedDeletionReport (cdr& d, const void *buf, size_t len, size_t& used);
         void getForcedLogoutNotification (cdr& d, const void *buf, size_t len, size_t& used);
         void getForcedUserLogoutNotification (cdr& d, const void *buf, size_t len, size_t& used);
-        void getGatewayRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getHeartbeat (cdr& d, const void *buf, size_t len, size_t& used);
         void getHeartbeatNotification (cdr& d, const void *buf, size_t len, size_t& used);
         void getInquireEnrichmentRuleIDListRequest (cdr& d, const void *buf, size_t len, size_t& used);
@@ -187,6 +202,7 @@ class xetraCodec: public codec
         void getRetransmitRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getRetransmitResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getServiceAvailabilityBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
+        void getServiceAvailabilityMarketBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
         void getSubscribeRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getSubscribeResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getTESApproveBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
@@ -207,6 +223,22 @@ class xetraCodec: public codec
         void getUserLoginResponse (cdr& d, const void *buf, size_t len, size_t& used);
         void getUserLogoutRequest (cdr& d, const void *buf, size_t len, size_t& used);
         void getUserLogoutResponse (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightCreateDealNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightDealResponse (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightEnterQuoteRequest (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightHitQuoteRequest (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightNegotiationNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightNegotiationRequesterNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightNegotiationStatusNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightOpenNegotiationNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightOpenNegotiationRequest (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightOpenNegotiationRequesterNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightQuoteNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightQuoteRequesterNotification (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightQuoteResponse (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightQuotingStatusRequest (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightStatusBroadcast (cdr& d, const void *buf, size_t len, size_t& used);
+        void getXetraEnLightUpdateNegotiationRequest (cdr& d, const void *buf, size_t len, size_t& used);
 
         // put messages
         void putApproveTESTradeRequest (const cdr& d, void *buf, size_t len, size_t& used);
@@ -233,7 +265,6 @@ class xetraCodec: public codec
         void putExtendedDeletionReport (const cdr& d, void *buf, size_t len, size_t& used);
         void putForcedLogoutNotification (const cdr& d, void *buf, size_t len, size_t& used);
         void putForcedUserLogoutNotification (const cdr& d, void *buf, size_t len, size_t& used);
-        void putGatewayRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putHeartbeat (const cdr& d, void *buf, size_t len, size_t& used);
         void putHeartbeatNotification (const cdr& d, void *buf, size_t len, size_t& used);
         void putInquireEnrichmentRuleIDListRequest (const cdr& d, void *buf, size_t len, size_t& used);
@@ -280,6 +311,7 @@ class xetraCodec: public codec
         void putRetransmitRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putRetransmitResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putServiceAvailabilityBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
+        void putServiceAvailabilityMarketBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
         void putSubscribeRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putSubscribeResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putTESApproveBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
@@ -300,6 +332,22 @@ class xetraCodec: public codec
         void putUserLoginResponse (const cdr& d, void *buf, size_t len, size_t& used);
         void putUserLogoutRequest (const cdr& d, void *buf, size_t len, size_t& used);
         void putUserLogoutResponse (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightCreateDealNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightDealResponse (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightEnterQuoteRequest (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightHitQuoteRequest (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightNegotiationNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightNegotiationRequesterNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightNegotiationStatusNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightOpenNegotiationNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightOpenNegotiationRequest (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightOpenNegotiationRequesterNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightQuoteNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightQuoteRequesterNotification (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightQuoteResponse (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightQuotingStatusRequest (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightStatusBroadcast (const cdr& d, void *buf, size_t len, size_t& used);
+        void putXetraEnLightUpdateNegotiationRequest (const cdr& d, void *buf, size_t len, size_t& used);
 };
 
 } // namespace neueda

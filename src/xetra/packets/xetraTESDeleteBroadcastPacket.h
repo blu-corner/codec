@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_TESDELETEBROADCAST_PACKET_H
 #define XETRA_TESDELETEBROADCAST_PACKET_H
@@ -437,7 +437,7 @@ const uint32_t xetraTESDeleteBroadcastPacket::TESEXEC_ID_MIN = 0;
 const uint32_t xetraTESDeleteBroadcastPacket::TESEXEC_ID_MAX = 4294967294;
 const uint32_t xetraTESDeleteBroadcastPacket::TESEXEC_ID_NO_VALUE = 0xFFFFFFFF;
 const int16_t xetraTESDeleteBroadcastPacket::TRD_TYPE_MIN = 1;
-const int16_t xetraTESDeleteBroadcastPacket::TRD_TYPE_MAX = 1005;
+const int16_t xetraTESDeleteBroadcastPacket::TRD_TYPE_MAX = 1010;
 const int16_t xetraTESDeleteBroadcastPacket::TRD_TYPE_NO_VALUE = 0xFFFF;
 const int8_t xetraTESDeleteBroadcastPacket::DELETE_REASON_MIN = 100;
 const int8_t xetraTESDeleteBroadcastPacket::DELETE_REASON_MAX = 107;

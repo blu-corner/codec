@@ -32,23 +32,32 @@ getResponseHeaderMEComp (cdr &d, const xetraResponseHeaderMECompPacket& packet)
 static void
 getOrderBookItemGrpComp (cdr &d, const xetraOrderBookItemGrpCompPacket& packet)
 {
-    xetra::setInteger<int64_t, xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getSecurityID, &xetraOrderBookItemGrpCompPacket::isSecurityIDValid> (d, SecurityID, packet);
     xetra::setDouble<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getBestBidPx, &xetraOrderBookItemGrpCompPacket::isBestBidPxValid> (d, BestBidPx, packet);
     xetra::setDouble<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getBestBidSize, &xetraOrderBookItemGrpCompPacket::isBestBidSizeValid> (d, BestBidSize, packet);
     xetra::setDouble<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getBestOfferPx, &xetraOrderBookItemGrpCompPacket::isBestOfferPxValid> (d, BestOfferPx, packet);
     xetra::setDouble<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getBestOfferSize, &xetraOrderBookItemGrpCompPacket::isBestOfferSizeValid> (d, BestOfferSize, packet);
     xetra::setInteger<int8_t, xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getMDBookType, &xetraOrderBookItemGrpCompPacket::isMDBookTypeValid> (d, MDBookType, packet);
-    xetra::setString<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getPad7, &xetraOrderBookItemGrpCompPacket::isPad7Valid> (d, Pad7, packet);
+    xetra::setInteger<int8_t, xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getMDSubBookType, &xetraOrderBookItemGrpCompPacket::isMDSubBookTypeValid> (d, MDSubBookType, packet);
+    xetra::setString<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::getPad6, &xetraOrderBookItemGrpCompPacket::isPad6Valid> (d, Pad6, packet);
 }
 
 static void
-getQuoteEntryGrpComp (cdr &d, const xetraQuoteEntryGrpCompPacket& packet)
+getEnrichmentRulesGrpComp (cdr &d, const xetraEnrichmentRulesGrpCompPacket& packet)
 {
-    xetra::setInteger<int64_t, xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getSecurityID, &xetraQuoteEntryGrpCompPacket::isSecurityIDValid> (d, SecurityID, packet);
-    xetra::setDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getBidPx, &xetraQuoteEntryGrpCompPacket::isBidPxValid> (d, BidPx, packet);
-    xetra::setDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getBidSize, &xetraQuoteEntryGrpCompPacket::isBidSizeValid> (d, BidSize, packet);
-    xetra::setDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getOfferPx, &xetraQuoteEntryGrpCompPacket::isOfferPxValid> (d, OfferPx, packet);
-    xetra::setDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getOfferSize, &xetraQuoteEntryGrpCompPacket::isOfferSizeValid> (d, OfferSize, packet);
+    xetra::setInteger<int16_t, xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getEnrichmentRuleID, &xetraEnrichmentRulesGrpCompPacket::isEnrichmentRuleIDValid> (d, EnrichmentRuleID, packet);
+    xetra::setString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getFreeText1, &xetraEnrichmentRulesGrpCompPacket::isFreeText1Valid> (d, FreeText1, packet);
+    xetra::setString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getFreeText2, &xetraEnrichmentRulesGrpCompPacket::isFreeText2Valid> (d, FreeText2, packet);
+    xetra::setString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getFreeText4, &xetraEnrichmentRulesGrpCompPacket::isFreeText4Valid> (d, FreeText4, packet);
+    xetra::setString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getPad6, &xetraEnrichmentRulesGrpCompPacket::isPad6Valid> (d, Pad6, packet);
+}
+
+static void
+getXetraEnLightTargetPartiesComp (cdr &d, const xetraXetraEnLightTargetPartiesCompPacket& packet)
+{
+    xetra::setInteger<int32_t, xetraXetraEnLightTargetPartiesCompPacket, &xetraXetraEnLightTargetPartiesCompPacket::getTargetPartyIDExecutingTrader, &xetraXetraEnLightTargetPartiesCompPacket::isTargetPartyIDExecutingTraderValid> (d, TargetPartyIDExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightTargetPartiesCompPacket, &xetraXetraEnLightTargetPartiesCompPacket::getTargetPartyExecutingFirm, &xetraXetraEnLightTargetPartiesCompPacket::isTargetPartyExecutingFirmValid> (d, TargetPartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightTargetPartiesCompPacket, &xetraXetraEnLightTargetPartiesCompPacket::getTargetPartyExecutingTrader, &xetraXetraEnLightTargetPartiesCompPacket::isTargetPartyExecutingTraderValid> (d, TargetPartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightTargetPartiesCompPacket, &xetraXetraEnLightTargetPartiesCompPacket::getPad1, &xetraXetraEnLightTargetPartiesCompPacket::isPad1Valid> (d, Pad1, packet);
 }
 
 static void
@@ -65,6 +74,24 @@ getNotAffectedOrdersGrpComp (cdr &d, const xetraNotAffectedOrdersGrpCompPacket& 
 {
     xetra::setInteger<uint64_t, xetraNotAffectedOrdersGrpCompPacket, &xetraNotAffectedOrdersGrpCompPacket::getNotAffectedOrderID, &xetraNotAffectedOrdersGrpCompPacket::isNotAffectedOrderIDValid> (d, NotAffectedOrderID, packet);
     xetra::setInteger<uint64_t, xetraNotAffectedOrdersGrpCompPacket, &xetraNotAffectedOrdersGrpCompPacket::getNotAffOrigClOrdID, &xetraNotAffectedOrdersGrpCompPacket::isNotAffOrigClOrdIDValid> (d, NotAffOrigClOrdID, packet);
+}
+
+static void
+getSRQSQuoteEntryGrpComp (cdr &d, const xetraSRQSQuoteEntryGrpCompPacket& packet)
+{
+    xetra::setInteger<uint64_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getTransactTime, &xetraSRQSQuoteEntryGrpCompPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setInteger<uint64_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getQuoteID, &xetraSRQSQuoteEntryGrpCompPacket::isQuoteIDValid> (d, QuoteID, packet);
+    xetra::setInteger<uint64_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getSecondaryQuoteID, &xetraSRQSQuoteEntryGrpCompPacket::isSecondaryQuoteIDValid> (d, SecondaryQuoteID, packet);
+    xetra::setDouble<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getBidPx, &xetraSRQSQuoteEntryGrpCompPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getBidSize, &xetraSRQSQuoteEntryGrpCompPacket::isBidSizeValid> (d, BidSize, packet);
+    xetra::setDouble<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getOfferPx, &xetraSRQSQuoteEntryGrpCompPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getOfferSize, &xetraSRQSQuoteEntryGrpCompPacket::isOfferSizeValid> (d, OfferSize, packet);
+    xetra::setInteger<uint32_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getPartyIDExecutingTrader, &xetraSRQSQuoteEntryGrpCompPacket::isPartyIDExecutingTraderValid> (d, PartyIDExecutingTrader, packet);
+    xetra::setInteger<int8_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getQuotingStatus, &xetraSRQSQuoteEntryGrpCompPacket::isQuotingStatusValid> (d, QuotingStatus, packet);
+    xetra::setString<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getPartyExecutingFirm, &xetraSRQSQuoteEntryGrpCompPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getPartyExecutingTrader, &xetraSRQSQuoteEntryGrpCompPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getPartyEnteringTrader, &xetraSRQSQuoteEntryGrpCompPacket::isPartyEnteringTraderValid> (d, PartyEnteringTrader, packet);
+    xetra::setString<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::getPad2, &xetraSRQSQuoteEntryGrpCompPacket::isPad2Valid> (d, Pad2, packet);
 }
 
 static void
@@ -129,13 +156,10 @@ getRBCHeaderMEComp (cdr &d, const xetraRBCHeaderMECompPacket& packet)
 }
 
 static void
-getEnrichmentRulesGrpComp (cdr &d, const xetraEnrichmentRulesGrpCompPacket& packet)
+getAffectedOrderRequestsGrpComp (cdr &d, const xetraAffectedOrderRequestsGrpCompPacket& packet)
 {
-    xetra::setInteger<int16_t, xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getEnrichmentRuleID, &xetraEnrichmentRulesGrpCompPacket::isEnrichmentRuleIDValid> (d, EnrichmentRuleID, packet);
-    xetra::setString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getFreeText1, &xetraEnrichmentRulesGrpCompPacket::isFreeText1Valid> (d, FreeText1, packet);
-    xetra::setString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getFreeText2, &xetraEnrichmentRulesGrpCompPacket::isFreeText2Valid> (d, FreeText2, packet);
-    xetra::setString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getFreeText4, &xetraEnrichmentRulesGrpCompPacket::isFreeText4Valid> (d, FreeText4, packet);
-    xetra::setString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::getPad6, &xetraEnrichmentRulesGrpCompPacket::isPad6Valid> (d, Pad6, packet);
+    xetra::setInteger<uint32_t, xetraAffectedOrderRequestsGrpCompPacket, &xetraAffectedOrderRequestsGrpCompPacket::getAffectedOrderRequestID, &xetraAffectedOrderRequestsGrpCompPacket::isAffectedOrderRequestIDValid> (d, AffectedOrderRequestID, packet);
+    xetra::setString<xetraAffectedOrderRequestsGrpCompPacket, &xetraAffectedOrderRequestsGrpCompPacket::getPad4, &xetraAffectedOrderRequestsGrpCompPacket::isPad4Valid> (d, Pad4, packet);
 }
 
 static void
@@ -145,6 +169,16 @@ getSessionsGrpComp (cdr &d, const xetraSessionsGrpCompPacket& packet)
     xetra::setInteger<int8_t, xetraSessionsGrpCompPacket, &xetraSessionsGrpCompPacket::getSessionMode, &xetraSessionsGrpCompPacket::isSessionModeValid> (d, SessionMode, packet);
     xetra::setInteger<int8_t, xetraSessionsGrpCompPacket, &xetraSessionsGrpCompPacket::getSessionSubMode, &xetraSessionsGrpCompPacket::isSessionSubModeValid> (d, SessionSubMode, packet);
     xetra::setString<xetraSessionsGrpCompPacket, &xetraSessionsGrpCompPacket::getPad2, &xetraSessionsGrpCompPacket::isPad2Valid> (d, Pad2, packet);
+}
+
+static void
+getQuoteEntryGrpComp (cdr &d, const xetraQuoteEntryGrpCompPacket& packet)
+{
+    xetra::setInteger<int64_t, xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getSecurityID, &xetraQuoteEntryGrpCompPacket::isSecurityIDValid> (d, SecurityID, packet);
+    xetra::setDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getBidPx, &xetraQuoteEntryGrpCompPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getBidSize, &xetraQuoteEntryGrpCompPacket::isBidSizeValid> (d, BidSize, packet);
+    xetra::setDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getOfferPx, &xetraQuoteEntryGrpCompPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::getOfferSize, &xetraQuoteEntryGrpCompPacket::isOfferSizeValid> (d, OfferSize, packet);
 }
 
 static void
@@ -165,20 +199,6 @@ getRBCHeaderComp (cdr &d, const xetraRBCHeaderCompPacket& packet)
     xetra::setInteger<int8_t, xetraRBCHeaderCompPacket, &xetraRBCHeaderCompPacket::getApplID, &xetraRBCHeaderCompPacket::isApplIDValid> (d, ApplID, packet);
     xetra::setInteger<int8_t, xetraRBCHeaderCompPacket, &xetraRBCHeaderCompPacket::getLastFragment, &xetraRBCHeaderCompPacket::isLastFragmentValid> (d, LastFragment, packet);
     xetra::setString<xetraRBCHeaderCompPacket, &xetraRBCHeaderCompPacket::getPad7, &xetraRBCHeaderCompPacket::isPad7Valid> (d, Pad7, packet);
-}
-
-static void
-getTargetPartiesComp (cdr &d, const xetraTargetPartiesCompPacket& packet)
-{
-    xetra::setInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getSideDisclosureInstruction, &xetraTargetPartiesCompPacket::isSideDisclosureInstructionValid> (d, SideDisclosureInstruction, packet);
-    xetra::setInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getPriceDisclosureInstruction, &xetraTargetPartiesCompPacket::isPriceDisclosureInstructionValid> (d, PriceDisclosureInstruction, packet);
-    xetra::setInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getLeavesQtyDisclosureInstruction, &xetraTargetPartiesCompPacket::isLeavesQtyDisclosureInstructionValid> (d, LeavesQtyDisclosureInstruction, packet);
-    xetra::setInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getLastPxDisclosureInstruction, &xetraTargetPartiesCompPacket::isLastPxDisclosureInstructionValid> (d, LastPxDisclosureInstruction, packet);
-    xetra::setInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getLastQtyDisclosureInstruction, &xetraTargetPartiesCompPacket::isLastQtyDisclosureInstructionValid> (d, LastQtyDisclosureInstruction, packet);
-    xetra::setInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getQuoteInstruction, &xetraTargetPartiesCompPacket::isQuoteInstructionValid> (d, QuoteInstruction, packet);
-    xetra::setString<xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getTargetPartyExecutingFirm, &xetraTargetPartiesCompPacket::isTargetPartyExecutingFirmValid> (d, TargetPartyExecutingFirm, packet);
-    xetra::setString<xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getTargetPartyExecutingTrader, &xetraTargetPartiesCompPacket::isTargetPartyExecutingTraderValid> (d, TargetPartyExecutingTrader, packet);
-    xetra::setString<xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::getPad7, &xetraTargetPartiesCompPacket::isPad7Valid> (d, Pad7, packet);
 }
 
 static void
@@ -203,6 +223,13 @@ getNRBCHeaderComp (cdr &d, const xetraNRBCHeaderCompPacket& packet)
     xetra::setInteger<int8_t, xetraNRBCHeaderCompPacket, &xetraNRBCHeaderCompPacket::getApplID, &xetraNRBCHeaderCompPacket::isApplIDValid> (d, ApplID, packet);
     xetra::setInteger<int8_t, xetraNRBCHeaderCompPacket, &xetraNRBCHeaderCompPacket::getLastFragment, &xetraNRBCHeaderCompPacket::isLastFragmentValid> (d, LastFragment, packet);
     xetra::setString<xetraNRBCHeaderCompPacket, &xetraNRBCHeaderCompPacket::getPad2, &xetraNRBCHeaderCompPacket::isPad2Valid> (d, Pad2, packet);
+}
+
+static void
+getSRQSRelatedTradeIDGrpComp (cdr &d, const xetraSRQSRelatedTradeIDGrpCompPacket& packet)
+{
+    xetra::setInteger<uint32_t, xetraSRQSRelatedTradeIDGrpCompPacket, &xetraSRQSRelatedTradeIDGrpCompPacket::getSRQSRelatedTradeID, &xetraSRQSRelatedTradeIDGrpCompPacket::isSRQSRelatedTradeIDValid> (d, SRQSRelatedTradeID, packet);
+    xetra::setString<xetraSRQSRelatedTradeIDGrpCompPacket, &xetraSRQSRelatedTradeIDGrpCompPacket::getPad4, &xetraSRQSRelatedTradeIDGrpCompPacket::isPad4Valid> (d, Pad4, packet);
 }
 
 static void
@@ -421,10 +448,12 @@ xetraCodec::getDeleteAllOrderBroadcast (cdr &d, const void *buf, size_t len, siz
     xetra::setInteger<uint32_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getPartyIDEnteringTrader, &xetraDeleteAllOrderBroadcastPacket::isPartyIDEnteringTraderValid> (d, PartyIDEnteringTrader, packet);
     xetra::setInteger<int16_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getNoNotAffectedOrders, &xetraDeleteAllOrderBroadcastPacket::isNoNotAffectedOrdersValid> (d, NoNotAffectedOrders, packet);
     xetra::setInteger<int16_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getNoAffectedOrders, &xetraDeleteAllOrderBroadcastPacket::isNoAffectedOrdersValid> (d, NoAffectedOrders, packet);
+    xetra::setInteger<int16_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getNoAffectedOrderRequests, &xetraDeleteAllOrderBroadcastPacket::isNoAffectedOrderRequestsValid> (d, NoAffectedOrderRequests, packet);
     xetra::setInteger<int8_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getPartyIDEnteringFirm, &xetraDeleteAllOrderBroadcastPacket::isPartyIDEnteringFirmValid> (d, PartyIDEnteringFirm, packet);
     xetra::setInteger<uint8_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getMassActionReason, &xetraDeleteAllOrderBroadcastPacket::isMassActionReasonValid> (d, MassActionReason, packet);
     xetra::setInteger<int8_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getExecInst, &xetraDeleteAllOrderBroadcastPacket::isExecInstValid> (d, ExecInst, packet);
     xetra::setInteger<int8_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getSide, &xetraDeleteAllOrderBroadcastPacket::isSideValid> (d, Side, packet);
+    xetra::setString<xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::getPad6, &xetraDeleteAllOrderBroadcastPacket::isPad6Valid> (d, Pad6, packet);
     const vector<xetraNotAffectedOrdersGrpCompPacket>& vNotAffectedOrdersGrp = packet.getNotAffectedOrdersGrp ();
     for (size_t i = 0; i < vNotAffectedOrdersGrp.size (); i++)
     {
@@ -438,6 +467,13 @@ xetraCodec::getDeleteAllOrderBroadcast (cdr &d, const void *buf, size_t len, siz
         cdr c;
         getAffectedOrdGrpComp (c, vAffectedOrdGrp[i]);
         d.appendArray (AffectedOrdGrp, c);
+    }
+    const vector<xetraAffectedOrderRequestsGrpCompPacket>& vAffectedOrderRequestsGrp = packet.getAffectedOrderRequestsGrp ();
+    for (size_t i = 0; i < vAffectedOrderRequestsGrp.size (); i++)
+    {
+        cdr c;
+        getAffectedOrderRequestsGrpComp (c, vAffectedOrderRequestsGrp[i]);
+        d.appendArray (AffectedOrderRequestsGrp, c);
     }
 }
 
@@ -508,7 +544,8 @@ xetraCodec::getDeleteAllOrderResponse (cdr &d, const void *buf, size_t len, size
     xetra::setInteger<uint64_t, xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::getMassActionReportID, &xetraDeleteAllOrderResponsePacket::isMassActionReportIDValid> (d, MassActionReportID, packet);
     xetra::setInteger<int16_t, xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::getNoNotAffectedOrders, &xetraDeleteAllOrderResponsePacket::isNoNotAffectedOrdersValid> (d, NoNotAffectedOrders, packet);
     xetra::setInteger<int16_t, xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::getNoAffectedOrders, &xetraDeleteAllOrderResponsePacket::isNoAffectedOrdersValid> (d, NoAffectedOrders, packet);
-    xetra::setString<xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::getPad4, &xetraDeleteAllOrderResponsePacket::isPad4Valid> (d, Pad4, packet);
+    xetra::setInteger<int16_t, xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::getNoAffectedOrderRequests, &xetraDeleteAllOrderResponsePacket::isNoAffectedOrderRequestsValid> (d, NoAffectedOrderRequests, packet);
+    xetra::setString<xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::getPad2, &xetraDeleteAllOrderResponsePacket::isPad2Valid> (d, Pad2, packet);
     const vector<xetraNotAffectedOrdersGrpCompPacket>& vNotAffectedOrdersGrp = packet.getNotAffectedOrdersGrp ();
     for (size_t i = 0; i < vNotAffectedOrdersGrp.size (); i++)
     {
@@ -522,6 +559,13 @@ xetraCodec::getDeleteAllOrderResponse (cdr &d, const void *buf, size_t len, size
         cdr c;
         getAffectedOrdGrpComp (c, vAffectedOrdGrp[i]);
         d.appendArray (AffectedOrdGrp, c);
+    }
+    const vector<xetraAffectedOrderRequestsGrpCompPacket>& vAffectedOrderRequestsGrp = packet.getAffectedOrderRequestsGrp ();
+    for (size_t i = 0; i < vAffectedOrderRequestsGrp.size (); i++)
+    {
+        cdr c;
+        getAffectedOrderRequestsGrpComp (c, vAffectedOrderRequestsGrp[i]);
+        d.appendArray (AffectedOrderRequestsGrp, c);
     }
 }
 
@@ -647,6 +691,8 @@ xetraCodec::getDeleteOrderNRResponse (cdr &d, const void *buf, size_t len, size_
     xetra::setString<xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::getOrdStatus, &xetraDeleteOrderNRResponsePacket::isOrdStatusValid> (d, OrdStatus, packet);
     xetra::setString<xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::getExecType, &xetraDeleteOrderNRResponsePacket::isExecTypeValid> (d, ExecType, packet);
     xetra::setInteger<int16_t, xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::getExecRestatementReason, &xetraDeleteOrderNRResponsePacket::isExecRestatementReasonValid> (d, ExecRestatementReason, packet);
+    xetra::setInteger<int8_t, xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::getTransactionDelayIndicator, &xetraDeleteOrderNRResponsePacket::isTransactionDelayIndicatorValid> (d, TransactionDelayIndicator, packet);
+    xetra::setString<xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::getPad7, &xetraDeleteOrderNRResponsePacket::isPad7Valid> (d, Pad7, packet);
 }
 
 void
@@ -670,6 +716,8 @@ xetraCodec::getDeleteOrderResponse (cdr &d, const void *buf, size_t len, size_t&
     xetra::setString<xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::getOrdStatus, &xetraDeleteOrderResponsePacket::isOrdStatusValid> (d, OrdStatus, packet);
     xetra::setString<xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::getExecType, &xetraDeleteOrderResponsePacket::isExecTypeValid> (d, ExecType, packet);
     xetra::setInteger<int16_t, xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::getExecRestatementReason, &xetraDeleteOrderResponsePacket::isExecRestatementReasonValid> (d, ExecRestatementReason, packet);
+    xetra::setInteger<int8_t, xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::getTransactionDelayIndicator, &xetraDeleteOrderResponsePacket::isTransactionDelayIndicatorValid> (d, TransactionDelayIndicator, packet);
+    xetra::setString<xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::getPad7, &xetraDeleteOrderResponsePacket::isPad7Valid> (d, Pad7, packet);
 }
 
 void
@@ -863,23 +911,6 @@ xetraCodec::getForcedUserLogoutNotification (cdr &d, const void *buf, size_t len
     xetra::setInteger<int16_t, xetraForcedUserLogoutNotificationPacket, &xetraForcedUserLogoutNotificationPacket::getVarTextLen, &xetraForcedUserLogoutNotificationPacket::isVarTextLenValid> (d, VarTextLen, packet);
     xetra::setString<xetraForcedUserLogoutNotificationPacket, &xetraForcedUserLogoutNotificationPacket::getPad6, &xetraForcedUserLogoutNotificationPacket::isPad6Valid> (d, Pad6, packet);
     xetra::setString<xetraForcedUserLogoutNotificationPacket, &xetraForcedUserLogoutNotificationPacket::getVarText, &xetraForcedUserLogoutNotificationPacket::isVarTextValid> (d, VarText, packet);
-}
-
-void
-xetraCodec::getGatewayRequest (cdr &d, const void *buf, size_t len, size_t& used)
-{
-    xetraGatewayRequestPacket packet;
-    codecState state = packet.deserialize (buf, len, used);
-    if (state != GW_CODEC_SUCCESS)
-        throw xetra::codecError(state, "cannot deserialize GatewayRequest");
-    d.setString (MessageName, "GatewayRequest");
-    getMessageHeaderInComp (d, packet.getMessageHeaderIn ());
-    getRequestHeaderComp (d, packet.getRequestHeader ());
-    xetra::setInteger<uint32_t, xetraGatewayRequestPacket, &xetraGatewayRequestPacket::getPartyIDSessionID, &xetraGatewayRequestPacket::isPartyIDSessionIDValid> (d, PartyIDSessionID, packet);
-    xetra::setInteger<uint16_t, xetraGatewayRequestPacket, &xetraGatewayRequestPacket::getPartitionID, &xetraGatewayRequestPacket::isPartitionIDValid> (d, PartitionID, packet);
-    xetra::setString<xetraGatewayRequestPacket, &xetraGatewayRequestPacket::getDefaultCstmApplVerID, &xetraGatewayRequestPacket::isDefaultCstmApplVerIDValid> (d, DefaultCstmApplVerID, packet);
-    xetra::setString<xetraGatewayRequestPacket, &xetraGatewayRequestPacket::getPassword, &xetraGatewayRequestPacket::isPasswordValid> (d, Password, packet);
-    xetra::setString<xetraGatewayRequestPacket, &xetraGatewayRequestPacket::getPad4, &xetraGatewayRequestPacket::isPad4Valid> (d, Pad4, packet);
 }
 
 void
@@ -1243,7 +1274,8 @@ xetraCodec::getModifyOrderNRResponse (cdr &d, const void *buf, size_t len, size_
     xetra::setInteger<int16_t, xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::getExecRestatementReason, &xetraModifyOrderNRResponsePacket::isExecRestatementReasonValid> (d, ExecRestatementReason, packet);
     xetra::setInteger<int8_t, xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::getCrossedIndicator, &xetraModifyOrderNRResponsePacket::isCrossedIndicatorValid> (d, CrossedIndicator, packet);
     xetra::setInteger<int8_t, xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::getTriggered, &xetraModifyOrderNRResponsePacket::isTriggeredValid> (d, Triggered, packet);
-    xetra::setString<xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::getPad6, &xetraModifyOrderNRResponsePacket::isPad6Valid> (d, Pad6, packet);
+    xetra::setInteger<int8_t, xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::getTransactionDelayIndicator, &xetraModifyOrderNRResponsePacket::isTransactionDelayIndicatorValid> (d, TransactionDelayIndicator, packet);
+    xetra::setString<xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::getPad5, &xetraModifyOrderNRResponsePacket::isPad5Valid> (d, Pad5, packet);
 }
 
 void
@@ -1273,7 +1305,8 @@ xetraCodec::getModifyOrderResponse (cdr &d, const void *buf, size_t len, size_t&
     xetra::setInteger<int16_t, xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::getExecRestatementReason, &xetraModifyOrderResponsePacket::isExecRestatementReasonValid> (d, ExecRestatementReason, packet);
     xetra::setInteger<int8_t, xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::getCrossedIndicator, &xetraModifyOrderResponsePacket::isCrossedIndicatorValid> (d, CrossedIndicator, packet);
     xetra::setInteger<int8_t, xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::getTriggered, &xetraModifyOrderResponsePacket::isTriggeredValid> (d, Triggered, packet);
-    xetra::setString<xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::getPad6, &xetraModifyOrderResponsePacket::isPad6Valid> (d, Pad6, packet);
+    xetra::setInteger<int8_t, xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::getTransactionDelayIndicator, &xetraModifyOrderResponsePacket::isTransactionDelayIndicatorValid> (d, TransactionDelayIndicator, packet);
+    xetra::setString<xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::getPad5, &xetraModifyOrderResponsePacket::isPad5Valid> (d, Pad5, packet);
 }
 
 void
@@ -1415,7 +1448,8 @@ xetraCodec::getNewOrderNRResponse (cdr &d, const void *buf, size_t len, size_t& 
     xetra::setInteger<int16_t, xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::getExecRestatementReason, &xetraNewOrderNRResponsePacket::isExecRestatementReasonValid> (d, ExecRestatementReason, packet);
     xetra::setInteger<int8_t, xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::getCrossedIndicator, &xetraNewOrderNRResponsePacket::isCrossedIndicatorValid> (d, CrossedIndicator, packet);
     xetra::setInteger<int8_t, xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::getTriggered, &xetraNewOrderNRResponsePacket::isTriggeredValid> (d, Triggered, packet);
-    xetra::setString<xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::getPad6, &xetraNewOrderNRResponsePacket::isPad6Valid> (d, Pad6, packet);
+    xetra::setInteger<int8_t, xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::getTransactionDelayIndicator, &xetraNewOrderNRResponsePacket::isTransactionDelayIndicatorValid> (d, TransactionDelayIndicator, packet);
+    xetra::setString<xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::getPad5, &xetraNewOrderNRResponsePacket::isPad5Valid> (d, Pad5, packet);
 }
 
 void
@@ -1440,7 +1474,8 @@ xetraCodec::getNewOrderResponse (cdr &d, const void *buf, size_t len, size_t& us
     xetra::setInteger<int16_t, xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::getExecRestatementReason, &xetraNewOrderResponsePacket::isExecRestatementReasonValid> (d, ExecRestatementReason, packet);
     xetra::setInteger<int8_t, xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::getCrossedIndicator, &xetraNewOrderResponsePacket::isCrossedIndicatorValid> (d, CrossedIndicator, packet);
     xetra::setInteger<int8_t, xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::getTriggered, &xetraNewOrderResponsePacket::isTriggeredValid> (d, Triggered, packet);
-    xetra::setString<xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::getPad6, &xetraNewOrderResponsePacket::isPad6Valid> (d, Pad6, packet);
+    xetra::setInteger<int8_t, xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::getTransactionDelayIndicator, &xetraNewOrderResponsePacket::isTransactionDelayIndicatorValid> (d, TransactionDelayIndicator, packet);
+    xetra::setString<xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::getPad5, &xetraNewOrderResponsePacket::isPad5Valid> (d, Pad5, packet);
 }
 
 void
@@ -1679,8 +1714,9 @@ xetraCodec::getOrderExecResponse (cdr &d, const void *buf, size_t len, size_t& u
     xetra::setInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::getMatchType, &xetraOrderExecResponsePacket::isMatchTypeValid> (d, MatchType, packet);
     xetra::setInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::getTriggered, &xetraOrderExecResponsePacket::isTriggeredValid> (d, Triggered, packet);
     xetra::setInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::getCrossedIndicator, &xetraOrderExecResponsePacket::isCrossedIndicatorValid> (d, CrossedIndicator, packet);
+    xetra::setInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::getTransactionDelayIndicator, &xetraOrderExecResponsePacket::isTransactionDelayIndicatorValid> (d, TransactionDelayIndicator, packet);
     xetra::setInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::getNoFills, &xetraOrderExecResponsePacket::isNoFillsValid> (d, NoFills, packet);
-    xetra::setString<xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::getPad7, &xetraOrderExecResponsePacket::isPad7Valid> (d, Pad7, packet);
+    xetra::setString<xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::getPad6, &xetraOrderExecResponsePacket::isPad6Valid> (d, Pad6, packet);
     const vector<xetraFillsGrpCompPacket>& vFillsGrp = packet.getFillsGrp ();
     for (size_t i = 0; i < vFillsGrp.size (); i++)
     {
@@ -1985,6 +2021,21 @@ xetraCodec::getServiceAvailabilityBroadcast (cdr &d, const void *buf, size_t len
 }
 
 void
+xetraCodec::getServiceAvailabilityMarketBroadcast (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraServiceAvailabilityMarketBroadcastPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize ServiceAvailabilityMarketBroadcast");
+    d.setString (MessageName, "ServiceAvailabilityMarketBroadcast");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getNRBCHeaderComp (d, packet.getNRBCHeader ());
+    xetra::setInteger<int32_t, xetraServiceAvailabilityMarketBroadcastPacket, &xetraServiceAvailabilityMarketBroadcastPacket::getSelectiveRequestForQuoteServiceTradeDate, &xetraServiceAvailabilityMarketBroadcastPacket::isSelectiveRequestForQuoteServiceTradeDateValid> (d, SelectiveRequestForQuoteServiceTradeDate, packet);
+    xetra::setInteger<int8_t, xetraServiceAvailabilityMarketBroadcastPacket, &xetraServiceAvailabilityMarketBroadcastPacket::getSelectiveRequestForQuoteServiceStatus, &xetraServiceAvailabilityMarketBroadcastPacket::isSelectiveRequestForQuoteServiceStatusValid> (d, SelectiveRequestForQuoteServiceStatus, packet);
+    xetra::setString<xetraServiceAvailabilityMarketBroadcastPacket, &xetraServiceAvailabilityMarketBroadcastPacket::getPad3, &xetraServiceAvailabilityMarketBroadcastPacket::isPad3Valid> (d, Pad3, packet);
+}
+
+void
 xetraCodec::getSubscribeRequest (cdr &d, const void *buf, size_t len, size_t& used)
 {
     xetraSubscribeRequestPacket packet;
@@ -2186,6 +2237,8 @@ xetraCodec::getTESTradeBroadcast (cdr &d, const void *buf, size_t len, size_t& u
     xetra::setInteger<uint32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getRootPartyIDClearingUnit, &xetraTESTradeBroadcastPacket::isRootPartyIDClearingUnitValid> (d, RootPartyIDClearingUnit, packet);
     xetra::setInteger<int32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getSettlDate, &xetraTESTradeBroadcastPacket::isSettlDateValid> (d, SettlDate, packet);
     xetra::setInteger<uint32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getNumDaysInterest, &xetraTESTradeBroadcastPacket::isNumDaysInterestValid> (d, NumDaysInterest, packet);
+    xetra::setInteger<uint32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getNegotiationID, &xetraTESTradeBroadcastPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<uint32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getSRQSRelatedTradeID, &xetraTESTradeBroadcastPacket::isSRQSRelatedTradeIDValid> (d, SRQSRelatedTradeID, packet);
     xetra::setInteger<int16_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getTrdType, &xetraTESTradeBroadcastPacket::isTrdTypeValid> (d, TrdType, packet);
     xetra::setInteger<int16_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getLastMkt, &xetraTESTradeBroadcastPacket::isLastMktValid> (d, LastMkt, packet);
     xetra::setInteger<int8_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getSide, &xetraTESTradeBroadcastPacket::isSideValid> (d, Side, packet);
@@ -2216,8 +2269,9 @@ xetraCodec::getTESTradeBroadcast (cdr &d, const void *buf, size_t len, size_t& u
     xetra::setString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getRootPartyContraFirmKVNumber, &xetraTESTradeBroadcastPacket::isRootPartyContraFirmKVNumberValid> (d, RootPartyContraFirmKVNumber, packet);
     xetra::setString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getRootPartyContraSettlementAccount, &xetraTESTradeBroadcastPacket::isRootPartyContraSettlementAccountValid> (d, RootPartyContraSettlementAccount, packet);
     xetra::setString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getRootPartyContraSettlementLocation, &xetraTESTradeBroadcastPacket::isRootPartyContraSettlementLocationValid> (d, RootPartyContraSettlementLocation, packet);
+    xetra::setString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getRootPartyIDExecutionVenue, &xetraTESTradeBroadcastPacket::isRootPartyIDExecutionVenueValid> (d, RootPartyIDExecutionVenue, packet);
     xetra::setString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getRegulatoryTradeID, &xetraTESTradeBroadcastPacket::isRegulatoryTradeIDValid> (d, RegulatoryTradeID, packet);
-    xetra::setString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getPad6, &xetraTESTradeBroadcastPacket::isPad6Valid> (d, Pad6, packet);
+    xetra::setString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::getPad2, &xetraTESTradeBroadcastPacket::isPad2Valid> (d, Pad2, packet);
 }
 
 void
@@ -2344,6 +2398,8 @@ xetraCodec::getTradeBroadcast (cdr &d, const void *buf, size_t len, size_t& used
     xetra::setString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::getRootPartyContraSettlementAccount, &xetraTradeBroadcastPacket::isRootPartyContraSettlementAccountValid> (d, RootPartyContraSettlementAccount, packet);
     xetra::setString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::getRootPartyContraSettlementLocation, &xetraTradeBroadcastPacket::isRootPartyContraSettlementLocationValid> (d, RootPartyContraSettlementLocation, packet);
     xetra::setString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::getRegulatoryTradeID, &xetraTradeBroadcastPacket::isRegulatoryTradeIDValid> (d, RegulatoryTradeID, packet);
+    xetra::setString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::getRootPartyIDExecutionVenue, &xetraTradeBroadcastPacket::isRootPartyIDExecutionVenueValid> (d, RootPartyIDExecutionVenue, packet);
+    xetra::setString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::getPad4, &xetraTradeBroadcastPacket::isPad4Valid> (d, Pad4, packet);
 }
 
 void
@@ -2469,6 +2525,480 @@ xetraCodec::getUserLogoutResponse (cdr &d, const void *buf, size_t len, size_t& 
     getResponseHeaderComp (d, packet.getResponseHeader ());
 }
 
+void
+xetraCodec::getXetraEnLightCreateDealNotification (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightCreateDealNotificationPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightCreateDealNotification");
+    d.setString (MessageName, "XetraEnLightCreateDealNotification");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getTransactTime, &xetraXetraEnLightCreateDealNotificationPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setDouble<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getLastPx, &xetraXetraEnLightCreateDealNotificationPacket::isLastPxValid> (d, LastPx, packet);
+    xetra::setDouble<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getLastQty, &xetraXetraEnLightCreateDealNotificationPacket::isLastQtyValid> (d, LastQty, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getQuoteID, &xetraXetraEnLightCreateDealNotificationPacket::isQuoteIDValid> (d, QuoteID, packet);
+    xetra::setInteger<int64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getSecurityID, &xetraXetraEnLightCreateDealNotificationPacket::isSecurityIDValid> (d, SecurityID, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getPartyIDClientID, &xetraXetraEnLightCreateDealNotificationPacket::isPartyIDClientIDValid> (d, PartyIDClientID, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getPartyIdInvestmentDecisionMaker, &xetraXetraEnLightCreateDealNotificationPacket::isPartyIdInvestmentDecisionMakerValid> (d, PartyIdInvestmentDecisionMaker, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getExecutingTrader, &xetraXetraEnLightCreateDealNotificationPacket::isExecutingTraderValid> (d, ExecutingTrader, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getNegotiationID, &xetraXetraEnLightCreateDealNotificationPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getTradeID, &xetraXetraEnLightCreateDealNotificationPacket::isTradeIDValid> (d, TradeID, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getSettlDate, &xetraXetraEnLightCreateDealNotificationPacket::isSettlDateValid> (d, SettlDate, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getTradingCapacity, &xetraXetraEnLightCreateDealNotificationPacket::isTradingCapacityValid> (d, TradingCapacity, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getTrdRptStatus, &xetraXetraEnLightCreateDealNotificationPacket::isTrdRptStatusValid> (d, TrdRptStatus, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getMessageEventSource, &xetraXetraEnLightCreateDealNotificationPacket::isMessageEventSourceValid> (d, MessageEventSource, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getSide, &xetraXetraEnLightCreateDealNotificationPacket::isSideValid> (d, Side, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getAllocMethod, &xetraXetraEnLightCreateDealNotificationPacket::isAllocMethodValid> (d, AllocMethod, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getNoOrderBookItems, &xetraXetraEnLightCreateDealNotificationPacket::isNoOrderBookItemsValid> (d, NoOrderBookItems, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getOrderAttributeLiquidityProvision, &xetraXetraEnLightCreateDealNotificationPacket::isOrderAttributeLiquidityProvisionValid> (d, OrderAttributeLiquidityProvision, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getExecutingTraderQualifier, &xetraXetraEnLightCreateDealNotificationPacket::isExecutingTraderQualifierValid> (d, ExecutingTraderQualifier, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getPartyIdInvestmentDecisionMakerQualifier, &xetraXetraEnLightCreateDealNotificationPacket::isPartyIdInvestmentDecisionMakerQualifierValid> (d, PartyIdInvestmentDecisionMakerQualifier, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getRootPartyExecutingFirm, &xetraXetraEnLightCreateDealNotificationPacket::isRootPartyExecutingFirmValid> (d, RootPartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getRootPartyExecutingTrader, &xetraXetraEnLightCreateDealNotificationPacket::isRootPartyExecutingTraderValid> (d, RootPartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getRootPartyEnteringTrader, &xetraXetraEnLightCreateDealNotificationPacket::isRootPartyEnteringTraderValid> (d, RootPartyEnteringTrader, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getTargetPartyExecutingFirm, &xetraXetraEnLightCreateDealNotificationPacket::isTargetPartyExecutingFirmValid> (d, TargetPartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getTargetPartyExecutingTrader, &xetraXetraEnLightCreateDealNotificationPacket::isTargetPartyExecutingTraderValid> (d, TargetPartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getFirmTradeID, &xetraXetraEnLightCreateDealNotificationPacket::isFirmTradeIDValid> (d, FirmTradeID, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getFirmNegotiationID, &xetraXetraEnLightCreateDealNotificationPacket::isFirmNegotiationIDValid> (d, FirmNegotiationID, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getFreeText1, &xetraXetraEnLightCreateDealNotificationPacket::isFreeText1Valid> (d, FreeText1, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getFreeText2, &xetraXetraEnLightCreateDealNotificationPacket::isFreeText2Valid> (d, FreeText2, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getFreeText4, &xetraXetraEnLightCreateDealNotificationPacket::isFreeText4Valid> (d, FreeText4, packet);
+    xetra::setString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::getPad7, &xetraXetraEnLightCreateDealNotificationPacket::isPad7Valid> (d, Pad7, packet);
+    const vector<xetraOrderBookItemGrpCompPacket>& vOrderBookItemGrp = packet.getOrderBookItemGrp ();
+    for (size_t i = 0; i < vOrderBookItemGrp.size (); i++)
+    {
+        cdr c;
+        getOrderBookItemGrpComp (c, vOrderBookItemGrp[i]);
+        d.appendArray (OrderBookItemGrp, c);
+    }
+}
+
+void
+xetraCodec::getXetraEnLightDealResponse (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightDealResponsePacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightDealResponse");
+    d.setString (MessageName, "XetraEnLightDealResponse");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getResponseHeaderComp (d, packet.getResponseHeader ());
+    xetra::setInteger<int64_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::getSecurityID, &xetraXetraEnLightDealResponsePacket::isSecurityIDValid> (d, SecurityID, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::getQuoteID, &xetraXetraEnLightDealResponsePacket::isQuoteIDValid> (d, QuoteID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::getNegotiationID, &xetraXetraEnLightDealResponsePacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::getTradeID, &xetraXetraEnLightDealResponsePacket::isTradeIDValid> (d, TradeID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::getSecondaryTradeID, &xetraXetraEnLightDealResponsePacket::isSecondaryTradeIDValid> (d, SecondaryTradeID, packet);
+    xetra::setString<xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::getFirmTradeID, &xetraXetraEnLightDealResponsePacket::isFirmTradeIDValid> (d, FirmTradeID, packet);
+    xetra::setString<xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::getFirmNegotiationID, &xetraXetraEnLightDealResponsePacket::isFirmNegotiationIDValid> (d, FirmNegotiationID, packet);
+    xetra::setString<xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::getPad4, &xetraXetraEnLightDealResponsePacket::isPad4Valid> (d, Pad4, packet);
+}
+
+void
+xetraCodec::getXetraEnLightEnterQuoteRequest (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightEnterQuoteRequestPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightEnterQuoteRequest");
+    d.setString (MessageName, "XetraEnLightEnterQuoteRequest");
+    getMessageHeaderInComp (d, packet.getMessageHeaderIn ());
+    getRequestHeaderComp (d, packet.getRequestHeader ());
+    xetra::setDouble<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getBidPx, &xetraXetraEnLightEnterQuoteRequestPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getOfferPx, &xetraXetraEnLightEnterQuoteRequestPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getBidSize, &xetraXetraEnLightEnterQuoteRequestPacket::isBidSizeValid> (d, BidSize, packet);
+    xetra::setDouble<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getOfferSize, &xetraXetraEnLightEnterQuoteRequestPacket::isOfferSizeValid> (d, OfferSize, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getPartyIDClientID, &xetraXetraEnLightEnterQuoteRequestPacket::isPartyIDClientIDValid> (d, PartyIDClientID, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getPartyIdInvestmentDecisionMaker, &xetraXetraEnLightEnterQuoteRequestPacket::isPartyIdInvestmentDecisionMakerValid> (d, PartyIdInvestmentDecisionMaker, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getExecutingTrader, &xetraXetraEnLightEnterQuoteRequestPacket::isExecutingTraderValid> (d, ExecutingTrader, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getMarketSegmentID, &xetraXetraEnLightEnterQuoteRequestPacket::isMarketSegmentIDValid> (d, MarketSegmentID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getNegotiationID, &xetraXetraEnLightEnterQuoteRequestPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getValueCheckTypeQuantity, &xetraXetraEnLightEnterQuoteRequestPacket::isValueCheckTypeQuantityValid> (d, ValueCheckTypeQuantity, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getValueCheckTypeValue, &xetraXetraEnLightEnterQuoteRequestPacket::isValueCheckTypeValueValid> (d, ValueCheckTypeValue, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getTradingCapacity, &xetraXetraEnLightEnterQuoteRequestPacket::isTradingCapacityValid> (d, TradingCapacity, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getOrderAttributeLiquidityProvision, &xetraXetraEnLightEnterQuoteRequestPacket::isOrderAttributeLiquidityProvisionValid> (d, OrderAttributeLiquidityProvision, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getExecutingTraderQualifier, &xetraXetraEnLightEnterQuoteRequestPacket::isExecutingTraderQualifierValid> (d, ExecutingTraderQualifier, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getPartyIdInvestmentDecisionMakerQualifier, &xetraXetraEnLightEnterQuoteRequestPacket::isPartyIdInvestmentDecisionMakerQualifierValid> (d, PartyIdInvestmentDecisionMakerQualifier, packet);
+    xetra::setString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getPartyExecutingFirm, &xetraXetraEnLightEnterQuoteRequestPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getPartyExecutingTrader, &xetraXetraEnLightEnterQuoteRequestPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getFreeText1, &xetraXetraEnLightEnterQuoteRequestPacket::isFreeText1Valid> (d, FreeText1, packet);
+    xetra::setString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getFreeText2, &xetraXetraEnLightEnterQuoteRequestPacket::isFreeText2Valid> (d, FreeText2, packet);
+    xetra::setString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getFreeText4, &xetraXetraEnLightEnterQuoteRequestPacket::isFreeText4Valid> (d, FreeText4, packet);
+    xetra::setString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::getPad7, &xetraXetraEnLightEnterQuoteRequestPacket::isPad7Valid> (d, Pad7, packet);
+}
+
+void
+xetraCodec::getXetraEnLightHitQuoteRequest (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightHitQuoteRequestPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightHitQuoteRequest");
+    d.setString (MessageName, "XetraEnLightHitQuoteRequest");
+    getMessageHeaderInComp (d, packet.getMessageHeaderIn ());
+    getRequestHeaderComp (d, packet.getRequestHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getQuoteID, &xetraXetraEnLightHitQuoteRequestPacket::isQuoteIDValid> (d, QuoteID, packet);
+    xetra::setDouble<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getOrderQty, &xetraXetraEnLightHitQuoteRequestPacket::isOrderQtyValid> (d, OrderQty, packet);
+    xetra::setDouble<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getPrice, &xetraXetraEnLightHitQuoteRequestPacket::isPriceValid> (d, Price, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getPartyIDClientID, &xetraXetraEnLightHitQuoteRequestPacket::isPartyIDClientIDValid> (d, PartyIDClientID, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getPartyIdInvestmentDecisionMaker, &xetraXetraEnLightHitQuoteRequestPacket::isPartyIdInvestmentDecisionMakerValid> (d, PartyIdInvestmentDecisionMaker, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getExecutingTrader, &xetraXetraEnLightHitQuoteRequestPacket::isExecutingTraderValid> (d, ExecutingTrader, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getMarketSegmentID, &xetraXetraEnLightHitQuoteRequestPacket::isMarketSegmentIDValid> (d, MarketSegmentID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getNegotiationID, &xetraXetraEnLightHitQuoteRequestPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getSide, &xetraXetraEnLightHitQuoteRequestPacket::isSideValid> (d, Side, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getValueCheckTypeQuantity, &xetraXetraEnLightHitQuoteRequestPacket::isValueCheckTypeQuantityValid> (d, ValueCheckTypeQuantity, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getValueCheckTypeValue, &xetraXetraEnLightHitQuoteRequestPacket::isValueCheckTypeValueValid> (d, ValueCheckTypeValue, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getTradingCapacity, &xetraXetraEnLightHitQuoteRequestPacket::isTradingCapacityValid> (d, TradingCapacity, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getOrderAttributeLiquidityProvision, &xetraXetraEnLightHitQuoteRequestPacket::isOrderAttributeLiquidityProvisionValid> (d, OrderAttributeLiquidityProvision, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getExecutingTraderQualifier, &xetraXetraEnLightHitQuoteRequestPacket::isExecutingTraderQualifierValid> (d, ExecutingTraderQualifier, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getAllocMethod, &xetraXetraEnLightHitQuoteRequestPacket::isAllocMethodValid> (d, AllocMethod, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getPartyIdInvestmentDecisionMakerQualifier, &xetraXetraEnLightHitQuoteRequestPacket::isPartyIdInvestmentDecisionMakerQualifierValid> (d, PartyIdInvestmentDecisionMakerQualifier, packet);
+    xetra::setString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getPartyExecutingFirm, &xetraXetraEnLightHitQuoteRequestPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getPartyExecutingTrader, &xetraXetraEnLightHitQuoteRequestPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getFirmTradeID, &xetraXetraEnLightHitQuoteRequestPacket::isFirmTradeIDValid> (d, FirmTradeID, packet);
+    xetra::setString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getFreeText1, &xetraXetraEnLightHitQuoteRequestPacket::isFreeText1Valid> (d, FreeText1, packet);
+    xetra::setString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getFreeText2, &xetraXetraEnLightHitQuoteRequestPacket::isFreeText2Valid> (d, FreeText2, packet);
+    xetra::setString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getFreeText4, &xetraXetraEnLightHitQuoteRequestPacket::isFreeText4Valid> (d, FreeText4, packet);
+    xetra::setString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::getPad1, &xetraXetraEnLightHitQuoteRequestPacket::isPad1Valid> (d, Pad1, packet);
+}
+
+void
+xetraCodec::getXetraEnLightNegotiationNotification (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightNegotiationNotificationPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightNegotiationNotification");
+    d.setString (MessageName, "XetraEnLightNegotiationNotification");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getTransactTime, &xetraXetraEnLightNegotiationNotificationPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getBidPx, &xetraXetraEnLightNegotiationNotificationPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getOfferPx, &xetraXetraEnLightNegotiationNotificationPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getLeavesQty, &xetraXetraEnLightNegotiationNotificationPacket::isLeavesQtyValid> (d, LeavesQty, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getNegotiationID, &xetraXetraEnLightNegotiationNotificationPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getNumberOfRespondents, &xetraXetraEnLightNegotiationNotificationPacket::isNumberOfRespondentsValid> (d, NumberOfRespondents, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getSettlDate, &xetraXetraEnLightNegotiationNotificationPacket::isSettlDateValid> (d, SettlDate, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getQuoteStatus, &xetraXetraEnLightNegotiationNotificationPacket::isQuoteStatusValid> (d, QuoteStatus, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getSide, &xetraXetraEnLightNegotiationNotificationPacket::isSideValid> (d, Side, packet);
+    xetra::setString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getPartyExecutingFirm, &xetraXetraEnLightNegotiationNotificationPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getPartyExecutingTrader, &xetraXetraEnLightNegotiationNotificationPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getPartyEnteringTrader, &xetraXetraEnLightNegotiationNotificationPacket::isPartyEnteringTraderValid> (d, PartyEnteringTrader, packet);
+    xetra::setString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getTargetPartyExecutingFirm, &xetraXetraEnLightNegotiationNotificationPacket::isTargetPartyExecutingFirmValid> (d, TargetPartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getTargetPartyExecutingTrader, &xetraXetraEnLightNegotiationNotificationPacket::isTargetPartyExecutingTraderValid> (d, TargetPartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getFirmNegotiationID, &xetraXetraEnLightNegotiationNotificationPacket::isFirmNegotiationIDValid> (d, FirmNegotiationID, packet);
+    xetra::setString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getFreeText5, &xetraXetraEnLightNegotiationNotificationPacket::isFreeText5Valid> (d, FreeText5, packet);
+    xetra::setString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::getPad6, &xetraXetraEnLightNegotiationNotificationPacket::isPad6Valid> (d, Pad6, packet);
+}
+
+void
+xetraCodec::getXetraEnLightNegotiationRequesterNotification (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightNegotiationRequesterNotificationPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightNegotiationRequesterNotification");
+    d.setString (MessageName, "XetraEnLightNegotiationRequesterNotification");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getTransactTime, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getTrdRegTSExecutionTime, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isTrdRegTSExecutionTimeValid> (d, TrdRegTSExecutionTime, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getBidPx, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getOfferPx, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getOrderQty, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isOrderQtyValid> (d, OrderQty, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getLastPx, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isLastPxValid> (d, LastPx, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getLeavesQty, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isLeavesQtyValid> (d, LeavesQty, packet);
+    xetra::setDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getLastQty, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isLastQtyValid> (d, LastQty, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getNegotiationID, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getNumberOfRespondents, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isNumberOfRespondentsValid> (d, NumberOfRespondents, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getSettlDate, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isSettlDateValid> (d, SettlDate, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getQuoteStatus, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isQuoteStatusValid> (d, QuoteStatus, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getNoTargetPartyIDs, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isNoTargetPartyIDsValid> (d, NoTargetPartyIDs, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getNumberOfRespDisclosureInstruction, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isNumberOfRespDisclosureInstructionValid> (d, NumberOfRespDisclosureInstruction, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getSide, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isSideValid> (d, Side, packet);
+    xetra::setString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getPartyExecutingFirm, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getPartyExecutingTrader, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getPartyEnteringTrader, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isPartyEnteringTraderValid> (d, PartyEnteringTrader, packet);
+    xetra::setString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getFirmNegotiationID, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isFirmNegotiationIDValid> (d, FirmNegotiationID, packet);
+    xetra::setString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getFreeText5, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isFreeText5Valid> (d, FreeText5, packet);
+    xetra::setString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::getPad7, &xetraXetraEnLightNegotiationRequesterNotificationPacket::isPad7Valid> (d, Pad7, packet);
+    const vector<xetraXetraEnLightTargetPartiesCompPacket>& vXetraEnLightTargetParties = packet.getXetraEnLightTargetParties ();
+    for (size_t i = 0; i < vXetraEnLightTargetParties.size (); i++)
+    {
+        cdr c;
+        getXetraEnLightTargetPartiesComp (c, vXetraEnLightTargetParties[i]);
+        d.appendArray (XetraEnLightTargetParties, c);
+    }
+}
+
+void
+xetraCodec::getXetraEnLightNegotiationStatusNotification (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightNegotiationStatusNotificationPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightNegotiationStatusNotification");
+    d.setString (MessageName, "XetraEnLightNegotiationStatusNotification");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::getTransactTime, &xetraXetraEnLightNegotiationStatusNotificationPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::getNegotiationID, &xetraXetraEnLightNegotiationStatusNotificationPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::getQuoteStatus, &xetraXetraEnLightNegotiationStatusNotificationPacket::isQuoteStatusValid> (d, QuoteStatus, packet);
+    xetra::setString<xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::getFirmNegotiationID, &xetraXetraEnLightNegotiationStatusNotificationPacket::isFirmNegotiationIDValid> (d, FirmNegotiationID, packet);
+    xetra::setString<xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::getPad7, &xetraXetraEnLightNegotiationStatusNotificationPacket::isPad7Valid> (d, Pad7, packet);
+}
+
+void
+xetraCodec::getXetraEnLightOpenNegotiationNotification (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightOpenNegotiationNotificationPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightOpenNegotiationNotification");
+    d.setString (MessageName, "XetraEnLightOpenNegotiationNotification");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getTransactTime, &xetraXetraEnLightOpenNegotiationNotificationPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getNegotiationStartTime, &xetraXetraEnLightOpenNegotiationNotificationPacket::isNegotiationStartTimeValid> (d, NegotiationStartTime, packet);
+    xetra::setInteger<int64_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getSecurityID, &xetraXetraEnLightOpenNegotiationNotificationPacket::isSecurityIDValid> (d, SecurityID, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getBidPx, &xetraXetraEnLightOpenNegotiationNotificationPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getOfferPx, &xetraXetraEnLightOpenNegotiationNotificationPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getLeavesQty, &xetraXetraEnLightOpenNegotiationNotificationPacket::isLeavesQtyValid> (d, LeavesQty, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getExpireTime, &xetraXetraEnLightOpenNegotiationNotificationPacket::isExpireTimeValid> (d, ExpireTime, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getNegotiationID, &xetraXetraEnLightOpenNegotiationNotificationPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getMarketSegmentID, &xetraXetraEnLightOpenNegotiationNotificationPacket::isMarketSegmentIDValid> (d, MarketSegmentID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getNumberOfRespondents, &xetraXetraEnLightOpenNegotiationNotificationPacket::isNumberOfRespondentsValid> (d, NumberOfRespondents, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getSettlDate, &xetraXetraEnLightOpenNegotiationNotificationPacket::isSettlDateValid> (d, SettlDate, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getQuoteStatus, &xetraXetraEnLightOpenNegotiationNotificationPacket::isQuoteStatusValid> (d, QuoteStatus, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getSide, &xetraXetraEnLightOpenNegotiationNotificationPacket::isSideValid> (d, Side, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getRespondentType, &xetraXetraEnLightOpenNegotiationNotificationPacket::isRespondentTypeValid> (d, RespondentType, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getPartyExecutingFirm, &xetraXetraEnLightOpenNegotiationNotificationPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getPartyExecutingTrader, &xetraXetraEnLightOpenNegotiationNotificationPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getPartyEnteringTrader, &xetraXetraEnLightOpenNegotiationNotificationPacket::isPartyEnteringTraderValid> (d, PartyEnteringTrader, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getTargetPartyExecutingFirm, &xetraXetraEnLightOpenNegotiationNotificationPacket::isTargetPartyExecutingFirmValid> (d, TargetPartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getTargetPartyExecutingTrader, &xetraXetraEnLightOpenNegotiationNotificationPacket::isTargetPartyExecutingTraderValid> (d, TargetPartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getFirmNegotiationID, &xetraXetraEnLightOpenNegotiationNotificationPacket::isFirmNegotiationIDValid> (d, FirmNegotiationID, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getFreeText5, &xetraXetraEnLightOpenNegotiationNotificationPacket::isFreeText5Valid> (d, FreeText5, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::getPad1, &xetraXetraEnLightOpenNegotiationNotificationPacket::isPad1Valid> (d, Pad1, packet);
+}
+
+void
+xetraCodec::getXetraEnLightOpenNegotiationRequest (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightOpenNegotiationRequestPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightOpenNegotiationRequest");
+    d.setString (MessageName, "XetraEnLightOpenNegotiationRequest");
+    getMessageHeaderInComp (d, packet.getMessageHeaderIn ());
+    getRequestHeaderComp (d, packet.getRequestHeader ());
+    xetra::setInteger<int64_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getSecurityID, &xetraXetraEnLightOpenNegotiationRequestPacket::isSecurityIDValid> (d, SecurityID, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getBidPx, &xetraXetraEnLightOpenNegotiationRequestPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getOfferPx, &xetraXetraEnLightOpenNegotiationRequestPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getOrderQty, &xetraXetraEnLightOpenNegotiationRequestPacket::isOrderQtyValid> (d, OrderQty, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getValidUntilTime, &xetraXetraEnLightOpenNegotiationRequestPacket::isValidUntilTimeValid> (d, ValidUntilTime, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getMarketSegmentID, &xetraXetraEnLightOpenNegotiationRequestPacket::isMarketSegmentIDValid> (d, MarketSegmentID, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getSettlDate, &xetraXetraEnLightOpenNegotiationRequestPacket::isSettlDateValid> (d, SettlDate, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getNoTargetPartyIDs, &xetraXetraEnLightOpenNegotiationRequestPacket::isNoTargetPartyIDsValid> (d, NoTargetPartyIDs, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getNumberOfRespDisclosureInstruction, &xetraXetraEnLightOpenNegotiationRequestPacket::isNumberOfRespDisclosureInstructionValid> (d, NumberOfRespDisclosureInstruction, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getSide, &xetraXetraEnLightOpenNegotiationRequestPacket::isSideValid> (d, Side, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getValueCheckTypeValue, &xetraXetraEnLightOpenNegotiationRequestPacket::isValueCheckTypeValueValid> (d, ValueCheckTypeValue, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getValueCheckTypeQuantity, &xetraXetraEnLightOpenNegotiationRequestPacket::isValueCheckTypeQuantityValid> (d, ValueCheckTypeQuantity, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getRespondentType, &xetraXetraEnLightOpenNegotiationRequestPacket::isRespondentTypeValid> (d, RespondentType, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getPartyExecutingFirm, &xetraXetraEnLightOpenNegotiationRequestPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getPartyExecutingTrader, &xetraXetraEnLightOpenNegotiationRequestPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getFreeText5, &xetraXetraEnLightOpenNegotiationRequestPacket::isFreeText5Valid> (d, FreeText5, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getQuoteReqID, &xetraXetraEnLightOpenNegotiationRequestPacket::isQuoteReqIDValid> (d, QuoteReqID, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::getPad7, &xetraXetraEnLightOpenNegotiationRequestPacket::isPad7Valid> (d, Pad7, packet);
+    const vector<xetraXetraEnLightTargetPartiesCompPacket>& vXetraEnLightTargetParties = packet.getXetraEnLightTargetParties ();
+    for (size_t i = 0; i < vXetraEnLightTargetParties.size (); i++)
+    {
+        cdr c;
+        getXetraEnLightTargetPartiesComp (c, vXetraEnLightTargetParties[i]);
+        d.appendArray (XetraEnLightTargetParties, c);
+    }
+}
+
+void
+xetraCodec::getXetraEnLightOpenNegotiationRequesterNotification (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightOpenNegotiationRequesterNotificationPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightOpenNegotiationRequesterNotification");
+    d.setString (MessageName, "XetraEnLightOpenNegotiationRequesterNotification");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getTransactTime, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setInteger<int64_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getSecurityID, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isSecurityIDValid> (d, SecurityID, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getBidPx, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getOfferPx, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getOrderQty, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isOrderQtyValid> (d, OrderQty, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getLastPx, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isLastPxValid> (d, LastPx, packet);
+    xetra::setDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getLastQty, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isLastQtyValid> (d, LastQty, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getExpireTime, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isExpireTimeValid> (d, ExpireTime, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getNegotiationID, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getMarketSegmentID, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isMarketSegmentIDValid> (d, MarketSegmentID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getNumberOfRespondents, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isNumberOfRespondentsValid> (d, NumberOfRespondents, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getSettlDate, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isSettlDateValid> (d, SettlDate, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getQuoteStatus, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isQuoteStatusValid> (d, QuoteStatus, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getNoTargetPartyIDs, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isNoTargetPartyIDsValid> (d, NoTargetPartyIDs, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getSide, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isSideValid> (d, Side, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getNumberOfRespDisclosureInstruction, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isNumberOfRespDisclosureInstructionValid> (d, NumberOfRespDisclosureInstruction, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getRespondentType, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isRespondentTypeValid> (d, RespondentType, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getPartyExecutingFirm, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getPartyExecutingTrader, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getPartyEnteringTrader, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isPartyEnteringTraderValid> (d, PartyEnteringTrader, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getFirmNegotiationID, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isFirmNegotiationIDValid> (d, FirmNegotiationID, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getFreeText5, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isFreeText5Valid> (d, FreeText5, packet);
+    xetra::setString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::getPad2, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::isPad2Valid> (d, Pad2, packet);
+    const vector<xetraXetraEnLightTargetPartiesCompPacket>& vXetraEnLightTargetParties = packet.getXetraEnLightTargetParties ();
+    for (size_t i = 0; i < vXetraEnLightTargetParties.size (); i++)
+    {
+        cdr c;
+        getXetraEnLightTargetPartiesComp (c, vXetraEnLightTargetParties[i]);
+        d.appendArray (XetraEnLightTargetParties, c);
+    }
+}
+
+void
+xetraCodec::getXetraEnLightQuoteNotification (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightQuoteNotificationPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightQuoteNotification");
+    d.setString (MessageName, "XetraEnLightQuoteNotification");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getTransactTime, &xetraXetraEnLightQuoteNotificationPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getQuoteID, &xetraXetraEnLightQuoteNotificationPacket::isQuoteIDValid> (d, QuoteID, packet);
+    xetra::setInteger<uint64_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getSecondaryQuoteID, &xetraXetraEnLightQuoteNotificationPacket::isSecondaryQuoteIDValid> (d, SecondaryQuoteID, packet);
+    xetra::setDouble<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getBidPx, &xetraXetraEnLightQuoteNotificationPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getBidSize, &xetraXetraEnLightQuoteNotificationPacket::isBidSizeValid> (d, BidSize, packet);
+    xetra::setDouble<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getOfferPx, &xetraXetraEnLightQuoteNotificationPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getOfferSize, &xetraXetraEnLightQuoteNotificationPacket::isOfferSizeValid> (d, OfferSize, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getNegotiationID, &xetraXetraEnLightQuoteNotificationPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getTradingCapacity, &xetraXetraEnLightQuoteNotificationPacket::isTradingCapacityValid> (d, TradingCapacity, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getQuotingStatus, &xetraXetraEnLightQuoteNotificationPacket::isQuotingStatusValid> (d, QuotingStatus, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getQuoteEventReason, &xetraXetraEnLightQuoteNotificationPacket::isQuoteEventReasonValid> (d, QuoteEventReason, packet);
+    xetra::setString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getPartyExecutingFirm, &xetraXetraEnLightQuoteNotificationPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getPartyExecutingTrader, &xetraXetraEnLightQuoteNotificationPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getPartyEnteringTrader, &xetraXetraEnLightQuoteNotificationPacket::isPartyEnteringTraderValid> (d, PartyEnteringTrader, packet);
+    xetra::setString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getQuoteReqID, &xetraXetraEnLightQuoteNotificationPacket::isQuoteReqIDValid> (d, QuoteReqID, packet);
+    xetra::setString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getFreeText1, &xetraXetraEnLightQuoteNotificationPacket::isFreeText1Valid> (d, FreeText1, packet);
+    xetra::setString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getFreeText2, &xetraXetraEnLightQuoteNotificationPacket::isFreeText2Valid> (d, FreeText2, packet);
+    xetra::setString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getFreeText4, &xetraXetraEnLightQuoteNotificationPacket::isFreeText4Valid> (d, FreeText4, packet);
+    xetra::setString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::getPad4, &xetraXetraEnLightQuoteNotificationPacket::isPad4Valid> (d, Pad4, packet);
+}
+
+void
+xetraCodec::getXetraEnLightQuoteRequesterNotification (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightQuoteRequesterNotificationPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightQuoteRequesterNotification");
+    d.setString (MessageName, "XetraEnLightQuoteRequesterNotification");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::getTransactTime, &xetraXetraEnLightQuoteRequesterNotificationPacket::isTransactTimeValid> (d, TransactTime, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::getNegotiationID, &xetraXetraEnLightQuoteRequesterNotificationPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::getTradeID, &xetraXetraEnLightQuoteRequesterNotificationPacket::isTradeIDValid> (d, TradeID, packet);
+    xetra::setString<xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::getQuoteReqID, &xetraXetraEnLightQuoteRequesterNotificationPacket::isQuoteReqIDValid> (d, QuoteReqID, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::getNoQuoteEntries, &xetraXetraEnLightQuoteRequesterNotificationPacket::isNoQuoteEntriesValid> (d, NoQuoteEntries, packet);
+    xetra::setString<xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::getPad3, &xetraXetraEnLightQuoteRequesterNotificationPacket::isPad3Valid> (d, Pad3, packet);
+    const vector<xetraSRQSQuoteEntryGrpCompPacket>& vSRQSQuoteEntryGrp = packet.getSRQSQuoteEntryGrp ();
+    for (size_t i = 0; i < vSRQSQuoteEntryGrp.size (); i++)
+    {
+        cdr c;
+        getSRQSQuoteEntryGrpComp (c, vSRQSQuoteEntryGrp[i]);
+        d.appendArray (SRQSQuoteEntryGrp, c);
+    }
+}
+
+void
+xetraCodec::getXetraEnLightQuoteResponse (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightQuoteResponsePacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightQuoteResponse");
+    d.setString (MessageName, "XetraEnLightQuoteResponse");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getResponseHeaderComp (d, packet.getResponseHeader ());
+    xetra::setInteger<uint64_t, xetraXetraEnLightQuoteResponsePacket, &xetraXetraEnLightQuoteResponsePacket::getQuoteID, &xetraXetraEnLightQuoteResponsePacket::isQuoteIDValid> (d, QuoteID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightQuoteResponsePacket, &xetraXetraEnLightQuoteResponsePacket::getNegotiationID, &xetraXetraEnLightQuoteResponsePacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setString<xetraXetraEnLightQuoteResponsePacket, &xetraXetraEnLightQuoteResponsePacket::getQuoteReqID, &xetraXetraEnLightQuoteResponsePacket::isQuoteReqIDValid> (d, QuoteReqID, packet);
+}
+
+void
+xetraCodec::getXetraEnLightQuotingStatusRequest (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightQuotingStatusRequestPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightQuotingStatusRequest");
+    d.setString (MessageName, "XetraEnLightQuotingStatusRequest");
+    getMessageHeaderInComp (d, packet.getMessageHeaderIn ());
+    getRequestHeaderComp (d, packet.getRequestHeader ());
+    xetra::setInteger<int32_t, xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::getMarketSegmentID, &xetraXetraEnLightQuotingStatusRequestPacket::isMarketSegmentIDValid> (d, MarketSegmentID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::getNegotiationID, &xetraXetraEnLightQuotingStatusRequestPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::getQuotingStatus, &xetraXetraEnLightQuotingStatusRequestPacket::isQuotingStatusValid> (d, QuotingStatus, packet);
+    xetra::setString<xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::getPartyExecutingFirm, &xetraXetraEnLightQuotingStatusRequestPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::getPartyExecutingTrader, &xetraXetraEnLightQuotingStatusRequestPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::getPad4, &xetraXetraEnLightQuotingStatusRequestPacket::isPad4Valid> (d, Pad4, packet);
+}
+
+void
+xetraCodec::getXetraEnLightStatusBroadcast (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightStatusBroadcastPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightStatusBroadcast");
+    d.setString (MessageName, "XetraEnLightStatusBroadcast");
+    getMessageHeaderOutComp (d, packet.getMessageHeaderOut ());
+    getRBCHeaderComp (d, packet.getRBCHeader ());
+    xetra::setInteger<int32_t, xetraXetraEnLightStatusBroadcastPacket, &xetraXetraEnLightStatusBroadcastPacket::getTradeDate, &xetraXetraEnLightStatusBroadcastPacket::isTradeDateValid> (d, TradeDate, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightStatusBroadcastPacket, &xetraXetraEnLightStatusBroadcastPacket::getTradSesEvent, &xetraXetraEnLightStatusBroadcastPacket::isTradSesEventValid> (d, TradSesEvent, packet);
+    xetra::setString<xetraXetraEnLightStatusBroadcastPacket, &xetraXetraEnLightStatusBroadcastPacket::getPad3, &xetraXetraEnLightStatusBroadcastPacket::isPad3Valid> (d, Pad3, packet);
+}
+
+void
+xetraCodec::getXetraEnLightUpdateNegotiationRequest (cdr &d, const void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightUpdateNegotiationRequestPacket packet;
+    codecState state = packet.deserialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot deserialize XetraEnLightUpdateNegotiationRequest");
+    d.setString (MessageName, "XetraEnLightUpdateNegotiationRequest");
+    getMessageHeaderInComp (d, packet.getMessageHeaderIn ());
+    getRequestHeaderComp (d, packet.getRequestHeader ());
+    xetra::setDouble<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getBidPx, &xetraXetraEnLightUpdateNegotiationRequestPacket::isBidPxValid> (d, BidPx, packet);
+    xetra::setDouble<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getOfferPx, &xetraXetraEnLightUpdateNegotiationRequestPacket::isOfferPxValid> (d, OfferPx, packet);
+    xetra::setDouble<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getOrderQty, &xetraXetraEnLightUpdateNegotiationRequestPacket::isOrderQtyValid> (d, OrderQty, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getMarketSegmentID, &xetraXetraEnLightUpdateNegotiationRequestPacket::isMarketSegmentIDValid> (d, MarketSegmentID, packet);
+    xetra::setInteger<uint32_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getNegotiationID, &xetraXetraEnLightUpdateNegotiationRequestPacket::isNegotiationIDValid> (d, NegotiationID, packet);
+    xetra::setInteger<int32_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getSettlDate, &xetraXetraEnLightUpdateNegotiationRequestPacket::isSettlDateValid> (d, SettlDate, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getNoTargetPartyIDs, &xetraXetraEnLightUpdateNegotiationRequestPacket::isNoTargetPartyIDsValid> (d, NoTargetPartyIDs, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getNumberOfRespDisclosureInstruction, &xetraXetraEnLightUpdateNegotiationRequestPacket::isNumberOfRespDisclosureInstructionValid> (d, NumberOfRespDisclosureInstruction, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getSide, &xetraXetraEnLightUpdateNegotiationRequestPacket::isSideValid> (d, Side, packet);
+    xetra::setInteger<int8_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getQuoteCancelType, &xetraXetraEnLightUpdateNegotiationRequestPacket::isQuoteCancelTypeValid> (d, QuoteCancelType, packet);
+    xetra::setString<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getPartyExecutingFirm, &xetraXetraEnLightUpdateNegotiationRequestPacket::isPartyExecutingFirmValid> (d, PartyExecutingFirm, packet);
+    xetra::setString<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getPartyExecutingTrader, &xetraXetraEnLightUpdateNegotiationRequestPacket::isPartyExecutingTraderValid> (d, PartyExecutingTrader, packet);
+    xetra::setString<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getFreeText5, &xetraXetraEnLightUpdateNegotiationRequestPacket::isFreeText5Valid> (d, FreeText5, packet);
+    xetra::setString<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::getPad1, &xetraXetraEnLightUpdateNegotiationRequestPacket::isPad1Valid> (d, Pad1, packet);
+    const vector<xetraXetraEnLightTargetPartiesCompPacket>& vXetraEnLightTargetParties = packet.getXetraEnLightTargetParties ();
+    for (size_t i = 0; i < vXetraEnLightTargetParties.size (); i++)
+    {
+        cdr c;
+        getXetraEnLightTargetPartiesComp (c, vXetraEnLightTargetParties[i]);
+        d.appendArray (XetraEnLightTargetParties, c);
+    }
+}
+
 
 static void
 putResponseHeaderMEComp (const cdr &d, xetraResponseHeaderMECompPacket& packet)
@@ -2488,23 +3018,32 @@ putResponseHeaderMEComp (const cdr &d, xetraResponseHeaderMECompPacket& packet)
 static void
 putOrderBookItemGrpComp (const cdr &d, xetraOrderBookItemGrpCompPacket& packet)
 {
-    xetra::getInteger<int64_t, xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setSecurityID, &xetraOrderBookItemGrpCompPacket::resetSecurityID> (d, SecurityID, packet);
     xetra::getDouble<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setBestBidPx, &xetraOrderBookItemGrpCompPacket::resetBestBidPx> (d, BestBidPx, packet);
     xetra::getDouble<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setBestBidSize, &xetraOrderBookItemGrpCompPacket::resetBestBidSize> (d, BestBidSize, packet);
     xetra::getDouble<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setBestOfferPx, &xetraOrderBookItemGrpCompPacket::resetBestOfferPx> (d, BestOfferPx, packet);
     xetra::getDouble<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setBestOfferSize, &xetraOrderBookItemGrpCompPacket::resetBestOfferSize> (d, BestOfferSize, packet);
     xetra::getInteger<int8_t, xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setMDBookType, &xetraOrderBookItemGrpCompPacket::resetMDBookType> (d, MDBookType, packet);
-    xetra::getString<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setPad7, &xetraOrderBookItemGrpCompPacket::resetPad7> (d, Pad7, packet);
+    xetra::getInteger<int8_t, xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setMDSubBookType, &xetraOrderBookItemGrpCompPacket::resetMDSubBookType> (d, MDSubBookType, packet);
+    xetra::getString<xetraOrderBookItemGrpCompPacket, &xetraOrderBookItemGrpCompPacket::setPad6, &xetraOrderBookItemGrpCompPacket::resetPad6> (d, Pad6, packet);
 }
 
 static void
-putQuoteEntryGrpComp (const cdr &d, xetraQuoteEntryGrpCompPacket& packet)
+putEnrichmentRulesGrpComp (const cdr &d, xetraEnrichmentRulesGrpCompPacket& packet)
 {
-    xetra::getInteger<int64_t, xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setSecurityID, &xetraQuoteEntryGrpCompPacket::resetSecurityID> (d, SecurityID, packet);
-    xetra::getDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setBidPx, &xetraQuoteEntryGrpCompPacket::resetBidPx> (d, BidPx, packet);
-    xetra::getDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setBidSize, &xetraQuoteEntryGrpCompPacket::resetBidSize> (d, BidSize, packet);
-    xetra::getDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setOfferPx, &xetraQuoteEntryGrpCompPacket::resetOfferPx> (d, OfferPx, packet);
-    xetra::getDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setOfferSize, &xetraQuoteEntryGrpCompPacket::resetOfferSize> (d, OfferSize, packet);
+    xetra::getInteger<int16_t, xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setEnrichmentRuleID, &xetraEnrichmentRulesGrpCompPacket::resetEnrichmentRuleID> (d, EnrichmentRuleID, packet);
+    xetra::getString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setFreeText1, &xetraEnrichmentRulesGrpCompPacket::resetFreeText1> (d, FreeText1, packet);
+    xetra::getString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setFreeText2, &xetraEnrichmentRulesGrpCompPacket::resetFreeText2> (d, FreeText2, packet);
+    xetra::getString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setFreeText4, &xetraEnrichmentRulesGrpCompPacket::resetFreeText4> (d, FreeText4, packet);
+    xetra::getString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setPad6, &xetraEnrichmentRulesGrpCompPacket::resetPad6> (d, Pad6, packet);
+}
+
+static void
+putXetraEnLightTargetPartiesComp (const cdr &d, xetraXetraEnLightTargetPartiesCompPacket& packet)
+{
+    xetra::getInteger<int32_t, xetraXetraEnLightTargetPartiesCompPacket, &xetraXetraEnLightTargetPartiesCompPacket::setTargetPartyIDExecutingTrader, &xetraXetraEnLightTargetPartiesCompPacket::resetTargetPartyIDExecutingTrader> (d, TargetPartyIDExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightTargetPartiesCompPacket, &xetraXetraEnLightTargetPartiesCompPacket::setTargetPartyExecutingFirm, &xetraXetraEnLightTargetPartiesCompPacket::resetTargetPartyExecutingFirm> (d, TargetPartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightTargetPartiesCompPacket, &xetraXetraEnLightTargetPartiesCompPacket::setTargetPartyExecutingTrader, &xetraXetraEnLightTargetPartiesCompPacket::resetTargetPartyExecutingTrader> (d, TargetPartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightTargetPartiesCompPacket, &xetraXetraEnLightTargetPartiesCompPacket::setPad1, &xetraXetraEnLightTargetPartiesCompPacket::resetPad1> (d, Pad1, packet);
 }
 
 static void
@@ -2521,6 +3060,24 @@ putNotAffectedOrdersGrpComp (const cdr &d, xetraNotAffectedOrdersGrpCompPacket& 
 {
     xetra::getInteger<uint64_t, xetraNotAffectedOrdersGrpCompPacket, &xetraNotAffectedOrdersGrpCompPacket::setNotAffectedOrderID, &xetraNotAffectedOrdersGrpCompPacket::resetNotAffectedOrderID> (d, NotAffectedOrderID, packet);
     xetra::getInteger<uint64_t, xetraNotAffectedOrdersGrpCompPacket, &xetraNotAffectedOrdersGrpCompPacket::setNotAffOrigClOrdID, &xetraNotAffectedOrdersGrpCompPacket::resetNotAffOrigClOrdID> (d, NotAffOrigClOrdID, packet);
+}
+
+static void
+putSRQSQuoteEntryGrpComp (const cdr &d, xetraSRQSQuoteEntryGrpCompPacket& packet)
+{
+    xetra::getInteger<uint64_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setTransactTime, &xetraSRQSQuoteEntryGrpCompPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getInteger<uint64_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setQuoteID, &xetraSRQSQuoteEntryGrpCompPacket::resetQuoteID> (d, QuoteID, packet);
+    xetra::getInteger<uint64_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setSecondaryQuoteID, &xetraSRQSQuoteEntryGrpCompPacket::resetSecondaryQuoteID> (d, SecondaryQuoteID, packet);
+    xetra::getDouble<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setBidPx, &xetraSRQSQuoteEntryGrpCompPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setBidSize, &xetraSRQSQuoteEntryGrpCompPacket::resetBidSize> (d, BidSize, packet);
+    xetra::getDouble<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setOfferPx, &xetraSRQSQuoteEntryGrpCompPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setOfferSize, &xetraSRQSQuoteEntryGrpCompPacket::resetOfferSize> (d, OfferSize, packet);
+    xetra::getInteger<uint32_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setPartyIDExecutingTrader, &xetraSRQSQuoteEntryGrpCompPacket::resetPartyIDExecutingTrader> (d, PartyIDExecutingTrader, packet);
+    xetra::getInteger<int8_t, xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setQuotingStatus, &xetraSRQSQuoteEntryGrpCompPacket::resetQuotingStatus> (d, QuotingStatus, packet);
+    xetra::getString<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setPartyExecutingFirm, &xetraSRQSQuoteEntryGrpCompPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setPartyExecutingTrader, &xetraSRQSQuoteEntryGrpCompPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setPartyEnteringTrader, &xetraSRQSQuoteEntryGrpCompPacket::resetPartyEnteringTrader> (d, PartyEnteringTrader, packet);
+    xetra::getString<xetraSRQSQuoteEntryGrpCompPacket, &xetraSRQSQuoteEntryGrpCompPacket::setPad2, &xetraSRQSQuoteEntryGrpCompPacket::resetPad2> (d, Pad2, packet);
 }
 
 static void
@@ -2585,13 +3142,10 @@ putRBCHeaderMEComp (const cdr &d, xetraRBCHeaderMECompPacket& packet)
 }
 
 static void
-putEnrichmentRulesGrpComp (const cdr &d, xetraEnrichmentRulesGrpCompPacket& packet)
+putAffectedOrderRequestsGrpComp (const cdr &d, xetraAffectedOrderRequestsGrpCompPacket& packet)
 {
-    xetra::getInteger<int16_t, xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setEnrichmentRuleID, &xetraEnrichmentRulesGrpCompPacket::resetEnrichmentRuleID> (d, EnrichmentRuleID, packet);
-    xetra::getString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setFreeText1, &xetraEnrichmentRulesGrpCompPacket::resetFreeText1> (d, FreeText1, packet);
-    xetra::getString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setFreeText2, &xetraEnrichmentRulesGrpCompPacket::resetFreeText2> (d, FreeText2, packet);
-    xetra::getString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setFreeText4, &xetraEnrichmentRulesGrpCompPacket::resetFreeText4> (d, FreeText4, packet);
-    xetra::getString<xetraEnrichmentRulesGrpCompPacket, &xetraEnrichmentRulesGrpCompPacket::setPad6, &xetraEnrichmentRulesGrpCompPacket::resetPad6> (d, Pad6, packet);
+    xetra::getInteger<uint32_t, xetraAffectedOrderRequestsGrpCompPacket, &xetraAffectedOrderRequestsGrpCompPacket::setAffectedOrderRequestID, &xetraAffectedOrderRequestsGrpCompPacket::resetAffectedOrderRequestID> (d, AffectedOrderRequestID, packet);
+    xetra::getString<xetraAffectedOrderRequestsGrpCompPacket, &xetraAffectedOrderRequestsGrpCompPacket::setPad4, &xetraAffectedOrderRequestsGrpCompPacket::resetPad4> (d, Pad4, packet);
 }
 
 static void
@@ -2601,6 +3155,16 @@ putSessionsGrpComp (const cdr &d, xetraSessionsGrpCompPacket& packet)
     xetra::getInteger<int8_t, xetraSessionsGrpCompPacket, &xetraSessionsGrpCompPacket::setSessionMode, &xetraSessionsGrpCompPacket::resetSessionMode> (d, SessionMode, packet);
     xetra::getInteger<int8_t, xetraSessionsGrpCompPacket, &xetraSessionsGrpCompPacket::setSessionSubMode, &xetraSessionsGrpCompPacket::resetSessionSubMode> (d, SessionSubMode, packet);
     xetra::getString<xetraSessionsGrpCompPacket, &xetraSessionsGrpCompPacket::setPad2, &xetraSessionsGrpCompPacket::resetPad2> (d, Pad2, packet);
+}
+
+static void
+putQuoteEntryGrpComp (const cdr &d, xetraQuoteEntryGrpCompPacket& packet)
+{
+    xetra::getInteger<int64_t, xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setSecurityID, &xetraQuoteEntryGrpCompPacket::resetSecurityID> (d, SecurityID, packet);
+    xetra::getDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setBidPx, &xetraQuoteEntryGrpCompPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setBidSize, &xetraQuoteEntryGrpCompPacket::resetBidSize> (d, BidSize, packet);
+    xetra::getDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setOfferPx, &xetraQuoteEntryGrpCompPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraQuoteEntryGrpCompPacket, &xetraQuoteEntryGrpCompPacket::setOfferSize, &xetraQuoteEntryGrpCompPacket::resetOfferSize> (d, OfferSize, packet);
 }
 
 static void
@@ -2621,20 +3185,6 @@ putRBCHeaderComp (const cdr &d, xetraRBCHeaderCompPacket& packet)
     xetra::getInteger<int8_t, xetraRBCHeaderCompPacket, &xetraRBCHeaderCompPacket::setApplID, &xetraRBCHeaderCompPacket::resetApplID> (d, ApplID, packet);
     xetra::getInteger<int8_t, xetraRBCHeaderCompPacket, &xetraRBCHeaderCompPacket::setLastFragment, &xetraRBCHeaderCompPacket::resetLastFragment> (d, LastFragment, packet);
     xetra::getString<xetraRBCHeaderCompPacket, &xetraRBCHeaderCompPacket::setPad7, &xetraRBCHeaderCompPacket::resetPad7> (d, Pad7, packet);
-}
-
-static void
-putTargetPartiesComp (const cdr &d, xetraTargetPartiesCompPacket& packet)
-{
-    xetra::getInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setSideDisclosureInstruction, &xetraTargetPartiesCompPacket::resetSideDisclosureInstruction> (d, SideDisclosureInstruction, packet);
-    xetra::getInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setPriceDisclosureInstruction, &xetraTargetPartiesCompPacket::resetPriceDisclosureInstruction> (d, PriceDisclosureInstruction, packet);
-    xetra::getInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setLeavesQtyDisclosureInstruction, &xetraTargetPartiesCompPacket::resetLeavesQtyDisclosureInstruction> (d, LeavesQtyDisclosureInstruction, packet);
-    xetra::getInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setLastPxDisclosureInstruction, &xetraTargetPartiesCompPacket::resetLastPxDisclosureInstruction> (d, LastPxDisclosureInstruction, packet);
-    xetra::getInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setLastQtyDisclosureInstruction, &xetraTargetPartiesCompPacket::resetLastQtyDisclosureInstruction> (d, LastQtyDisclosureInstruction, packet);
-    xetra::getInteger<int8_t, xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setQuoteInstruction, &xetraTargetPartiesCompPacket::resetQuoteInstruction> (d, QuoteInstruction, packet);
-    xetra::getString<xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setTargetPartyExecutingFirm, &xetraTargetPartiesCompPacket::resetTargetPartyExecutingFirm> (d, TargetPartyExecutingFirm, packet);
-    xetra::getString<xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setTargetPartyExecutingTrader, &xetraTargetPartiesCompPacket::resetTargetPartyExecutingTrader> (d, TargetPartyExecutingTrader, packet);
-    xetra::getString<xetraTargetPartiesCompPacket, &xetraTargetPartiesCompPacket::setPad7, &xetraTargetPartiesCompPacket::resetPad7> (d, Pad7, packet);
 }
 
 static void
@@ -2659,6 +3209,13 @@ putNRBCHeaderComp (const cdr &d, xetraNRBCHeaderCompPacket& packet)
     xetra::getInteger<int8_t, xetraNRBCHeaderCompPacket, &xetraNRBCHeaderCompPacket::setApplID, &xetraNRBCHeaderCompPacket::resetApplID> (d, ApplID, packet);
     xetra::getInteger<int8_t, xetraNRBCHeaderCompPacket, &xetraNRBCHeaderCompPacket::setLastFragment, &xetraNRBCHeaderCompPacket::resetLastFragment> (d, LastFragment, packet);
     xetra::getString<xetraNRBCHeaderCompPacket, &xetraNRBCHeaderCompPacket::setPad2, &xetraNRBCHeaderCompPacket::resetPad2> (d, Pad2, packet);
+}
+
+static void
+putSRQSRelatedTradeIDGrpComp (const cdr &d, xetraSRQSRelatedTradeIDGrpCompPacket& packet)
+{
+    xetra::getInteger<uint32_t, xetraSRQSRelatedTradeIDGrpCompPacket, &xetraSRQSRelatedTradeIDGrpCompPacket::setSRQSRelatedTradeID, &xetraSRQSRelatedTradeIDGrpCompPacket::resetSRQSRelatedTradeID> (d, SRQSRelatedTradeID, packet);
+    xetra::getString<xetraSRQSRelatedTradeIDGrpCompPacket, &xetraSRQSRelatedTradeIDGrpCompPacket::setPad4, &xetraSRQSRelatedTradeIDGrpCompPacket::resetPad4> (d, Pad4, packet);
 }
 
 static void
@@ -2867,10 +3424,12 @@ xetraCodec::putDeleteAllOrderBroadcast (const cdr &d, void *buf, size_t len, siz
     xetra::getInteger<uint32_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setPartyIDEnteringTrader, &xetraDeleteAllOrderBroadcastPacket::resetPartyIDEnteringTrader> (d, PartyIDEnteringTrader, packet);
     xetra::getInteger<int16_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setNoNotAffectedOrders, &xetraDeleteAllOrderBroadcastPacket::resetNoNotAffectedOrders> (d, NoNotAffectedOrders, packet);
     xetra::getInteger<int16_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setNoAffectedOrders, &xetraDeleteAllOrderBroadcastPacket::resetNoAffectedOrders> (d, NoAffectedOrders, packet);
+    xetra::getInteger<int16_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setNoAffectedOrderRequests, &xetraDeleteAllOrderBroadcastPacket::resetNoAffectedOrderRequests> (d, NoAffectedOrderRequests, packet);
     xetra::getInteger<int8_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setPartyIDEnteringFirm, &xetraDeleteAllOrderBroadcastPacket::resetPartyIDEnteringFirm> (d, PartyIDEnteringFirm, packet);
     xetra::getInteger<uint8_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setMassActionReason, &xetraDeleteAllOrderBroadcastPacket::resetMassActionReason> (d, MassActionReason, packet);
     xetra::getInteger<int8_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setExecInst, &xetraDeleteAllOrderBroadcastPacket::resetExecInst> (d, ExecInst, packet);
     xetra::getInteger<int8_t, xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setSide, &xetraDeleteAllOrderBroadcastPacket::resetSide> (d, Side, packet);
+    xetra::getString<xetraDeleteAllOrderBroadcastPacket, &xetraDeleteAllOrderBroadcastPacket::setPad6, &xetraDeleteAllOrderBroadcastPacket::resetPad6> (d, Pad6, packet);
     const cdrArray* vNotAffectedOrdersGrp;
     bool bNotAffectedOrdersGrp = d.getArray (NotAffectedOrdersGrp, &vNotAffectedOrdersGrp);
     for (size_t i = 0; bNotAffectedOrdersGrp && i < vNotAffectedOrdersGrp->size (); i++)
@@ -2886,6 +3445,14 @@ xetraCodec::putDeleteAllOrderBroadcast (const cdr &d, void *buf, size_t len, siz
         xetraAffectedOrdGrpCompPacket group;
         putAffectedOrdGrpComp ((*vAffectedOrdGrp)[i], group);
         packet.mAffectedOrdGrp.push_back (group);
+    }
+    const cdrArray* vAffectedOrderRequestsGrp;
+    bool bAffectedOrderRequestsGrp = d.getArray (AffectedOrderRequestsGrp, &vAffectedOrderRequestsGrp);
+    for (size_t i = 0; bAffectedOrderRequestsGrp && i < vAffectedOrderRequestsGrp->size (); i++)
+    {
+        xetraAffectedOrderRequestsGrpCompPacket group;
+        putAffectedOrderRequestsGrpComp ((*vAffectedOrderRequestsGrp)[i], group);
+        packet.mAffectedOrderRequestsGrp.push_back (group);
     }
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
@@ -2952,7 +3519,8 @@ xetraCodec::putDeleteAllOrderResponse (const cdr &d, void *buf, size_t len, size
     xetra::getInteger<uint64_t, xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::setMassActionReportID, &xetraDeleteAllOrderResponsePacket::resetMassActionReportID> (d, MassActionReportID, packet);
     xetra::getInteger<int16_t, xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::setNoNotAffectedOrders, &xetraDeleteAllOrderResponsePacket::resetNoNotAffectedOrders> (d, NoNotAffectedOrders, packet);
     xetra::getInteger<int16_t, xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::setNoAffectedOrders, &xetraDeleteAllOrderResponsePacket::resetNoAffectedOrders> (d, NoAffectedOrders, packet);
-    xetra::getString<xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::setPad4, &xetraDeleteAllOrderResponsePacket::resetPad4> (d, Pad4, packet);
+    xetra::getInteger<int16_t, xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::setNoAffectedOrderRequests, &xetraDeleteAllOrderResponsePacket::resetNoAffectedOrderRequests> (d, NoAffectedOrderRequests, packet);
+    xetra::getString<xetraDeleteAllOrderResponsePacket, &xetraDeleteAllOrderResponsePacket::setPad2, &xetraDeleteAllOrderResponsePacket::resetPad2> (d, Pad2, packet);
     const cdrArray* vNotAffectedOrdersGrp;
     bool bNotAffectedOrdersGrp = d.getArray (NotAffectedOrdersGrp, &vNotAffectedOrdersGrp);
     for (size_t i = 0; bNotAffectedOrdersGrp && i < vNotAffectedOrdersGrp->size (); i++)
@@ -2968,6 +3536,14 @@ xetraCodec::putDeleteAllOrderResponse (const cdr &d, void *buf, size_t len, size
         xetraAffectedOrdGrpCompPacket group;
         putAffectedOrdGrpComp ((*vAffectedOrdGrp)[i], group);
         packet.mAffectedOrdGrp.push_back (group);
+    }
+    const cdrArray* vAffectedOrderRequestsGrp;
+    bool bAffectedOrderRequestsGrp = d.getArray (AffectedOrderRequestsGrp, &vAffectedOrderRequestsGrp);
+    for (size_t i = 0; bAffectedOrderRequestsGrp && i < vAffectedOrderRequestsGrp->size (); i++)
+    {
+        xetraAffectedOrderRequestsGrpCompPacket group;
+        putAffectedOrderRequestsGrpComp ((*vAffectedOrderRequestsGrp)[i], group);
+        packet.mAffectedOrderRequestsGrp.push_back (group);
     }
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
@@ -3090,6 +3666,8 @@ xetraCodec::putDeleteOrderNRResponse (const cdr &d, void *buf, size_t len, size_
     xetra::getString<xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::setOrdStatus, &xetraDeleteOrderNRResponsePacket::resetOrdStatus> (d, OrdStatus, packet);
     xetra::getString<xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::setExecType, &xetraDeleteOrderNRResponsePacket::resetExecType> (d, ExecType, packet);
     xetra::getInteger<int16_t, xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::setExecRestatementReason, &xetraDeleteOrderNRResponsePacket::resetExecRestatementReason> (d, ExecRestatementReason, packet);
+    xetra::getInteger<int8_t, xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::setTransactionDelayIndicator, &xetraDeleteOrderNRResponsePacket::resetTransactionDelayIndicator> (d, TransactionDelayIndicator, packet);
+    xetra::getString<xetraDeleteOrderNRResponsePacket, &xetraDeleteOrderNRResponsePacket::setPad7, &xetraDeleteOrderNRResponsePacket::resetPad7> (d, Pad7, packet);
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize DeleteOrderNRResponse");
@@ -3112,6 +3690,8 @@ xetraCodec::putDeleteOrderResponse (const cdr &d, void *buf, size_t len, size_t&
     xetra::getString<xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::setOrdStatus, &xetraDeleteOrderResponsePacket::resetOrdStatus> (d, OrdStatus, packet);
     xetra::getString<xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::setExecType, &xetraDeleteOrderResponsePacket::resetExecType> (d, ExecType, packet);
     xetra::getInteger<int16_t, xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::setExecRestatementReason, &xetraDeleteOrderResponsePacket::resetExecRestatementReason> (d, ExecRestatementReason, packet);
+    xetra::getInteger<int8_t, xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::setTransactionDelayIndicator, &xetraDeleteOrderResponsePacket::resetTransactionDelayIndicator> (d, TransactionDelayIndicator, packet);
+    xetra::getString<xetraDeleteOrderResponsePacket, &xetraDeleteOrderResponsePacket::setPad7, &xetraDeleteOrderResponsePacket::resetPad7> (d, Pad7, packet);
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize DeleteOrderResponse");
@@ -3302,22 +3882,6 @@ xetraCodec::putForcedUserLogoutNotification (const cdr &d, void *buf, size_t len
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize ForcedUserLogoutNotification");
-}
-
-void
-xetraCodec::putGatewayRequest (const cdr &d, void *buf, size_t len, size_t& used)
-{
-    xetraGatewayRequestPacket packet;
-    putMessageHeaderInComp (d, packet.mMessageHeaderIn);
-    putRequestHeaderComp (d, packet.mRequestHeader);
-    xetra::getInteger<uint32_t, xetraGatewayRequestPacket, &xetraGatewayRequestPacket::setPartyIDSessionID, &xetraGatewayRequestPacket::resetPartyIDSessionID> (d, PartyIDSessionID, packet);
-    xetra::getInteger<uint16_t, xetraGatewayRequestPacket, &xetraGatewayRequestPacket::setPartitionID, &xetraGatewayRequestPacket::resetPartitionID> (d, PartitionID, packet);
-    xetra::getString<xetraGatewayRequestPacket, &xetraGatewayRequestPacket::setDefaultCstmApplVerID, &xetraGatewayRequestPacket::resetDefaultCstmApplVerID> (d, DefaultCstmApplVerID, packet);
-    xetra::getString<xetraGatewayRequestPacket, &xetraGatewayRequestPacket::setPassword, &xetraGatewayRequestPacket::resetPassword> (d, Password, packet);
-    xetra::getString<xetraGatewayRequestPacket, &xetraGatewayRequestPacket::setPad4, &xetraGatewayRequestPacket::resetPad4> (d, Pad4, packet);
-    codecState state = packet.serialize (buf, len, used);
-    if (state != GW_CODEC_SUCCESS)
-        throw xetra::codecError(state, "cannot serialize GatewayRequest");
 }
 
 void
@@ -3665,7 +4229,8 @@ xetraCodec::putModifyOrderNRResponse (const cdr &d, void *buf, size_t len, size_
     xetra::getInteger<int16_t, xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::setExecRestatementReason, &xetraModifyOrderNRResponsePacket::resetExecRestatementReason> (d, ExecRestatementReason, packet);
     xetra::getInteger<int8_t, xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::setCrossedIndicator, &xetraModifyOrderNRResponsePacket::resetCrossedIndicator> (d, CrossedIndicator, packet);
     xetra::getInteger<int8_t, xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::setTriggered, &xetraModifyOrderNRResponsePacket::resetTriggered> (d, Triggered, packet);
-    xetra::getString<xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::setPad6, &xetraModifyOrderNRResponsePacket::resetPad6> (d, Pad6, packet);
+    xetra::getInteger<int8_t, xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::setTransactionDelayIndicator, &xetraModifyOrderNRResponsePacket::resetTransactionDelayIndicator> (d, TransactionDelayIndicator, packet);
+    xetra::getString<xetraModifyOrderNRResponsePacket, &xetraModifyOrderNRResponsePacket::setPad5, &xetraModifyOrderNRResponsePacket::resetPad5> (d, Pad5, packet);
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize ModifyOrderNRResponse");
@@ -3694,7 +4259,8 @@ xetraCodec::putModifyOrderResponse (const cdr &d, void *buf, size_t len, size_t&
     xetra::getInteger<int16_t, xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::setExecRestatementReason, &xetraModifyOrderResponsePacket::resetExecRestatementReason> (d, ExecRestatementReason, packet);
     xetra::getInteger<int8_t, xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::setCrossedIndicator, &xetraModifyOrderResponsePacket::resetCrossedIndicator> (d, CrossedIndicator, packet);
     xetra::getInteger<int8_t, xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::setTriggered, &xetraModifyOrderResponsePacket::resetTriggered> (d, Triggered, packet);
-    xetra::getString<xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::setPad6, &xetraModifyOrderResponsePacket::resetPad6> (d, Pad6, packet);
+    xetra::getInteger<int8_t, xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::setTransactionDelayIndicator, &xetraModifyOrderResponsePacket::resetTransactionDelayIndicator> (d, TransactionDelayIndicator, packet);
+    xetra::getString<xetraModifyOrderResponsePacket, &xetraModifyOrderResponsePacket::setPad5, &xetraModifyOrderResponsePacket::resetPad5> (d, Pad5, packet);
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize ModifyOrderResponse");
@@ -3833,7 +4399,8 @@ xetraCodec::putNewOrderNRResponse (const cdr &d, void *buf, size_t len, size_t& 
     xetra::getInteger<int16_t, xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::setExecRestatementReason, &xetraNewOrderNRResponsePacket::resetExecRestatementReason> (d, ExecRestatementReason, packet);
     xetra::getInteger<int8_t, xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::setCrossedIndicator, &xetraNewOrderNRResponsePacket::resetCrossedIndicator> (d, CrossedIndicator, packet);
     xetra::getInteger<int8_t, xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::setTriggered, &xetraNewOrderNRResponsePacket::resetTriggered> (d, Triggered, packet);
-    xetra::getString<xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::setPad6, &xetraNewOrderNRResponsePacket::resetPad6> (d, Pad6, packet);
+    xetra::getInteger<int8_t, xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::setTransactionDelayIndicator, &xetraNewOrderNRResponsePacket::resetTransactionDelayIndicator> (d, TransactionDelayIndicator, packet);
+    xetra::getString<xetraNewOrderNRResponsePacket, &xetraNewOrderNRResponsePacket::setPad5, &xetraNewOrderNRResponsePacket::resetPad5> (d, Pad5, packet);
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize NewOrderNRResponse");
@@ -3857,7 +4424,8 @@ xetraCodec::putNewOrderResponse (const cdr &d, void *buf, size_t len, size_t& us
     xetra::getInteger<int16_t, xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::setExecRestatementReason, &xetraNewOrderResponsePacket::resetExecRestatementReason> (d, ExecRestatementReason, packet);
     xetra::getInteger<int8_t, xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::setCrossedIndicator, &xetraNewOrderResponsePacket::resetCrossedIndicator> (d, CrossedIndicator, packet);
     xetra::getInteger<int8_t, xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::setTriggered, &xetraNewOrderResponsePacket::resetTriggered> (d, Triggered, packet);
-    xetra::getString<xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::setPad6, &xetraNewOrderResponsePacket::resetPad6> (d, Pad6, packet);
+    xetra::getInteger<int8_t, xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::setTransactionDelayIndicator, &xetraNewOrderResponsePacket::resetTransactionDelayIndicator> (d, TransactionDelayIndicator, packet);
+    xetra::getString<xetraNewOrderResponsePacket, &xetraNewOrderResponsePacket::setPad5, &xetraNewOrderResponsePacket::resetPad5> (d, Pad5, packet);
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize NewOrderResponse");
@@ -4092,8 +4660,9 @@ xetraCodec::putOrderExecResponse (const cdr &d, void *buf, size_t len, size_t& u
     xetra::getInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::setMatchType, &xetraOrderExecResponsePacket::resetMatchType> (d, MatchType, packet);
     xetra::getInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::setTriggered, &xetraOrderExecResponsePacket::resetTriggered> (d, Triggered, packet);
     xetra::getInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::setCrossedIndicator, &xetraOrderExecResponsePacket::resetCrossedIndicator> (d, CrossedIndicator, packet);
+    xetra::getInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::setTransactionDelayIndicator, &xetraOrderExecResponsePacket::resetTransactionDelayIndicator> (d, TransactionDelayIndicator, packet);
     xetra::getInteger<int8_t, xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::setNoFills, &xetraOrderExecResponsePacket::resetNoFills> (d, NoFills, packet);
-    xetra::getString<xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::setPad7, &xetraOrderExecResponsePacket::resetPad7> (d, Pad7, packet);
+    xetra::getString<xetraOrderExecResponsePacket, &xetraOrderExecResponsePacket::setPad6, &xetraOrderExecResponsePacket::resetPad6> (d, Pad6, packet);
     const cdrArray* vFillsGrp;
     bool bFillsGrp = d.getArray (FillsGrp, &vFillsGrp);
     for (size_t i = 0; bFillsGrp && i < vFillsGrp->size (); i++)
@@ -4390,6 +4959,20 @@ xetraCodec::putServiceAvailabilityBroadcast (const cdr &d, void *buf, size_t len
 }
 
 void
+xetraCodec::putServiceAvailabilityMarketBroadcast (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraServiceAvailabilityMarketBroadcastPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putNRBCHeaderComp (d, packet.mNRBCHeader);
+    xetra::getInteger<int32_t, xetraServiceAvailabilityMarketBroadcastPacket, &xetraServiceAvailabilityMarketBroadcastPacket::setSelectiveRequestForQuoteServiceTradeDate, &xetraServiceAvailabilityMarketBroadcastPacket::resetSelectiveRequestForQuoteServiceTradeDate> (d, SelectiveRequestForQuoteServiceTradeDate, packet);
+    xetra::getInteger<int8_t, xetraServiceAvailabilityMarketBroadcastPacket, &xetraServiceAvailabilityMarketBroadcastPacket::setSelectiveRequestForQuoteServiceStatus, &xetraServiceAvailabilityMarketBroadcastPacket::resetSelectiveRequestForQuoteServiceStatus> (d, SelectiveRequestForQuoteServiceStatus, packet);
+    xetra::getString<xetraServiceAvailabilityMarketBroadcastPacket, &xetraServiceAvailabilityMarketBroadcastPacket::setPad3, &xetraServiceAvailabilityMarketBroadcastPacket::resetPad3> (d, Pad3, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize ServiceAvailabilityMarketBroadcast");
+}
+
+void
 xetraCodec::putSubscribeRequest (const cdr &d, void *buf, size_t len, size_t& used)
 {
     xetraSubscribeRequestPacket packet;
@@ -4581,6 +5164,8 @@ xetraCodec::putTESTradeBroadcast (const cdr &d, void *buf, size_t len, size_t& u
     xetra::getInteger<uint32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setRootPartyIDClearingUnit, &xetraTESTradeBroadcastPacket::resetRootPartyIDClearingUnit> (d, RootPartyIDClearingUnit, packet);
     xetra::getInteger<int32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setSettlDate, &xetraTESTradeBroadcastPacket::resetSettlDate> (d, SettlDate, packet);
     xetra::getInteger<uint32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setNumDaysInterest, &xetraTESTradeBroadcastPacket::resetNumDaysInterest> (d, NumDaysInterest, packet);
+    xetra::getInteger<uint32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setNegotiationID, &xetraTESTradeBroadcastPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<uint32_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setSRQSRelatedTradeID, &xetraTESTradeBroadcastPacket::resetSRQSRelatedTradeID> (d, SRQSRelatedTradeID, packet);
     xetra::getInteger<int16_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setTrdType, &xetraTESTradeBroadcastPacket::resetTrdType> (d, TrdType, packet);
     xetra::getInteger<int16_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setLastMkt, &xetraTESTradeBroadcastPacket::resetLastMkt> (d, LastMkt, packet);
     xetra::getInteger<int8_t, xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setSide, &xetraTESTradeBroadcastPacket::resetSide> (d, Side, packet);
@@ -4611,8 +5196,9 @@ xetraCodec::putTESTradeBroadcast (const cdr &d, void *buf, size_t len, size_t& u
     xetra::getString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setRootPartyContraFirmKVNumber, &xetraTESTradeBroadcastPacket::resetRootPartyContraFirmKVNumber> (d, RootPartyContraFirmKVNumber, packet);
     xetra::getString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setRootPartyContraSettlementAccount, &xetraTESTradeBroadcastPacket::resetRootPartyContraSettlementAccount> (d, RootPartyContraSettlementAccount, packet);
     xetra::getString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setRootPartyContraSettlementLocation, &xetraTESTradeBroadcastPacket::resetRootPartyContraSettlementLocation> (d, RootPartyContraSettlementLocation, packet);
+    xetra::getString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setRootPartyIDExecutionVenue, &xetraTESTradeBroadcastPacket::resetRootPartyIDExecutionVenue> (d, RootPartyIDExecutionVenue, packet);
     xetra::getString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setRegulatoryTradeID, &xetraTESTradeBroadcastPacket::resetRegulatoryTradeID> (d, RegulatoryTradeID, packet);
-    xetra::getString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setPad6, &xetraTESTradeBroadcastPacket::resetPad6> (d, Pad6, packet);
+    xetra::getString<xetraTESTradeBroadcastPacket, &xetraTESTradeBroadcastPacket::setPad2, &xetraTESTradeBroadcastPacket::resetPad2> (d, Pad2, packet);
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize TESTradeBroadcast");
@@ -4735,6 +5321,8 @@ xetraCodec::putTradeBroadcast (const cdr &d, void *buf, size_t len, size_t& used
     xetra::getString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::setRootPartyContraSettlementAccount, &xetraTradeBroadcastPacket::resetRootPartyContraSettlementAccount> (d, RootPartyContraSettlementAccount, packet);
     xetra::getString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::setRootPartyContraSettlementLocation, &xetraTradeBroadcastPacket::resetRootPartyContraSettlementLocation> (d, RootPartyContraSettlementLocation, packet);
     xetra::getString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::setRegulatoryTradeID, &xetraTradeBroadcastPacket::resetRegulatoryTradeID> (d, RegulatoryTradeID, packet);
+    xetra::getString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::setRootPartyIDExecutionVenue, &xetraTradeBroadcastPacket::resetRootPartyIDExecutionVenue> (d, RootPartyIDExecutionVenue, packet);
+    xetra::getString<xetraTradeBroadcastPacket, &xetraTradeBroadcastPacket::setPad4, &xetraTradeBroadcastPacket::resetPad4> (d, Pad4, packet);
     codecState state = packet.serialize (buf, len, used);
     if (state != GW_CODEC_SUCCESS)
         throw xetra::codecError(state, "cannot serialize TradeBroadcast");
@@ -4855,6 +5443,470 @@ xetraCodec::putUserLogoutResponse (const cdr &d, void *buf, size_t len, size_t& 
         throw xetra::codecError(state, "cannot serialize UserLogoutResponse");
 }
 
+void
+xetraCodec::putXetraEnLightCreateDealNotification (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightCreateDealNotificationPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setTransactTime, &xetraXetraEnLightCreateDealNotificationPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getDouble<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setLastPx, &xetraXetraEnLightCreateDealNotificationPacket::resetLastPx> (d, LastPx, packet);
+    xetra::getDouble<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setLastQty, &xetraXetraEnLightCreateDealNotificationPacket::resetLastQty> (d, LastQty, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setQuoteID, &xetraXetraEnLightCreateDealNotificationPacket::resetQuoteID> (d, QuoteID, packet);
+    xetra::getInteger<int64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setSecurityID, &xetraXetraEnLightCreateDealNotificationPacket::resetSecurityID> (d, SecurityID, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setPartyIDClientID, &xetraXetraEnLightCreateDealNotificationPacket::resetPartyIDClientID> (d, PartyIDClientID, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setPartyIdInvestmentDecisionMaker, &xetraXetraEnLightCreateDealNotificationPacket::resetPartyIdInvestmentDecisionMaker> (d, PartyIdInvestmentDecisionMaker, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setExecutingTrader, &xetraXetraEnLightCreateDealNotificationPacket::resetExecutingTrader> (d, ExecutingTrader, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setNegotiationID, &xetraXetraEnLightCreateDealNotificationPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setTradeID, &xetraXetraEnLightCreateDealNotificationPacket::resetTradeID> (d, TradeID, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setSettlDate, &xetraXetraEnLightCreateDealNotificationPacket::resetSettlDate> (d, SettlDate, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setTradingCapacity, &xetraXetraEnLightCreateDealNotificationPacket::resetTradingCapacity> (d, TradingCapacity, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setTrdRptStatus, &xetraXetraEnLightCreateDealNotificationPacket::resetTrdRptStatus> (d, TrdRptStatus, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setMessageEventSource, &xetraXetraEnLightCreateDealNotificationPacket::resetMessageEventSource> (d, MessageEventSource, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setSide, &xetraXetraEnLightCreateDealNotificationPacket::resetSide> (d, Side, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setAllocMethod, &xetraXetraEnLightCreateDealNotificationPacket::resetAllocMethod> (d, AllocMethod, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setNoOrderBookItems, &xetraXetraEnLightCreateDealNotificationPacket::resetNoOrderBookItems> (d, NoOrderBookItems, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setOrderAttributeLiquidityProvision, &xetraXetraEnLightCreateDealNotificationPacket::resetOrderAttributeLiquidityProvision> (d, OrderAttributeLiquidityProvision, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setExecutingTraderQualifier, &xetraXetraEnLightCreateDealNotificationPacket::resetExecutingTraderQualifier> (d, ExecutingTraderQualifier, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setPartyIdInvestmentDecisionMakerQualifier, &xetraXetraEnLightCreateDealNotificationPacket::resetPartyIdInvestmentDecisionMakerQualifier> (d, PartyIdInvestmentDecisionMakerQualifier, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setRootPartyExecutingFirm, &xetraXetraEnLightCreateDealNotificationPacket::resetRootPartyExecutingFirm> (d, RootPartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setRootPartyExecutingTrader, &xetraXetraEnLightCreateDealNotificationPacket::resetRootPartyExecutingTrader> (d, RootPartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setRootPartyEnteringTrader, &xetraXetraEnLightCreateDealNotificationPacket::resetRootPartyEnteringTrader> (d, RootPartyEnteringTrader, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setTargetPartyExecutingFirm, &xetraXetraEnLightCreateDealNotificationPacket::resetTargetPartyExecutingFirm> (d, TargetPartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setTargetPartyExecutingTrader, &xetraXetraEnLightCreateDealNotificationPacket::resetTargetPartyExecutingTrader> (d, TargetPartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setFirmTradeID, &xetraXetraEnLightCreateDealNotificationPacket::resetFirmTradeID> (d, FirmTradeID, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setFirmNegotiationID, &xetraXetraEnLightCreateDealNotificationPacket::resetFirmNegotiationID> (d, FirmNegotiationID, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setFreeText1, &xetraXetraEnLightCreateDealNotificationPacket::resetFreeText1> (d, FreeText1, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setFreeText2, &xetraXetraEnLightCreateDealNotificationPacket::resetFreeText2> (d, FreeText2, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setFreeText4, &xetraXetraEnLightCreateDealNotificationPacket::resetFreeText4> (d, FreeText4, packet);
+    xetra::getString<xetraXetraEnLightCreateDealNotificationPacket, &xetraXetraEnLightCreateDealNotificationPacket::setPad7, &xetraXetraEnLightCreateDealNotificationPacket::resetPad7> (d, Pad7, packet);
+    const cdrArray* vOrderBookItemGrp;
+    bool bOrderBookItemGrp = d.getArray (OrderBookItemGrp, &vOrderBookItemGrp);
+    for (size_t i = 0; bOrderBookItemGrp && i < vOrderBookItemGrp->size (); i++)
+    {
+        xetraOrderBookItemGrpCompPacket group;
+        putOrderBookItemGrpComp ((*vOrderBookItemGrp)[i], group);
+        packet.mOrderBookItemGrp.push_back (group);
+    }
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightCreateDealNotification");
+}
+
+void
+xetraCodec::putXetraEnLightDealResponse (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightDealResponsePacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putResponseHeaderComp (d, packet.mResponseHeader);
+    xetra::getInteger<int64_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::setSecurityID, &xetraXetraEnLightDealResponsePacket::resetSecurityID> (d, SecurityID, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::setQuoteID, &xetraXetraEnLightDealResponsePacket::resetQuoteID> (d, QuoteID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::setNegotiationID, &xetraXetraEnLightDealResponsePacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::setTradeID, &xetraXetraEnLightDealResponsePacket::resetTradeID> (d, TradeID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::setSecondaryTradeID, &xetraXetraEnLightDealResponsePacket::resetSecondaryTradeID> (d, SecondaryTradeID, packet);
+    xetra::getString<xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::setFirmTradeID, &xetraXetraEnLightDealResponsePacket::resetFirmTradeID> (d, FirmTradeID, packet);
+    xetra::getString<xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::setFirmNegotiationID, &xetraXetraEnLightDealResponsePacket::resetFirmNegotiationID> (d, FirmNegotiationID, packet);
+    xetra::getString<xetraXetraEnLightDealResponsePacket, &xetraXetraEnLightDealResponsePacket::setPad4, &xetraXetraEnLightDealResponsePacket::resetPad4> (d, Pad4, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightDealResponse");
+}
+
+void
+xetraCodec::putXetraEnLightEnterQuoteRequest (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightEnterQuoteRequestPacket packet;
+    putMessageHeaderInComp (d, packet.mMessageHeaderIn);
+    putRequestHeaderComp (d, packet.mRequestHeader);
+    xetra::getDouble<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setBidPx, &xetraXetraEnLightEnterQuoteRequestPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setOfferPx, &xetraXetraEnLightEnterQuoteRequestPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setBidSize, &xetraXetraEnLightEnterQuoteRequestPacket::resetBidSize> (d, BidSize, packet);
+    xetra::getDouble<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setOfferSize, &xetraXetraEnLightEnterQuoteRequestPacket::resetOfferSize> (d, OfferSize, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setPartyIDClientID, &xetraXetraEnLightEnterQuoteRequestPacket::resetPartyIDClientID> (d, PartyIDClientID, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setPartyIdInvestmentDecisionMaker, &xetraXetraEnLightEnterQuoteRequestPacket::resetPartyIdInvestmentDecisionMaker> (d, PartyIdInvestmentDecisionMaker, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setExecutingTrader, &xetraXetraEnLightEnterQuoteRequestPacket::resetExecutingTrader> (d, ExecutingTrader, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setMarketSegmentID, &xetraXetraEnLightEnterQuoteRequestPacket::resetMarketSegmentID> (d, MarketSegmentID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setNegotiationID, &xetraXetraEnLightEnterQuoteRequestPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setValueCheckTypeQuantity, &xetraXetraEnLightEnterQuoteRequestPacket::resetValueCheckTypeQuantity> (d, ValueCheckTypeQuantity, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setValueCheckTypeValue, &xetraXetraEnLightEnterQuoteRequestPacket::resetValueCheckTypeValue> (d, ValueCheckTypeValue, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setTradingCapacity, &xetraXetraEnLightEnterQuoteRequestPacket::resetTradingCapacity> (d, TradingCapacity, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setOrderAttributeLiquidityProvision, &xetraXetraEnLightEnterQuoteRequestPacket::resetOrderAttributeLiquidityProvision> (d, OrderAttributeLiquidityProvision, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setExecutingTraderQualifier, &xetraXetraEnLightEnterQuoteRequestPacket::resetExecutingTraderQualifier> (d, ExecutingTraderQualifier, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setPartyIdInvestmentDecisionMakerQualifier, &xetraXetraEnLightEnterQuoteRequestPacket::resetPartyIdInvestmentDecisionMakerQualifier> (d, PartyIdInvestmentDecisionMakerQualifier, packet);
+    xetra::getString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setPartyExecutingFirm, &xetraXetraEnLightEnterQuoteRequestPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setPartyExecutingTrader, &xetraXetraEnLightEnterQuoteRequestPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setFreeText1, &xetraXetraEnLightEnterQuoteRequestPacket::resetFreeText1> (d, FreeText1, packet);
+    xetra::getString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setFreeText2, &xetraXetraEnLightEnterQuoteRequestPacket::resetFreeText2> (d, FreeText2, packet);
+    xetra::getString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setFreeText4, &xetraXetraEnLightEnterQuoteRequestPacket::resetFreeText4> (d, FreeText4, packet);
+    xetra::getString<xetraXetraEnLightEnterQuoteRequestPacket, &xetraXetraEnLightEnterQuoteRequestPacket::setPad7, &xetraXetraEnLightEnterQuoteRequestPacket::resetPad7> (d, Pad7, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightEnterQuoteRequest");
+}
+
+void
+xetraCodec::putXetraEnLightHitQuoteRequest (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightHitQuoteRequestPacket packet;
+    putMessageHeaderInComp (d, packet.mMessageHeaderIn);
+    putRequestHeaderComp (d, packet.mRequestHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setQuoteID, &xetraXetraEnLightHitQuoteRequestPacket::resetQuoteID> (d, QuoteID, packet);
+    xetra::getDouble<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setOrderQty, &xetraXetraEnLightHitQuoteRequestPacket::resetOrderQty> (d, OrderQty, packet);
+    xetra::getDouble<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setPrice, &xetraXetraEnLightHitQuoteRequestPacket::resetPrice> (d, Price, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setPartyIDClientID, &xetraXetraEnLightHitQuoteRequestPacket::resetPartyIDClientID> (d, PartyIDClientID, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setPartyIdInvestmentDecisionMaker, &xetraXetraEnLightHitQuoteRequestPacket::resetPartyIdInvestmentDecisionMaker> (d, PartyIdInvestmentDecisionMaker, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setExecutingTrader, &xetraXetraEnLightHitQuoteRequestPacket::resetExecutingTrader> (d, ExecutingTrader, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setMarketSegmentID, &xetraXetraEnLightHitQuoteRequestPacket::resetMarketSegmentID> (d, MarketSegmentID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setNegotiationID, &xetraXetraEnLightHitQuoteRequestPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setSide, &xetraXetraEnLightHitQuoteRequestPacket::resetSide> (d, Side, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setValueCheckTypeQuantity, &xetraXetraEnLightHitQuoteRequestPacket::resetValueCheckTypeQuantity> (d, ValueCheckTypeQuantity, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setValueCheckTypeValue, &xetraXetraEnLightHitQuoteRequestPacket::resetValueCheckTypeValue> (d, ValueCheckTypeValue, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setTradingCapacity, &xetraXetraEnLightHitQuoteRequestPacket::resetTradingCapacity> (d, TradingCapacity, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setOrderAttributeLiquidityProvision, &xetraXetraEnLightHitQuoteRequestPacket::resetOrderAttributeLiquidityProvision> (d, OrderAttributeLiquidityProvision, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setExecutingTraderQualifier, &xetraXetraEnLightHitQuoteRequestPacket::resetExecutingTraderQualifier> (d, ExecutingTraderQualifier, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setAllocMethod, &xetraXetraEnLightHitQuoteRequestPacket::resetAllocMethod> (d, AllocMethod, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setPartyIdInvestmentDecisionMakerQualifier, &xetraXetraEnLightHitQuoteRequestPacket::resetPartyIdInvestmentDecisionMakerQualifier> (d, PartyIdInvestmentDecisionMakerQualifier, packet);
+    xetra::getString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setPartyExecutingFirm, &xetraXetraEnLightHitQuoteRequestPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setPartyExecutingTrader, &xetraXetraEnLightHitQuoteRequestPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setFirmTradeID, &xetraXetraEnLightHitQuoteRequestPacket::resetFirmTradeID> (d, FirmTradeID, packet);
+    xetra::getString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setFreeText1, &xetraXetraEnLightHitQuoteRequestPacket::resetFreeText1> (d, FreeText1, packet);
+    xetra::getString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setFreeText2, &xetraXetraEnLightHitQuoteRequestPacket::resetFreeText2> (d, FreeText2, packet);
+    xetra::getString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setFreeText4, &xetraXetraEnLightHitQuoteRequestPacket::resetFreeText4> (d, FreeText4, packet);
+    xetra::getString<xetraXetraEnLightHitQuoteRequestPacket, &xetraXetraEnLightHitQuoteRequestPacket::setPad1, &xetraXetraEnLightHitQuoteRequestPacket::resetPad1> (d, Pad1, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightHitQuoteRequest");
+}
+
+void
+xetraCodec::putXetraEnLightNegotiationNotification (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightNegotiationNotificationPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setTransactTime, &xetraXetraEnLightNegotiationNotificationPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setBidPx, &xetraXetraEnLightNegotiationNotificationPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setOfferPx, &xetraXetraEnLightNegotiationNotificationPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setLeavesQty, &xetraXetraEnLightNegotiationNotificationPacket::resetLeavesQty> (d, LeavesQty, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setNegotiationID, &xetraXetraEnLightNegotiationNotificationPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setNumberOfRespondents, &xetraXetraEnLightNegotiationNotificationPacket::resetNumberOfRespondents> (d, NumberOfRespondents, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setSettlDate, &xetraXetraEnLightNegotiationNotificationPacket::resetSettlDate> (d, SettlDate, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setQuoteStatus, &xetraXetraEnLightNegotiationNotificationPacket::resetQuoteStatus> (d, QuoteStatus, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setSide, &xetraXetraEnLightNegotiationNotificationPacket::resetSide> (d, Side, packet);
+    xetra::getString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setPartyExecutingFirm, &xetraXetraEnLightNegotiationNotificationPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setPartyExecutingTrader, &xetraXetraEnLightNegotiationNotificationPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setPartyEnteringTrader, &xetraXetraEnLightNegotiationNotificationPacket::resetPartyEnteringTrader> (d, PartyEnteringTrader, packet);
+    xetra::getString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setTargetPartyExecutingFirm, &xetraXetraEnLightNegotiationNotificationPacket::resetTargetPartyExecutingFirm> (d, TargetPartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setTargetPartyExecutingTrader, &xetraXetraEnLightNegotiationNotificationPacket::resetTargetPartyExecutingTrader> (d, TargetPartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setFirmNegotiationID, &xetraXetraEnLightNegotiationNotificationPacket::resetFirmNegotiationID> (d, FirmNegotiationID, packet);
+    xetra::getString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setFreeText5, &xetraXetraEnLightNegotiationNotificationPacket::resetFreeText5> (d, FreeText5, packet);
+    xetra::getString<xetraXetraEnLightNegotiationNotificationPacket, &xetraXetraEnLightNegotiationNotificationPacket::setPad6, &xetraXetraEnLightNegotiationNotificationPacket::resetPad6> (d, Pad6, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightNegotiationNotification");
+}
+
+void
+xetraCodec::putXetraEnLightNegotiationRequesterNotification (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightNegotiationRequesterNotificationPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setTransactTime, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setTrdRegTSExecutionTime, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetTrdRegTSExecutionTime> (d, TrdRegTSExecutionTime, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setBidPx, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setOfferPx, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setOrderQty, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetOrderQty> (d, OrderQty, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setLastPx, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetLastPx> (d, LastPx, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setLeavesQty, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetLeavesQty> (d, LeavesQty, packet);
+    xetra::getDouble<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setLastQty, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetLastQty> (d, LastQty, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setNegotiationID, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setNumberOfRespondents, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetNumberOfRespondents> (d, NumberOfRespondents, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setSettlDate, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetSettlDate> (d, SettlDate, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setQuoteStatus, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetQuoteStatus> (d, QuoteStatus, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setNoTargetPartyIDs, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetNoTargetPartyIDs> (d, NoTargetPartyIDs, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setNumberOfRespDisclosureInstruction, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetNumberOfRespDisclosureInstruction> (d, NumberOfRespDisclosureInstruction, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setSide, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetSide> (d, Side, packet);
+    xetra::getString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setPartyExecutingFirm, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setPartyExecutingTrader, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setPartyEnteringTrader, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetPartyEnteringTrader> (d, PartyEnteringTrader, packet);
+    xetra::getString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setFirmNegotiationID, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetFirmNegotiationID> (d, FirmNegotiationID, packet);
+    xetra::getString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setFreeText5, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetFreeText5> (d, FreeText5, packet);
+    xetra::getString<xetraXetraEnLightNegotiationRequesterNotificationPacket, &xetraXetraEnLightNegotiationRequesterNotificationPacket::setPad7, &xetraXetraEnLightNegotiationRequesterNotificationPacket::resetPad7> (d, Pad7, packet);
+    const cdrArray* vXetraEnLightTargetParties;
+    bool bXetraEnLightTargetParties = d.getArray (XetraEnLightTargetParties, &vXetraEnLightTargetParties);
+    for (size_t i = 0; bXetraEnLightTargetParties && i < vXetraEnLightTargetParties->size (); i++)
+    {
+        xetraXetraEnLightTargetPartiesCompPacket group;
+        putXetraEnLightTargetPartiesComp ((*vXetraEnLightTargetParties)[i], group);
+        packet.mXetraEnLightTargetParties.push_back (group);
+    }
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightNegotiationRequesterNotification");
+}
+
+void
+xetraCodec::putXetraEnLightNegotiationStatusNotification (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightNegotiationStatusNotificationPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::setTransactTime, &xetraXetraEnLightNegotiationStatusNotificationPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::setNegotiationID, &xetraXetraEnLightNegotiationStatusNotificationPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::setQuoteStatus, &xetraXetraEnLightNegotiationStatusNotificationPacket::resetQuoteStatus> (d, QuoteStatus, packet);
+    xetra::getString<xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::setFirmNegotiationID, &xetraXetraEnLightNegotiationStatusNotificationPacket::resetFirmNegotiationID> (d, FirmNegotiationID, packet);
+    xetra::getString<xetraXetraEnLightNegotiationStatusNotificationPacket, &xetraXetraEnLightNegotiationStatusNotificationPacket::setPad7, &xetraXetraEnLightNegotiationStatusNotificationPacket::resetPad7> (d, Pad7, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightNegotiationStatusNotification");
+}
+
+void
+xetraCodec::putXetraEnLightOpenNegotiationNotification (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightOpenNegotiationNotificationPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setTransactTime, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setNegotiationStartTime, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetNegotiationStartTime> (d, NegotiationStartTime, packet);
+    xetra::getInteger<int64_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setSecurityID, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetSecurityID> (d, SecurityID, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setBidPx, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setOfferPx, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setLeavesQty, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetLeavesQty> (d, LeavesQty, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setExpireTime, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetExpireTime> (d, ExpireTime, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setNegotiationID, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setMarketSegmentID, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetMarketSegmentID> (d, MarketSegmentID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setNumberOfRespondents, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetNumberOfRespondents> (d, NumberOfRespondents, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setSettlDate, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetSettlDate> (d, SettlDate, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setQuoteStatus, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetQuoteStatus> (d, QuoteStatus, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setSide, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetSide> (d, Side, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setRespondentType, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetRespondentType> (d, RespondentType, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setPartyExecutingFirm, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setPartyExecutingTrader, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setPartyEnteringTrader, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetPartyEnteringTrader> (d, PartyEnteringTrader, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setTargetPartyExecutingFirm, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetTargetPartyExecutingFirm> (d, TargetPartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setTargetPartyExecutingTrader, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetTargetPartyExecutingTrader> (d, TargetPartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setFirmNegotiationID, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetFirmNegotiationID> (d, FirmNegotiationID, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setFreeText5, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetFreeText5> (d, FreeText5, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationNotificationPacket, &xetraXetraEnLightOpenNegotiationNotificationPacket::setPad1, &xetraXetraEnLightOpenNegotiationNotificationPacket::resetPad1> (d, Pad1, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightOpenNegotiationNotification");
+}
+
+void
+xetraCodec::putXetraEnLightOpenNegotiationRequest (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightOpenNegotiationRequestPacket packet;
+    putMessageHeaderInComp (d, packet.mMessageHeaderIn);
+    putRequestHeaderComp (d, packet.mRequestHeader);
+    xetra::getInteger<int64_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setSecurityID, &xetraXetraEnLightOpenNegotiationRequestPacket::resetSecurityID> (d, SecurityID, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setBidPx, &xetraXetraEnLightOpenNegotiationRequestPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setOfferPx, &xetraXetraEnLightOpenNegotiationRequestPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setOrderQty, &xetraXetraEnLightOpenNegotiationRequestPacket::resetOrderQty> (d, OrderQty, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setValidUntilTime, &xetraXetraEnLightOpenNegotiationRequestPacket::resetValidUntilTime> (d, ValidUntilTime, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setMarketSegmentID, &xetraXetraEnLightOpenNegotiationRequestPacket::resetMarketSegmentID> (d, MarketSegmentID, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setSettlDate, &xetraXetraEnLightOpenNegotiationRequestPacket::resetSettlDate> (d, SettlDate, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setNoTargetPartyIDs, &xetraXetraEnLightOpenNegotiationRequestPacket::resetNoTargetPartyIDs> (d, NoTargetPartyIDs, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setNumberOfRespDisclosureInstruction, &xetraXetraEnLightOpenNegotiationRequestPacket::resetNumberOfRespDisclosureInstruction> (d, NumberOfRespDisclosureInstruction, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setSide, &xetraXetraEnLightOpenNegotiationRequestPacket::resetSide> (d, Side, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setValueCheckTypeValue, &xetraXetraEnLightOpenNegotiationRequestPacket::resetValueCheckTypeValue> (d, ValueCheckTypeValue, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setValueCheckTypeQuantity, &xetraXetraEnLightOpenNegotiationRequestPacket::resetValueCheckTypeQuantity> (d, ValueCheckTypeQuantity, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setRespondentType, &xetraXetraEnLightOpenNegotiationRequestPacket::resetRespondentType> (d, RespondentType, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setPartyExecutingFirm, &xetraXetraEnLightOpenNegotiationRequestPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setPartyExecutingTrader, &xetraXetraEnLightOpenNegotiationRequestPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setFreeText5, &xetraXetraEnLightOpenNegotiationRequestPacket::resetFreeText5> (d, FreeText5, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setQuoteReqID, &xetraXetraEnLightOpenNegotiationRequestPacket::resetQuoteReqID> (d, QuoteReqID, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequestPacket, &xetraXetraEnLightOpenNegotiationRequestPacket::setPad7, &xetraXetraEnLightOpenNegotiationRequestPacket::resetPad7> (d, Pad7, packet);
+    const cdrArray* vXetraEnLightTargetParties;
+    bool bXetraEnLightTargetParties = d.getArray (XetraEnLightTargetParties, &vXetraEnLightTargetParties);
+    for (size_t i = 0; bXetraEnLightTargetParties && i < vXetraEnLightTargetParties->size (); i++)
+    {
+        xetraXetraEnLightTargetPartiesCompPacket group;
+        putXetraEnLightTargetPartiesComp ((*vXetraEnLightTargetParties)[i], group);
+        packet.mXetraEnLightTargetParties.push_back (group);
+    }
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightOpenNegotiationRequest");
+}
+
+void
+xetraCodec::putXetraEnLightOpenNegotiationRequesterNotification (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightOpenNegotiationRequesterNotificationPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setTransactTime, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getInteger<int64_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setSecurityID, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetSecurityID> (d, SecurityID, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setBidPx, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setOfferPx, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setOrderQty, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetOrderQty> (d, OrderQty, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setLastPx, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetLastPx> (d, LastPx, packet);
+    xetra::getDouble<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setLastQty, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetLastQty> (d, LastQty, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setExpireTime, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetExpireTime> (d, ExpireTime, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setNegotiationID, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setMarketSegmentID, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetMarketSegmentID> (d, MarketSegmentID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setNumberOfRespondents, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetNumberOfRespondents> (d, NumberOfRespondents, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setSettlDate, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetSettlDate> (d, SettlDate, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setQuoteStatus, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetQuoteStatus> (d, QuoteStatus, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setNoTargetPartyIDs, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetNoTargetPartyIDs> (d, NoTargetPartyIDs, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setSide, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetSide> (d, Side, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setNumberOfRespDisclosureInstruction, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetNumberOfRespDisclosureInstruction> (d, NumberOfRespDisclosureInstruction, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setRespondentType, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetRespondentType> (d, RespondentType, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setPartyExecutingFirm, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setPartyExecutingTrader, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setPartyEnteringTrader, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetPartyEnteringTrader> (d, PartyEnteringTrader, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setFirmNegotiationID, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetFirmNegotiationID> (d, FirmNegotiationID, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setFreeText5, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetFreeText5> (d, FreeText5, packet);
+    xetra::getString<xetraXetraEnLightOpenNegotiationRequesterNotificationPacket, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::setPad2, &xetraXetraEnLightOpenNegotiationRequesterNotificationPacket::resetPad2> (d, Pad2, packet);
+    const cdrArray* vXetraEnLightTargetParties;
+    bool bXetraEnLightTargetParties = d.getArray (XetraEnLightTargetParties, &vXetraEnLightTargetParties);
+    for (size_t i = 0; bXetraEnLightTargetParties && i < vXetraEnLightTargetParties->size (); i++)
+    {
+        xetraXetraEnLightTargetPartiesCompPacket group;
+        putXetraEnLightTargetPartiesComp ((*vXetraEnLightTargetParties)[i], group);
+        packet.mXetraEnLightTargetParties.push_back (group);
+    }
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightOpenNegotiationRequesterNotification");
+}
+
+void
+xetraCodec::putXetraEnLightQuoteNotification (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightQuoteNotificationPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setTransactTime, &xetraXetraEnLightQuoteNotificationPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setQuoteID, &xetraXetraEnLightQuoteNotificationPacket::resetQuoteID> (d, QuoteID, packet);
+    xetra::getInteger<uint64_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setSecondaryQuoteID, &xetraXetraEnLightQuoteNotificationPacket::resetSecondaryQuoteID> (d, SecondaryQuoteID, packet);
+    xetra::getDouble<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setBidPx, &xetraXetraEnLightQuoteNotificationPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setBidSize, &xetraXetraEnLightQuoteNotificationPacket::resetBidSize> (d, BidSize, packet);
+    xetra::getDouble<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setOfferPx, &xetraXetraEnLightQuoteNotificationPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setOfferSize, &xetraXetraEnLightQuoteNotificationPacket::resetOfferSize> (d, OfferSize, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setNegotiationID, &xetraXetraEnLightQuoteNotificationPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setTradingCapacity, &xetraXetraEnLightQuoteNotificationPacket::resetTradingCapacity> (d, TradingCapacity, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setQuotingStatus, &xetraXetraEnLightQuoteNotificationPacket::resetQuotingStatus> (d, QuotingStatus, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setQuoteEventReason, &xetraXetraEnLightQuoteNotificationPacket::resetQuoteEventReason> (d, QuoteEventReason, packet);
+    xetra::getString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setPartyExecutingFirm, &xetraXetraEnLightQuoteNotificationPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setPartyExecutingTrader, &xetraXetraEnLightQuoteNotificationPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setPartyEnteringTrader, &xetraXetraEnLightQuoteNotificationPacket::resetPartyEnteringTrader> (d, PartyEnteringTrader, packet);
+    xetra::getString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setQuoteReqID, &xetraXetraEnLightQuoteNotificationPacket::resetQuoteReqID> (d, QuoteReqID, packet);
+    xetra::getString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setFreeText1, &xetraXetraEnLightQuoteNotificationPacket::resetFreeText1> (d, FreeText1, packet);
+    xetra::getString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setFreeText2, &xetraXetraEnLightQuoteNotificationPacket::resetFreeText2> (d, FreeText2, packet);
+    xetra::getString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setFreeText4, &xetraXetraEnLightQuoteNotificationPacket::resetFreeText4> (d, FreeText4, packet);
+    xetra::getString<xetraXetraEnLightQuoteNotificationPacket, &xetraXetraEnLightQuoteNotificationPacket::setPad4, &xetraXetraEnLightQuoteNotificationPacket::resetPad4> (d, Pad4, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightQuoteNotification");
+}
+
+void
+xetraCodec::putXetraEnLightQuoteRequesterNotification (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightQuoteRequesterNotificationPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::setTransactTime, &xetraXetraEnLightQuoteRequesterNotificationPacket::resetTransactTime> (d, TransactTime, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::setNegotiationID, &xetraXetraEnLightQuoteRequesterNotificationPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::setTradeID, &xetraXetraEnLightQuoteRequesterNotificationPacket::resetTradeID> (d, TradeID, packet);
+    xetra::getString<xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::setQuoteReqID, &xetraXetraEnLightQuoteRequesterNotificationPacket::resetQuoteReqID> (d, QuoteReqID, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::setNoQuoteEntries, &xetraXetraEnLightQuoteRequesterNotificationPacket::resetNoQuoteEntries> (d, NoQuoteEntries, packet);
+    xetra::getString<xetraXetraEnLightQuoteRequesterNotificationPacket, &xetraXetraEnLightQuoteRequesterNotificationPacket::setPad3, &xetraXetraEnLightQuoteRequesterNotificationPacket::resetPad3> (d, Pad3, packet);
+    const cdrArray* vSRQSQuoteEntryGrp;
+    bool bSRQSQuoteEntryGrp = d.getArray (SRQSQuoteEntryGrp, &vSRQSQuoteEntryGrp);
+    for (size_t i = 0; bSRQSQuoteEntryGrp && i < vSRQSQuoteEntryGrp->size (); i++)
+    {
+        xetraSRQSQuoteEntryGrpCompPacket group;
+        putSRQSQuoteEntryGrpComp ((*vSRQSQuoteEntryGrp)[i], group);
+        packet.mSRQSQuoteEntryGrp.push_back (group);
+    }
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightQuoteRequesterNotification");
+}
+
+void
+xetraCodec::putXetraEnLightQuoteResponse (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightQuoteResponsePacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putResponseHeaderComp (d, packet.mResponseHeader);
+    xetra::getInteger<uint64_t, xetraXetraEnLightQuoteResponsePacket, &xetraXetraEnLightQuoteResponsePacket::setQuoteID, &xetraXetraEnLightQuoteResponsePacket::resetQuoteID> (d, QuoteID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightQuoteResponsePacket, &xetraXetraEnLightQuoteResponsePacket::setNegotiationID, &xetraXetraEnLightQuoteResponsePacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getString<xetraXetraEnLightQuoteResponsePacket, &xetraXetraEnLightQuoteResponsePacket::setQuoteReqID, &xetraXetraEnLightQuoteResponsePacket::resetQuoteReqID> (d, QuoteReqID, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightQuoteResponse");
+}
+
+void
+xetraCodec::putXetraEnLightQuotingStatusRequest (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightQuotingStatusRequestPacket packet;
+    putMessageHeaderInComp (d, packet.mMessageHeaderIn);
+    putRequestHeaderComp (d, packet.mRequestHeader);
+    xetra::getInteger<int32_t, xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::setMarketSegmentID, &xetraXetraEnLightQuotingStatusRequestPacket::resetMarketSegmentID> (d, MarketSegmentID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::setNegotiationID, &xetraXetraEnLightQuotingStatusRequestPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::setQuotingStatus, &xetraXetraEnLightQuotingStatusRequestPacket::resetQuotingStatus> (d, QuotingStatus, packet);
+    xetra::getString<xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::setPartyExecutingFirm, &xetraXetraEnLightQuotingStatusRequestPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::setPartyExecutingTrader, &xetraXetraEnLightQuotingStatusRequestPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightQuotingStatusRequestPacket, &xetraXetraEnLightQuotingStatusRequestPacket::setPad4, &xetraXetraEnLightQuotingStatusRequestPacket::resetPad4> (d, Pad4, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightQuotingStatusRequest");
+}
+
+void
+xetraCodec::putXetraEnLightStatusBroadcast (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightStatusBroadcastPacket packet;
+    putMessageHeaderOutComp (d, packet.mMessageHeaderOut);
+    putRBCHeaderComp (d, packet.mRBCHeader);
+    xetra::getInteger<int32_t, xetraXetraEnLightStatusBroadcastPacket, &xetraXetraEnLightStatusBroadcastPacket::setTradeDate, &xetraXetraEnLightStatusBroadcastPacket::resetTradeDate> (d, TradeDate, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightStatusBroadcastPacket, &xetraXetraEnLightStatusBroadcastPacket::setTradSesEvent, &xetraXetraEnLightStatusBroadcastPacket::resetTradSesEvent> (d, TradSesEvent, packet);
+    xetra::getString<xetraXetraEnLightStatusBroadcastPacket, &xetraXetraEnLightStatusBroadcastPacket::setPad3, &xetraXetraEnLightStatusBroadcastPacket::resetPad3> (d, Pad3, packet);
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightStatusBroadcast");
+}
+
+void
+xetraCodec::putXetraEnLightUpdateNegotiationRequest (const cdr &d, void *buf, size_t len, size_t& used)
+{
+    xetraXetraEnLightUpdateNegotiationRequestPacket packet;
+    putMessageHeaderInComp (d, packet.mMessageHeaderIn);
+    putRequestHeaderComp (d, packet.mRequestHeader);
+    xetra::getDouble<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setBidPx, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetBidPx> (d, BidPx, packet);
+    xetra::getDouble<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setOfferPx, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetOfferPx> (d, OfferPx, packet);
+    xetra::getDouble<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setOrderQty, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetOrderQty> (d, OrderQty, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setMarketSegmentID, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetMarketSegmentID> (d, MarketSegmentID, packet);
+    xetra::getInteger<uint32_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setNegotiationID, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetNegotiationID> (d, NegotiationID, packet);
+    xetra::getInteger<int32_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setSettlDate, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetSettlDate> (d, SettlDate, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setNoTargetPartyIDs, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetNoTargetPartyIDs> (d, NoTargetPartyIDs, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setNumberOfRespDisclosureInstruction, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetNumberOfRespDisclosureInstruction> (d, NumberOfRespDisclosureInstruction, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setSide, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetSide> (d, Side, packet);
+    xetra::getInteger<int8_t, xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setQuoteCancelType, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetQuoteCancelType> (d, QuoteCancelType, packet);
+    xetra::getString<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setPartyExecutingFirm, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetPartyExecutingFirm> (d, PartyExecutingFirm, packet);
+    xetra::getString<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setPartyExecutingTrader, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetPartyExecutingTrader> (d, PartyExecutingTrader, packet);
+    xetra::getString<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setFreeText5, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetFreeText5> (d, FreeText5, packet);
+    xetra::getString<xetraXetraEnLightUpdateNegotiationRequestPacket, &xetraXetraEnLightUpdateNegotiationRequestPacket::setPad1, &xetraXetraEnLightUpdateNegotiationRequestPacket::resetPad1> (d, Pad1, packet);
+    const cdrArray* vXetraEnLightTargetParties;
+    bool bXetraEnLightTargetParties = d.getArray (XetraEnLightTargetParties, &vXetraEnLightTargetParties);
+    for (size_t i = 0; bXetraEnLightTargetParties && i < vXetraEnLightTargetParties->size (); i++)
+    {
+        xetraXetraEnLightTargetPartiesCompPacket group;
+        putXetraEnLightTargetPartiesComp ((*vXetraEnLightTargetParties)[i], group);
+        packet.mXetraEnLightTargetParties.push_back (group);
+    }
+    codecState state = packet.serialize (buf, len, used);
+    if (state != GW_CODEC_SUCCESS)
+        throw xetra::codecError(state, "cannot serialize XetraEnLightUpdateNegotiationRequest");
+}
+
 
 codecState
 xetraCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
@@ -4943,9 +5995,6 @@ xetraCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
             break;
         case 10043:
             getForcedUserLogoutNotification (d, buf, len, used);
-            break;
-        case 10020:
-            getGatewayRequest (d, buf, len, used);
             break;
         case 10011:
             getHeartbeat (d, buf, len, used);
@@ -5085,6 +6134,9 @@ xetraCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
         case 10030:
             getServiceAvailabilityBroadcast (d, buf, len, used);
             break;
+        case 10044:
+            getServiceAvailabilityMarketBroadcast (d, buf, len, used);
+            break;
         case 10025:
             getSubscribeRequest (d, buf, len, used);
             break;
@@ -5144,6 +6196,54 @@ xetraCodec::decode (cdr& d, const void* buf, size_t len, size_t& used)
             break;
         case 10024:
             getUserLogoutResponse (d, buf, len, used);
+            break;
+        case 10808:
+            getXetraEnLightCreateDealNotification (d, buf, len, used);
+            break;
+        case 10805:
+            getXetraEnLightDealResponse (d, buf, len, used);
+            break;
+        case 10802:
+            getXetraEnLightEnterQuoteRequest (d, buf, len, used);
+            break;
+        case 10804:
+            getXetraEnLightHitQuoteRequest (d, buf, len, used);
+            break;
+        case 10813:
+            getXetraEnLightNegotiationNotification (d, buf, len, used);
+            break;
+        case 10812:
+            getXetraEnLightNegotiationRequesterNotification (d, buf, len, used);
+            break;
+        case 10815:
+            getXetraEnLightNegotiationStatusNotification (d, buf, len, used);
+            break;
+        case 10811:
+            getXetraEnLightOpenNegotiationNotification (d, buf, len, used);
+            break;
+        case 10800:
+            getXetraEnLightOpenNegotiationRequest (d, buf, len, used);
+            break;
+        case 10810:
+            getXetraEnLightOpenNegotiationRequesterNotification (d, buf, len, used);
+            break;
+        case 10807:
+            getXetraEnLightQuoteNotification (d, buf, len, used);
+            break;
+        case 10816:
+            getXetraEnLightQuoteRequesterNotification (d, buf, len, used);
+            break;
+        case 10803:
+            getXetraEnLightQuoteResponse (d, buf, len, used);
+            break;
+        case 10817:
+            getXetraEnLightQuotingStatusRequest (d, buf, len, used);
+            break;
+        case 10814:
+            getXetraEnLightStatusBroadcast (d, buf, len, used);
+            break;
+        case 10801:
+            getXetraEnLightUpdateNegotiationRequest (d, buf, len, used);
             break;
             default:
                 stringstream ss;
@@ -5257,9 +6357,6 @@ xetraCodec::encode (const cdr& d, void* buf, size_t len, size_t& used)
             break;
         case 10043:
             putForcedUserLogoutNotification (d, buf, len, used);
-            break;
-        case 10020:
-            putGatewayRequest (d, buf, len, used);
             break;
         case 10011:
             putHeartbeat (d, buf, len, used);
@@ -5399,6 +6496,9 @@ xetraCodec::encode (const cdr& d, void* buf, size_t len, size_t& used)
         case 10030:
             putServiceAvailabilityBroadcast (d, buf, len, used);
             break;
+        case 10044:
+            putServiceAvailabilityMarketBroadcast (d, buf, len, used);
+            break;
         case 10025:
             putSubscribeRequest (d, buf, len, used);
             break;
@@ -5458,6 +6558,54 @@ xetraCodec::encode (const cdr& d, void* buf, size_t len, size_t& used)
             break;
         case 10024:
             putUserLogoutResponse (d, buf, len, used);
+            break;
+        case 10808:
+            putXetraEnLightCreateDealNotification (d, buf, len, used);
+            break;
+        case 10805:
+            putXetraEnLightDealResponse (d, buf, len, used);
+            break;
+        case 10802:
+            putXetraEnLightEnterQuoteRequest (d, buf, len, used);
+            break;
+        case 10804:
+            putXetraEnLightHitQuoteRequest (d, buf, len, used);
+            break;
+        case 10813:
+            putXetraEnLightNegotiationNotification (d, buf, len, used);
+            break;
+        case 10812:
+            putXetraEnLightNegotiationRequesterNotification (d, buf, len, used);
+            break;
+        case 10815:
+            putXetraEnLightNegotiationStatusNotification (d, buf, len, used);
+            break;
+        case 10811:
+            putXetraEnLightOpenNegotiationNotification (d, buf, len, used);
+            break;
+        case 10800:
+            putXetraEnLightOpenNegotiationRequest (d, buf, len, used);
+            break;
+        case 10810:
+            putXetraEnLightOpenNegotiationRequesterNotification (d, buf, len, used);
+            break;
+        case 10807:
+            putXetraEnLightQuoteNotification (d, buf, len, used);
+            break;
+        case 10816:
+            putXetraEnLightQuoteRequesterNotification (d, buf, len, used);
+            break;
+        case 10803:
+            putXetraEnLightQuoteResponse (d, buf, len, used);
+            break;
+        case 10817:
+            putXetraEnLightQuotingStatusRequest (d, buf, len, used);
+            break;
+        case 10814:
+            putXetraEnLightStatusBroadcast (d, buf, len, used);
+            break;
+        case 10801:
+            putXetraEnLightUpdateNegotiationRequest (d, buf, len, used);
             break;
             default:
                 stringstream ss;

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_TESTRADEBROADCAST_PACKET_H
 #define XETRA_TESTRADEBROADCAST_PACKET_H
@@ -104,6 +104,12 @@ class xetraTESTradeBroadcastPacket
         static const uint32_t NUM_DAYS_INTEREST_MIN;
         static const uint32_t NUM_DAYS_INTEREST_MAX;
         static const uint32_t NUM_DAYS_INTEREST_NO_VALUE;
+        static const uint32_t NEGOTIATION_ID_MIN;
+        static const uint32_t NEGOTIATION_ID_MAX;
+        static const uint32_t NEGOTIATION_ID_NO_VALUE;
+        static const uint32_t SRQSRELATED_TRADE_ID_MIN;
+        static const uint32_t SRQSRELATED_TRADE_ID_MAX;
+        static const uint32_t SRQSRELATED_TRADE_ID_NO_VALUE;
         static const int16_t TRD_TYPE_MIN;
         static const int16_t TRD_TYPE_MAX;
         static const int16_t TRD_TYPE_NO_VALUE;
@@ -176,10 +182,12 @@ class xetraTESTradeBroadcastPacket
         static const size_t ROOT_PARTY_CONTRA_SETTLEMENT_ACCOUNT_MAX_LENGTH;
         static const char ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_NO_VALUE[3];
         static const size_t ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_MAX_LENGTH;
+        static const char ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE[4];
+        static const size_t ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH;
         static const char REGULATORY_TRADE_ID_NO_VALUE[52];
         static const size_t REGULATORY_TRADE_ID_MAX_LENGTH;
-        static const char PAD6_NO_VALUE[6];
-        static const size_t PAD6_MAX_LENGTH;
+        static const char PAD2_NO_VALUE[2];
+        static const size_t PAD2_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -211,6 +219,8 @@ class xetraTESTradeBroadcastPacket
         uint32_t mRootPartyIDClearingUnit;
         int32_t mSettlDate;
         uint32_t mNumDaysInterest;
+        uint32_t mNegotiationID;
+        uint32_t mSRQSRelatedTradeID;
         int16_t mTrdType;
         int16_t mLastMkt;
         int8_t mSide;
@@ -241,8 +251,9 @@ class xetraTESTradeBroadcastPacket
         char mRootPartyContraFirmKVNumber[4];
         char mRootPartyContraSettlementAccount[35];
         char mRootPartyContraSettlementLocation[3];
+        char mRootPartyIDExecutionVenue[4];
         char mRegulatoryTradeID[52];
-        char mPad6[6];
+        char mPad2[2];
 
         // constructor
         xetraTESTradeBroadcastPacket ()
@@ -275,6 +286,8 @@ class xetraTESTradeBroadcastPacket
             mRootPartyIDClearingUnit = ROOT_PARTY_IDCLEARING_UNIT_NO_VALUE;
             mSettlDate = SETTL_DATE_NO_VALUE;
             mNumDaysInterest = NUM_DAYS_INTEREST_NO_VALUE;
+            mNegotiationID = NEGOTIATION_ID_NO_VALUE;
+            mSRQSRelatedTradeID = SRQSRELATED_TRADE_ID_NO_VALUE;
             mTrdType = TRD_TYPE_NO_VALUE;
             mLastMkt = LAST_MKT_NO_VALUE;
             mSide = SIDE_NO_VALUE;
@@ -305,8 +318,9 @@ class xetraTESTradeBroadcastPacket
             memcpy(mRootPartyContraFirmKVNumber, ROOT_PARTY_CONTRA_FIRM_KVNUMBER_NO_VALUE, sizeof (mRootPartyContraFirmKVNumber));
             memcpy(mRootPartyContraSettlementAccount, ROOT_PARTY_CONTRA_SETTLEMENT_ACCOUNT_NO_VALUE, sizeof (mRootPartyContraSettlementAccount));
             memcpy(mRootPartyContraSettlementLocation, ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_NO_VALUE, sizeof (mRootPartyContraSettlementLocation));
+            memcpy(mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE, sizeof (mRootPartyIDExecutionVenue));
             memcpy(mRegulatoryTradeID, REGULATORY_TRADE_ID_NO_VALUE, sizeof (mRegulatoryTradeID));
-            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+            memcpy(mPad2, PAD2_NO_VALUE, sizeof (mPad2));
         }
 
         // getters & setters
@@ -897,6 +911,48 @@ class xetraTESTradeBroadcastPacket
         void resetNumDaysInterest ()
         {
             mNumDaysInterest = NUM_DAYS_INTEREST_NO_VALUE;
+        }
+
+        uint32_t getNegotiationID () const
+        {
+            return mNegotiationID;
+        }
+
+        bool setNegotiationID (uint32_t v)
+        {
+            mNegotiationID = v;
+            return ((NEGOTIATION_ID_MIN <= mNegotiationID && mNegotiationID <= NEGOTIATION_ID_MAX) || mNegotiationID == NEGOTIATION_ID_NO_VALUE);
+        }
+
+        bool isNegotiationIDValid () const
+        {
+            return (mNegotiationID != NEGOTIATION_ID_NO_VALUE);
+        }
+
+        void resetNegotiationID ()
+        {
+            mNegotiationID = NEGOTIATION_ID_NO_VALUE;
+        }
+
+        uint32_t getSRQSRelatedTradeID () const
+        {
+            return mSRQSRelatedTradeID;
+        }
+
+        bool setSRQSRelatedTradeID (uint32_t v)
+        {
+            mSRQSRelatedTradeID = v;
+            return ((SRQSRELATED_TRADE_ID_MIN <= mSRQSRelatedTradeID && mSRQSRelatedTradeID <= SRQSRELATED_TRADE_ID_MAX) || mSRQSRelatedTradeID == SRQSRELATED_TRADE_ID_NO_VALUE);
+        }
+
+        bool isSRQSRelatedTradeIDValid () const
+        {
+            return (mSRQSRelatedTradeID != SRQSRELATED_TRADE_ID_NO_VALUE);
+        }
+
+        void resetSRQSRelatedTradeID ()
+        {
+            mSRQSRelatedTradeID = SRQSRELATED_TRADE_ID_NO_VALUE;
         }
 
         int16_t getTrdType () const
@@ -1565,6 +1621,29 @@ class xetraTESTradeBroadcastPacket
             memcpy (mRootPartyContraSettlementLocation, ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_NO_VALUE, sizeof (mRootPartyContraSettlementLocation));
         }
 
+        string getRootPartyIDExecutionVenue () const
+        {
+            return string (mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH);
+        }
+
+        bool setRootPartyIDExecutionVenue (const string& v)
+        {
+            memset (mRootPartyIDExecutionVenue, '\0', sizeof (mRootPartyIDExecutionVenue));
+            size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH);
+            strncpy (mRootPartyIDExecutionVenue, v.c_str (), size);
+            return (v.size () <= ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH);
+        }
+
+        bool isRootPartyIDExecutionVenueValid () const
+        {
+            return (memcmp (mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE, sizeof (mRootPartyIDExecutionVenue)) != 0);
+        }
+
+        void resetRootPartyIDExecutionVenue ()
+        {
+            memcpy (mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE, sizeof (mRootPartyIDExecutionVenue));
+        }
+
         string getRegulatoryTradeID () const
         {
             return string (mRegulatoryTradeID, REGULATORY_TRADE_ID_MAX_LENGTH);
@@ -1588,27 +1667,27 @@ class xetraTESTradeBroadcastPacket
             memcpy (mRegulatoryTradeID, REGULATORY_TRADE_ID_NO_VALUE, sizeof (mRegulatoryTradeID));
         }
 
-        string getPad6 () const
+        string getPad2 () const
         {
-            return string (mPad6, PAD6_MAX_LENGTH);
+            return string (mPad2, PAD2_MAX_LENGTH);
         }
 
-        bool setPad6 (const string& v)
+        bool setPad2 (const string& v)
         {
-            memset (mPad6, '\0', sizeof (mPad6));
-            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
-            strncpy (mPad6, v.c_str (), size);
-            return (v.size () <= PAD6_MAX_LENGTH);
+            memset (mPad2, '\0', sizeof (mPad2));
+            size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
+            strncpy (mPad2, v.c_str (), size);
+            return (v.size () <= PAD2_MAX_LENGTH);
         }
 
-        bool isPad6Valid () const
+        bool isPad2Valid () const
         {
-            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
+            return (memcmp (mPad2, PAD2_NO_VALUE, sizeof (mPad2)) != 0);
         }
 
-        void resetPad6 ()
+        void resetPad2 ()
         {
-            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+            memcpy (mPad2, PAD2_NO_VALUE, sizeof (mPad2));
         }
 
 
@@ -1644,6 +1723,8 @@ class xetraTESTradeBroadcastPacket
                 + sizeof (mRootPartyIDClearingUnit)
                 + sizeof (mSettlDate)
                 + sizeof (mNumDaysInterest)
+                + sizeof (mNegotiationID)
+                + sizeof (mSRQSRelatedTradeID)
                 + sizeof (mTrdType)
                 + sizeof (mLastMkt)
                 + sizeof (mSide)
@@ -1674,8 +1755,9 @@ class xetraTESTradeBroadcastPacket
                 + sizeof (mRootPartyContraFirmKVNumber)
                 + sizeof (mRootPartyContraSettlementAccount)
                 + sizeof (mRootPartyContraSettlementLocation)
+                + sizeof (mRootPartyIDExecutionVenue)
                 + sizeof (mRegulatoryTradeID)
-                + sizeof (mPad6);
+                + sizeof (mPad2);
             return result;
         }
 
@@ -1742,6 +1824,10 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mNumDaysInterest, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mNegotiationID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mSRQSRelatedTradeID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mTrdType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mLastMkt, buf, len, used);
@@ -1802,9 +1888,11 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mRootPartyContraSettlementLocation, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mRootPartyIDExecutionVenue, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mRegulatoryTradeID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad6, buf, len, used);
+            state = xetra::serialize (mPad2, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -1871,6 +1959,10 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mNumDaysInterest, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mNegotiationID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mSRQSRelatedTradeID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mTrdType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mLastMkt, buf, len, used);
@@ -1931,9 +2023,11 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mRootPartyContraSettlementLocation, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mRootPartyIDExecutionVenue, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mRegulatoryTradeID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad6, buf, len, used);
+            state = xetra::deserialize (mPad2, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -1973,6 +2067,8 @@ class xetraTESTradeBroadcastPacket
                 << "[RootPartyIDClearingUnit=" << getRootPartyIDClearingUnit () << "],"
                 << "[SettlDate=" << getSettlDate () << "],"
                 << "[NumDaysInterest=" << getNumDaysInterest () << "],"
+                << "[NegotiationID=" << getNegotiationID () << "],"
+                << "[SRQSRelatedTradeID=" << getSRQSRelatedTradeID () << "],"
                 << "[TrdType=" << getTrdType () << "],"
                 << "[LastMkt=" << getLastMkt () << "],"
                 << "[Side=" << getSide () << "],"
@@ -2003,8 +2099,9 @@ class xetraTESTradeBroadcastPacket
                 << "[RootPartyContraFirmKVNumber=" << getRootPartyContraFirmKVNumber () << "],"
                 << "[RootPartyContraSettlementAccount=" << getRootPartyContraSettlementAccount () << "],"
                 << "[RootPartyContraSettlementLocation=" << getRootPartyContraSettlementLocation () << "],"
+                << "[RootPartyIDExecutionVenue=" << getRootPartyIDExecutionVenue () << "],"
                 << "[RegulatoryTradeID=" << getRegulatoryTradeID () << "],"
-                << "[Pad6=" << getPad6 () << "]";
+                << "[Pad2=" << getPad2 () << "]";
             return sss.str();
         }
 };
@@ -2090,8 +2187,14 @@ const int32_t xetraTESTradeBroadcastPacket::SETTL_DATE_NO_VALUE = 0xFFFFFFFF;
 const uint32_t xetraTESTradeBroadcastPacket::NUM_DAYS_INTEREST_MIN = 0;
 const uint32_t xetraTESTradeBroadcastPacket::NUM_DAYS_INTEREST_MAX = 4294967294;
 const uint32_t xetraTESTradeBroadcastPacket::NUM_DAYS_INTEREST_NO_VALUE = 0xFFFFFFFF;
+const uint32_t xetraTESTradeBroadcastPacket::NEGOTIATION_ID_MIN = 0;
+const uint32_t xetraTESTradeBroadcastPacket::NEGOTIATION_ID_MAX = 4294967294;
+const uint32_t xetraTESTradeBroadcastPacket::NEGOTIATION_ID_NO_VALUE = 0xFFFFFFFF;
+const uint32_t xetraTESTradeBroadcastPacket::SRQSRELATED_TRADE_ID_MIN = 0;
+const uint32_t xetraTESTradeBroadcastPacket::SRQSRELATED_TRADE_ID_MAX = 4294967294;
+const uint32_t xetraTESTradeBroadcastPacket::SRQSRELATED_TRADE_ID_NO_VALUE = 0xFFFFFFFF;
 const int16_t xetraTESTradeBroadcastPacket::TRD_TYPE_MIN = 1;
-const int16_t xetraTESTradeBroadcastPacket::TRD_TYPE_MAX = 1005;
+const int16_t xetraTESTradeBroadcastPacket::TRD_TYPE_MAX = 1010;
 const int16_t xetraTESTradeBroadcastPacket::TRD_TYPE_NO_VALUE = 0xFFFF;
 const int16_t xetraTESTradeBroadcastPacket::LAST_MKT_MIN = 1;
 const int16_t xetraTESTradeBroadcastPacket::LAST_MKT_MAX = 255;
@@ -2162,10 +2265,12 @@ const char xetraTESTradeBroadcastPacket::ROOT_PARTY_CONTRA_SETTLEMENT_ACCOUNT_NO
 const size_t xetraTESTradeBroadcastPacket::ROOT_PARTY_CONTRA_SETTLEMENT_ACCOUNT_MAX_LENGTH = 35;
 const char xetraTESTradeBroadcastPacket::ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_NO_VALUE[3] = {0x00, 0x00, 0x00};
 const size_t xetraTESTradeBroadcastPacket::ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_MAX_LENGTH = 3;
+const char xetraTESTradeBroadcastPacket::ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
+const size_t xetraTESTradeBroadcastPacket::ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH = 4;
 const char xetraTESTradeBroadcastPacket::REGULATORY_TRADE_ID_NO_VALUE[52] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraTESTradeBroadcastPacket::REGULATORY_TRADE_ID_MAX_LENGTH = 52;
-const char xetraTESTradeBroadcastPacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraTESTradeBroadcastPacket::PAD6_MAX_LENGTH = 6;
+const char xetraTESTradeBroadcastPacket::PAD2_NO_VALUE[2] = {0x00, 0x00};
+const size_t xetraTESTradeBroadcastPacket::PAD2_MAX_LENGTH = 2;
 
 
 } // namespace neueda

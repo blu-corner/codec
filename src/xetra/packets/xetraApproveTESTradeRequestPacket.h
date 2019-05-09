@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_APPROVETESTRADEREQUEST_PACKET_H
 #define XETRA_APPROVETESTRADEREQUEST_PACKET_H
@@ -901,7 +901,7 @@ const int32_t xetraApproveTESTradeRequestPacket::MARKET_SEGMENT_ID_MIN = -214748
 const int32_t xetraApproveTESTradeRequestPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraApproveTESTradeRequestPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
 const int16_t xetraApproveTESTradeRequestPacket::TRD_TYPE_MIN = 1;
-const int16_t xetraApproveTESTradeRequestPacket::TRD_TYPE_MAX = 1005;
+const int16_t xetraApproveTESTradeRequestPacket::TRD_TYPE_MAX = 1010;
 const int16_t xetraApproveTESTradeRequestPacket::TRD_TYPE_NO_VALUE = 0xFFFF;
 const int8_t xetraApproveTESTradeRequestPacket::TRADING_CAPACITY_MIN = 1;
 const int8_t xetraApproveTESTradeRequestPacket::TRADING_CAPACITY_MAX = 9;

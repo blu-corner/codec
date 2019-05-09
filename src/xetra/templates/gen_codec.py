@@ -39,22 +39,22 @@ if not os.path.exists(packets_dir):
     os.makedirs(packets_dir)
 
 # generate files
-packet_h = os.path.join(packets_dir, 'xetraPackets.h')
+packet_h = os.path.join(packets_dir, '{0}Packets.h'.format(venue.attrib['name'].lower()))
 compose_packet_h(packet_h, generation, venue)
 
-msg_packet_h = os.path.join(packets_dir, 'xetra{0}Packet.h')
-compose_msg_packet_h(msg_packet_h.format('Header'), generation, venue.find('header'), venue)
+msg_packet_h = os.path.join(packets_dir, '{0}{1}Packet.h')
+compose_msg_packet_h(msg_packet_h.format(venue.attrib['name'].lower(), 'Header'), generation, venue.find('header'), venue)
 
 for group in venue.findall('group'):
-    compose_msg_packet_h(msg_packet_h.format(group.attrib['name']), generation, group, venue)
+    compose_msg_packet_h(msg_packet_h.format(venue.attrib['name'].lower(), group.attrib['name']), generation, group, venue)
 
 for message in venue.findall('message'):
-    compose_msg_packet_h(msg_packet_h.format(message.attrib['name']), generation, message, venue)
+    compose_msg_packet_h(msg_packet_h.format(venue.attrib['name'].lower(), message.attrib['name']), generation, message, venue)
 
-codec_h = os.path.join(output_dir, 'xetraCodec.h')
+codec_h = os.path.join(output_dir, '{0}Codec.h'.format(venue.attrib['name'].lower()))
 compose_codec_h(codec_h, venue)
 
-codec_cpp = os.path.join(output_dir, 'xetraCodec.cpp')
+codec_cpp = os.path.join(output_dir, '{0}Codec.cpp'.format(venue.attrib['name'].lower()))
 compose_codec_cpp(codec_cpp, venue)
 
 #codec_i = os.path.join(packet_dir, 'Xetra.i')

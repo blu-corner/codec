@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_LOGONRESPONSE_PACKET_H
 #define XETRA_LOGONRESPONSE_PACKET_H
@@ -446,7 +446,7 @@ const int16_t xetraLogonResponsePacket::MARKET_ID_MIN = 1;
 const int16_t xetraLogonResponsePacket::MARKET_ID_MAX = 255;
 const int16_t xetraLogonResponsePacket::MARKET_ID_NO_VALUE = 0xFFFF;
 const int8_t xetraLogonResponsePacket::TRAD_SES_MODE_MIN = 1;
-const int8_t xetraLogonResponsePacket::TRAD_SES_MODE_MAX = 4;
+const int8_t xetraLogonResponsePacket::TRAD_SES_MODE_MAX = 5;
 const int8_t xetraLogonResponsePacket::TRAD_SES_MODE_NO_VALUE = 0xFF;
 const char xetraLogonResponsePacket::DEFAULT_CSTM_APPL_VER_ID_NO_VALUE[30] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraLogonResponsePacket::DEFAULT_CSTM_APPL_VER_ID_MAX_LENGTH = 30;

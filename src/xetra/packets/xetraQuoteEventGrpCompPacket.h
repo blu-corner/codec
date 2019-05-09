@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_QUOTEEVENTGRPCOMP_PACKET_H
 #define XETRA_QUOTEEVENTGRPCOMP_PACKET_H
@@ -443,7 +443,7 @@ const int8_t xetraQuoteEventGrpCompPacket::QUOTE_EVENT_LIQUIDITY_IND_MIN = 1;
 const int8_t xetraQuoteEventGrpCompPacket::QUOTE_EVENT_LIQUIDITY_IND_MAX = 4;
 const int8_t xetraQuoteEventGrpCompPacket::QUOTE_EVENT_LIQUIDITY_IND_NO_VALUE = 0xFF;
 const int8_t xetraQuoteEventGrpCompPacket::QUOTE_EVENT_REASON_MIN = 14;
-const int8_t xetraQuoteEventGrpCompPacket::QUOTE_EVENT_REASON_MAX = 18;
+const int8_t xetraQuoteEventGrpCompPacket::QUOTE_EVENT_REASON_MAX = 21;
 const int8_t xetraQuoteEventGrpCompPacket::QUOTE_EVENT_REASON_NO_VALUE = 0xFF;
 const char xetraQuoteEventGrpCompPacket::PAD4_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
 const size_t xetraQuoteEventGrpCompPacket::PAD4_MAX_LENGTH = 4;

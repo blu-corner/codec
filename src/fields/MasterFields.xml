@@ -2162,6 +2162,28 @@
   <field name="TradeAllocStatus" number="4003" venue="Xetra"/>
   <field name="TradeReportText" number="4004" venue="Xetra"/>
   <field name="AccruedInteresAmt" number="4005" venue="Xetra"/>
+  <field name="XetraEnLightTargetParties" number="4006" venue="Xetra"/>
+  <field name="SRQSQuoteEntryGrp" number="4007" venue="Xetra"/>
+  <field name="NoAffectedOrderRequests" number="4008" venue="Xetra"/>
+  <field name="AffectedOrderRequestsGrp" number="4009" venue="Xetra"/>
+  <field name="TransactionDelayIndicator" number="4010" venue="Xetra"/>
+  <field name="SelectiveRequestForQuoteServiceTradeDate" number="4011" venue="Xetra"/>
+  <field name="SelectiveRequestForQuoteServiceStatus" number="4012" venue="Xetra"/>
+  <field name="NegotiationID" number="4013" venue="Xetra"/>
+  <field name="SRQSRelatedTradeID" number="4014" venue="Xetra"/>
+  <field name="RootPartyIDExecutionVenue" number="4015" venue="Xetra"/>
+  <field name="NoOrderBookItems" number="4016" venue="Xetra"/>
+  <field name="RootPartyEnteringTrader" number="4017" venue="Xetra"/>
+  <field name="FirmNegotiationID" number="4018" venue="Xetra"/>
+  <field name="OrderBookItemGrp" number="4019" venue="Xetra"/>
+  <field name="NumberOfRespondents" number="4020" venue="Xetra"/>
+  <field name="FreeText5" number="4021" venue="Xetra"/>
+  <field name="TrdRegTSExecutionTime" number="4022" venue="Xetra"/>
+  <field name="NumberOfRespDisclosureInstruction" number="4023" venue="Xetra"/>
+  <field name="NegotiationStartTime" number="4024" venue="Xetra"/>
+  <field name="SecondaryQuoteID" number="4025" venue="Xetra"/>
+  <field name="QuotingStatus" number="4026" venue="Xetra"/>
+  <field name="AffectedOrderRequestID" number="4027" venue="Xetra"/>
   <field name="NotUsedGroup1" number="4200" venue="OEG Binary"/>
   <field name="NewOrderNotUsedGroup1" number="4201" venue="OEG Binary"/>
   <field name="NotUsedGroup2" number="4202" venue="OEG Binary"/>
