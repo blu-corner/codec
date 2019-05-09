@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 11:10:58 07/05/19
  */
 #ifndef OPTIQ_CODEC_H
 #define OPTIQ_CODEC_H
@@ -41,14 +41,8 @@ class optiqCodec: public codec
             mMsgTypes.insert(std::make_pair("34", "RequestForExecution"));
             mMsgTypes.insert(std::make_pair("35", "RFQNotification"));
             mMsgTypes.insert(std::make_pair("36", "RFQMatchingStatus"));
+            mMsgTypes.insert(std::make_pair("37", "RFQLPMatchingStatus"));
             mMsgTypes.insert(std::make_pair("39", "UserNotification"));
-            mMsgTypes.insert(std::make_pair("40", "DeclarationEntry"));
-            mMsgTypes.insert(std::make_pair("41", "DeclarationEntryAck"));
-            mMsgTypes.insert(std::make_pair("42", "DeclarationNotice"));
-            mMsgTypes.insert(std::make_pair("43", "DeclarationCancelAndRefusal"));
-            mMsgTypes.insert(std::make_pair("44", "FundPriceInput"));
-            mMsgTypes.insert(std::make_pair("45", "FundPriceInputAck"));
-            mMsgTypes.insert(std::make_pair("46", "DeclarationEntryReject"));
             mMsgTypes.insert(std::make_pair("50", "InstrumentSynchronizationList"));
             mMsgTypes.insert(std::make_pair("51", "SynchronizationTime"));
             mMsgTypes.insert(std::make_pair("100", "Logon"));
@@ -58,6 +52,13 @@ class optiqCodec: public codec
             mMsgTypes.insert(std::make_pair("106", "Heartbeat"));
             mMsgTypes.insert(std::make_pair("107", "TestRequest"));
             mMsgTypes.insert(std::make_pair("108", "TechnicalReject"));
+            mMsgTypes.insert(std::make_pair("40", "DeclarationEntry"));
+            mMsgTypes.insert(std::make_pair("41", "DeclarationEntryAck"));
+            mMsgTypes.insert(std::make_pair("42", "DeclarationNotice"));
+            mMsgTypes.insert(std::make_pair("43", "DeclarationCancelAndRefusal"));
+            mMsgTypes.insert(std::make_pair("44", "FundPriceInput"));
+            mMsgTypes.insert(std::make_pair("45", "FundPriceInputAck"));
+            mMsgTypes.insert(std::make_pair("46", "DeclarationEntryReject"));
         }
 
         codecState decode (cdr& d,
@@ -94,14 +95,8 @@ class optiqCodec: public codec
         codecState getRequestForExecution (cdr& d, const void* hdr);
         codecState getRFQNotification (cdr& d, const void* hdr);
         codecState getRFQMatchingStatus (cdr& d, const void* hdr);
+        codecState getRFQLPMatchingStatus (cdr& d, const void* hdr);
         codecState getUserNotification (cdr& d, const void* hdr);
-        codecState getDeclarationEntry (cdr& d, const void* hdr);
-        codecState getDeclarationEntryAck (cdr& d, const void* hdr);
-        codecState getDeclarationNotice (cdr& d, const void* hdr);
-        codecState getDeclarationCancelAndRefusal (cdr& d, const void* hdr);
-        codecState getFundPriceInput (cdr& d, const void* hdr);
-        codecState getFundPriceInputAck (cdr& d, const void* hdr);
-        codecState getDeclarationEntryReject (cdr& d, const void* hdr);
         codecState getInstrumentSynchronizationList (cdr& d, const void* hdr);
         codecState getSynchronizationTime (cdr& d, const void* hdr);
         codecState getLogon (cdr& d, const void* hdr);
@@ -111,6 +106,13 @@ class optiqCodec: public codec
         codecState getHeartbeat (cdr& d, const void* hdr);
         codecState getTestRequest (cdr& d, const void* hdr);
         codecState getTechnicalReject (cdr& d, const void* hdr);
+        codecState getDeclarationEntry (cdr& d, const void* hdr);
+        codecState getDeclarationEntryAck (cdr& d, const void* hdr);
+        codecState getDeclarationNotice (cdr& d, const void* hdr);
+        codecState getDeclarationCancelAndRefusal (cdr& d, const void* hdr);
+        codecState getFundPriceInput (cdr& d, const void* hdr);
+        codecState getFundPriceInputAck (cdr& d, const void* hdr);
+        codecState getDeclarationEntryReject (cdr& d, const void* hdr);
 
         codecState putNewOrder (const cdr& d,
                                     void* hdr,
@@ -204,35 +206,11 @@ class optiqCodec: public codec
                                     void* hdr,
                                     size_t len,
                                     size_t& used);
+        codecState putRFQLPMatchingStatus (const cdr& d,
+                                    void* hdr,
+                                    size_t len,
+                                    size_t& used);
         codecState putUserNotification (const cdr& d,
-                                    void* hdr,
-                                    size_t len,
-                                    size_t& used);
-        codecState putDeclarationEntry (const cdr& d,
-                                    void* hdr,
-                                    size_t len,
-                                    size_t& used);
-        codecState putDeclarationEntryAck (const cdr& d,
-                                    void* hdr,
-                                    size_t len,
-                                    size_t& used);
-        codecState putDeclarationNotice (const cdr& d,
-                                    void* hdr,
-                                    size_t len,
-                                    size_t& used);
-        codecState putDeclarationCancelAndRefusal (const cdr& d,
-                                    void* hdr,
-                                    size_t len,
-                                    size_t& used);
-        codecState putFundPriceInput (const cdr& d,
-                                    void* hdr,
-                                    size_t len,
-                                    size_t& used);
-        codecState putFundPriceInputAck (const cdr& d,
-                                    void* hdr,
-                                    size_t len,
-                                    size_t& used);
-        codecState putDeclarationEntryReject (const cdr& d,
                                     void* hdr,
                                     size_t len,
                                     size_t& used);
@@ -269,6 +247,34 @@ class optiqCodec: public codec
                                     size_t len,
                                     size_t& used);
         codecState putTechnicalReject (const cdr& d,
+                                    void* hdr,
+                                    size_t len,
+                                    size_t& used);
+        codecState putDeclarationEntry (const cdr& d,
+                                    void* hdr,
+                                    size_t len,
+                                    size_t& used);
+        codecState putDeclarationEntryAck (const cdr& d,
+                                    void* hdr,
+                                    size_t len,
+                                    size_t& used);
+        codecState putDeclarationNotice (const cdr& d,
+                                    void* hdr,
+                                    size_t len,
+                                    size_t& used);
+        codecState putDeclarationCancelAndRefusal (const cdr& d,
+                                    void* hdr,
+                                    size_t len,
+                                    size_t& used);
+        codecState putFundPriceInput (const cdr& d,
+                                    void* hdr,
+                                    size_t len,
+                                    size_t& used);
+        codecState putFundPriceInputAck (const cdr& d,
+                                    void* hdr,
+                                    size_t len,
+                                    size_t& used);
+        codecState putDeclarationEntryReject (const cdr& d,
                                     void* hdr,
                                     size_t len,
                                     size_t& used);

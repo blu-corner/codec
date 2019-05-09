@@ -432,6 +432,9 @@ def load_xml_context(fxml):
     global groups
     global composite_data
 
+    sbe_id = root.attrib['id']
+    sbe_version = root.attrib['version']
+
     types_root = root.findall('types')[0]
 
     for ts in types_root.findall('type'):
@@ -516,7 +519,8 @@ def load_xml_context(fxml):
         'get_field': get_field,
         'set_field': set_field,
         'get_field_type': get_field_type,
-        'version': 102,
+        'schema_id': sbe_id,
+        'version': sbe_version,
         'get_default_value': get_default_value,
         'packet_get_set': packet_get_set,
         'get_comp_field_type': get_comp_field_type,

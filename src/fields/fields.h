@@ -2178,6 +2178,17 @@ using namespace std;
 #define TradeAllocStatus 4003
 #define TradeReportText 4004
 #define AccruedInteresAmt 4005
+#define NotUsedGroup1 4200
+#define NewOrderNotUsedGroup1 4201
+#define NotUsedGroup2 4202
+#define NewOrderNotUsedGroup2 4203
+#define CancelReplaceNotUsedGroup1 4204
+#define CancelReplaceNotUsedGroup2 4205
+#define CancelRequestNotUsedGroup1 4206
+#define CancelRequestNotUsedGroup2 4207
+#define MassCancelNotUsedGroup1 4208
+#define MassCancelNotUsedGroup2 4209
+#define CCPID 4210
 
 namespace neueda
 {

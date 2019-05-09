@@ -2162,4 +2162,15 @@
   <field name="TradeAllocStatus" number="4003" venue="Xetra"/>
   <field name="TradeReportText" number="4004" venue="Xetra"/>
   <field name="AccruedInteresAmt" number="4005" venue="Xetra"/>
+  <field name="NotUsedGroup1" number="4200" venue="OEG Binary"/>
+  <field name="NewOrderNotUsedGroup1" number="4201" venue="OEG Binary"/>
+  <field name="NotUsedGroup2" number="4202" venue="OEG Binary"/>
+  <field name="NewOrderNotUsedGroup2" number="4203" venue="OEG Binary"/>
+  <field name="CancelReplaceNotUsedGroup1" number="4204" venue="OEG Binary"/>
+  <field name="CancelReplaceNotUsedGroup2" number="4205" venue="OEG Binary"/>
+  <field name="CancelRequestNotUsedGroup1" number="4206" venue="OEG Binary"/>
+  <field name="CancelRequestNotUsedGroup2" number="4207" venue="OEG Binary"/>
+  <field name="MassCancelNotUsedGroup1" number="4208" venue="OEG Binary"/>
+  <field name="MassCancelNotUsedGroup2" number="4209" venue="OEG Binary"/>
+  <field name="CCPID" number="4210" venue="OEG Binary"/>
 </fields>

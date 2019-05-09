@@ -3,8 +3,8 @@
  * 
  * Generated 11:10:58 07/05/19
  */
-#ifndef _OPTIQ_KILL_PACKET_H_
-#define _OPTIQ_KILL_PACKET_H_
+#ifndef _OPTIQ_RFQLPMATCHINGSTATUS_PACKET_H_
+#define _OPTIQ_RFQLPMATCHINGSTATUS_PACKET_H_
 
 #include <string>
 #include <sstream>
@@ -18,51 +18,43 @@
 namespace neueda
 {
 
-PACKED(class optiqKillPacket
+PACKED(class optiqRFQLPMatchingStatusPacket
 {
 public:
     uint16_t mFrameLength;
     optiqMessageHeaderPacket mHeader;
         uint32_t mMsgSeqNum;
         char mFirmID[8];
-        uint64_t mSendingTime;
-        uint64_t mOEGINFromMember;
-        uint64_t mOEGOUTTimeToME;
         uint64_t mBookIn;
         uint64_t mBookOUTTime;
         uint64_t mOEGINFromME;
         uint64_t mOEGOUTToMember;
-        int64_t mClientOrderID;
-        int64_t mOrigClientOrderID;
-        uint64_t mOrderID;
+        uint64_t mQuoteReqID;
+        uint64_t mPotentialMatchingQty;
         uint32_t mSymbolIndex;
         uint8_t mEMM;
-        uint8_t mKillReason;
+        uint8_t mOrderSide;
 
-    optiqKillPacket ()
+    optiqRFQLPMatchingStatusPacket ()
     {
-        mFrameLength = sizeof (optiqKillPacket) - sizeof (uint16_t);
-        mHeader.setBlockLength (sizeof (optiqKillPacket) -
+        mFrameLength = sizeof (optiqRFQLPMatchingStatusPacket) - sizeof (uint16_t);
+        mHeader.setBlockLength (sizeof (optiqRFQLPMatchingStatusPacket) -
                                 sizeof (optiqMessageHeaderPacket) -
                                 sizeof (mFrameLength));
-        mHeader.setTemplateId (OptiqKillTemplateId);
+        mHeader.setTemplateId (OptiqRFQLPMatchingStatusTemplateId);
         mHeader.setSchemaId (0);
         mHeader.setVersion (109);
         mMsgSeqNum = 0;
         memset (mFirmID, 0, 8);
-        mSendingTime = UINT64_MAX;
-        mOEGINFromMember = UINT64_MAX;
-        mOEGOUTTimeToME = UINT64_MAX;
         mBookIn = 0;
         mBookOUTTime = UINT64_MAX;
         mOEGINFromME = UINT64_MAX;
         mOEGOUTToMember = UINT64_MAX;
-        mClientOrderID = INT64_MIN;
-        mOrigClientOrderID = INT64_MIN;
-        mOrderID = 0;
+        mQuoteReqID = 0;
+        mPotentialMatchingQty = 0;
         mSymbolIndex = 0;
         mEMM = 0;
-        mKillReason = 0;
+        mOrderSide = 0;
     }
 
     
@@ -85,39 +77,6 @@ public:
     bool setFirmID (const string& val)
     {
         return setString (mFirmID, val, sizeof (mFirmID));
-    }
-    
-    uint64_t getSendingTime () const
-    {
-        return mSendingTime;
-    }
-
-    bool setSendingTime (uint64_t val)
-    {
-        mSendingTime = val;
-        return true;
-    }
-    
-    uint64_t getOEGINFromMember () const
-    {
-        return mOEGINFromMember;
-    }
-
-    bool setOEGINFromMember (uint64_t val)
-    {
-        mOEGINFromMember = val;
-        return true;
-    }
-    
-    uint64_t getOEGOUTTimeToME () const
-    {
-        return mOEGOUTTimeToME;
-    }
-
-    bool setOEGOUTTimeToME (uint64_t val)
-    {
-        mOEGOUTTimeToME = val;
-        return true;
     }
     
     uint64_t getBookIn () const
@@ -164,36 +123,25 @@ public:
         return true;
     }
     
-    int64_t getClientOrderID () const
+    uint64_t getQuoteReqID () const
     {
-        return mClientOrderID;
+        return mQuoteReqID;
     }
 
-    bool setClientOrderID (int64_t val)
+    bool setQuoteReqID (uint64_t val)
     {
-        mClientOrderID = val;
+        mQuoteReqID = val;
         return true;
     }
     
-    int64_t getOrigClientOrderID () const
+    uint64_t getPotentialMatchingQty () const
     {
-        return mOrigClientOrderID;
+        return mPotentialMatchingQty;
     }
 
-    bool setOrigClientOrderID (int64_t val)
+    bool setPotentialMatchingQty (uint64_t val)
     {
-        mOrigClientOrderID = val;
-        return true;
-    }
-    
-    uint64_t getOrderID () const
-    {
-        return mOrderID;
-    }
-
-    bool setOrderID (uint64_t val)
-    {
-        mOrderID = val;
+        mPotentialMatchingQty = val;
         return true;
     }
     
@@ -219,14 +167,14 @@ public:
         return true;
     }
     
-    uint8_t getKillReason () const
+    uint8_t getOrderSide () const
     {
-        return mKillReason;
+        return mOrderSide;
     }
 
-    bool setKillReason (uint8_t val)
+    bool setOrderSide (uint8_t val)
     {
-        mKillReason = val;
+        mOrderSide = val;
         return true;
     }
 });
