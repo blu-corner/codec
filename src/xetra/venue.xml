@@ -1,13 +1,13 @@
 <exchange name="Xetra">
     <global name="global">
-        <parameter name="MessageSpecTitle" value="Enhanced Trading Interface - Cash Message Reference - Release 6.0 - 24 Nov 2017"/>
+        <parameter name="MessageSpecTitle" value="Enhanced Trading Interface - Cash Message Reference - Release 7.1 - 2019.04.11"/>
         <parameter name="MessageSpecFilename" value="T7-Enhanced-Trading-Interface-Cash-Message-Reference.pdf"/>
         <parameter name="ProtocolGroup" value="XETRA"/>
         <parameter desc="The Enhanced Trading Interface (ETI) is the high performance interface designed for participants who require the highest throughput and the lowest latency for their transactions." name="Venue" value="Frankfurt"/>
         <parameter name="VenueMIC" value="XETR"/>
         <parameter name="Interface" value="OrderEntry"/>
-        <parameter name="ProtocolVersion" value="6.0"/>
-        <parameter name="ProtocolIssueDate" value="2017.11.24"/>
+        <parameter name="ProtocolVersion" value="7.1"/>
+        <parameter name="ProtocolIssueDate" value="2019.04.11"/>
         <parameter name="Endianness" value="little"/>
         <parameter default="" name="ETX" value=""/>
     </global>
@@ -28,20 +28,26 @@
         <field class="integer" maxValue="1" minValue="0" name="LastFragment" noValue="0xFF" type="int8_t"/>
     </group>
     <group name="OrderBookItemGrpComp">
-        <field class="integer" maxValue="9223372036854775807" minValue="-9223372036854775807" name="SecurityID" noValue="0x8000000000000000" type="int64_t"/>
         <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BestBidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
         <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="BestBidSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
         <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BestOfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
         <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="BestOfferSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
         <field class="integer" maxValue="2" minValue="1" name="MDBookType" noValue="0xFF" type="int8_t"/>
-        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
+        <field class="integer" maxValue="2" minValue="1" name="MDSubBookType" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
     </group>
-    <group name="QuoteEntryGrpComp">
-        <field class="integer" maxValue="9223372036854775807" minValue="-9223372036854775807" name="SecurityID" noValue="0x8000000000000000" type="int64_t"/>
-        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
-        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="BidSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
-        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
-        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OfferSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+    <group name="EnrichmentRulesGrpComp">
+        <field class="integer" maxValue="10000" minValue="1" name="EnrichmentRuleID" noValue="0xFFFF" type="int16_t"/>
+        <field class="string" name="FreeText1" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText2" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText4" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="16" terminable="false" type="char"/>
+        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
+    </group>
+    <group name="XetraEnLightTargetPartiesComp">
+        <field class="integer" maxValue="2147483647" minValue="0" name="TargetPartyIDExecutingTrader" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="string" name="TargetPartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="TargetPartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="Pad1" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
     </group>
     <group name="ResponseHeaderComp">
         <field class="integer" maxValue="18446744073709551614" minValue="0" name="RequestTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
@@ -52,6 +58,21 @@
     <group name="NotAffectedOrdersGrpComp">
         <field class="integer" maxValue="18446744073709551614" minValue="0" name="NotAffectedOrderID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
         <field class="integer" maxValue="18446744073709551614" minValue="0" name="NotAffOrigClOrdID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+    </group>
+    <group name="SRQSQuoteEntryGrpComp">
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="QuoteID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="SecondaryQuoteID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="BidSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OfferSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="PartyIDExecutingTrader" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4" minValue="0" name="QuotingStatus" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="PartyEnteringTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="Pad2" noValue="0x00" range="x01-x7E" size="2" terminable="false" type="char"/>
     </group>
     <group name="MessageHeaderInComp">
         <field class="integer" maxValue="4294967294" minValue="0" name="BodyLen" noValue="0xFFFFFFFF" type="uint32_t"/>
@@ -96,18 +117,22 @@
         <field class="integer" maxValue="1" minValue="0" name="LastFragment" noValue="0xFF" type="int8_t"/>
         <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
     </group>
-    <group name="EnrichmentRulesGrpComp">
-        <field class="integer" maxValue="10000" minValue="1" name="EnrichmentRuleID" noValue="0xFFFF" type="int16_t"/>
-        <field class="string" name="FreeText1" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
-        <field class="string" name="FreeText2" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
-        <field class="string" name="FreeText4" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="16" terminable="false" type="char"/>
-        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
+    <group name="AffectedOrderRequestsGrpComp">
+        <field class="integer" maxValue="4294967294" minValue="0" name="AffectedOrderRequestID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
     </group>
     <group name="SessionsGrpComp">
         <field class="integer" maxValue="4294967294" minValue="0" name="PartyIDSessionID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="3" minValue="1" name="SessionMode" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="0" name="SessionSubMode" noValue="0xFF" type="int8_t"/>
         <field class="string" name="Pad2" noValue="0x00" range="x01-x7E" size="2" terminable="false" type="char"/>
+    </group>
+    <group name="QuoteEntryGrpComp">
+        <field class="integer" maxValue="9223372036854775807" minValue="-9223372036854775807" name="SecurityID" noValue="0x8000000000000000" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="BidSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OfferSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
     </group>
     <group name="AffectedOrdGrpComp">
         <field class="integer" maxValue="18446744073709551614" minValue="0" name="AffectedOrderID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
@@ -121,17 +146,6 @@
         <field class="integer" maxValue="1" minValue="0" name="ApplResendFlag" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="10" minValue="0" name="ApplID" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="1" minValue="0" name="LastFragment" noValue="0xFF" type="int8_t"/>
-        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
-    </group>
-    <group name="TargetPartiesComp">
-        <field class="integer" maxValue="1" minValue="0" name="SideDisclosureInstruction" noValue="0xFF" type="int8_t"/>
-        <field class="integer" maxValue="1" minValue="0" name="PriceDisclosureInstruction" noValue="0xFF" type="int8_t"/>
-        <field class="integer" maxValue="1" minValue="0" name="LeavesQtyDisclosureInstruction" noValue="0xFF" type="int8_t"/>
-        <field class="integer" maxValue="1" minValue="0" name="LastPxDisclosureInstruction" noValue="0xFF" type="int8_t"/>
-        <field class="integer" maxValue="1" minValue="0" name="LastQtyDisclosureInstruction" noValue="0xFF" type="int8_t"/>
-        <field class="integer" maxValue="1" minValue="0" name="QuoteInstruction" noValue="0xFF" type="int8_t"/>
-        <field class="string" name="TargetPartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
-        <field class="string" name="TargetPartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
         <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
     </group>
     <group name="NotifHeaderComp">
@@ -148,6 +162,10 @@
         <field class="integer" maxValue="10" minValue="0" name="ApplID" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="1" minValue="0" name="LastFragment" noValue="0xFF" type="int8_t"/>
         <field class="string" name="Pad2" noValue="0x00" range="x01-x7E" size="2" terminable="false" type="char"/>
+    </group>
+    <group name="SRQSRelatedTradeIDGrpComp">
+        <field class="integer" maxValue="4294967294" minValue="0" name="SRQSRelatedTradeID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
     </group>
     <group name="SideAllocGrpBCComp">
         <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="AllocQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
@@ -191,7 +209,7 @@
         <field class="integer" maxValue="5" minValue="0" name="QuoteEventType" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="1" name="QuoteEventSide" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="4" minValue="1" name="QuoteEventLiquidityInd" noValue="0xFF" type="int8_t"/>
-        <field class="integer" maxValue="18" minValue="14" name="QuoteEventReason" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="21" minValue="14" name="QuoteEventReason" noValue="0xFF" type="int8_t"/>
         <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
     </group>
     <group name="SecurityStatusEventGrpComp">
@@ -211,7 +229,7 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="AllocID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="TESExecID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="9" minValue="1" name="TradingCapacity" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="13" minValue="0" name="TradeReportType" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
@@ -291,12 +309,15 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="PartyIDEnteringTrader" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="500" minValue="0" name="NoNotAffectedOrders" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="500" minValue="0" name="NoAffectedOrders" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="500" minValue="0" name="NoAffectedOrderRequests" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="2" minValue="1" name="PartyIDEnteringFirm" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="200" minValue="0" name="MassActionReason" noValue="0xFF" type="uint8_t"/>
         <field class="integer" maxValue="6" minValue="1" name="ExecInst" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
         <field class="sequence" counter="NoNotAffectedOrders" maxGroups="500" minGroups="0" name="NotAffectedOrdersGrp" type="NotAffectedOrdersGrpComp"/>
         <field class="sequence" counter="NoAffectedOrders" maxGroups="500" minGroups="0" name="AffectedOrdGrp" type="AffectedOrdGrpComp"/>
+        <field class="sequence" counter="NoAffectedOrderRequests" maxGroups="500" minGroups="0" name="AffectedOrderRequestsGrp" type="AffectedOrderRequestsGrpComp"/>
     </message>
     <message msgtype="10124" name="DeleteAllOrderNRResponse">
         <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
@@ -334,9 +355,11 @@
         <field class="integer" maxValue="18446744073709551614" minValue="0" name="MassActionReportID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
         <field class="integer" maxValue="500" minValue="0" name="NoNotAffectedOrders" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="500" minValue="0" name="NoAffectedOrders" noValue="0xFFFF" type="int16_t"/>
-        <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
+        <field class="integer" maxValue="500" minValue="0" name="NoAffectedOrderRequests" noValue="0xFFFF" type="int16_t"/>
+        <field class="string" name="Pad2" noValue="0x00" range="x01-x7E" size="2" terminable="false" type="char"/>
         <field class="sequence" counter="NoNotAffectedOrders" maxGroups="500" minGroups="0" name="NotAffectedOrdersGrp" type="NotAffectedOrdersGrpComp"/>
         <field class="sequence" counter="NoAffectedOrders" maxGroups="500" minGroups="0" name="AffectedOrdGrp" type="AffectedOrdGrpComp"/>
+        <field class="sequence" counter="NoAffectedOrderRequests" maxGroups="500" minGroups="0" name="AffectedOrderRequestsGrp" type="AffectedOrderRequestsGrpComp"/>
     </message>
     <message msgtype="10410" name="DeleteAllQuoteBroadcast">
         <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
@@ -409,6 +432,8 @@
         <field class="string" name="OrdStatus" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
         <field class="string" name="ExecType" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
         <field class="integer" maxValue="344" minValue="0" name="ExecRestatementReason" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="TransactionDelayIndicator" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
     </message>
     <message msgtype="10110" name="DeleteOrderResponse">
         <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
@@ -424,6 +449,8 @@
         <field class="string" name="OrdStatus" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
         <field class="string" name="ExecType" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
         <field class="integer" maxValue="344" minValue="0" name="ExecRestatementReason" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="TransactionDelayIndicator" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
     </message>
     <message msgtype="10109" name="DeleteOrderSingleRequest">
         <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
@@ -447,7 +474,7 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="PackageID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="TESExecID" noValue="0xFFFFFFFF" type="uint32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="13" minValue="0" name="TradeReportType" noValue="0xFF" type="int8_t"/>
         <field class="string" name="TradeReportID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
         <field class="string" name="Pad5" noValue="0x00" range="x01-x7E" size="5" terminable="false" type="char"/>
@@ -484,7 +511,7 @@
         <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="SettlCurrFxRate" noValue="0x8000000000000000" precision="8" type="int64_t"/>
         <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
         <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="13" minValue="0" name="TradeReportType" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="30" minValue="1" name="NoSideAllocs" noValue="0xFF" type="int8_t"/>
         <field class="string" name="TradeReportText" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
@@ -555,15 +582,6 @@
         <field class="integer" maxValue="2000" minValue="0" name="VarTextLen" noValue="0xFFFF" type="int16_t"/>
         <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
         <field class="varstring" counter="VarTextLen" name="VarText" range="x09,x0A,x0D,x20-x7B,x7D,x7E" size="2000" terminable="false" type="char"/>
-    </message>
-    <message msgtype="10020" name="GatewayRequest">
-        <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
-        <field class="group" name="RequestHeader" type="RequestHeaderComp"/>
-        <field class="integer" maxValue="4294967294" minValue="0" name="PartyIDSessionID" noValue="0xFFFFFFFF" type="uint32_t"/>
-        <field class="integer" maxValue="65534" minValue="0" name="PartitionID" noValue="0xFFFF" type="uint16_t"/>
-        <field class="string" name="DefaultCstmApplVerID" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="30" terminable="true" type="char"/>
-        <field class="string" name="Password" noValue="0x00" range="0-9,A-Z,a-z,x21,x23,x24,x25,x26,x2A,x2B,x2D,x2F,x3D,x40,x5F" size="32" terminable="true" type="char"/>
-        <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
     </message>
     <message msgtype="10011" name="Heartbeat">
         <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
@@ -676,7 +694,7 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="HeartBtInt" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="SessionInstanceID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="255" minValue="1" name="MarketID" noValue="0xFFFF" type="int16_t"/>
-        <field class="integer" maxValue="4" minValue="1" name="TradSesMode" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="5" minValue="1" name="TradSesMode" noValue="0xFF" type="int8_t"/>
         <field class="string" name="DefaultCstmApplVerID" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="30" terminable="true" type="char"/>
         <field class="string" name="DefaultCstmApplVerSubID" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="5" terminable="false" type="char"/>
         <field class="string" name="Pad2" noValue="0x00" range="x01-x7E" size="2" terminable="false" type="char"/>
@@ -739,7 +757,8 @@
         <field class="integer" maxValue="344" minValue="0" name="ExecRestatementReason" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="1" minValue="0" name="CrossedIndicator" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="0" name="Triggered" noValue="0xFF" type="int8_t"/>
-        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
+        <field class="integer" maxValue="1" minValue="0" name="TransactionDelayIndicator" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad5" noValue="0x00" range="x01-x7E" size="5" terminable="false" type="char"/>
     </message>
     <message msgtype="10107" name="ModifyOrderResponse">
         <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
@@ -761,7 +780,8 @@
         <field class="integer" maxValue="344" minValue="0" name="ExecRestatementReason" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="1" minValue="0" name="CrossedIndicator" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="0" name="Triggered" noValue="0xFF" type="int8_t"/>
-        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
+        <field class="integer" maxValue="1" minValue="0" name="TransactionDelayIndicator" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad5" noValue="0x00" range="x01-x7E" size="5" terminable="false" type="char"/>
     </message>
     <message msgtype="10106" name="ModifyOrderSingleRequest">
         <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
@@ -844,7 +864,7 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="PackageID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="TESExecID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="13" minValue="0" name="TradeReportType" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="30" minValue="1" name="NoSideAllocs" noValue="0xFF" type="int8_t"/>
         <field class="string" name="TradeReportText" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
@@ -865,7 +885,8 @@
         <field class="integer" maxValue="344" minValue="0" name="ExecRestatementReason" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="1" minValue="0" name="CrossedIndicator" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="0" name="Triggered" noValue="0xFF" type="int8_t"/>
-        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
+        <field class="integer" maxValue="1" minValue="0" name="TransactionDelayIndicator" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad5" noValue="0x00" range="x01-x7E" size="5" terminable="false" type="char"/>
     </message>
     <message msgtype="10101" name="NewOrderResponse">
         <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
@@ -882,7 +903,8 @@
         <field class="integer" maxValue="344" minValue="0" name="ExecRestatementReason" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="1" minValue="0" name="CrossedIndicator" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="0" name="Triggered" noValue="0xFF" type="int8_t"/>
-        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
+        <field class="integer" maxValue="1" minValue="0" name="TransactionDelayIndicator" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad5" noValue="0x00" range="x01-x7E" size="5" terminable="false" type="char"/>
     </message>
     <message msgtype="10100" name="NewOrderSingleRequest">
         <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
@@ -1061,8 +1083,9 @@
         <field class="integer" maxValue="14" minValue="0" name="MatchType" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="0" name="Triggered" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="1" minValue="0" name="CrossedIndicator" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="TransactionDelayIndicator" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="100" minValue="0" name="NoFills" noValue="0xFF" type="int8_t"/>
-        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
+        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
         <field class="sequence" counter="NoFills" maxGroups="100" minGroups="0" name="FillsGrp" type="FillsGrpComp"/>
     </message>
     <message msgtype="10042" name="PartyActionReport">
@@ -1221,6 +1244,13 @@
         <field class="integer" maxValue="1" minValue="0" name="T7EntryServiceRtmStatus" noValue="0xFF" type="int8_t"/>
         <field class="string" name="Pad5" noValue="0x00" range="x01-x7E" size="5" terminable="false" type="char"/>
     </message>
+    <message msgtype="10044" name="ServiceAvailabilityMarketBroadcast">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="NRBCHeader" type="NRBCHeaderComp"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="SelectiveRequestForQuoteServiceTradeDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="SelectiveRequestForQuoteServiceStatus" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad3" noValue="0x00" range="x01-x7E" size="3" terminable="false" type="char"/>
+    </message>
     <message msgtype="10025" name="SubscribeRequest">
         <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
         <field class="group" name="RequestHeader" type="RequestHeaderComp"/>
@@ -1248,7 +1278,7 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="TESExecID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="AllocID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="1" minValue="0" name="ValueCheckTypeValue" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="1" minValue="0" name="ValueCheckTypeQuantity" noValue="0xFF" type="int8_t"/>
@@ -1280,7 +1310,7 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="PackageID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="TESExecID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="13" minValue="0" name="TradeReportType" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="30" minValue="1" name="NoSideAllocs" noValue="0xFF" type="int8_t"/>
         <field class="string" name="MessageEventSource" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
@@ -1297,7 +1327,7 @@
         <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="PackageID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="TESExecID" noValue="0xFFFFFFFF" type="uint32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="107" minValue="100" name="DeleteReason" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="13" minValue="0" name="TradeReportType" noValue="0xFF" type="int8_t"/>
         <field class="string" name="MessageEventSource" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
@@ -1312,7 +1342,7 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="PackageID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="TESExecID" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="AllocID" noValue="0xFFFFFFFF" type="uint32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="13" minValue="0" name="TradeReportType" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
         <field class="string" name="MessageEventSource" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
@@ -1354,7 +1384,9 @@
         <field class="integer" maxValue="4294967294" minValue="0" name="RootPartyIDClearingUnit" noValue="0xFFFFFFFF" type="uint32_t"/>
         <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
         <field class="integer" maxValue="4294967294" minValue="0" name="NumDaysInterest" noValue="0xFFFFFFFF" type="uint32_t"/>
-        <field class="integer" maxValue="1005" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="SRQSRelatedTradeID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="1010" minValue="1" name="TrdType" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="255" minValue="1" name="LastMkt" noValue="0xFFFF" type="int16_t"/>
         <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
         <field class="integer" maxValue="9" minValue="1" name="TradingCapacity" noValue="0xFF" type="int8_t"/>
@@ -1384,8 +1416,9 @@
         <field class="string" name="RootPartyContraFirmKVNumber" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="4" terminable="false" type="char"/>
         <field class="string" name="RootPartyContraSettlementAccount" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="35" terminable="false" type="char"/>
         <field class="string" name="RootPartyContraSettlementLocation" noValue="0x00" range="A-Z,0-9,x20" size="3" terminable="false" type="char"/>
+        <field class="string" name="RootPartyIDExecutionVenue" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="4" terminable="false" type="char"/>
         <field class="string" name="RegulatoryTradeID" noValue="0x00" range="0-9,A-Z,a-z" size="52" terminable="false" type="char"/>
-        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
+        <field class="string" name="Pad2" noValue="0x00" range="x01-x7E" size="2" terminable="false" type="char"/>
     </message>
     <message msgtype="10615" name="TESTradingSessionStatusBroadcast">
         <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
@@ -1480,6 +1513,8 @@
         <field class="string" name="RootPartyContraSettlementAccount" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="35" terminable="false" type="char"/>
         <field class="string" name="RootPartyContraSettlementLocation" noValue="0x00" range="A-Z,0-9,x20" size="3" terminable="false" type="char"/>
         <field class="string" name="RegulatoryTradeID" noValue="0x00" range="0-9,A-Z,a-z" size="52" terminable="false" type="char"/>
+        <field class="string" name="RootPartyIDExecutionVenue" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="4" terminable="false" type="char"/>
+        <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
     </message>
     <message msgtype="10307" name="TradingSessionStatusBroadcast">
         <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
@@ -1539,5 +1574,315 @@
     <message msgtype="10024" name="UserLogoutResponse">
         <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
         <field class="group" name="ResponseHeader" type="ResponseHeaderComp"/>
+    </message>
+    <message msgtype="10808" name="XetraEnLightCreateDealNotification">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="LastPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="LastQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="QuoteID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="9223372036854775807" minValue="-9223372036854775807" name="SecurityID" noValue="0x8000000000000000" type="int64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="PartyIDClientID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="PartyIdInvestmentDecisionMaker" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="ExecutingTrader" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="TradeID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="9" minValue="1" name="TradingCapacity" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="9" minValue="0" name="TrdRptStatus" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="MessageEventSource" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
+        <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="3" minValue="1" name="AllocMethod" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="26" minValue="0" name="NoOrderBookItems" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="OrderAttributeLiquidityProvision" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="24" minValue="22" name="ExecutingTraderQualifier" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="24" minValue="22" name="PartyIdInvestmentDecisionMakerQualifier" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="RootPartyExecutingFirm" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="5" terminable="false" type="char"/>
+        <field class="string" name="RootPartyExecutingTrader" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="6" terminable="false" type="char"/>
+        <field class="string" name="RootPartyEnteringTrader" noValue="0x00" range="x20,x22-x7B,x7D,x7E" size="6" terminable="false" type="char"/>
+        <field class="string" name="TargetPartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="TargetPartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FirmTradeID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FirmNegotiationID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FreeText1" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText2" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText4" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="16" terminable="false" type="char"/>
+        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
+        <field class="sequence" counter="NoOrderBookItems" maxGroups="26" minGroups="0" name="OrderBookItemGrp" type="OrderBookItemGrpComp"/>
+    </message>
+    <message msgtype="10805" name="XetraEnLightDealResponse">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="ResponseHeader" type="ResponseHeaderComp"/>
+        <field class="integer" maxValue="9223372036854775807" minValue="-9223372036854775807" name="SecurityID" noValue="0x8000000000000000" type="int64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="QuoteID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="TradeID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="SecondaryTradeID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="string" name="FirmTradeID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FirmNegotiationID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10802" name="XetraEnLightEnterQuoteRequest">
+        <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
+        <field class="group" name="RequestHeader" type="RequestHeaderComp"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="BidSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OfferSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="PartyIDClientID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="PartyIdInvestmentDecisionMaker" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="ExecutingTrader" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="ValueCheckTypeQuantity" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="ValueCheckTypeValue" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="9" minValue="1" name="TradingCapacity" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="OrderAttributeLiquidityProvision" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="24" minValue="22" name="ExecutingTraderQualifier" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="24" minValue="22" name="PartyIdInvestmentDecisionMakerQualifier" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FreeText1" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText2" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText4" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="16" terminable="false" type="char"/>
+        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10804" name="XetraEnLightHitQuoteRequest">
+        <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
+        <field class="group" name="RequestHeader" type="RequestHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="QuoteID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OrderQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="Price" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="PartyIDClientID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="PartyIdInvestmentDecisionMaker" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="ExecutingTrader" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="ValueCheckTypeQuantity" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="ValueCheckTypeValue" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="9" minValue="1" name="TradingCapacity" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="OrderAttributeLiquidityProvision" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="24" minValue="22" name="ExecutingTraderQualifier" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="3" minValue="1" name="AllocMethod" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="24" minValue="22" name="PartyIdInvestmentDecisionMakerQualifier" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FirmTradeID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FreeText1" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText2" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText4" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="16" terminable="false" type="char"/>
+        <field class="string" name="Pad1" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10813" name="XetraEnLightNegotiationNotification">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="LeavesQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NumberOfRespondents" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="17" minValue="6" name="QuoteStatus" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="PartyEnteringTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="TargetPartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="TargetPartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FirmNegotiationID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FreeText5" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="132" terminable="false" type="char"/>
+        <field class="string" name="Pad6" noValue="0x00" range="x01-x7E" size="6" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10812" name="XetraEnLightNegotiationRequesterNotification">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TrdRegTSExecutionTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OrderQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="LastPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="LeavesQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="LastQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NumberOfRespondents" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="17" minValue="6" name="QuoteStatus" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="50" minValue="0" name="NoTargetPartyIDs" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="NumberOfRespDisclosureInstruction" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="PartyEnteringTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FirmNegotiationID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FreeText5" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="132" terminable="false" type="char"/>
+        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
+        <field class="sequence" counter="NoTargetPartyIDs" maxGroups="50" minGroups="0" name="XetraEnLightTargetParties" type="XetraEnLightTargetPartiesComp"/>
+    </message>
+    <message msgtype="10815" name="XetraEnLightNegotiationStatusNotification">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="17" minValue="6" name="QuoteStatus" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="FirmNegotiationID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10811" name="XetraEnLightOpenNegotiationNotification">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="NegotiationStartTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="9223372036854775807" minValue="-9223372036854775807" name="SecurityID" noValue="0x8000000000000000" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="LeavesQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="ExpireTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NumberOfRespondents" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="17" minValue="6" name="QuoteStatus" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="101" minValue="2" name="RespondentType" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="PartyEnteringTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="TargetPartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="TargetPartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FirmNegotiationID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FreeText5" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="132" terminable="false" type="char"/>
+        <field class="string" name="Pad1" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10800" name="XetraEnLightOpenNegotiationRequest">
+        <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
+        <field class="group" name="RequestHeader" type="RequestHeaderComp"/>
+        <field class="integer" maxValue="9223372036854775807" minValue="-9223372036854775807" name="SecurityID" noValue="0x8000000000000000" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OrderQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="ValidUntilTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="50" minValue="0" name="NoTargetPartyIDs" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="NumberOfRespDisclosureInstruction" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="ValueCheckTypeValue" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="ValueCheckTypeQuantity" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="101" minValue="2" name="RespondentType" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FreeText5" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="132" terminable="false" type="char"/>
+        <field class="string" name="QuoteReqID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="Pad7" noValue="0x00" range="x01-x7E" size="7" terminable="false" type="char"/>
+        <field class="sequence" counter="NoTargetPartyIDs" maxGroups="50" minGroups="0" name="XetraEnLightTargetParties" type="XetraEnLightTargetPartiesComp"/>
+    </message>
+    <message msgtype="10810" name="XetraEnLightOpenNegotiationRequesterNotification">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="9223372036854775807" minValue="-9223372036854775807" name="SecurityID" noValue="0x8000000000000000" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OrderQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="LastPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="LastQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="ExpireTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NumberOfRespondents" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="17" minValue="6" name="QuoteStatus" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="50" minValue="0" name="NoTargetPartyIDs" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="NumberOfRespDisclosureInstruction" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="101" minValue="2" name="RespondentType" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="PartyEnteringTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FirmNegotiationID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FreeText5" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="132" terminable="false" type="char"/>
+        <field class="string" name="Pad2" noValue="0x00" range="x01-x7E" size="2" terminable="false" type="char"/>
+        <field class="sequence" counter="NoTargetPartyIDs" maxGroups="50" minGroups="0" name="XetraEnLightTargetParties" type="XetraEnLightTargetPartiesComp"/>
+    </message>
+    <message msgtype="10807" name="XetraEnLightQuoteNotification">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="QuoteID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="SecondaryQuoteID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="BidSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OfferSize" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="9" minValue="1" name="TradingCapacity" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="4" minValue="0" name="QuotingStatus" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="21" minValue="14" name="QuoteEventReason" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="PartyEnteringTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="QuoteReqID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="string" name="FreeText1" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText2" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="12" terminable="false" type="char"/>
+        <field class="string" name="FreeText4" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="16" terminable="false" type="char"/>
+        <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10816" name="XetraEnLightQuoteRequesterNotification">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="TransactTime" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="TradeID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="string" name="QuoteReqID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+        <field class="integer" maxValue="100" minValue="0" name="NoQuoteEntries" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad3" noValue="0x00" range="x01-x7E" size="3" terminable="false" type="char"/>
+        <field class="sequence" counter="NoQuoteEntries" maxGroups="100" minGroups="0" name="SRQSQuoteEntryGrp" type="SRQSQuoteEntryGrpComp"/>
+    </message>
+    <message msgtype="10803" name="XetraEnLightQuoteResponse">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="ResponseHeader" type="ResponseHeaderComp"/>
+        <field class="integer" maxValue="18446744073709551614" minValue="0" name="QuoteID" noValue="0xFFFFFFFFFFFFFFFF" type="uint64_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="string" name="QuoteReqID" noValue="0x00" range="x01-x7E" size="20" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10817" name="XetraEnLightQuotingStatusRequest">
+        <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
+        <field class="group" name="RequestHeader" type="RequestHeaderComp"/>
+        <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="4" minValue="0" name="QuotingStatus" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="Pad4" noValue="0x00" range="x01-x7E" size="4" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10814" name="XetraEnLightStatusBroadcast">
+        <field class="group" name="MessageHeaderOut" type="MessageHeaderOutComp"/>
+        <field class="group" name="RBCHeader" type="RBCHeaderComp"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="TradeDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="105" minValue="100" name="TradSesEvent" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="Pad3" noValue="0x00" range="x01-x7E" size="3" terminable="false" type="char"/>
+    </message>
+    <message msgtype="10801" name="XetraEnLightUpdateNegotiationRequest">
+        <field class="group" name="MessageHeaderIn" type="MessageHeaderInComp"/>
+        <field class="group" name="RequestHeader" type="RequestHeaderComp"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="BidPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="92233720368.54775807" minValue="-92233720368.54775807" name="OfferPx" noValue="0x8000000000000000" precision="8" type="int64_t"/>
+        <field class="double" maxValue="922337203685477.5807" minValue="-922337203685477.5807" name="OrderQty" noValue="0x8000000000000000" precision="4" type="int64_t"/>
+        <field class="integer" maxValue="2147483647" minValue="-2147483647" name="MarketSegmentID" noValue="0x80000000" type="int32_t"/>
+        <field class="integer" maxValue="4294967294" minValue="0" name="NegotiationID" noValue="0xFFFFFFFF" type="uint32_t"/>
+        <field class="integer" maxValue="99991231" minValue="0" name="SettlDate" noValue="0xFFFFFFFF" type="int32_t"/>
+        <field class="integer" maxValue="50" minValue="0" name="NoTargetPartyIDs" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="1" minValue="0" name="NumberOfRespDisclosureInstruction" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="2" minValue="1" name="Side" noValue="0xFF" type="int8_t"/>
+        <field class="integer" maxValue="4" minValue="4" name="QuoteCancelType" noValue="0xFF" type="int8_t"/>
+        <field class="string" name="PartyExecutingFirm" noValue="0x00" range="A-Z,0-9,x20" size="5" terminable="false" type="char"/>
+        <field class="string" name="PartyExecutingTrader" noValue="0x00" range="A-Z,0-9,x20" size="6" terminable="false" type="char"/>
+        <field class="string" name="FreeText5" noValue="0x00" range="x20,x23-x25,x28-x2A,x2C-x3B,x3F,x41-x5F,x61-x7B,x7D,x7E" size="132" terminable="false" type="char"/>
+        <field class="string" name="Pad1" noValue="0x00" range="x01-x7E" size="1" terminable="false" type="char"/>
+        <field class="sequence" counter="NoTargetPartyIDs" maxGroups="50" minGroups="0" name="XetraEnLightTargetParties" type="XetraEnLightTargetPartiesComp"/>
     </message>
 </exchange>

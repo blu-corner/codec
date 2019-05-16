@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_ORDEREXECRESPONSE_PACKET_H
 #define XETRA_ORDEREXECRESPONSE_PACKET_H
@@ -81,11 +81,14 @@ class xetraOrderExecResponsePacket
         static const int8_t CROSSED_INDICATOR_MIN;
         static const int8_t CROSSED_INDICATOR_MAX;
         static const int8_t CROSSED_INDICATOR_NO_VALUE;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_MIN;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_MAX;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_NO_VALUE;
         static const int8_t NO_FILLS_MIN;
         static const int8_t NO_FILLS_MAX;
         static const int8_t NO_FILLS_NO_VALUE;
-        static const char PAD7_NO_VALUE[7];
-        static const size_t PAD7_MAX_LENGTH;
+        static const char PAD6_NO_VALUE[6];
+        static const size_t PAD6_MAX_LENGTH;
         static const size_t FILLS_GRP_MIN;
         static const size_t FILLS_GRP_MAX;
 
@@ -112,8 +115,9 @@ class xetraOrderExecResponsePacket
         int8_t mMatchType;
         int8_t mTriggered;
         int8_t mCrossedIndicator;
+        int8_t mTransactionDelayIndicator;
         int8_t mNoFills;
-        char mPad7[7];
+        char mPad6[6];
         vector<xetraFillsGrpCompPacket> mFillsGrp;
 
         // constructor
@@ -140,8 +144,9 @@ class xetraOrderExecResponsePacket
             mMatchType = MATCH_TYPE_NO_VALUE;
             mTriggered = TRIGGERED_NO_VALUE;
             mCrossedIndicator = CROSSED_INDICATOR_NO_VALUE;
+            mTransactionDelayIndicator = TRANSACTION_DELAY_INDICATOR_NO_VALUE;
             mNoFills = NO_FILLS_NO_VALUE;
-            memcpy(mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
         // getters & setters
@@ -591,6 +596,27 @@ class xetraOrderExecResponsePacket
             mCrossedIndicator = CROSSED_INDICATOR_NO_VALUE;
         }
 
+        int8_t getTransactionDelayIndicator () const
+        {
+            return mTransactionDelayIndicator;
+        }
+
+        bool setTransactionDelayIndicator (int8_t v)
+        {
+            mTransactionDelayIndicator = v;
+            return ((TRANSACTION_DELAY_INDICATOR_MIN <= mTransactionDelayIndicator && mTransactionDelayIndicator <= TRANSACTION_DELAY_INDICATOR_MAX) || mTransactionDelayIndicator == TRANSACTION_DELAY_INDICATOR_NO_VALUE);
+        }
+
+        bool isTransactionDelayIndicatorValid () const
+        {
+            return (mTransactionDelayIndicator != TRANSACTION_DELAY_INDICATOR_NO_VALUE);
+        }
+
+        void resetTransactionDelayIndicator ()
+        {
+            mTransactionDelayIndicator = TRANSACTION_DELAY_INDICATOR_NO_VALUE;
+        }
+
         int8_t getNoFills () const
         {
             return mNoFills;
@@ -612,27 +638,27 @@ class xetraOrderExecResponsePacket
             mNoFills = NO_FILLS_NO_VALUE;
         }
 
-        string getPad7 () const
+        string getPad6 () const
         {
-            return string (mPad7, PAD7_MAX_LENGTH);
+            return string (mPad6, PAD6_MAX_LENGTH);
         }
 
-        bool setPad7 (const string& v)
+        bool setPad6 (const string& v)
         {
-            memset (mPad7, '\0', sizeof (mPad7));
-            size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
-            strncpy (mPad7, v.c_str (), size);
-            return (v.size () <= PAD7_MAX_LENGTH);
+            memset (mPad6, '\0', sizeof (mPad6));
+            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
+            strncpy (mPad6, v.c_str (), size);
+            return (v.size () <= PAD6_MAX_LENGTH);
         }
 
-        bool isPad7Valid () const
+        bool isPad6Valid () const
         {
-            return (memcmp (mPad7, PAD7_NO_VALUE, sizeof (mPad7)) != 0);
+            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
         }
 
-        void resetPad7 ()
+        void resetPad6 ()
         {
-            memcpy (mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
         const vector<xetraFillsGrpCompPacket>& getFillsGrp () const
@@ -673,8 +699,9 @@ class xetraOrderExecResponsePacket
                 + sizeof (mMatchType)
                 + sizeof (mTriggered)
                 + sizeof (mCrossedIndicator)
+                + sizeof (mTransactionDelayIndicator)
                 + sizeof (mNoFills)
-                + sizeof (mPad7)
+                + sizeof (mPad6)
                 + xetra::getRawSize (mFillsGrp);
             return result;
         }
@@ -729,9 +756,11 @@ class xetraOrderExecResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mCrossedIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mTransactionDelayIndicator, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mNoFills, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad7, buf, len, used);
+            state = xetra::serialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             for (size_t i = 0; i < mFillsGrp.size (); i++)
             {
@@ -789,9 +818,11 @@ class xetraOrderExecResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mCrossedIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mTransactionDelayIndicator, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mNoFills, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad7, buf, len, used);
+            state = xetra::deserialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mFillsGrp.resize (mNoFills);
             for (vector<xetraFillsGrpCompPacket>::iterator it = mFillsGrp.begin (); it != mFillsGrp.end (); ++it)
@@ -830,8 +861,9 @@ class xetraOrderExecResponsePacket
                 << "[MatchType=" << getMatchType () << "],"
                 << "[Triggered=" << getTriggered () << "],"
                 << "[CrossedIndicator=" << getCrossedIndicator () << "],"
+                << "[TransactionDelayIndicator=" << getTransactionDelayIndicator () << "],"
                 << "[NoFills=" << getNoFills () << "],"
-                << "[Pad7=" << getPad7 () << "],"
+                << "[Pad6=" << getPad6 () << "],"
                 << "[FillsGrp=" << xetra::toString (getFillsGrp ()) << "]";
             return sss.str();
         }
@@ -895,11 +927,14 @@ const int8_t xetraOrderExecResponsePacket::TRIGGERED_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecResponsePacket::CROSSED_INDICATOR_MIN = 0;
 const int8_t xetraOrderExecResponsePacket::CROSSED_INDICATOR_MAX = 1;
 const int8_t xetraOrderExecResponsePacket::CROSSED_INDICATOR_NO_VALUE = 0xFF;
+const int8_t xetraOrderExecResponsePacket::TRANSACTION_DELAY_INDICATOR_MIN = 0;
+const int8_t xetraOrderExecResponsePacket::TRANSACTION_DELAY_INDICATOR_MAX = 1;
+const int8_t xetraOrderExecResponsePacket::TRANSACTION_DELAY_INDICATOR_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecResponsePacket::NO_FILLS_MIN = 0;
 const int8_t xetraOrderExecResponsePacket::NO_FILLS_MAX = 100;
 const int8_t xetraOrderExecResponsePacket::NO_FILLS_NO_VALUE = 0xFF;
-const char xetraOrderExecResponsePacket::PAD7_NO_VALUE[7] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraOrderExecResponsePacket::PAD7_MAX_LENGTH = 7;
+const char xetraOrderExecResponsePacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraOrderExecResponsePacket::PAD6_MAX_LENGTH = 6;
 const size_t xetraOrderExecResponsePacket::FILLS_GRP_MIN = 0;
 const size_t xetraOrderExecResponsePacket::FILLS_GRP_MAX = 100;
 

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_TRADEBROADCAST_PACKET_H
 #define XETRA_TRADEBROADCAST_PACKET_H
@@ -213,6 +213,10 @@ class xetraTradeBroadcastPacket
         static const size_t ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_MAX_LENGTH;
         static const char REGULATORY_TRADE_ID_NO_VALUE[52];
         static const size_t REGULATORY_TRADE_ID_MAX_LENGTH;
+        static const char ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE[4];
+        static const size_t ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH;
+        static const char PAD4_NO_VALUE[4];
+        static const size_t PAD4_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -287,6 +291,8 @@ class xetraTradeBroadcastPacket
         char mRootPartyContraSettlementAccount[35];
         char mRootPartyContraSettlementLocation[3];
         char mRegulatoryTradeID[52];
+        char mRootPartyIDExecutionVenue[4];
+        char mPad4[4];
 
         // constructor
         xetraTradeBroadcastPacket ()
@@ -362,6 +368,8 @@ class xetraTradeBroadcastPacket
             memcpy(mRootPartyContraSettlementAccount, ROOT_PARTY_CONTRA_SETTLEMENT_ACCOUNT_NO_VALUE, sizeof (mRootPartyContraSettlementAccount));
             memcpy(mRootPartyContraSettlementLocation, ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_NO_VALUE, sizeof (mRootPartyContraSettlementLocation));
             memcpy(mRegulatoryTradeID, REGULATORY_TRADE_ID_NO_VALUE, sizeof (mRegulatoryTradeID));
+            memcpy(mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE, sizeof (mRootPartyIDExecutionVenue));
+            memcpy(mPad4, PAD4_NO_VALUE, sizeof (mPad4));
         }
 
         // getters & setters
@@ -1897,6 +1905,52 @@ class xetraTradeBroadcastPacket
             memcpy (mRegulatoryTradeID, REGULATORY_TRADE_ID_NO_VALUE, sizeof (mRegulatoryTradeID));
         }
 
+        string getRootPartyIDExecutionVenue () const
+        {
+            return string (mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH);
+        }
+
+        bool setRootPartyIDExecutionVenue (const string& v)
+        {
+            memset (mRootPartyIDExecutionVenue, '\0', sizeof (mRootPartyIDExecutionVenue));
+            size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH);
+            strncpy (mRootPartyIDExecutionVenue, v.c_str (), size);
+            return (v.size () <= ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH);
+        }
+
+        bool isRootPartyIDExecutionVenueValid () const
+        {
+            return (memcmp (mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE, sizeof (mRootPartyIDExecutionVenue)) != 0);
+        }
+
+        void resetRootPartyIDExecutionVenue ()
+        {
+            memcpy (mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE, sizeof (mRootPartyIDExecutionVenue));
+        }
+
+        string getPad4 () const
+        {
+            return string (mPad4, PAD4_MAX_LENGTH);
+        }
+
+        bool setPad4 (const string& v)
+        {
+            memset (mPad4, '\0', sizeof (mPad4));
+            size_t size = min ((size_t) v.size (), (size_t) PAD4_MAX_LENGTH);
+            strncpy (mPad4, v.c_str (), size);
+            return (v.size () <= PAD4_MAX_LENGTH);
+        }
+
+        bool isPad4Valid () const
+        {
+            return (memcmp (mPad4, PAD4_NO_VALUE, sizeof (mPad4)) != 0);
+        }
+
+        void resetPad4 ()
+        {
+            memcpy (mPad4, PAD4_NO_VALUE, sizeof (mPad4));
+        }
+
 
         // render current raw size
         size_t getRawSize () const
@@ -1972,7 +2026,9 @@ class xetraTradeBroadcastPacket
                 + sizeof (mRootPartyContraFirmKVNumber)
                 + sizeof (mRootPartyContraSettlementAccount)
                 + sizeof (mRootPartyContraSettlementLocation)
-                + sizeof (mRegulatoryTradeID);
+                + sizeof (mRegulatoryTradeID)
+                + sizeof (mRootPartyIDExecutionVenue)
+                + sizeof (mPad4);
             return result;
         }
 
@@ -2125,6 +2181,10 @@ class xetraTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mRegulatoryTradeID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mRootPartyIDExecutionVenue, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPad4, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
 
@@ -2276,6 +2336,10 @@ class xetraTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mRegulatoryTradeID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mRootPartyIDExecutionVenue, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPad4, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
         }
@@ -2356,7 +2420,9 @@ class xetraTradeBroadcastPacket
                 << "[RootPartyContraFirmKVNumber=" << getRootPartyContraFirmKVNumber () << "],"
                 << "[RootPartyContraSettlementAccount=" << getRootPartyContraSettlementAccount () << "],"
                 << "[RootPartyContraSettlementLocation=" << getRootPartyContraSettlementLocation () << "],"
-                << "[RegulatoryTradeID=" << getRegulatoryTradeID () << "]";
+                << "[RegulatoryTradeID=" << getRegulatoryTradeID () << "],"
+                << "[RootPartyIDExecutionVenue=" << getRootPartyIDExecutionVenue () << "],"
+                << "[Pad4=" << getPad4 () << "]";
             return sss.str();
         }
 };
@@ -2551,6 +2617,10 @@ const char xetraTradeBroadcastPacket::ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_NO_V
 const size_t xetraTradeBroadcastPacket::ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_MAX_LENGTH = 3;
 const char xetraTradeBroadcastPacket::REGULATORY_TRADE_ID_NO_VALUE[52] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraTradeBroadcastPacket::REGULATORY_TRADE_ID_MAX_LENGTH = 52;
+const char xetraTradeBroadcastPacket::ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
+const size_t xetraTradeBroadcastPacket::ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH = 4;
+const char xetraTradeBroadcastPacket::PAD4_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
+const size_t xetraTradeBroadcastPacket::PAD4_MAX_LENGTH = 4;
 
 
 } // namespace neueda

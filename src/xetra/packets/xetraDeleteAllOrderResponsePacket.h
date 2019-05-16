@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_DELETEALLORDERRESPONSE_PACKET_H
 #define XETRA_DELETEALLORDERRESPONSE_PACKET_H
@@ -32,12 +32,17 @@ class xetraDeleteAllOrderResponsePacket
         static const int16_t NO_AFFECTED_ORDERS_MIN;
         static const int16_t NO_AFFECTED_ORDERS_MAX;
         static const int16_t NO_AFFECTED_ORDERS_NO_VALUE;
-        static const char PAD4_NO_VALUE[4];
-        static const size_t PAD4_MAX_LENGTH;
+        static const int16_t NO_AFFECTED_ORDER_REQUESTS_MIN;
+        static const int16_t NO_AFFECTED_ORDER_REQUESTS_MAX;
+        static const int16_t NO_AFFECTED_ORDER_REQUESTS_NO_VALUE;
+        static const char PAD2_NO_VALUE[2];
+        static const size_t PAD2_MAX_LENGTH;
         static const size_t NOT_AFFECTED_ORDERS_GRP_MIN;
         static const size_t NOT_AFFECTED_ORDERS_GRP_MAX;
         static const size_t AFFECTED_ORD_GRP_MIN;
         static const size_t AFFECTED_ORD_GRP_MAX;
+        static const size_t AFFECTED_ORDER_REQUESTS_GRP_MIN;
+        static const size_t AFFECTED_ORDER_REQUESTS_GRP_MAX;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -45,9 +50,11 @@ class xetraDeleteAllOrderResponsePacket
         uint64_t mMassActionReportID;
         int16_t mNoNotAffectedOrders;
         int16_t mNoAffectedOrders;
-        char mPad4[4];
+        int16_t mNoAffectedOrderRequests;
+        char mPad2[2];
         vector<xetraNotAffectedOrdersGrpCompPacket> mNotAffectedOrdersGrp;
         vector<xetraAffectedOrdGrpCompPacket> mAffectedOrdGrp;
+        vector<xetraAffectedOrderRequestsGrpCompPacket> mAffectedOrderRequestsGrp;
 
         // constructor
         xetraDeleteAllOrderResponsePacket ()
@@ -56,7 +63,8 @@ class xetraDeleteAllOrderResponsePacket
             mMassActionReportID = MASS_ACTION_REPORT_ID_NO_VALUE;
             mNoNotAffectedOrders = NO_NOT_AFFECTED_ORDERS_NO_VALUE;
             mNoAffectedOrders = NO_AFFECTED_ORDERS_NO_VALUE;
-            memcpy(mPad4, PAD4_NO_VALUE, sizeof (mPad4));
+            mNoAffectedOrderRequests = NO_AFFECTED_ORDER_REQUESTS_NO_VALUE;
+            memcpy(mPad2, PAD2_NO_VALUE, sizeof (mPad2));
         }
 
         // getters & setters
@@ -145,27 +153,48 @@ class xetraDeleteAllOrderResponsePacket
             mNoAffectedOrders = NO_AFFECTED_ORDERS_NO_VALUE;
         }
 
-        string getPad4 () const
+        int16_t getNoAffectedOrderRequests () const
         {
-            return string (mPad4, PAD4_MAX_LENGTH);
+            return mNoAffectedOrderRequests;
         }
 
-        bool setPad4 (const string& v)
+        bool setNoAffectedOrderRequests (int16_t v)
         {
-            memset (mPad4, '\0', sizeof (mPad4));
-            size_t size = min ((size_t) v.size (), (size_t) PAD4_MAX_LENGTH);
-            strncpy (mPad4, v.c_str (), size);
-            return (v.size () <= PAD4_MAX_LENGTH);
+            mNoAffectedOrderRequests = v;
+            return ((NO_AFFECTED_ORDER_REQUESTS_MIN <= mNoAffectedOrderRequests && mNoAffectedOrderRequests <= NO_AFFECTED_ORDER_REQUESTS_MAX) || mNoAffectedOrderRequests == NO_AFFECTED_ORDER_REQUESTS_NO_VALUE);
         }
 
-        bool isPad4Valid () const
+        bool isNoAffectedOrderRequestsValid () const
         {
-            return (memcmp (mPad4, PAD4_NO_VALUE, sizeof (mPad4)) != 0);
+            return (mNoAffectedOrderRequests != NO_AFFECTED_ORDER_REQUESTS_NO_VALUE);
         }
 
-        void resetPad4 ()
+        void resetNoAffectedOrderRequests ()
         {
-            memcpy (mPad4, PAD4_NO_VALUE, sizeof (mPad4));
+            mNoAffectedOrderRequests = NO_AFFECTED_ORDER_REQUESTS_NO_VALUE;
+        }
+
+        string getPad2 () const
+        {
+            return string (mPad2, PAD2_MAX_LENGTH);
+        }
+
+        bool setPad2 (const string& v)
+        {
+            memset (mPad2, '\0', sizeof (mPad2));
+            size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
+            strncpy (mPad2, v.c_str (), size);
+            return (v.size () <= PAD2_MAX_LENGTH);
+        }
+
+        bool isPad2Valid () const
+        {
+            return (memcmp (mPad2, PAD2_NO_VALUE, sizeof (mPad2)) != 0);
+        }
+
+        void resetPad2 ()
+        {
+            memcpy (mPad2, PAD2_NO_VALUE, sizeof (mPad2));
         }
 
         const vector<xetraNotAffectedOrdersGrpCompPacket>& getNotAffectedOrdersGrp () const
@@ -192,6 +221,18 @@ class xetraDeleteAllOrderResponsePacket
             return (AFFECTED_ORD_GRP_MIN <= v.size () && v.size () <= AFFECTED_ORD_GRP_MAX);
         }
 
+        const vector<xetraAffectedOrderRequestsGrpCompPacket>& getAffectedOrderRequestsGrp () const
+        {
+            return mAffectedOrderRequestsGrp;
+        }
+
+        bool setAffectedOrderRequestsGrp (const vector<xetraAffectedOrderRequestsGrpCompPacket>& v)
+        {
+            mAffectedOrderRequestsGrp = v;
+            mNoAffectedOrderRequests = v.size ();
+            return (AFFECTED_ORDER_REQUESTS_GRP_MIN <= v.size () && v.size () <= AFFECTED_ORDER_REQUESTS_GRP_MAX);
+        }
+
 
         // render current raw size
         size_t getRawSize () const
@@ -201,9 +242,11 @@ class xetraDeleteAllOrderResponsePacket
                 + sizeof (mMassActionReportID)
                 + sizeof (mNoNotAffectedOrders)
                 + sizeof (mNoAffectedOrders)
-                + sizeof (mPad4)
+                + sizeof (mNoAffectedOrderRequests)
+                + sizeof (mPad2)
                 + xetra::getRawSize (mNotAffectedOrdersGrp)
-                + xetra::getRawSize (mAffectedOrdGrp);
+                + xetra::getRawSize (mAffectedOrdGrp)
+                + xetra::getRawSize (mAffectedOrderRequestsGrp);
             return result;
         }
 
@@ -212,6 +255,7 @@ class xetraDeleteAllOrderResponsePacket
         {
             mNoNotAffectedOrders = mNotAffectedOrdersGrp.size ();
             mNoAffectedOrders = mAffectedOrdGrp.size ();
+            mNoAffectedOrderRequests = mAffectedOrderRequestsGrp.size ();
             mMessageHeaderOut.mBodyLen = getRawSize ();
             codecState state;
             state = mMessageHeaderOut.serialize (buf, len, used);
@@ -224,7 +268,9 @@ class xetraDeleteAllOrderResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mNoAffectedOrders, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad4, buf, len, used);
+            state = xetra::serialize (mNoAffectedOrderRequests, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPad2, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             for (size_t i = 0; i < mNotAffectedOrdersGrp.size (); i++)
             {
@@ -234,6 +280,11 @@ class xetraDeleteAllOrderResponsePacket
             for (size_t i = 0; i < mAffectedOrdGrp.size (); i++)
             {
                 state = mAffectedOrdGrp[i].serialize (buf, len, used);
+                if (state != GW_CODEC_SUCCESS) return state;
+            }
+            for (size_t i = 0; i < mAffectedOrderRequestsGrp.size (); i++)
+            {
+                state = mAffectedOrderRequestsGrp[i].serialize (buf, len, used);
                 if (state != GW_CODEC_SUCCESS) return state;
             }
             return GW_CODEC_SUCCESS;
@@ -253,7 +304,9 @@ class xetraDeleteAllOrderResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mNoAffectedOrders, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad4, buf, len, used);
+            state = xetra::deserialize (mNoAffectedOrderRequests, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPad2, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mNotAffectedOrdersGrp.resize (mNoNotAffectedOrders);
             for (vector<xetraNotAffectedOrdersGrpCompPacket>::iterator it = mNotAffectedOrdersGrp.begin (); it != mNotAffectedOrdersGrp.end (); ++it)
@@ -263,6 +316,12 @@ class xetraDeleteAllOrderResponsePacket
             }
             mAffectedOrdGrp.resize (mNoAffectedOrders);
             for (vector<xetraAffectedOrdGrpCompPacket>::iterator it = mAffectedOrdGrp.begin (); it != mAffectedOrdGrp.end (); ++it)
+            {
+                state = it->deserialize (buf, len, used);
+                if (state != GW_CODEC_SUCCESS) return state;
+            }
+            mAffectedOrderRequestsGrp.resize (mNoAffectedOrderRequests);
+            for (vector<xetraAffectedOrderRequestsGrpCompPacket>::iterator it = mAffectedOrderRequestsGrp.begin (); it != mAffectedOrderRequestsGrp.end (); ++it)
             {
                 state = it->deserialize (buf, len, used);
                 if (state != GW_CODEC_SUCCESS) return state;
@@ -281,9 +340,11 @@ class xetraDeleteAllOrderResponsePacket
                 << "[MassActionReportID=" << getMassActionReportID () << "],"
                 << "[NoNotAffectedOrders=" << getNoNotAffectedOrders () << "],"
                 << "[NoAffectedOrders=" << getNoAffectedOrders () << "],"
-                << "[Pad4=" << getPad4 () << "],"
+                << "[NoAffectedOrderRequests=" << getNoAffectedOrderRequests () << "],"
+                << "[Pad2=" << getPad2 () << "],"
                 << "[NotAffectedOrdersGrp=" << xetra::toString (getNotAffectedOrdersGrp ()) << "],"
-                << "[AffectedOrdGrp=" << xetra::toString (getAffectedOrdGrp ()) << "]";
+                << "[AffectedOrdGrp=" << xetra::toString (getAffectedOrdGrp ()) << "],"
+                << "[AffectedOrderRequestsGrp=" << xetra::toString (getAffectedOrderRequestsGrp ()) << "]";
             return sss.str();
         }
 };
@@ -297,12 +358,17 @@ const int16_t xetraDeleteAllOrderResponsePacket::NO_NOT_AFFECTED_ORDERS_NO_VALUE
 const int16_t xetraDeleteAllOrderResponsePacket::NO_AFFECTED_ORDERS_MIN = 0;
 const int16_t xetraDeleteAllOrderResponsePacket::NO_AFFECTED_ORDERS_MAX = 500;
 const int16_t xetraDeleteAllOrderResponsePacket::NO_AFFECTED_ORDERS_NO_VALUE = 0xFFFF;
-const char xetraDeleteAllOrderResponsePacket::PAD4_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
-const size_t xetraDeleteAllOrderResponsePacket::PAD4_MAX_LENGTH = 4;
+const int16_t xetraDeleteAllOrderResponsePacket::NO_AFFECTED_ORDER_REQUESTS_MIN = 0;
+const int16_t xetraDeleteAllOrderResponsePacket::NO_AFFECTED_ORDER_REQUESTS_MAX = 500;
+const int16_t xetraDeleteAllOrderResponsePacket::NO_AFFECTED_ORDER_REQUESTS_NO_VALUE = 0xFFFF;
+const char xetraDeleteAllOrderResponsePacket::PAD2_NO_VALUE[2] = {0x00, 0x00};
+const size_t xetraDeleteAllOrderResponsePacket::PAD2_MAX_LENGTH = 2;
 const size_t xetraDeleteAllOrderResponsePacket::NOT_AFFECTED_ORDERS_GRP_MIN = 0;
 const size_t xetraDeleteAllOrderResponsePacket::NOT_AFFECTED_ORDERS_GRP_MAX = 500;
 const size_t xetraDeleteAllOrderResponsePacket::AFFECTED_ORD_GRP_MIN = 0;
 const size_t xetraDeleteAllOrderResponsePacket::AFFECTED_ORD_GRP_MAX = 500;
+const size_t xetraDeleteAllOrderResponsePacket::AFFECTED_ORDER_REQUESTS_GRP_MIN = 0;
+const size_t xetraDeleteAllOrderResponsePacket::AFFECTED_ORDER_REQUESTS_GRP_MAX = 500;
 
 
 } // namespace neueda

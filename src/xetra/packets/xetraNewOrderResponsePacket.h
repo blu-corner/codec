@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_NEWORDERRESPONSE_PACKET_H
 #define XETRA_NEWORDERRESPONSE_PACKET_H
@@ -57,8 +57,11 @@ class xetraNewOrderResponsePacket
         static const int8_t TRIGGERED_MIN;
         static const int8_t TRIGGERED_MAX;
         static const int8_t TRIGGERED_NO_VALUE;
-        static const char PAD6_NO_VALUE[6];
-        static const size_t PAD6_MAX_LENGTH;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_MIN;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_MAX;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_NO_VALUE;
+        static const char PAD5_NO_VALUE[5];
+        static const size_t PAD5_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -75,7 +78,8 @@ class xetraNewOrderResponsePacket
         int16_t mExecRestatementReason;
         int8_t mCrossedIndicator;
         int8_t mTriggered;
-        char mPad6[6];
+        int8_t mTransactionDelayIndicator;
+        char mPad5[5];
 
         // constructor
         xetraNewOrderResponsePacket ()
@@ -93,7 +97,8 @@ class xetraNewOrderResponsePacket
             mExecRestatementReason = EXEC_RESTATEMENT_REASON_NO_VALUE;
             mCrossedIndicator = CROSSED_INDICATOR_NO_VALUE;
             mTriggered = TRIGGERED_NO_VALUE;
-            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+            mTransactionDelayIndicator = TRANSACTION_DELAY_INDICATOR_NO_VALUE;
+            memcpy(mPad5, PAD5_NO_VALUE, sizeof (mPad5));
         }
 
         // getters & setters
@@ -375,27 +380,48 @@ class xetraNewOrderResponsePacket
             mTriggered = TRIGGERED_NO_VALUE;
         }
 
-        string getPad6 () const
+        int8_t getTransactionDelayIndicator () const
         {
-            return string (mPad6, PAD6_MAX_LENGTH);
+            return mTransactionDelayIndicator;
         }
 
-        bool setPad6 (const string& v)
+        bool setTransactionDelayIndicator (int8_t v)
         {
-            memset (mPad6, '\0', sizeof (mPad6));
-            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
-            strncpy (mPad6, v.c_str (), size);
-            return (v.size () <= PAD6_MAX_LENGTH);
+            mTransactionDelayIndicator = v;
+            return ((TRANSACTION_DELAY_INDICATOR_MIN <= mTransactionDelayIndicator && mTransactionDelayIndicator <= TRANSACTION_DELAY_INDICATOR_MAX) || mTransactionDelayIndicator == TRANSACTION_DELAY_INDICATOR_NO_VALUE);
         }
 
-        bool isPad6Valid () const
+        bool isTransactionDelayIndicatorValid () const
         {
-            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
+            return (mTransactionDelayIndicator != TRANSACTION_DELAY_INDICATOR_NO_VALUE);
         }
 
-        void resetPad6 ()
+        void resetTransactionDelayIndicator ()
         {
-            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+            mTransactionDelayIndicator = TRANSACTION_DELAY_INDICATOR_NO_VALUE;
+        }
+
+        string getPad5 () const
+        {
+            return string (mPad5, PAD5_MAX_LENGTH);
+        }
+
+        bool setPad5 (const string& v)
+        {
+            memset (mPad5, '\0', sizeof (mPad5));
+            size_t size = min ((size_t) v.size (), (size_t) PAD5_MAX_LENGTH);
+            strncpy (mPad5, v.c_str (), size);
+            return (v.size () <= PAD5_MAX_LENGTH);
+        }
+
+        bool isPad5Valid () const
+        {
+            return (memcmp (mPad5, PAD5_NO_VALUE, sizeof (mPad5)) != 0);
+        }
+
+        void resetPad5 ()
+        {
+            memcpy (mPad5, PAD5_NO_VALUE, sizeof (mPad5));
         }
 
 
@@ -416,7 +442,8 @@ class xetraNewOrderResponsePacket
                 + sizeof (mExecRestatementReason)
                 + sizeof (mCrossedIndicator)
                 + sizeof (mTriggered)
-                + sizeof (mPad6);
+                + sizeof (mTransactionDelayIndicator)
+                + sizeof (mPad5);
             return result;
         }
 
@@ -453,7 +480,9 @@ class xetraNewOrderResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mTriggered, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad6, buf, len, used);
+            state = xetra::serialize (mTransactionDelayIndicator, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPad5, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -490,7 +519,9 @@ class xetraNewOrderResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mTriggered, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad6, buf, len, used);
+            state = xetra::deserialize (mTransactionDelayIndicator, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPad5, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -515,7 +546,8 @@ class xetraNewOrderResponsePacket
                 << "[ExecRestatementReason=" << getExecRestatementReason () << "],"
                 << "[CrossedIndicator=" << getCrossedIndicator () << "],"
                 << "[Triggered=" << getTriggered () << "],"
-                << "[Pad6=" << getPad6 () << "]";
+                << "[TransactionDelayIndicator=" << getTransactionDelayIndicator () << "],"
+                << "[Pad5=" << getPad5 () << "]";
             return sss.str();
         }
 };
@@ -554,8 +586,11 @@ const int8_t xetraNewOrderResponsePacket::CROSSED_INDICATOR_NO_VALUE = 0xFF;
 const int8_t xetraNewOrderResponsePacket::TRIGGERED_MIN = 0;
 const int8_t xetraNewOrderResponsePacket::TRIGGERED_MAX = 2;
 const int8_t xetraNewOrderResponsePacket::TRIGGERED_NO_VALUE = 0xFF;
-const char xetraNewOrderResponsePacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraNewOrderResponsePacket::PAD6_MAX_LENGTH = 6;
+const int8_t xetraNewOrderResponsePacket::TRANSACTION_DELAY_INDICATOR_MIN = 0;
+const int8_t xetraNewOrderResponsePacket::TRANSACTION_DELAY_INDICATOR_MAX = 1;
+const int8_t xetraNewOrderResponsePacket::TRANSACTION_DELAY_INDICATOR_NO_VALUE = 0xFF;
+const char xetraNewOrderResponsePacket::PAD5_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraNewOrderResponsePacket::PAD5_MAX_LENGTH = 5;
 
 
 } // namespace neueda

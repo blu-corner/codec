@@ -5,16 +5,16 @@ PACKET_H = '''\
  * 
  * Generated {GENERATION}
  */
-#ifndef XETRA_{MESSAGE}_PACKET_H
-#define XETRA_{MESSAGE}_PACKET_H
+#ifndef {EXCH_UPPER}_{MESSAGE}_PACKET_H
+#define {EXCH_UPPER}_{MESSAGE}_PACKET_H
 
 #include <string>
 #include <vector>
 #include <sstream>
 #include <cstddef>
 #include <stdint.h>
-#include "xetraPackets.h"
-#include "xetraPacketUtils.h"
+#include "{EXCH_LOWER}Packets.h"
+#include "{EXCH_LOWER}PacketUtils.h"
 
 namespace neueda
 {{
@@ -46,7 +46,7 @@ using namespace std;
 
 }} // namespace neueda
 
-#endif // XETRA_{MESSAGE}_PACKET_H
+#endif // {EXCH_UPPER}_{MESSAGE}_PACKET_H
 '''
 
 
@@ -110,8 +110,8 @@ PACKET_H_TO_STRING = '''\
         }}
 '''
 
-def get_typename(name):
-	return 'Xetra' + name + 'Packet'
+def get_typename(exch, name):
+	return exch + name + 'Packet'
 
 def get_constname(name, suffix):
 	result = name[0]
@@ -184,23 +184,23 @@ def render_constant_initializations(struct, venue):
 	result = ''
 	for field in struct.findall('field'):
 		if field.attrib['class'] == 'sequence':
-                        result += 'const size_t {0}::{1} = {2};\n'.format(get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:],  get_constname(field.attrib['name'], 'MIN'), field.attrib['minGroups'])
-			result += 'const size_t {0}::{1} = {2};\n'.format(get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX'), field.attrib['maxGroups'])
+                        result += 'const size_t {0}::{1} = {2};\n'.format(get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:],  get_constname(field.attrib['name'], 'MIN'), field.attrib['minGroups'])
+			result += 'const size_t {0}::{1} = {2};\n'.format(get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX'), field.attrib['maxGroups'])
 		elif field.attrib['class'] == 'group':
 			pass
 		elif field.attrib['class'] == 'integer':
-                        result += 'const {0} {1}::{2} = {3};\n'.format(field.attrib['type'], get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MIN'), get_int(field, 'min'))
-			result += 'const {0} {1}::{2} = {3};\n'.format(field.attrib['type'], get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX'), get_int(field, 'max'))
-			result += 'const {0} {1}::{2} = {3};\n'.format(field.attrib['type'], get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'NO_VALUE'), get_no_value(field))
+                        result += 'const {0} {1}::{2} = {3};\n'.format(field.attrib['type'], get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MIN'), get_int(field, 'min'))
+			result += 'const {0} {1}::{2} = {3};\n'.format(field.attrib['type'], get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX'), get_int(field, 'max'))
+			result += 'const {0} {1}::{2} = {3};\n'.format(field.attrib['type'], get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'NO_VALUE'), get_no_value(field))
 		elif field.attrib['class'] == 'double':
-			result += 'const double {0}::{1} = {2};\n'.format(get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MIN'), field.attrib['minValue'])
-			result += 'const double {0}::{1} = {2};\n'.format(get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX'), field.attrib['maxValue'])
-                        result += 'const {0} {1}::{2} = {3};\n'.format(field.attrib['type'], get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'NO_VALUE'), get_no_value(field))
+			result += 'const double {0}::{1} = {2};\n'.format(get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MIN'), field.attrib['minValue'])
+			result += 'const double {0}::{1} = {2};\n'.format(get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX'), field.attrib['maxValue'])
+                        result += 'const {0} {1}::{2} = {3};\n'.format(field.attrib['type'], get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'NO_VALUE'), get_no_value(field))
 		elif field.attrib['class'] == 'string':
-                        result += 'const {0} {1}::{2}[{3}] = {4};\n'.format(field.attrib['type'], get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'NO_VALUE'), field.attrib['size'], get_no_value(field))
-                        result += 'const size_t {0}::{1} = {2};\n'.format(get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX_LENGTH'), field.attrib['size'])
+                        result += 'const {0} {1}::{2}[{3}] = {4};\n'.format(field.attrib['type'], get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'NO_VALUE'), field.attrib['size'], get_no_value(field))
+                        result += 'const size_t {0}::{1} = {2};\n'.format(get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX_LENGTH'), field.attrib['size'])
 		elif field.attrib['class'] == 'varstring':
-                        result += 'const size_t {0}::{1} = {2};\n'.format(get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX_LENGTH'), field.attrib['size'])
+                        result += 'const size_t {0}::{1} = {2};\n'.format(get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:], get_constname(field.attrib['name'], 'MAX_LENGTH'), field.attrib['size'])
 		else:
 			raise Exception('unknown class ' + field.attrib['class'])
 	return result
@@ -211,9 +211,9 @@ def render_fields(struct, venue):
 	result = ''
 	for field in struct.findall('field'):
 		if field.attrib['class'] == 'sequence':
-                    result += '{0}vector<{1}> m{2};\n'.format(spaces, get_typename(field.attrib['type'])[:1].lower() + get_typename(field.attrib['type'])[1:], field.attrib['name'])
+                    result += '{0}vector<{1}> m{2};\n'.format(spaces, get_typename(venue.attrib['name'], field.attrib['type'])[:1].lower() + get_typename(venue.attrib['name'], field.attrib['type'])[1:], field.attrib['name'])
 		elif field.attrib['class'] == 'group':
-			result += '{0}{1} m{2};\n'.format(spaces, get_typename(field.attrib['type'])[:1].lower() + get_typename(field.attrib['type'])[1:], field.attrib['name'])
+			result += '{0}{1} m{2};\n'.format(spaces, get_typename(venue.attrib['name'], field.attrib['type'])[:1].lower() + get_typename(venue.attrib['name'], field.attrib['type'])[1:], field.attrib['name'])
 		elif field.attrib['class'] == 'integer':
 			result += '{0}{1} m{2};\n'.format(spaces, field.attrib['type'], field.attrib['name'])
 		elif field.attrib['class'] == 'double':
@@ -254,7 +254,7 @@ def render_constructor(struct, venue):
 			raise Exception('unknown class ' + field.attrib['class'])
 	format = \
 	{
-                'CLASSNAME': get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:],
+                'CLASSNAME': get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:],
 		'CODE': code
 	}
 	return PACKET_H_CONSTRUCTOR.format(**format)
@@ -266,7 +266,7 @@ def render_getters_and_setters(struct, venue):
 		format = {}
 		if field.attrib['class'] == 'sequence':
 			format['NAME'] = field.attrib['name']
-                        format['TYPE'] = 'const vector<' + get_typename(field.attrib['type'])[:1].lower() + get_typename(field.attrib['type'])[1:] + '>&'
+                        format['TYPE'] = 'const vector<' + get_typename(venue.attrib['name'], field.attrib['type'])[:1].lower() + get_typename(venue.attrib['name'], field.attrib['type'])[1:] + '>&'
 			format['CODE'] = '{0}return m{1};\n'.format(spaces, field.attrib['name'])
 			result += PACKET_H_GETTER.format(**format) + '\n'
 			format['CODE']  = '{0}m{1} = v;\n'.format(spaces, field.attrib['name'])
@@ -275,7 +275,7 @@ def render_getters_and_setters(struct, venue):
 			result += PACKET_H_SETTER.format(**format) + '\n'
 		elif field.attrib['class'] == 'group':
 			format['NAME'] = field.attrib['name']
-			format['TYPE'] = 'const ' + get_typename(field.attrib['type'])[:1].lower() + get_typename(field.attrib['type'])[1:] + '&'
+			format['TYPE'] = 'const ' + get_typename(venue.attrib['name'], field.attrib['type'])[:1].lower() + get_typename(venue.attrib['name'], field.attrib['type'])[1:] + '&'
 			format['CODE'] = '{0}return m{1};\n'.format(spaces, field.attrib['name'])
 			result += PACKET_H_GETTER.format(**format) + '\n'
 			format['CODE']  = '{0}m{1} = v;\n'.format(spaces, field.attrib['name'])
@@ -353,7 +353,7 @@ def render_get_raw_size(struct, venue):
 	prefix = 'size_t result = '
 	for field in struct.findall('field'):
 		if field.attrib['class'] == 'sequence':
-			code += '{0}{1}xetra::getRawSize (m{2})\n'.format(spaces, prefix, field.attrib['name'])
+			code += '{0}{1}{2}::getRawSize (m{3})\n'.format(spaces, prefix, venue.attrib['name'].lower(), field.attrib['name'])
 		elif field.attrib['class'] == 'group':
 			code += '{0}{1}m{2}.getRawSize()\n'.format(spaces, prefix, field.attrib['name'])
 		elif field.attrib['class'] == 'integer':
@@ -397,13 +397,13 @@ def render_serialize(struct, venue):
 		elif field.attrib['class'] == 'group':
 			code += '{0}state = m{1}.serialize (buf, len, used);\n'.format(spaces, field.attrib['name']);
 		elif field.attrib['class'] == 'integer':
-			code += '{0}state = xetra::serialize (m{1}, buf, len, used);\n'.format(spaces, field.attrib['name']);
+			code += '{0}state = {1}::serialize (m{2}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name']);
 		elif field.attrib['class'] == 'double':
-			code += '{0}state = xetra::serialize (m{1}, buf, len, used);\n'.format(spaces, field.attrib['name']);
+			code += '{0}state = {1}::serialize (m{2}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name']);
 		elif field.attrib['class'] == 'string':
-			code += '{0}state = xetra::serialize (m{1}, buf, len, used);\n'.format(spaces, field.attrib['name']);
+			code += '{0}state = {1}::serialize (m{2}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name']);
 		elif field.attrib['class'] == 'varstring':
-			code += '{0}state = xetra::serialize (m{1}, {2}, buf, len, used);\n'.format(spaces, field.attrib['name'], get_constname(field.attrib['name'], 'MAX_LENGTH'));
+			code += '{0}state = {1}::serialize (m{2}, {3}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name'], get_constname(field.attrib['name'], 'MAX_LENGTH'));
 			hasVarText = True
 		else:
 			raise Exception('unknown class ' + field.attrib['class'])
@@ -411,7 +411,7 @@ def render_serialize(struct, venue):
 			code += '{0}if (state != GW_CODEC_SUCCESS) return state;\n'. format(spaces)
 	if hasVarText:
 		code += '{0}size_t extraPad = m{1}.mBodyLen - used;\n'.format(spaces, struct.find('field').attrib['name']);
-		code += '{0}state = xetra::serialize (string (extraPad, \'\\0\'), extraPad, buf, len, used);\n'.format(spaces);
+		code += '{0}state = {1}::serialize (string (extraPad, \'\\0\'), extraPad, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower());
 		code += '{0}if (state != GW_CODEC_SUCCESS) return state;\n'. format(spaces)
 	format = {'CODE':code}
 	return PACKET_H_SERIALIZE.format(**format)
@@ -425,7 +425,7 @@ def render_deserialize(struct, venue):
 		checkState = True
 		if field.attrib['class'] == 'sequence':
 			code += '{0}m{1}.resize (m{2});\n'.format(spaces, field.attrib['name'], field.attrib['counter']);
-                        code += '{0}for (vector<{2}>::iterator it = m{1}.begin (); it != m{1}.end (); ++it)\n'.format(spaces, field.attrib['name'], get_typename(field.attrib['type'])[:1].lower() + get_typename(field.attrib['type'])[1:]);
+                        code += '{0}for (vector<{2}>::iterator it = m{1}.begin (); it != m{1}.end (); ++it)\n'.format(spaces, field.attrib['name'], get_typename(venue.attrib['name'], field.attrib['type'])[:1].lower() + get_typename(venue.attrib['name'], field.attrib['type'])[1:]);
 			code += '{0}{{\n'.format(spaces);
 			code += '{0}    state = it->deserialize (buf, len, used);\n'.format(spaces, field.attrib['name']);
 			code += '{0}    if (state != GW_CODEC_SUCCESS) return state;\n'.format(spaces);
@@ -435,16 +435,16 @@ def render_deserialize(struct, venue):
 			code += '{0}state = m{1}.deserialize (buf, len, used);\n'.format(spaces, field.attrib['name']);
 		elif field.attrib['class'] == 'integer' and struct.tag == 'header':
 			code += '{0}{1} v{2};\n'.format(spaces, field.attrib['type'], field.attrib['name']);
-			code += '{0}state = xetra::deserialize (v{1}, buf, len, used);\n'.format(spaces, field.attrib['name']);
+			code += '{0}state = {1}::deserialize (v{2}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name']);
 			code += '{0}m{1} = v{1};\n'.format(spaces, field.attrib['name']);
 		elif field.attrib['class'] == 'integer':
-			code += '{0}state = xetra::deserialize (m{1}, buf, len, used);\n'.format(spaces, field.attrib['name']);
+			code += '{0}state = {1}::deserialize (m{2}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name']);
 		elif field.attrib['class'] == 'double':
-			code += '{0}state = xetra::deserialize (m{1}, buf, len, used);\n'.format(spaces, field.attrib['name']);
+			code += '{0}state = {1}::deserialize (m{2}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name']);
 		elif field.attrib['class'] == 'string':
-			code += '{0}state = xetra::deserialize (m{1}, buf, len, used);\n'.format(spaces, field.attrib['name']);
+			code += '{0}state = {1}::deserialize (m{2}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name']);
 		elif field.attrib['class'] == 'varstring':
-			code += '{0}state = xetra::deserialize (m{1}, m{2}, buf, len, used);\n'.format(spaces, field.attrib['name'], field.attrib['counter']);
+			code += '{0}state = {1}::deserialize (m{2}, m{3}, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower(), field.attrib['name'], field.attrib['counter']);
 			hasVarText = True
 		else:
 			raise Exception('unknown class ' + field.attrib['class'])
@@ -455,7 +455,7 @@ def render_deserialize(struct, venue):
 	if hasVarText:
 		code += '{0}size_t extraPad = m{1}.mBodyLen - used;\n'.format(spaces, struct.find('field').attrib['name']);
 		code += '{0}string stringPad;\n'.format(spaces);
-		code += '{0}state = xetra::deserialize (stringPad, extraPad, buf, len, used);\n'.format(spaces);
+		code += '{0}state = {1}::deserialize (stringPad, extraPad, buf, len, used);\n'.format(spaces, venue.attrib['name'].lower());
 		code += '{0}if (state != GW_CODEC_SUCCESS) return state;\n'. format(spaces)
 	format = {'CODE':code}
 	return PACKET_H_DESERIALIZE.format(**format)
@@ -466,7 +466,7 @@ def render_to_string(struct, venue):
 	prefix = '{0}    '.format(spaces)
 	for field in struct.findall('field'):
 		if field.attrib['class'] == 'sequence':
-			code += '{0}<< "[{1}=" << xetra::toString (get{1} ()) << "]'.format(prefix, field.attrib['name']);
+			code += '{0}<< "[{1}=" << {2}::toString (get{1} ()) << "]'.format(prefix, field.attrib['name'], venue.attrib['name'].lower());
 		elif field.attrib['class'] == 'group':
 			code += '{0}<< "[{1}=" << m{1}.toString () << "]'.format(prefix, field.attrib['name']);
 		elif field.attrib['class'] == 'integer':
@@ -490,7 +490,9 @@ def compose_msg_packet_h(file, generation, struct, venue):
 		'GENERATION': generation,
 		'PACKED_START': struct.tag == 'header' and 'PACKED(' or '',
 		'PACKED_END': struct.tag == 'header' and ')' or '',
-		'CLASSNAME': get_typename(struct.attrib['name'])[:1].lower() + get_typename(struct.attrib['name'])[1:],
+		'CLASSNAME': get_typename(venue.attrib['name'], struct.attrib['name'])[:1].lower() + get_typename(venue.attrib['name'], struct.attrib['name'])[1:],
+		'EXCH_UPPER': venue.attrib['name'].upper(),
+		'EXCH_LOWER': venue.attrib['name'].lower(),
 		'MESSAGE': struct.attrib['name'].upper(),
 		'CONSTANTS': render_constants(struct, venue),
 		'FIELDS': render_fields(struct, venue),

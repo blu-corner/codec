@@ -107,10 +107,10 @@ static bool cdrDiff (const cdr& reference, const cdr& copy, string& errorMsg, co
     return true;
 }
 
-TEST_F(XetraCodecTestHarness, XETRA_CODEC_GATEWAYREQUEST_ENCODE_DECODE)
+TEST_F(XetraCodecTestHarness, EUREX_CODEC_LOGONREQUEST_ENCODE_DECODE)
 {
     // common variables
-    const size_t MSG_LENGTH = 96;
+    const size_t MSG_LENGTH = 280;
     unsigned char msg[MSG_LENGTH];
     size_t used;
     cdr inputCdr;
@@ -118,12 +118,10 @@ TEST_F(XetraCodecTestHarness, XETRA_CODEC_GATEWAYREQUEST_ENCODE_DECODE)
     codecState state;
 
     // fill input CDR
-    inputCdr.setInteger (TemplateID, 10020);
-    inputCdr.setString (NetworkMsgID, "network ");
+    inputCdr.setInteger (TemplateID, 10000);
     inputCdr.setInteger (MsgSeqNum, 1);
     inputCdr.setInteger (SenderSubID, 2);
     inputCdr.setInteger (PartyIDSessionID, 3);
-    inputCdr.setInteger (PartitionID, 4);
     inputCdr.setString (DefaultCstmApplVerID, "22222");
     inputCdr.setString (Password, "33333");
 

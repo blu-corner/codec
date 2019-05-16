@@ -112,24 +112,33 @@ def read_spec(eti):
 # parse arguments
 parser = argparse.ArgumentParser(description='Generate venue.xml from ETI XML file.')
 parser.add_argument('eti', metavar='FILE', type=str, help='ETI XML file.')
+parser.add_argument('date', type=str, help='ProtocolIssueDate (YYYY.MM.DD)')
 args = parser.parse_args()
 
 # read ETI xml and start writing
 header, groups, messages = read_spec(args.eti)
 input = ET.parse(args.eti)
 root = input.getroot()
-output = ET.Element('exchange', {'name':'Xetra'})
+asset = root.attrib['name'].split('_')[1]
+if asset == 'Cash':
+    exch = 'Xetra'
+    mic = 'XETR'
+else:
+    exch = 'Eurex'
+    mic = 'XEUR'
+version = root.attrib['version']
+output = ET.Element('exchange', {'name':exch})
 
 #generate GLOBAL section
 g = ET.SubElement(output, 'global', {'name':'global'})
-ET.SubElement(g, 'parameter', {'name':'MessageSpecTitle', 'value':'Enhanced Trading Interface - Cash Message Reference - Release 6.0 - 24 Nov 2017'})
-ET.SubElement(g, 'parameter', {'name':'MessageSpecFilename', 'value':'T7-Enhanced-Trading-Interface-Cash-Message-Reference.pdf'})
-ET.SubElement(g, 'parameter', {'name':'ProtocolGroup', 'value':'XETRA'})
+ET.SubElement(g, 'parameter', {'name':'MessageSpecTitle', 'value':'Enhanced Trading Interface - {0} Message Reference - Release {1} - {2}'.format(asset, version, args.date)})
+ET.SubElement(g, 'parameter', {'name':'MessageSpecFilename', 'value':'T7-Enhanced-Trading-Interface-{0}-Message-Reference.pdf'.format(asset)})
+ET.SubElement(g, 'parameter', {'name':'ProtocolGroup', 'value':exch.upper()})
 ET.SubElement(g, 'parameter', {'name':'Venue', 'value':'Frankfurt', 'desc':'The Enhanced Trading Interface (ETI) is the high performance interface designed for participants who require the highest throughput and the lowest latency for their transactions.'})
-ET.SubElement(g, 'parameter', {'name':'VenueMIC', 'value':'XETR'})
+ET.SubElement(g, 'parameter', {'name':'VenueMIC', 'value':mic})
 ET.SubElement(g, 'parameter', {'name':'Interface', 'value':'OrderEntry'})
-ET.SubElement(g, 'parameter', {'name':'ProtocolVersion', 'value':'6.0'})
-ET.SubElement(g, 'parameter', {'name':'ProtocolIssueDate', 'value':'2017.11.24'})
+ET.SubElement(g, 'parameter', {'name':'ProtocolVersion', 'value':version})
+ET.SubElement(g, 'parameter', {'name':'ProtocolIssueDate', 'value':args.date})
 ET.SubElement(g, 'parameter', {'name':'Endianness', 'value':'little'})
 ET.SubElement(g, 'parameter', {'name':'ETX', 'value':'', 'default':''})
 

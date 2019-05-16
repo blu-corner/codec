@@ -5,15 +5,15 @@ PACKET_H = '''\
  * 
  * Generated {GENERATION}
  */
-#ifndef XETRA_PACKETS_H
-#define XETRA_PACKETS_H
+#ifndef {EXCH_UPPER}_PACKETS_H
+#define {EXCH_UPPER}_PACKETS_H
 {INCLUDES}
 
-#endif // XETRA_PACKETS_H
+#endif // {EXCH_UPPER}_PACKETS_H
 '''
 
 PACKET_H_INCLUDE = '''\
-#include "xetra{PACKET}Packet.h"\
+#include "{EXCH_LOWER}{PACKET}Packet.h"\
 '''
 
 def get_packets(root):
@@ -27,8 +27,8 @@ def get_packets(root):
 def compose_packet_h(file, generation, venue):
 	includes = ''
 	for packet in get_packets(venue):
-		include = PACKET_H_INCLUDE.format(PACKET=packet)
+		include = PACKET_H_INCLUDE.format(EXCH_LOWER=venue.attrib['name'].lower(), PACKET=packet)
 		includes += '\n' + include
-	string = PACKET_H.format(GENERATION=generation, INCLUDES=includes)
+	string = PACKET_H.format(GENERATION=generation, EXCH_UPPER=venue.attrib['name'].upper(), INCLUDES=includes)
 	with open(file, 'wt') as f:
 		f.write(string)

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_PACKETS_H
 #define XETRA_PACKETS_H
@@ -9,23 +9,26 @@
 #include "xetraHeaderPacket.h"
 #include "xetraResponseHeaderMECompPacket.h"
 #include "xetraOrderBookItemGrpCompPacket.h"
-#include "xetraQuoteEntryGrpCompPacket.h"
+#include "xetraEnrichmentRulesGrpCompPacket.h"
+#include "xetraXetraEnLightTargetPartiesCompPacket.h"
 #include "xetraResponseHeaderCompPacket.h"
 #include "xetraNotAffectedOrdersGrpCompPacket.h"
+#include "xetraSRQSQuoteEntryGrpCompPacket.h"
 #include "xetraMessageHeaderInCompPacket.h"
 #include "xetraRequestHeaderCompPacket.h"
 #include "xetraNotAffectedSecuritiesGrpCompPacket.h"
 #include "xetraPartyDetailsGrpCompPacket.h"
 #include "xetraNRResponseHeaderMECompPacket.h"
 #include "xetraRBCHeaderMECompPacket.h"
-#include "xetraEnrichmentRulesGrpCompPacket.h"
+#include "xetraAffectedOrderRequestsGrpCompPacket.h"
 #include "xetraSessionsGrpCompPacket.h"
+#include "xetraQuoteEntryGrpCompPacket.h"
 #include "xetraAffectedOrdGrpCompPacket.h"
 #include "xetraRBCHeaderCompPacket.h"
-#include "xetraTargetPartiesCompPacket.h"
 #include "xetraNotifHeaderCompPacket.h"
 #include "xetraMessageHeaderOutCompPacket.h"
 #include "xetraNRBCHeaderCompPacket.h"
+#include "xetraSRQSRelatedTradeIDGrpCompPacket.h"
 #include "xetraSideAllocGrpBCCompPacket.h"
 #include "xetraSideAllocGrpCompPacket.h"
 #include "xetraFillsGrpCompPacket.h"
@@ -56,7 +59,6 @@
 #include "xetraExtendedDeletionReportPacket.h"
 #include "xetraForcedLogoutNotificationPacket.h"
 #include "xetraForcedUserLogoutNotificationPacket.h"
-#include "xetraGatewayRequestPacket.h"
 #include "xetraHeartbeatPacket.h"
 #include "xetraHeartbeatNotificationPacket.h"
 #include "xetraInquireEnrichmentRuleIDListRequestPacket.h"
@@ -103,6 +105,7 @@
 #include "xetraRetransmitRequestPacket.h"
 #include "xetraRetransmitResponsePacket.h"
 #include "xetraServiceAvailabilityBroadcastPacket.h"
+#include "xetraServiceAvailabilityMarketBroadcastPacket.h"
 #include "xetraSubscribeRequestPacket.h"
 #include "xetraSubscribeResponsePacket.h"
 #include "xetraTESApproveBroadcastPacket.h"
@@ -123,5 +126,21 @@
 #include "xetraUserLoginResponsePacket.h"
 #include "xetraUserLogoutRequestPacket.h"
 #include "xetraUserLogoutResponsePacket.h"
+#include "xetraXetraEnLightCreateDealNotificationPacket.h"
+#include "xetraXetraEnLightDealResponsePacket.h"
+#include "xetraXetraEnLightEnterQuoteRequestPacket.h"
+#include "xetraXetraEnLightHitQuoteRequestPacket.h"
+#include "xetraXetraEnLightNegotiationNotificationPacket.h"
+#include "xetraXetraEnLightNegotiationRequesterNotificationPacket.h"
+#include "xetraXetraEnLightNegotiationStatusNotificationPacket.h"
+#include "xetraXetraEnLightOpenNegotiationNotificationPacket.h"
+#include "xetraXetraEnLightOpenNegotiationRequestPacket.h"
+#include "xetraXetraEnLightOpenNegotiationRequesterNotificationPacket.h"
+#include "xetraXetraEnLightQuoteNotificationPacket.h"
+#include "xetraXetraEnLightQuoteRequesterNotificationPacket.h"
+#include "xetraXetraEnLightQuoteResponsePacket.h"
+#include "xetraXetraEnLightQuotingStatusRequestPacket.h"
+#include "xetraXetraEnLightStatusBroadcastPacket.h"
+#include "xetraXetraEnLightUpdateNegotiationRequestPacket.h"
 
 #endif // XETRA_PACKETS_H

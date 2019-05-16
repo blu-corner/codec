@@ -4,8 +4,8 @@ CODEC_H = '''\
 /*
  * Copyright 2014-2018 Neueda
  */
-#ifndef XETRA_CODEC_H
-#define XETRA_CODEC_H
+#ifndef {EXCH_UPPER}_CODEC_H
+#define {EXCH_UPPER}_CODEC_H
 #include <stdint.h>
 #include "cdr.h"
 #include "codec.h"
@@ -15,17 +15,17 @@ CODEC_H = '''\
 namespace neueda
 {{
 
-class xetraCodec: public codec
+class {EXCH_LOWER}Codec: public codec
 {{
     public:
-        xetraCodec()
+        {EXCH_LOWER}Codec()
         {{
 {MESSAGE_DESCRIPTIONS}
         }}
 
         codecState decode (cdr& d, const void* buf, size_t len, size_t& used);
         codecState encode (const cdr& d, void* buf, size_t len, size_t& used);
-        std::string getType () const {{ return "xetra"; }}
+        std::string getType () const {{ return "{EXCH_LOWER}"; }}
 
     private:
         // get messages
@@ -37,7 +37,7 @@ class xetraCodec: public codec
 
 }} // namespace neueda
 
-#endif /* XETRA_CODEC_H */
+#endif /* {EXCH_UPPER}_CODEC_H */
 '''
 
 CODEC_H_MESSAGE_DESCRIPTION = '''\
@@ -82,6 +82,8 @@ def render_put_messages(venue):
 def compose_codec_h(file, venue):
 	format = \
 	{
+        'EXCH_UPPER': venue.attrib['name'].upper(),
+        'EXCH_LOWER': venue.attrib['name'].lower(),
 		'MESSAGE_DESCRIPTIONS': render_message_descriptions(venue),
 		'GET_MESSAGES': render_get_messages(venue),
 		'PUT_MESSAGES': render_put_messages(venue)

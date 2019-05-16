@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_DELETEALLORDERBROADCAST_PACKET_H
 #define XETRA_DELETEALLORDERBROADCAST_PACKET_H
@@ -50,6 +50,9 @@ class xetraDeleteAllOrderBroadcastPacket
         static const int16_t NO_AFFECTED_ORDERS_MIN;
         static const int16_t NO_AFFECTED_ORDERS_MAX;
         static const int16_t NO_AFFECTED_ORDERS_NO_VALUE;
+        static const int16_t NO_AFFECTED_ORDER_REQUESTS_MIN;
+        static const int16_t NO_AFFECTED_ORDER_REQUESTS_MAX;
+        static const int16_t NO_AFFECTED_ORDER_REQUESTS_NO_VALUE;
         static const int8_t PARTY_IDENTERING_FIRM_MIN;
         static const int8_t PARTY_IDENTERING_FIRM_MAX;
         static const int8_t PARTY_IDENTERING_FIRM_NO_VALUE;
@@ -62,10 +65,14 @@ class xetraDeleteAllOrderBroadcastPacket
         static const int8_t SIDE_MIN;
         static const int8_t SIDE_MAX;
         static const int8_t SIDE_NO_VALUE;
+        static const char PAD6_NO_VALUE[6];
+        static const size_t PAD6_MAX_LENGTH;
         static const size_t NOT_AFFECTED_ORDERS_GRP_MIN;
         static const size_t NOT_AFFECTED_ORDERS_GRP_MAX;
         static const size_t AFFECTED_ORD_GRP_MIN;
         static const size_t AFFECTED_ORD_GRP_MAX;
+        static const size_t AFFECTED_ORDER_REQUESTS_GRP_MIN;
+        static const size_t AFFECTED_ORDER_REQUESTS_GRP_MAX;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -79,12 +86,15 @@ class xetraDeleteAllOrderBroadcastPacket
         uint32_t mPartyIDEnteringTrader;
         int16_t mNoNotAffectedOrders;
         int16_t mNoAffectedOrders;
+        int16_t mNoAffectedOrderRequests;
         int8_t mPartyIDEnteringFirm;
         uint8_t mMassActionReason;
         int8_t mExecInst;
         int8_t mSide;
+        char mPad6[6];
         vector<xetraNotAffectedOrdersGrpCompPacket> mNotAffectedOrdersGrp;
         vector<xetraAffectedOrdGrpCompPacket> mAffectedOrdGrp;
+        vector<xetraAffectedOrderRequestsGrpCompPacket> mAffectedOrderRequestsGrp;
 
         // constructor
         xetraDeleteAllOrderBroadcastPacket ()
@@ -99,10 +109,12 @@ class xetraDeleteAllOrderBroadcastPacket
             mPartyIDEnteringTrader = PARTY_IDENTERING_TRADER_NO_VALUE;
             mNoNotAffectedOrders = NO_NOT_AFFECTED_ORDERS_NO_VALUE;
             mNoAffectedOrders = NO_AFFECTED_ORDERS_NO_VALUE;
+            mNoAffectedOrderRequests = NO_AFFECTED_ORDER_REQUESTS_NO_VALUE;
             mPartyIDEnteringFirm = PARTY_IDENTERING_FIRM_NO_VALUE;
             mMassActionReason = MASS_ACTION_REASON_NO_VALUE;
             mExecInst = EXEC_INST_NO_VALUE;
             mSide = SIDE_NO_VALUE;
+            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
         // getters & setters
@@ -317,6 +329,27 @@ class xetraDeleteAllOrderBroadcastPacket
             mNoAffectedOrders = NO_AFFECTED_ORDERS_NO_VALUE;
         }
 
+        int16_t getNoAffectedOrderRequests () const
+        {
+            return mNoAffectedOrderRequests;
+        }
+
+        bool setNoAffectedOrderRequests (int16_t v)
+        {
+            mNoAffectedOrderRequests = v;
+            return ((NO_AFFECTED_ORDER_REQUESTS_MIN <= mNoAffectedOrderRequests && mNoAffectedOrderRequests <= NO_AFFECTED_ORDER_REQUESTS_MAX) || mNoAffectedOrderRequests == NO_AFFECTED_ORDER_REQUESTS_NO_VALUE);
+        }
+
+        bool isNoAffectedOrderRequestsValid () const
+        {
+            return (mNoAffectedOrderRequests != NO_AFFECTED_ORDER_REQUESTS_NO_VALUE);
+        }
+
+        void resetNoAffectedOrderRequests ()
+        {
+            mNoAffectedOrderRequests = NO_AFFECTED_ORDER_REQUESTS_NO_VALUE;
+        }
+
         int8_t getPartyIDEnteringFirm () const
         {
             return mPartyIDEnteringFirm;
@@ -401,6 +434,29 @@ class xetraDeleteAllOrderBroadcastPacket
             mSide = SIDE_NO_VALUE;
         }
 
+        string getPad6 () const
+        {
+            return string (mPad6, PAD6_MAX_LENGTH);
+        }
+
+        bool setPad6 (const string& v)
+        {
+            memset (mPad6, '\0', sizeof (mPad6));
+            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
+            strncpy (mPad6, v.c_str (), size);
+            return (v.size () <= PAD6_MAX_LENGTH);
+        }
+
+        bool isPad6Valid () const
+        {
+            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
+        }
+
+        void resetPad6 ()
+        {
+            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+        }
+
         const vector<xetraNotAffectedOrdersGrpCompPacket>& getNotAffectedOrdersGrp () const
         {
             return mNotAffectedOrdersGrp;
@@ -425,6 +481,18 @@ class xetraDeleteAllOrderBroadcastPacket
             return (AFFECTED_ORD_GRP_MIN <= v.size () && v.size () <= AFFECTED_ORD_GRP_MAX);
         }
 
+        const vector<xetraAffectedOrderRequestsGrpCompPacket>& getAffectedOrderRequestsGrp () const
+        {
+            return mAffectedOrderRequestsGrp;
+        }
+
+        bool setAffectedOrderRequestsGrp (const vector<xetraAffectedOrderRequestsGrpCompPacket>& v)
+        {
+            mAffectedOrderRequestsGrp = v;
+            mNoAffectedOrderRequests = v.size ();
+            return (AFFECTED_ORDER_REQUESTS_GRP_MIN <= v.size () && v.size () <= AFFECTED_ORDER_REQUESTS_GRP_MAX);
+        }
+
 
         // render current raw size
         size_t getRawSize () const
@@ -440,12 +508,15 @@ class xetraDeleteAllOrderBroadcastPacket
                 + sizeof (mPartyIDEnteringTrader)
                 + sizeof (mNoNotAffectedOrders)
                 + sizeof (mNoAffectedOrders)
+                + sizeof (mNoAffectedOrderRequests)
                 + sizeof (mPartyIDEnteringFirm)
                 + sizeof (mMassActionReason)
                 + sizeof (mExecInst)
                 + sizeof (mSide)
+                + sizeof (mPad6)
                 + xetra::getRawSize (mNotAffectedOrdersGrp)
-                + xetra::getRawSize (mAffectedOrdGrp);
+                + xetra::getRawSize (mAffectedOrdGrp)
+                + xetra::getRawSize (mAffectedOrderRequestsGrp);
             return result;
         }
 
@@ -454,6 +525,7 @@ class xetraDeleteAllOrderBroadcastPacket
         {
             mNoNotAffectedOrders = mNotAffectedOrdersGrp.size ();
             mNoAffectedOrders = mAffectedOrdGrp.size ();
+            mNoAffectedOrderRequests = mAffectedOrderRequestsGrp.size ();
             mMessageHeaderOut.mBodyLen = getRawSize ();
             codecState state;
             state = mMessageHeaderOut.serialize (buf, len, used);
@@ -478,6 +550,8 @@ class xetraDeleteAllOrderBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mNoAffectedOrders, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mNoAffectedOrderRequests, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mPartyIDEnteringFirm, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mMassActionReason, buf, len, used);
@@ -485,6 +559,8 @@ class xetraDeleteAllOrderBroadcastPacket
             state = xetra::serialize (mExecInst, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mSide, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             for (size_t i = 0; i < mNotAffectedOrdersGrp.size (); i++)
             {
@@ -494,6 +570,11 @@ class xetraDeleteAllOrderBroadcastPacket
             for (size_t i = 0; i < mAffectedOrdGrp.size (); i++)
             {
                 state = mAffectedOrdGrp[i].serialize (buf, len, used);
+                if (state != GW_CODEC_SUCCESS) return state;
+            }
+            for (size_t i = 0; i < mAffectedOrderRequestsGrp.size (); i++)
+            {
+                state = mAffectedOrderRequestsGrp[i].serialize (buf, len, used);
                 if (state != GW_CODEC_SUCCESS) return state;
             }
             return GW_CODEC_SUCCESS;
@@ -525,6 +606,8 @@ class xetraDeleteAllOrderBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mNoAffectedOrders, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mNoAffectedOrderRequests, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mPartyIDEnteringFirm, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mMassActionReason, buf, len, used);
@@ -532,6 +615,8 @@ class xetraDeleteAllOrderBroadcastPacket
             state = xetra::deserialize (mExecInst, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mSide, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mNotAffectedOrdersGrp.resize (mNoNotAffectedOrders);
             for (vector<xetraNotAffectedOrdersGrpCompPacket>::iterator it = mNotAffectedOrdersGrp.begin (); it != mNotAffectedOrdersGrp.end (); ++it)
@@ -541,6 +626,12 @@ class xetraDeleteAllOrderBroadcastPacket
             }
             mAffectedOrdGrp.resize (mNoAffectedOrders);
             for (vector<xetraAffectedOrdGrpCompPacket>::iterator it = mAffectedOrdGrp.begin (); it != mAffectedOrdGrp.end (); ++it)
+            {
+                state = it->deserialize (buf, len, used);
+                if (state != GW_CODEC_SUCCESS) return state;
+            }
+            mAffectedOrderRequestsGrp.resize (mNoAffectedOrderRequests);
+            for (vector<xetraAffectedOrderRequestsGrpCompPacket>::iterator it = mAffectedOrderRequestsGrp.begin (); it != mAffectedOrderRequestsGrp.end (); ++it)
             {
                 state = it->deserialize (buf, len, used);
                 if (state != GW_CODEC_SUCCESS) return state;
@@ -565,12 +656,15 @@ class xetraDeleteAllOrderBroadcastPacket
                 << "[PartyIDEnteringTrader=" << getPartyIDEnteringTrader () << "],"
                 << "[NoNotAffectedOrders=" << getNoNotAffectedOrders () << "],"
                 << "[NoAffectedOrders=" << getNoAffectedOrders () << "],"
+                << "[NoAffectedOrderRequests=" << getNoAffectedOrderRequests () << "],"
                 << "[PartyIDEnteringFirm=" << getPartyIDEnteringFirm () << "],"
                 << "[MassActionReason=" << getMassActionReason () << "],"
                 << "[ExecInst=" << getExecInst () << "],"
                 << "[Side=" << getSide () << "],"
+                << "[Pad6=" << getPad6 () << "],"
                 << "[NotAffectedOrdersGrp=" << xetra::toString (getNotAffectedOrdersGrp ()) << "],"
-                << "[AffectedOrdGrp=" << xetra::toString (getAffectedOrdGrp ()) << "]";
+                << "[AffectedOrdGrp=" << xetra::toString (getAffectedOrdGrp ()) << "],"
+                << "[AffectedOrderRequestsGrp=" << xetra::toString (getAffectedOrderRequestsGrp ()) << "]";
             return sss.str();
         }
 };
@@ -602,6 +696,9 @@ const int16_t xetraDeleteAllOrderBroadcastPacket::NO_NOT_AFFECTED_ORDERS_NO_VALU
 const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDERS_MIN = 0;
 const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDERS_MAX = 500;
 const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDERS_NO_VALUE = 0xFFFF;
+const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDER_REQUESTS_MIN = 0;
+const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDER_REQUESTS_MAX = 500;
+const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDER_REQUESTS_NO_VALUE = 0xFFFF;
 const int8_t xetraDeleteAllOrderBroadcastPacket::PARTY_IDENTERING_FIRM_MIN = 1;
 const int8_t xetraDeleteAllOrderBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 2;
 const int8_t xetraDeleteAllOrderBroadcastPacket::PARTY_IDENTERING_FIRM_NO_VALUE = 0xFF;
@@ -614,10 +711,14 @@ const int8_t xetraDeleteAllOrderBroadcastPacket::EXEC_INST_NO_VALUE = 0xFF;
 const int8_t xetraDeleteAllOrderBroadcastPacket::SIDE_MIN = 1;
 const int8_t xetraDeleteAllOrderBroadcastPacket::SIDE_MAX = 2;
 const int8_t xetraDeleteAllOrderBroadcastPacket::SIDE_NO_VALUE = 0xFF;
+const char xetraDeleteAllOrderBroadcastPacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraDeleteAllOrderBroadcastPacket::PAD6_MAX_LENGTH = 6;
 const size_t xetraDeleteAllOrderBroadcastPacket::NOT_AFFECTED_ORDERS_GRP_MIN = 0;
 const size_t xetraDeleteAllOrderBroadcastPacket::NOT_AFFECTED_ORDERS_GRP_MAX = 500;
 const size_t xetraDeleteAllOrderBroadcastPacket::AFFECTED_ORD_GRP_MIN = 0;
 const size_t xetraDeleteAllOrderBroadcastPacket::AFFECTED_ORD_GRP_MAX = 500;
+const size_t xetraDeleteAllOrderBroadcastPacket::AFFECTED_ORDER_REQUESTS_GRP_MIN = 0;
+const size_t xetraDeleteAllOrderBroadcastPacket::AFFECTED_ORDER_REQUESTS_GRP_MAX = 500;
 
 
 } // namespace neueda

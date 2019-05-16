@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_ORDERBOOKITEMGRPCOMP_PACKET_H
 #define XETRA_ORDERBOOKITEMGRPCOMP_PACKET_H
@@ -23,9 +23,6 @@ class xetraOrderBookItemGrpCompPacket
 {
     public:
         // no value constants
-        static const int64_t SECURITY_ID_MIN;
-        static const int64_t SECURITY_ID_MAX;
-        static const int64_t SECURITY_ID_NO_VALUE;
         static const double BEST_BID_PX_MIN;
         static const double BEST_BID_PX_MAX;
         static const int64_t BEST_BID_PX_NO_VALUE;
@@ -41,52 +38,34 @@ class xetraOrderBookItemGrpCompPacket
         static const int8_t MDBOOK_TYPE_MIN;
         static const int8_t MDBOOK_TYPE_MAX;
         static const int8_t MDBOOK_TYPE_NO_VALUE;
-        static const char PAD7_NO_VALUE[7];
-        static const size_t PAD7_MAX_LENGTH;
+        static const int8_t MDSUB_BOOK_TYPE_MIN;
+        static const int8_t MDSUB_BOOK_TYPE_MAX;
+        static const int8_t MDSUB_BOOK_TYPE_NO_VALUE;
+        static const char PAD6_NO_VALUE[6];
+        static const size_t PAD6_MAX_LENGTH;
 
         // fields (use with care)
-        int64_t mSecurityID;
         int64_t mBestBidPx;
         int64_t mBestBidSize;
         int64_t mBestOfferPx;
         int64_t mBestOfferSize;
         int8_t mMDBookType;
-        char mPad7[7];
+        int8_t mMDSubBookType;
+        char mPad6[6];
 
         // constructor
         xetraOrderBookItemGrpCompPacket ()
         {
-            mSecurityID = SECURITY_ID_NO_VALUE;
             mBestBidPx = BEST_BID_PX_NO_VALUE;
             mBestBidSize = BEST_BID_SIZE_NO_VALUE;
             mBestOfferPx = BEST_OFFER_PX_NO_VALUE;
             mBestOfferSize = BEST_OFFER_SIZE_NO_VALUE;
             mMDBookType = MDBOOK_TYPE_NO_VALUE;
-            memcpy(mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            mMDSubBookType = MDSUB_BOOK_TYPE_NO_VALUE;
+            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
         // getters & setters
-        int64_t getSecurityID () const
-        {
-            return mSecurityID;
-        }
-
-        bool setSecurityID (int64_t v)
-        {
-            mSecurityID = v;
-            return ((SECURITY_ID_MIN <= mSecurityID && mSecurityID <= SECURITY_ID_MAX) || mSecurityID == SECURITY_ID_NO_VALUE);
-        }
-
-        bool isSecurityIDValid () const
-        {
-            return (mSecurityID != SECURITY_ID_NO_VALUE);
-        }
-
-        void resetSecurityID ()
-        {
-            mSecurityID = SECURITY_ID_NO_VALUE;
-        }
-
         double getBestBidPx () const
         {
             return mBestBidPx / 100000000.0;
@@ -192,40 +171,61 @@ class xetraOrderBookItemGrpCompPacket
             mMDBookType = MDBOOK_TYPE_NO_VALUE;
         }
 
-        string getPad7 () const
+        int8_t getMDSubBookType () const
         {
-            return string (mPad7, PAD7_MAX_LENGTH);
+            return mMDSubBookType;
         }
 
-        bool setPad7 (const string& v)
+        bool setMDSubBookType (int8_t v)
         {
-            memset (mPad7, '\0', sizeof (mPad7));
-            size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
-            strncpy (mPad7, v.c_str (), size);
-            return (v.size () <= PAD7_MAX_LENGTH);
+            mMDSubBookType = v;
+            return ((MDSUB_BOOK_TYPE_MIN <= mMDSubBookType && mMDSubBookType <= MDSUB_BOOK_TYPE_MAX) || mMDSubBookType == MDSUB_BOOK_TYPE_NO_VALUE);
         }
 
-        bool isPad7Valid () const
+        bool isMDSubBookTypeValid () const
         {
-            return (memcmp (mPad7, PAD7_NO_VALUE, sizeof (mPad7)) != 0);
+            return (mMDSubBookType != MDSUB_BOOK_TYPE_NO_VALUE);
         }
 
-        void resetPad7 ()
+        void resetMDSubBookType ()
         {
-            memcpy (mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            mMDSubBookType = MDSUB_BOOK_TYPE_NO_VALUE;
+        }
+
+        string getPad6 () const
+        {
+            return string (mPad6, PAD6_MAX_LENGTH);
+        }
+
+        bool setPad6 (const string& v)
+        {
+            memset (mPad6, '\0', sizeof (mPad6));
+            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
+            strncpy (mPad6, v.c_str (), size);
+            return (v.size () <= PAD6_MAX_LENGTH);
+        }
+
+        bool isPad6Valid () const
+        {
+            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
+        }
+
+        void resetPad6 ()
+        {
+            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
 
         // render current raw size
         size_t getRawSize () const
         {
-            size_t result = sizeof (mSecurityID)
-                + sizeof (mBestBidPx)
+            size_t result = sizeof (mBestBidPx)
                 + sizeof (mBestBidSize)
                 + sizeof (mBestOfferPx)
                 + sizeof (mBestOfferSize)
                 + sizeof (mMDBookType)
-                + sizeof (mPad7);
+                + sizeof (mMDSubBookType)
+                + sizeof (mPad6);
             return result;
         }
 
@@ -233,8 +233,6 @@ class xetraOrderBookItemGrpCompPacket
         codecState serialize (void *buf, size_t len, size_t &used)
         {
             codecState state;
-            state = xetra::serialize (mSecurityID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mBestBidPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mBestBidSize, buf, len, used);
@@ -245,7 +243,9 @@ class xetraOrderBookItemGrpCompPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mMDBookType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::serialize (mPad7, buf, len, used);
+            state = xetra::serialize (mMDSubBookType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -254,8 +254,6 @@ class xetraOrderBookItemGrpCompPacket
         codecState deserialize (const void *buf, size_t len, size_t &used)
         {
             codecState state;
-            state = xetra::deserialize (mSecurityID, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mBestBidPx, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mBestBidSize, buf, len, used);
@@ -266,7 +264,9 @@ class xetraOrderBookItemGrpCompPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mMDBookType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = xetra::deserialize (mPad7, buf, len, used);
+            state = xetra::deserialize (mMDSubBookType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -276,20 +276,17 @@ class xetraOrderBookItemGrpCompPacket
         {
             stringstream sss;
             sss << "OrderBookItemGrpComp::"
-                << "[SecurityID=" << getSecurityID () << "],"
                 << "[BestBidPx=" << getBestBidPx () << "],"
                 << "[BestBidSize=" << getBestBidSize () << "],"
                 << "[BestOfferPx=" << getBestOfferPx () << "],"
                 << "[BestOfferSize=" << getBestOfferSize () << "],"
                 << "[MDBookType=" << getMDBookType () << "],"
-                << "[Pad7=" << getPad7 () << "]";
+                << "[MDSubBookType=" << getMDSubBookType () << "],"
+                << "[Pad6=" << getPad6 () << "]";
             return sss.str();
         }
 };
 
-const int64_t xetraOrderBookItemGrpCompPacket::SECURITY_ID_MIN = -9223372036854775807L;
-const int64_t xetraOrderBookItemGrpCompPacket::SECURITY_ID_MAX = 9223372036854775807L;
-const int64_t xetraOrderBookItemGrpCompPacket::SECURITY_ID_NO_VALUE = 0x8000000000000000;
 const double xetraOrderBookItemGrpCompPacket::BEST_BID_PX_MIN = -92233720368.54775807;
 const double xetraOrderBookItemGrpCompPacket::BEST_BID_PX_MAX = 92233720368.54775807;
 const int64_t xetraOrderBookItemGrpCompPacket::BEST_BID_PX_NO_VALUE = 0x8000000000000000;
@@ -305,8 +302,11 @@ const int64_t xetraOrderBookItemGrpCompPacket::BEST_OFFER_SIZE_NO_VALUE = 0x8000
 const int8_t xetraOrderBookItemGrpCompPacket::MDBOOK_TYPE_MIN = 1;
 const int8_t xetraOrderBookItemGrpCompPacket::MDBOOK_TYPE_MAX = 2;
 const int8_t xetraOrderBookItemGrpCompPacket::MDBOOK_TYPE_NO_VALUE = 0xFF;
-const char xetraOrderBookItemGrpCompPacket::PAD7_NO_VALUE[7] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraOrderBookItemGrpCompPacket::PAD7_MAX_LENGTH = 7;
+const int8_t xetraOrderBookItemGrpCompPacket::MDSUB_BOOK_TYPE_MIN = 1;
+const int8_t xetraOrderBookItemGrpCompPacket::MDSUB_BOOK_TYPE_MAX = 2;
+const int8_t xetraOrderBookItemGrpCompPacket::MDSUB_BOOK_TYPE_NO_VALUE = 0xFF;
+const char xetraOrderBookItemGrpCompPacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraOrderBookItemGrpCompPacket::PAD6_MAX_LENGTH = 6;
 
 
 } // namespace neueda

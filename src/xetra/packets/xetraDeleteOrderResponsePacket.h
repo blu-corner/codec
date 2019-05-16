@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 11/04/2019
+ * Generated 09/05/2019
  */
 #ifndef XETRA_DELETEORDERRESPONSE_PACKET_H
 #define XETRA_DELETEORDERRESPONSE_PACKET_H
@@ -54,6 +54,11 @@ class xetraDeleteOrderResponsePacket
         static const int16_t EXEC_RESTATEMENT_REASON_MIN;
         static const int16_t EXEC_RESTATEMENT_REASON_MAX;
         static const int16_t EXEC_RESTATEMENT_REASON_NO_VALUE;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_MIN;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_MAX;
+        static const int8_t TRANSACTION_DELAY_INDICATOR_NO_VALUE;
+        static const char PAD7_NO_VALUE[7];
+        static const size_t PAD7_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -69,6 +74,8 @@ class xetraDeleteOrderResponsePacket
         char mOrdStatus[1];
         char mExecType[1];
         int16_t mExecRestatementReason;
+        int8_t mTransactionDelayIndicator;
+        char mPad7[7];
 
         // constructor
         xetraDeleteOrderResponsePacket ()
@@ -85,6 +92,8 @@ class xetraDeleteOrderResponsePacket
             memcpy(mOrdStatus, ORD_STATUS_NO_VALUE, sizeof (mOrdStatus));
             memcpy(mExecType, EXEC_TYPE_NO_VALUE, sizeof (mExecType));
             mExecRestatementReason = EXEC_RESTATEMENT_REASON_NO_VALUE;
+            mTransactionDelayIndicator = TRANSACTION_DELAY_INDICATOR_NO_VALUE;
+            memcpy(mPad7, PAD7_NO_VALUE, sizeof (mPad7));
         }
 
         // getters & setters
@@ -345,6 +354,50 @@ class xetraDeleteOrderResponsePacket
             mExecRestatementReason = EXEC_RESTATEMENT_REASON_NO_VALUE;
         }
 
+        int8_t getTransactionDelayIndicator () const
+        {
+            return mTransactionDelayIndicator;
+        }
+
+        bool setTransactionDelayIndicator (int8_t v)
+        {
+            mTransactionDelayIndicator = v;
+            return ((TRANSACTION_DELAY_INDICATOR_MIN <= mTransactionDelayIndicator && mTransactionDelayIndicator <= TRANSACTION_DELAY_INDICATOR_MAX) || mTransactionDelayIndicator == TRANSACTION_DELAY_INDICATOR_NO_VALUE);
+        }
+
+        bool isTransactionDelayIndicatorValid () const
+        {
+            return (mTransactionDelayIndicator != TRANSACTION_DELAY_INDICATOR_NO_VALUE);
+        }
+
+        void resetTransactionDelayIndicator ()
+        {
+            mTransactionDelayIndicator = TRANSACTION_DELAY_INDICATOR_NO_VALUE;
+        }
+
+        string getPad7 () const
+        {
+            return string (mPad7, PAD7_MAX_LENGTH);
+        }
+
+        bool setPad7 (const string& v)
+        {
+            memset (mPad7, '\0', sizeof (mPad7));
+            size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
+            strncpy (mPad7, v.c_str (), size);
+            return (v.size () <= PAD7_MAX_LENGTH);
+        }
+
+        bool isPad7Valid () const
+        {
+            return (memcmp (mPad7, PAD7_NO_VALUE, sizeof (mPad7)) != 0);
+        }
+
+        void resetPad7 ()
+        {
+            memcpy (mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+        }
+
 
         // render current raw size
         size_t getRawSize () const
@@ -361,7 +414,9 @@ class xetraDeleteOrderResponsePacket
                 + sizeof (mOrderIDSfx)
                 + sizeof (mOrdStatus)
                 + sizeof (mExecType)
-                + sizeof (mExecRestatementReason);
+                + sizeof (mExecRestatementReason)
+                + sizeof (mTransactionDelayIndicator)
+                + sizeof (mPad7);
             return result;
         }
 
@@ -396,6 +451,10 @@ class xetraDeleteOrderResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::serialize (mExecRestatementReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mTransactionDelayIndicator, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::serialize (mPad7, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
 
@@ -429,6 +488,10 @@ class xetraDeleteOrderResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = xetra::deserialize (mExecRestatementReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mTransactionDelayIndicator, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = xetra::deserialize (mPad7, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
         }
@@ -450,7 +513,9 @@ class xetraDeleteOrderResponsePacket
                 << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[OrdStatus=" << getOrdStatus () << "],"
                 << "[ExecType=" << getExecType () << "],"
-                << "[ExecRestatementReason=" << getExecRestatementReason () << "]";
+                << "[ExecRestatementReason=" << getExecRestatementReason () << "],"
+                << "[TransactionDelayIndicator=" << getTransactionDelayIndicator () << "],"
+                << "[Pad7=" << getPad7 () << "]";
             return sss.str();
         }
 };
@@ -486,6 +551,11 @@ const size_t xetraDeleteOrderResponsePacket::EXEC_TYPE_MAX_LENGTH = 1;
 const int16_t xetraDeleteOrderResponsePacket::EXEC_RESTATEMENT_REASON_MIN = 0;
 const int16_t xetraDeleteOrderResponsePacket::EXEC_RESTATEMENT_REASON_MAX = 344;
 const int16_t xetraDeleteOrderResponsePacket::EXEC_RESTATEMENT_REASON_NO_VALUE = 0xFFFF;
+const int8_t xetraDeleteOrderResponsePacket::TRANSACTION_DELAY_INDICATOR_MIN = 0;
+const int8_t xetraDeleteOrderResponsePacket::TRANSACTION_DELAY_INDICATOR_MAX = 1;
+const int8_t xetraDeleteOrderResponsePacket::TRANSACTION_DELAY_INDICATOR_NO_VALUE = 0xFF;
+const char xetraDeleteOrderResponsePacket::PAD7_NO_VALUE[7] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraDeleteOrderResponsePacket::PAD7_MAX_LENGTH = 7;
 
 
 } // namespace neueda
