@@ -36,8 +36,7 @@ endif()
 
 add_subdirectory(millennium)
 add_subdirectory(swx)
-add_subdirectory(xetra)
-add_subdirectory(eurex)
+add_subdirectory(eti)
 add_subdirectory(optiq)
 add_subdirectory(fix)
 

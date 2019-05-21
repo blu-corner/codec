@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 11:10:58 07/05/19
  */
 #ifndef _OPTIQ_DECLARATIONNOTICE_PACKET_H_
 #define _OPTIQ_DECLARATIONNOTICE_PACKET_H_
@@ -60,6 +60,7 @@ public:
         uint8_t mWaiverIndicator;
         uint8_t mPreviousDayIndicator;
         int64_t mMiscellaneousFeeAmount;
+        uint8_t mCCPID;
 
     optiqDeclarationNoticePacket ()
     {
@@ -69,7 +70,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (OptiqDeclarationNoticeTemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
         mMsgSeqNum = 0;
         memset (mFirmID, 0, 8);
         mClientOrderID = INT64_MIN;
@@ -107,6 +108,7 @@ public:
         mWaiverIndicator = 0;
         mPreviousDayIndicator = UINT8_MAX;
         mMiscellaneousFeeAmount = INT64_MIN;
+        mCCPID = 0;
     }
 
     
@@ -583,6 +585,17 @@ public:
     bool setMiscellaneousFeeAmount (int64_t val)
     {
         mMiscellaneousFeeAmount = val;
+        return true;
+    }
+    
+    uint8_t getCCPID () const
+    {
+        return mCCPID;
+    }
+
+    bool setCCPID (uint8_t val)
+    {
+        mCCPID = val;
         return true;
     }
 });

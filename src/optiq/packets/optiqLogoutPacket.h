@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 08:18:20 18/04/19
+ * Generated 11:10:58 07/05/19
  */
 #ifndef _OPTIQ_LOGOUT_PACKET_H_
 #define _OPTIQ_LOGOUT_PACKET_H_
@@ -33,7 +33,7 @@ public:
                                 sizeof (mFrameLength));
         mHeader.setTemplateId (OptiqLogoutTemplateId);
         mHeader.setSchemaId (0);
-        mHeader.setVersion (102);
+        mHeader.setVersion (109);
         mLogOutReasonCode = 0;
     }
 
