@@ -5,16 +5,6 @@ install(FILES codec.h codecFactory.h
   DESTINATION include/codec
   )
 
-include_directories(
-  ${PROJECT_SOURCE_DIR}/src
-  ${PROJECT_SOURCE_DIR}/src/helpers
-  ${PROJECT_SOURCE_DIR}/src/fields
-  )
-
-link_directories(
-  ${CMAKE_INSTALL_PREFIX}/lib
-  )
-
 add_library(codec SHARED
   codecFactory.cpp
   )

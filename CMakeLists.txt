@@ -43,17 +43,6 @@ if(APPLE)
   add_compile_options(-Wno-address-of-packed-member)
 endif()
 
-include_directories(
-  ${PROJECT_SOURCE_DIR}/src
-  ${CMAKE_INSTALL_PREFIX}/include/
-  ${CMAKE_INSTALL_PREFIX}/include/sbf
-  ${CMAKE_INSTALL_PREFIX}/include/utils
-  ${CMAKE_INSTALL_PREFIX}/include/event2
-  ${CMAKE_INSTALL_PREFIX}/include/properties
-  ${CMAKE_INSTALL_PREFIX}/include/cdr
-  ${CMAKE_INSTALL_PREFIX}/include/logger)
-link_directories(${CMAKE_INSTALL_PREFIX}/lib)
-
 if (COVERAGE)
     if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         set(COVERAGE_COMPILE_FLAGS "-g -O0 --coverage")
@@ -125,8 +114,6 @@ find_package(FLEX REQUIRED)
 # allow external projects
 include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
-# add source
-add_subdirectory(src)
 
 # exports
 install(
@@ -149,30 +136,6 @@ install(
   PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
   )
 
-# unit-tests
-option(TESTS "Enable unit-tests" OFF)
-if(TESTS)
-  if(WIN32)
-    ExternalProject_Add(
-      googletest
-      SOURCE_DIR ${PROJECT_SOURCE_DIR}/ext/googletest
-      CMAKE_ARGS -Dgtest_force_shared_crt=ON -DCMAKE_CXX_FLAGS="/w" -DBUILD_GMOCK=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
-      )
-  else()
-    ExternalProject_Add(
-      googletest
-      SOURCE_DIR ${PROJECT_SOURCE_DIR}/ext/googletest
-      CMAKE_ARGS -DBUILD_GMOCK=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
-      )
-  endif()
-  
-  include(CTest)
-  enable_testing()
-  
-  # add test dir
-  add_subdirectory(test)
-endif()
-
 ## deps
 if(NOT SUBMODULE_ROOT_DIR)
     set(SUBMODULE_ROOT_DIR ${PROJECT_SOURCE_DIR})
@@ -189,9 +152,12 @@ find_library(EVENT_PTHREAD_LIB
   NAMES event_pthreads
   HINTS "${CMAKE_INSTALL_PREFIX}/lib"
   )
+find_path(EVENT_INCLUDE_DIR event2/event.h
+  PATHS "${CMAKE_INSTALL_PREFIX}/include")
 if (EVENT_LIB AND EVENT_PTHREAD_LIB)
   message(STATUS "event-found: " ${EVENT_LIB})
   message(STATUS "event-pthread-found: " ${EVENT_PTHREAD_LIB})
+  message(STATUS "event-headers-found: " ${EVENT_INCLUDE_DIR})
 else()
   set(LIBEVENT_CMAKE ${SUBMODULE_ROOT_DIR}/ext/libevent CACHE PATH "Location of libevent-cmake" FORCE)
   message(STATUS "libevent-location: " ${LIBEVENT_CMAKE})
@@ -202,6 +168,20 @@ else()
     CMAKE_ARGS -DEVENT__DISABLE_DEBUG=ON -DEVENT__DISABLE_BENCHMARK=ON -DEVENT__DISABLE_TESTS=ON -DEVENT__DISABLE_REGRESS=ON -DEVENT__DISABLE_OPENSSL=ON -DEVENT__DISABLE_SAMPLES=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
     )
 endif()
+
+include_directories(
+  ${EVENT_INCLUDE_DIR}
+  ${PROJECT_SOURCE_DIR}/src
+  ${PROJECT_SOURCE_DIR}/src/helpers
+  ${PROJECT_SOURCE_DIR}/src/fields
+  ${CMAKE_INSTALL_PREFIX}/include/
+  ${CMAKE_INSTALL_PREFIX}/include/sbf
+  ${CMAKE_INSTALL_PREFIX}/include/utils
+  ${CMAKE_INSTALL_PREFIX}/include/event2
+  ${CMAKE_INSTALL_PREFIX}/include/properties
+  ${CMAKE_INSTALL_PREFIX}/include/cdr
+  ${CMAKE_INSTALL_PREFIX}/include/logger)
+link_directories(${CMAKE_INSTALL_PREFIX}/lib)
 
 #sbf
 set(SBF_CMAKE ${SUBMODULE_ROOT_DIR}/ext/sbf CACHE PATH "Location of sbf-cmake" FORCE)
@@ -273,6 +253,33 @@ ExternalProject_Get_Property(LOGGER_PROJECT binary_dir)
 set(LOGGER_PROJECT_DIR ${binary_dir}/lib/cmake/logger CACHE PATH "location of logger cmake files" FORCE)
 set(CPACK_INSTALL_CMAKE_PROJECTS ${CPACK_INSTALL_CMAKE_PROJECTS} "${binary_dir};logger;ALL;/")
 add_dependencies(LOGGER_PROJECT SBF_PROJECT PROPERTIES_PROJECT)
+
+# unit-tests
+option(TESTS "Enable unit-tests" OFF)
+if(TESTS)
+  if(WIN32)
+    ExternalProject_Add(
+      googletest
+      SOURCE_DIR ${PROJECT_SOURCE_DIR}/ext/googletest
+      CMAKE_ARGS -Dgtest_force_shared_crt=ON -DCMAKE_CXX_FLAGS="/w" -DBUILD_GMOCK=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
+      )
+  else()
+    ExternalProject_Add(
+      googletest
+      SOURCE_DIR ${PROJECT_SOURCE_DIR}/ext/googletest
+      CMAKE_ARGS -DBUILD_GMOCK=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
+      )
+  endif()
+  
+  include(CTest)
+  enable_testing()
+  
+  # add test dir
+  add_subdirectory(test)
+endif()
+
+# add source
+add_subdirectory(src)
 
 if (EXAMPLES)
     add_subdirectory(examples)
