@@ -51,7 +51,7 @@ endif()
 
 # cmake 2.8 swig has issues on figuring out naming libs
 set_target_properties(${SWIG_MODULE_CodecsCsharp_REAL_NAME} PROPERTIES OUTPUT_NAME "CodecsCsharp")
-if(${CSHARP_DYLIB_SUFFIX})
+if(NOT CSHARP_DYLIB_PREFIX STREQUAL "")
   set_target_properties(${SWIG_MODULE_CodecsCsharp_REAL_NAME} PROPERTIES PREFIX ${CSHARP_DYLIB_PREFIX})
 endif()
 set_target_properties(${SWIG_MODULE_CodecsCsharp_REAL_NAME} PROPERTIES SUFFIX ${CSHARP_DYLIB_SUFFIX})
