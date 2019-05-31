@@ -3,6 +3,12 @@
 namespace neueda
 {
 
+extern "C" codec*
+getCodec ()
+{
+    return new fixCodec ();
+}
+
 bool
 fixCodec::getFixFieldFromNode (xmlNode* field, fixField& f) const
 {
