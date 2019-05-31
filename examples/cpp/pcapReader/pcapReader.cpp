@@ -222,7 +222,7 @@ int main (int argc, char **argv)
     
     logger->debug ("file size: %lu\n", fileSize);
     pcap = pcap_open_offline_with_tstamp_precision (filename.c_str (),
-                                                    PCAP_TSTAMP_PRECISION_MICRO,
+                                                    PCAP_TSTAMP_PRECISION_NANO,
                                                     errorBuffer);
 
     if (pcap_loop (pcap, 0, packetCb, (u_char*)&buff) < 0)
