@@ -189,7 +189,7 @@ private:
         dt.mDay = ts.tm_mday;
         dt.mMonth = ts.tm_mon + 1;
         dt.mYear = ts.tm_year + 1900;
-        dt.mMillisecond = 0;
+        dt.mNanosecond = 0;
 
         // search for a decimal point, and if found convert everything after
         // to microseconds and insert into the datetime object
@@ -199,19 +199,19 @@ private:
         if (pos != string::npos)
         {
             stringstream os;
-            string usec = t.substr (pos + 1);
+            string ns = t.substr (pos + 1);
 
-            os << usec; 
+            os << ns; 
 
             // pad out with zeros to get microseconds
-            for (uint i = 0; i < (6 - usec.length ()); i++)
+            for (uint i = 0; i < (9 - ns.length ()); i++)
                 os << 0;
 
-            uint32_t micros;
-            if (!utils_parseNumber (os.str (), micros))
+            uint32_t nanos;
+            if (!utils_parseNumber (os.str (), nanos))
                 return false;
 
-            dt.mMillisecond = micros;
+            dt.mNanosecond = nanos;
         }
 
         d.setDateTime (tag, dt);
@@ -240,7 +240,7 @@ private:
                  i.mDateTime.mHour,
                  i.mDateTime.mMinute,
                  i.mDateTime.mSecond,
-                 i.mDateTime.mMillisecond);
+                 i.mDateTime.mNanosecond / 1000);
 
         string ts (t);
         return writeStringVal (tag, ts, len, p, used);
@@ -287,7 +287,7 @@ private:
                  i.mDateTime.mHour,
                  i.mDateTime.mMinute,
                  i.mDateTime.mSecond,
-                 i.mDateTime.mMillisecond);
+                 i.mDateTime.mNanosecond / 1000);
 
         string ts (t);
         return writeStringVal (tag, ts, len, p, used);
