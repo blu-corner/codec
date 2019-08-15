@@ -130,7 +130,7 @@ TEST_F(fixCodecWithDictTestHarness, HB_DECODE_DICT)
     sprintf (t, "%04d%02d%02d-%02d:%02d:%02d.%06d",
              item->mDateTime.mYear, item->mDateTime.mMonth, item->mDateTime.mDay,
              item->mDateTime.mHour, item->mDateTime.mMinute,
-             item->mDateTime.mSecond, item->mDateTime.mMillisecond);
+             item->mDateTime.mSecond, item->mDateTime.mNanosecond / 1000);
 
     string sendingtime;
     sendingtime.assign (t);
