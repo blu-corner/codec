@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_BROADCASTERRORNOTIFICATION_PACKET_H
 #define XETRA_BROADCASTERRORNOTIFICATION_PACKET_H
@@ -346,7 +346,7 @@ const int16_t xetraBroadcastErrorNotificationPacket::VAR_TEXT_LEN_MIN = 0;
 const int16_t xetraBroadcastErrorNotificationPacket::VAR_TEXT_LEN_MAX = 2000;
 const int16_t xetraBroadcastErrorNotificationPacket::VAR_TEXT_LEN_NO_VALUE = 0xFFFF;
 const int8_t xetraBroadcastErrorNotificationPacket::REF_APPL_ID_MIN = 0;
-const int8_t xetraBroadcastErrorNotificationPacket::REF_APPL_ID_MAX = 10;
+const int8_t xetraBroadcastErrorNotificationPacket::REF_APPL_ID_MAX = 11;
 const int8_t xetraBroadcastErrorNotificationPacket::REF_APPL_ID_NO_VALUE = 0xFF;
 const int8_t xetraBroadcastErrorNotificationPacket::SESSION_STATUS_MIN = 0;
 const int8_t xetraBroadcastErrorNotificationPacket::SESSION_STATUS_MAX = 4;

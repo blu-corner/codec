@@ -2321,6 +2321,14 @@ using namespace std;
 #define LegExecID 4507
 #define FillRefID 4508
 #define LegInputSource 4509
+#define CxlSize 4510
+#define OrderOrigination 4511
+#define PartyEnteringFirm 4512
+#define NoQuoteSideEntries 4513
+#define OrderEventType 4514
+#define PartyIDSpecialistTrader 4515
+#define PartySpecialistTrader 4516
+#define PartySpecialistFirm 4517
 
 namespace neueda
 {

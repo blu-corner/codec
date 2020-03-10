@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_RFQREQUEST_PACKET_H
 #define XETRA_RFQREQUEST_PACKET_H
@@ -29,6 +29,9 @@ class xetraRFQRequestPacket
         static const double ORDER_QTY_MIN;
         static const double ORDER_QTY_MAX;
         static const int64_t ORDER_QTY_NO_VALUE;
+        static const uint64_t QUOTE_ID_MIN;
+        static const uint64_t QUOTE_ID_MAX;
+        static const uint64_t QUOTE_ID_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
@@ -49,6 +52,7 @@ class xetraRFQRequestPacket
         xetraRequestHeaderCompPacket mRequestHeader;
         int64_t mSecurityID;
         int64_t mOrderQty;
+        uint64_t mQuoteID;
         int32_t mMarketSegmentID;
         int8_t mRFQPublishIndicator;
         int8_t mRFQRequesterDisclosureInstruction;
@@ -61,6 +65,7 @@ class xetraRFQRequestPacket
             mMessageHeaderIn.mTemplateID = 10401;
             mSecurityID = SECURITY_ID_NO_VALUE;
             mOrderQty = ORDER_QTY_NO_VALUE;
+            mQuoteID = QUOTE_ID_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mRFQPublishIndicator = RFQPUBLISH_INDICATOR_NO_VALUE;
             mRFQRequesterDisclosureInstruction = RFQREQUESTER_DISCLOSURE_INSTRUCTION_NO_VALUE;
@@ -131,6 +136,27 @@ class xetraRFQRequestPacket
         void resetOrderQty ()
         {
             mOrderQty = ORDER_QTY_NO_VALUE;
+        }
+
+        uint64_t getQuoteID () const
+        {
+            return mQuoteID;
+        }
+
+        bool setQuoteID (uint64_t v)
+        {
+            mQuoteID = v;
+            return ((QUOTE_ID_MIN <= mQuoteID && mQuoteID <= QUOTE_ID_MAX) || mQuoteID == QUOTE_ID_NO_VALUE);
+        }
+
+        bool isQuoteIDValid () const
+        {
+            return (mQuoteID != QUOTE_ID_NO_VALUE);
+        }
+
+        void resetQuoteID ()
+        {
+            mQuoteID = QUOTE_ID_NO_VALUE;
         }
 
         int32_t getMarketSegmentID () const
@@ -248,6 +274,7 @@ class xetraRFQRequestPacket
                 + mRequestHeader.getRawSize()
                 + sizeof (mSecurityID)
                 + sizeof (mOrderQty)
+                + sizeof (mQuoteID)
                 + sizeof (mMarketSegmentID)
                 + sizeof (mRFQPublishIndicator)
                 + sizeof (mRFQRequesterDisclosureInstruction)
@@ -268,6 +295,8 @@ class xetraRFQRequestPacket
             state = eti::serialize (mSecurityID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mOrderQty, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mQuoteID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -294,6 +323,8 @@ class xetraRFQRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mOrderQty, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mQuoteID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mRFQPublishIndicator, buf, len, used);
@@ -317,6 +348,7 @@ class xetraRFQRequestPacket
                 << "[RequestHeader=" << mRequestHeader.toString () << "],"
                 << "[SecurityID=" << getSecurityID () << "],"
                 << "[OrderQty=" << getOrderQty () << "],"
+                << "[QuoteID=" << getQuoteID () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[RFQPublishIndicator=" << getRFQPublishIndicator () << "],"
                 << "[RFQRequesterDisclosureInstruction=" << getRFQRequesterDisclosureInstruction () << "],"
@@ -332,11 +364,14 @@ const int64_t xetraRFQRequestPacket::SECURITY_ID_NO_VALUE = 0x8000000000000000;
 const double xetraRFQRequestPacket::ORDER_QTY_MIN = -922337203685477.5807;
 const double xetraRFQRequestPacket::ORDER_QTY_MAX = 922337203685477.5807;
 const int64_t xetraRFQRequestPacket::ORDER_QTY_NO_VALUE = 0x8000000000000000;
+const uint64_t xetraRFQRequestPacket::QUOTE_ID_MIN = 0UL;
+const uint64_t xetraRFQRequestPacket::QUOTE_ID_MAX = 18446744073709551614UL;
+const uint64_t xetraRFQRequestPacket::QUOTE_ID_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
 const int32_t xetraRFQRequestPacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraRFQRequestPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraRFQRequestPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
 const int8_t xetraRFQRequestPacket::RFQPUBLISH_INDICATOR_MIN = 1;
-const int8_t xetraRFQRequestPacket::RFQPUBLISH_INDICATOR_MAX = 5;
+const int8_t xetraRFQRequestPacket::RFQPUBLISH_INDICATOR_MAX = 6;
 const int8_t xetraRFQRequestPacket::RFQPUBLISH_INDICATOR_NO_VALUE = 0xFF;
 const int8_t xetraRFQRequestPacket::RFQREQUESTER_DISCLOSURE_INSTRUCTION_MIN = 0;
 const int8_t xetraRFQRequestPacket::RFQREQUESTER_DISCLOSURE_INSTRUCTION_MAX = 1;

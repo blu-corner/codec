@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_NRBCHEADERCOMP_PACKET_H
 #define XETRA_NRBCHEADERCOMP_PACKET_H
@@ -230,7 +230,7 @@ const uint32_t xetraNRBCHeaderCompPacket::APPL_SUB_ID_MIN = 0;
 const uint32_t xetraNRBCHeaderCompPacket::APPL_SUB_ID_MAX = 4294967294;
 const uint32_t xetraNRBCHeaderCompPacket::APPL_SUB_ID_NO_VALUE = 0xFFFFFFFF;
 const int8_t xetraNRBCHeaderCompPacket::APPL_ID_MIN = 0;
-const int8_t xetraNRBCHeaderCompPacket::APPL_ID_MAX = 10;
+const int8_t xetraNRBCHeaderCompPacket::APPL_ID_MAX = 11;
 const int8_t xetraNRBCHeaderCompPacket::APPL_ID_NO_VALUE = 0xFF;
 const int8_t xetraNRBCHeaderCompPacket::LAST_FRAGMENT_MIN = 0;
 const int8_t xetraNRBCHeaderCompPacket::LAST_FRAGMENT_MAX = 1;

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_USERLOGINRESPONSE_PACKET_H
 #define XETRA_USERLOGINRESPONSE_PACKET_H

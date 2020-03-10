@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_QUOTEACTIVATIONNOTIFICATION_PACKET_H
 #define XETRA_QUOTEACTIVATIONNOTIFICATION_PACKET_H
@@ -400,7 +400,7 @@ const int16_t xetraQuoteActivationNotificationPacket::NO_NOT_AFFECTED_SECURITIES
 const int16_t xetraQuoteActivationNotificationPacket::NO_NOT_AFFECTED_SECURITIES_MAX = 500;
 const int16_t xetraQuoteActivationNotificationPacket::NO_NOT_AFFECTED_SECURITIES_NO_VALUE = 0xFFFF;
 const int8_t xetraQuoteActivationNotificationPacket::PARTY_IDENTERING_FIRM_MIN = 1;
-const int8_t xetraQuoteActivationNotificationPacket::PARTY_IDENTERING_FIRM_MAX = 2;
+const int8_t xetraQuoteActivationNotificationPacket::PARTY_IDENTERING_FIRM_MAX = 3;
 const int8_t xetraQuoteActivationNotificationPacket::PARTY_IDENTERING_FIRM_NO_VALUE = 0xFF;
 const int8_t xetraQuoteActivationNotificationPacket::MASS_ACTION_TYPE_MIN = 1;
 const int8_t xetraQuoteActivationNotificationPacket::MASS_ACTION_TYPE_MAX = 2;

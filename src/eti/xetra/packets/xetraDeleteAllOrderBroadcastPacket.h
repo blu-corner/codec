@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_DELETEALLORDERBROADCAST_PACKET_H
 #define XETRA_DELETEALLORDERBROADCAST_PACKET_H
@@ -700,7 +700,7 @@ const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDER_REQUESTS_MIN
 const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDER_REQUESTS_MAX = 500;
 const int16_t xetraDeleteAllOrderBroadcastPacket::NO_AFFECTED_ORDER_REQUESTS_NO_VALUE = 0xFFFF;
 const int8_t xetraDeleteAllOrderBroadcastPacket::PARTY_IDENTERING_FIRM_MIN = 1;
-const int8_t xetraDeleteAllOrderBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 2;
+const int8_t xetraDeleteAllOrderBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 3;
 const int8_t xetraDeleteAllOrderBroadcastPacket::PARTY_IDENTERING_FIRM_NO_VALUE = 0xFF;
 const uint8_t xetraDeleteAllOrderBroadcastPacket::MASS_ACTION_REASON_MIN = 0;
 const uint8_t xetraDeleteAllOrderBroadcastPacket::MASS_ACTION_REASON_MAX = 200;

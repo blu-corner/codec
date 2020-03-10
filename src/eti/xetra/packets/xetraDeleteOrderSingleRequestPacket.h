@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_DELETEORDERSINGLEREQUEST_PACKET_H
 #define XETRA_DELETEORDERSINGLEREQUEST_PACKET_H
@@ -47,6 +47,9 @@ class xetraDeleteOrderSingleRequestPacket
         static const uint32_t TARGET_PARTY_IDSESSION_ID_MIN;
         static const uint32_t TARGET_PARTY_IDSESSION_ID_MAX;
         static const uint32_t TARGET_PARTY_IDSESSION_ID_NO_VALUE;
+        static const int8_t ORDER_ORIGINATION_MIN;
+        static const int8_t ORDER_ORIGINATION_MAX;
+        static const int8_t ORDER_ORIGINATION_NO_VALUE;
         static const int8_t PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_MIN;
         static const int8_t PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_MAX;
         static const int8_t PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_NO_VALUE;
@@ -55,8 +58,12 @@ class xetraDeleteOrderSingleRequestPacket
         static const int8_t EXECUTING_TRADER_QUALIFIER_NO_VALUE;
         static const char FIXCL_ORD_ID_NO_VALUE[20];
         static const size_t FIXCL_ORD_ID_MAX_LENGTH;
-        static const char PAD2_NO_VALUE[2];
-        static const size_t PAD2_MAX_LENGTH;
+        static const char PARTY_EXECUTING_FIRM_NO_VALUE[5];
+        static const size_t PARTY_EXECUTING_FIRM_MAX_LENGTH;
+        static const char PARTY_EXECUTING_TRADER_NO_VALUE[6];
+        static const size_t PARTY_EXECUTING_TRADER_MAX_LENGTH;
+        static const char PAD6_NO_VALUE[6];
+        static const size_t PAD6_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderInCompPacket mMessageHeaderIn;
@@ -69,10 +76,13 @@ class xetraDeleteOrderSingleRequestPacket
         uint64_t mExecutingTrader;
         int32_t mMarketSegmentID;
         uint32_t mTargetPartyIDSessionID;
+        int8_t mOrderOrigination;
         int8_t mPartyIdInvestmentDecisionMakerQualifier;
         int8_t mExecutingTraderQualifier;
         char mFIXClOrdID[20];
-        char mPad2[2];
+        char mPartyExecutingFirm[5];
+        char mPartyExecutingTrader[6];
+        char mPad6[6];
 
         // constructor
         xetraDeleteOrderSingleRequestPacket ()
@@ -86,10 +96,13 @@ class xetraDeleteOrderSingleRequestPacket
             mExecutingTrader = EXECUTING_TRADER_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mTargetPartyIDSessionID = TARGET_PARTY_IDSESSION_ID_NO_VALUE;
+            mOrderOrigination = ORDER_ORIGINATION_NO_VALUE;
             mPartyIdInvestmentDecisionMakerQualifier = PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_NO_VALUE;
             mExecutingTraderQualifier = EXECUTING_TRADER_QUALIFIER_NO_VALUE;
             memcpy(mFIXClOrdID, FIXCL_ORD_ID_NO_VALUE, sizeof (mFIXClOrdID));
-            memcpy(mPad2, PAD2_NO_VALUE, sizeof (mPad2));
+            memcpy(mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm));
+            memcpy(mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader));
+            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
         // getters & setters
@@ -283,6 +296,27 @@ class xetraDeleteOrderSingleRequestPacket
             mTargetPartyIDSessionID = TARGET_PARTY_IDSESSION_ID_NO_VALUE;
         }
 
+        int8_t getOrderOrigination () const
+        {
+            return mOrderOrigination;
+        }
+
+        bool setOrderOrigination (int8_t v)
+        {
+            mOrderOrigination = v;
+            return ((ORDER_ORIGINATION_MIN <= mOrderOrigination && mOrderOrigination <= ORDER_ORIGINATION_MAX) || mOrderOrigination == ORDER_ORIGINATION_NO_VALUE);
+        }
+
+        bool isOrderOriginationValid () const
+        {
+            return (mOrderOrigination != ORDER_ORIGINATION_NO_VALUE);
+        }
+
+        void resetOrderOrigination ()
+        {
+            mOrderOrigination = ORDER_ORIGINATION_NO_VALUE;
+        }
+
         int8_t getPartyIdInvestmentDecisionMakerQualifier () const
         {
             return mPartyIdInvestmentDecisionMakerQualifier;
@@ -348,27 +382,73 @@ class xetraDeleteOrderSingleRequestPacket
             memcpy (mFIXClOrdID, FIXCL_ORD_ID_NO_VALUE, sizeof (mFIXClOrdID));
         }
 
-        string getPad2 () const
+        string getPartyExecutingFirm () const
         {
-            return string (mPad2, PAD2_MAX_LENGTH);
+            return string (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_MAX_LENGTH);
         }
 
-        bool setPad2 (const string& v)
+        bool setPartyExecutingFirm (const string& v)
         {
-            memset (mPad2, '\0', sizeof (mPad2));
-            size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
-            strncpy (mPad2, v.c_str (), size);
-            return (v.size () <= PAD2_MAX_LENGTH);
+            memset (mPartyExecutingFirm, '\0', sizeof (mPartyExecutingFirm));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_FIRM_MAX_LENGTH);
+            strncpy (mPartyExecutingFirm, v.c_str (), size);
+            return (v.size () <= PARTY_EXECUTING_FIRM_MAX_LENGTH);
         }
 
-        bool isPad2Valid () const
+        bool isPartyExecutingFirmValid () const
         {
-            return (memcmp (mPad2, PAD2_NO_VALUE, sizeof (mPad2)) != 0);
+            return (memcmp (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm)) != 0);
         }
 
-        void resetPad2 ()
+        void resetPartyExecutingFirm ()
         {
-            memcpy (mPad2, PAD2_NO_VALUE, sizeof (mPad2));
+            memcpy (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm));
+        }
+
+        string getPartyExecutingTrader () const
+        {
+            return string (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_MAX_LENGTH);
+        }
+
+        bool setPartyExecutingTrader (const string& v)
+        {
+            memset (mPartyExecutingTrader, '\0', sizeof (mPartyExecutingTrader));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_TRADER_MAX_LENGTH);
+            strncpy (mPartyExecutingTrader, v.c_str (), size);
+            return (v.size () <= PARTY_EXECUTING_TRADER_MAX_LENGTH);
+        }
+
+        bool isPartyExecutingTraderValid () const
+        {
+            return (memcmp (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader)) != 0);
+        }
+
+        void resetPartyExecutingTrader ()
+        {
+            memcpy (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader));
+        }
+
+        string getPad6 () const
+        {
+            return string (mPad6, PAD6_MAX_LENGTH);
+        }
+
+        bool setPad6 (const string& v)
+        {
+            memset (mPad6, '\0', sizeof (mPad6));
+            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
+            strncpy (mPad6, v.c_str (), size);
+            return (v.size () <= PAD6_MAX_LENGTH);
+        }
+
+        bool isPad6Valid () const
+        {
+            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
+        }
+
+        void resetPad6 ()
+        {
+            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
         }
 
 
@@ -385,10 +465,13 @@ class xetraDeleteOrderSingleRequestPacket
                 + sizeof (mExecutingTrader)
                 + sizeof (mMarketSegmentID)
                 + sizeof (mTargetPartyIDSessionID)
+                + sizeof (mOrderOrigination)
                 + sizeof (mPartyIdInvestmentDecisionMakerQualifier)
                 + sizeof (mExecutingTraderQualifier)
                 + sizeof (mFIXClOrdID)
-                + sizeof (mPad2);
+                + sizeof (mPartyExecutingFirm)
+                + sizeof (mPartyExecutingTrader)
+                + sizeof (mPad6);
             return result;
         }
 
@@ -417,13 +500,19 @@ class xetraDeleteOrderSingleRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mTargetPartyIDSessionID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mOrderOrigination, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mPartyIdInvestmentDecisionMakerQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mExecutingTraderQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mFIXClOrdID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mPad2, buf, len, used);
+            state = eti::serialize (mPartyExecutingFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyExecutingTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -452,13 +541,19 @@ class xetraDeleteOrderSingleRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mTargetPartyIDSessionID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mOrderOrigination, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mPartyIdInvestmentDecisionMakerQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mExecutingTraderQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mFIXClOrdID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mPad2, buf, len, used);
+            state = eti::deserialize (mPartyExecutingFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyExecutingTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPad6, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderIn.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -479,10 +574,13 @@ class xetraDeleteOrderSingleRequestPacket
                 << "[ExecutingTrader=" << getExecutingTrader () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[TargetPartyIDSessionID=" << getTargetPartyIDSessionID () << "],"
+                << "[OrderOrigination=" << getOrderOrigination () << "],"
                 << "[PartyIdInvestmentDecisionMakerQualifier=" << getPartyIdInvestmentDecisionMakerQualifier () << "],"
                 << "[ExecutingTraderQualifier=" << getExecutingTraderQualifier () << "],"
                 << "[FIXClOrdID=" << getFIXClOrdID () << "],"
-                << "[Pad2=" << getPad2 () << "]";
+                << "[PartyExecutingFirm=" << getPartyExecutingFirm () << "],"
+                << "[PartyExecutingTrader=" << getPartyExecutingTrader () << "],"
+                << "[Pad6=" << getPad6 () << "]";
             return sss.str();
         }
 };
@@ -511,6 +609,9 @@ const int32_t xetraDeleteOrderSingleRequestPacket::MARKET_SEGMENT_ID_NO_VALUE = 
 const uint32_t xetraDeleteOrderSingleRequestPacket::TARGET_PARTY_IDSESSION_ID_MIN = 0;
 const uint32_t xetraDeleteOrderSingleRequestPacket::TARGET_PARTY_IDSESSION_ID_MAX = 4294967294;
 const uint32_t xetraDeleteOrderSingleRequestPacket::TARGET_PARTY_IDSESSION_ID_NO_VALUE = 0xFFFFFFFF;
+const int8_t xetraDeleteOrderSingleRequestPacket::ORDER_ORIGINATION_MIN = 5;
+const int8_t xetraDeleteOrderSingleRequestPacket::ORDER_ORIGINATION_MAX = 5;
+const int8_t xetraDeleteOrderSingleRequestPacket::ORDER_ORIGINATION_NO_VALUE = 0xFF;
 const int8_t xetraDeleteOrderSingleRequestPacket::PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_MIN = 22;
 const int8_t xetraDeleteOrderSingleRequestPacket::PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_MAX = 24;
 const int8_t xetraDeleteOrderSingleRequestPacket::PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_NO_VALUE = 0xFF;
@@ -519,8 +620,12 @@ const int8_t xetraDeleteOrderSingleRequestPacket::EXECUTING_TRADER_QUALIFIER_MAX
 const int8_t xetraDeleteOrderSingleRequestPacket::EXECUTING_TRADER_QUALIFIER_NO_VALUE = 0xFF;
 const char xetraDeleteOrderSingleRequestPacket::FIXCL_ORD_ID_NO_VALUE[20] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraDeleteOrderSingleRequestPacket::FIXCL_ORD_ID_MAX_LENGTH = 20;
-const char xetraDeleteOrderSingleRequestPacket::PAD2_NO_VALUE[2] = {0x00, 0x00};
-const size_t xetraDeleteOrderSingleRequestPacket::PAD2_MAX_LENGTH = 2;
+const char xetraDeleteOrderSingleRequestPacket::PARTY_EXECUTING_FIRM_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraDeleteOrderSingleRequestPacket::PARTY_EXECUTING_FIRM_MAX_LENGTH = 5;
+const char xetraDeleteOrderSingleRequestPacket::PARTY_EXECUTING_TRADER_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraDeleteOrderSingleRequestPacket::PARTY_EXECUTING_TRADER_MAX_LENGTH = 6;
+const char xetraDeleteOrderSingleRequestPacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraDeleteOrderSingleRequestPacket::PAD6_MAX_LENGTH = 6;
 
 
 } // namespace neueda

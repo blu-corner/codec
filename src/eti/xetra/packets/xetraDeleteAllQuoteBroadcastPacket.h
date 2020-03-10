@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_DELETEALLQUOTEBROADCAST_PACKET_H
 #define XETRA_DELETEALLQUOTEBROADCAST_PACKET_H
@@ -509,7 +509,7 @@ const uint8_t xetraDeleteAllQuoteBroadcastPacket::MASS_ACTION_REASON_MIN = 0;
 const uint8_t xetraDeleteAllQuoteBroadcastPacket::MASS_ACTION_REASON_MAX = 200;
 const uint8_t xetraDeleteAllQuoteBroadcastPacket::MASS_ACTION_REASON_NO_VALUE = 0xFF;
 const int8_t xetraDeleteAllQuoteBroadcastPacket::PARTY_IDENTERING_FIRM_MIN = 1;
-const int8_t xetraDeleteAllQuoteBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 2;
+const int8_t xetraDeleteAllQuoteBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 3;
 const int8_t xetraDeleteAllQuoteBroadcastPacket::PARTY_IDENTERING_FIRM_NO_VALUE = 0xFF;
 const char xetraDeleteAllQuoteBroadcastPacket::TARGET_PARTY_IDDESK_ID_NO_VALUE[3] = {0x00, 0x00, 0x00};
 const size_t xetraDeleteAllQuoteBroadcastPacket::TARGET_PARTY_IDDESK_ID_MAX_LENGTH = 3;

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_RBCHEADERCOMP_PACKET_H
 #define XETRA_RBCHEADERCOMP_PACKET_H
@@ -335,7 +335,7 @@ const int8_t xetraRBCHeaderCompPacket::APPL_RESEND_FLAG_MIN = 0;
 const int8_t xetraRBCHeaderCompPacket::APPL_RESEND_FLAG_MAX = 1;
 const int8_t xetraRBCHeaderCompPacket::APPL_RESEND_FLAG_NO_VALUE = 0xFF;
 const int8_t xetraRBCHeaderCompPacket::APPL_ID_MIN = 0;
-const int8_t xetraRBCHeaderCompPacket::APPL_ID_MAX = 10;
+const int8_t xetraRBCHeaderCompPacket::APPL_ID_MAX = 11;
 const int8_t xetraRBCHeaderCompPacket::APPL_ID_NO_VALUE = 0xFF;
 const int8_t xetraRBCHeaderCompPacket::LAST_FRAGMENT_MIN = 0;
 const int8_t xetraRBCHeaderCompPacket::LAST_FRAGMENT_MAX = 1;
