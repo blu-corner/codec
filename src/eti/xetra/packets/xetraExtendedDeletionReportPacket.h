@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_EXTENDEDDELETIONREPORT_PACKET_H
 #define XETRA_EXTENDEDDELETIONREPORT_PACKET_H
@@ -77,6 +77,9 @@ class xetraExtendedDeletionReportPacket
         static const double PEG_OFFSET_VALUE_PCT_MIN;
         static const double PEG_OFFSET_VALUE_PCT_MAX;
         static const int64_t PEG_OFFSET_VALUE_PCT_NO_VALUE;
+        static const uint64_t QUOTE_ID_MIN;
+        static const uint64_t QUOTE_ID_MAX;
+        static const uint64_t QUOTE_ID_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
@@ -138,13 +141,21 @@ class xetraExtendedDeletionReportPacket
         static const size_t FREE_TEXT2_MAX_LENGTH;
         static const char FREE_TEXT4_NO_VALUE[16];
         static const size_t FREE_TEXT4_MAX_LENGTH;
+        static const char PARTY_ENTERING_FIRM_NO_VALUE[5];
+        static const size_t PARTY_ENTERING_FIRM_MAX_LENGTH;
+        static const char PARTY_ENTERING_TRADER_NO_VALUE[6];
+        static const size_t PARTY_ENTERING_TRADER_MAX_LENGTH;
+        static const char PARTY_EXECUTING_FIRM_NO_VALUE[5];
+        static const size_t PARTY_EXECUTING_FIRM_MAX_LENGTH;
+        static const char PARTY_EXECUTING_TRADER_NO_VALUE[6];
+        static const size_t PARTY_EXECUTING_TRADER_MAX_LENGTH;
         static const char FIXCL_ORD_ID_NO_VALUE[20];
         static const size_t FIXCL_ORD_ID_MAX_LENGTH;
         static const int8_t TRIGGERED_MIN;
         static const int8_t TRIGGERED_MAX;
         static const int8_t TRIGGERED_NO_VALUE;
-        static const char PAD7_NO_VALUE[7];
-        static const size_t PAD7_MAX_LENGTH;
+        static const char PAD1_NO_VALUE[1];
+        static const size_t PAD1_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -167,6 +178,7 @@ class xetraExtendedDeletionReportPacket
         int64_t mVolumeDiscoveryPrice;
         int64_t mPegOffsetValueAbs;
         int64_t mPegOffsetValuePct;
+        uint64_t mQuoteID;
         int32_t mMarketSegmentID;
         uint32_t mOrderIDSfx;
         int32_t mExpireDate;
@@ -189,9 +201,13 @@ class xetraExtendedDeletionReportPacket
         char mFreeText1[12];
         char mFreeText2[12];
         char mFreeText4[16];
+        char mPartyEnteringFirm[5];
+        char mPartyEnteringTrader[6];
+        char mPartyExecutingFirm[5];
+        char mPartyExecutingTrader[6];
         char mFIXClOrdID[20];
         int8_t mTriggered;
-        char mPad7[7];
+        char mPad1[1];
 
         // constructor
         xetraExtendedDeletionReportPacket ()
@@ -215,6 +231,7 @@ class xetraExtendedDeletionReportPacket
             mVolumeDiscoveryPrice = VOLUME_DISCOVERY_PRICE_NO_VALUE;
             mPegOffsetValueAbs = PEG_OFFSET_VALUE_ABS_NO_VALUE;
             mPegOffsetValuePct = PEG_OFFSET_VALUE_PCT_NO_VALUE;
+            mQuoteID = QUOTE_ID_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mExpireDate = EXPIRE_DATE_NO_VALUE;
@@ -237,9 +254,13 @@ class xetraExtendedDeletionReportPacket
             memcpy(mFreeText1, FREE_TEXT1_NO_VALUE, sizeof (mFreeText1));
             memcpy(mFreeText2, FREE_TEXT2_NO_VALUE, sizeof (mFreeText2));
             memcpy(mFreeText4, FREE_TEXT4_NO_VALUE, sizeof (mFreeText4));
+            memcpy(mPartyEnteringFirm, PARTY_ENTERING_FIRM_NO_VALUE, sizeof (mPartyEnteringFirm));
+            memcpy(mPartyEnteringTrader, PARTY_ENTERING_TRADER_NO_VALUE, sizeof (mPartyEnteringTrader));
+            memcpy(mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm));
+            memcpy(mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader));
             memcpy(mFIXClOrdID, FIXCL_ORD_ID_NO_VALUE, sizeof (mFIXClOrdID));
             mTriggered = TRIGGERED_NO_VALUE;
-            memcpy(mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            memcpy(mPad1, PAD1_NO_VALUE, sizeof (mPad1));
         }
 
         // getters & setters
@@ -641,6 +662,27 @@ class xetraExtendedDeletionReportPacket
         void resetPegOffsetValuePct ()
         {
             mPegOffsetValuePct = PEG_OFFSET_VALUE_PCT_NO_VALUE;
+        }
+
+        uint64_t getQuoteID () const
+        {
+            return mQuoteID;
+        }
+
+        bool setQuoteID (uint64_t v)
+        {
+            mQuoteID = v;
+            return ((QUOTE_ID_MIN <= mQuoteID && mQuoteID <= QUOTE_ID_MAX) || mQuoteID == QUOTE_ID_NO_VALUE);
+        }
+
+        bool isQuoteIDValid () const
+        {
+            return (mQuoteID != QUOTE_ID_NO_VALUE);
+        }
+
+        void resetQuoteID ()
+        {
+            mQuoteID = QUOTE_ID_NO_VALUE;
         }
 
         int32_t getMarketSegmentID () const
@@ -1115,6 +1157,98 @@ class xetraExtendedDeletionReportPacket
             memcpy (mFreeText4, FREE_TEXT4_NO_VALUE, sizeof (mFreeText4));
         }
 
+        string getPartyEnteringFirm () const
+        {
+            return string (mPartyEnteringFirm, PARTY_ENTERING_FIRM_MAX_LENGTH);
+        }
+
+        bool setPartyEnteringFirm (const string& v)
+        {
+            memset (mPartyEnteringFirm, '\0', sizeof (mPartyEnteringFirm));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_ENTERING_FIRM_MAX_LENGTH);
+            strncpy (mPartyEnteringFirm, v.c_str (), size);
+            return (v.size () <= PARTY_ENTERING_FIRM_MAX_LENGTH);
+        }
+
+        bool isPartyEnteringFirmValid () const
+        {
+            return (memcmp (mPartyEnteringFirm, PARTY_ENTERING_FIRM_NO_VALUE, sizeof (mPartyEnteringFirm)) != 0);
+        }
+
+        void resetPartyEnteringFirm ()
+        {
+            memcpy (mPartyEnteringFirm, PARTY_ENTERING_FIRM_NO_VALUE, sizeof (mPartyEnteringFirm));
+        }
+
+        string getPartyEnteringTrader () const
+        {
+            return string (mPartyEnteringTrader, PARTY_ENTERING_TRADER_MAX_LENGTH);
+        }
+
+        bool setPartyEnteringTrader (const string& v)
+        {
+            memset (mPartyEnteringTrader, '\0', sizeof (mPartyEnteringTrader));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_ENTERING_TRADER_MAX_LENGTH);
+            strncpy (mPartyEnteringTrader, v.c_str (), size);
+            return (v.size () <= PARTY_ENTERING_TRADER_MAX_LENGTH);
+        }
+
+        bool isPartyEnteringTraderValid () const
+        {
+            return (memcmp (mPartyEnteringTrader, PARTY_ENTERING_TRADER_NO_VALUE, sizeof (mPartyEnteringTrader)) != 0);
+        }
+
+        void resetPartyEnteringTrader ()
+        {
+            memcpy (mPartyEnteringTrader, PARTY_ENTERING_TRADER_NO_VALUE, sizeof (mPartyEnteringTrader));
+        }
+
+        string getPartyExecutingFirm () const
+        {
+            return string (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_MAX_LENGTH);
+        }
+
+        bool setPartyExecutingFirm (const string& v)
+        {
+            memset (mPartyExecutingFirm, '\0', sizeof (mPartyExecutingFirm));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_FIRM_MAX_LENGTH);
+            strncpy (mPartyExecutingFirm, v.c_str (), size);
+            return (v.size () <= PARTY_EXECUTING_FIRM_MAX_LENGTH);
+        }
+
+        bool isPartyExecutingFirmValid () const
+        {
+            return (memcmp (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm)) != 0);
+        }
+
+        void resetPartyExecutingFirm ()
+        {
+            memcpy (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm));
+        }
+
+        string getPartyExecutingTrader () const
+        {
+            return string (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_MAX_LENGTH);
+        }
+
+        bool setPartyExecutingTrader (const string& v)
+        {
+            memset (mPartyExecutingTrader, '\0', sizeof (mPartyExecutingTrader));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_TRADER_MAX_LENGTH);
+            strncpy (mPartyExecutingTrader, v.c_str (), size);
+            return (v.size () <= PARTY_EXECUTING_TRADER_MAX_LENGTH);
+        }
+
+        bool isPartyExecutingTraderValid () const
+        {
+            return (memcmp (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader)) != 0);
+        }
+
+        void resetPartyExecutingTrader ()
+        {
+            memcpy (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader));
+        }
+
         string getFIXClOrdID () const
         {
             return string (mFIXClOrdID, FIXCL_ORD_ID_MAX_LENGTH);
@@ -1159,27 +1293,27 @@ class xetraExtendedDeletionReportPacket
             mTriggered = TRIGGERED_NO_VALUE;
         }
 
-        string getPad7 () const
+        string getPad1 () const
         {
-            return string (mPad7, PAD7_MAX_LENGTH);
+            return string (mPad1, PAD1_MAX_LENGTH);
         }
 
-        bool setPad7 (const string& v)
+        bool setPad1 (const string& v)
         {
-            memset (mPad7, '\0', sizeof (mPad7));
-            size_t size = min ((size_t) v.size (), (size_t) PAD7_MAX_LENGTH);
-            strncpy (mPad7, v.c_str (), size);
-            return (v.size () <= PAD7_MAX_LENGTH);
+            memset (mPad1, '\0', sizeof (mPad1));
+            size_t size = min ((size_t) v.size (), (size_t) PAD1_MAX_LENGTH);
+            strncpy (mPad1, v.c_str (), size);
+            return (v.size () <= PAD1_MAX_LENGTH);
         }
 
-        bool isPad7Valid () const
+        bool isPad1Valid () const
         {
-            return (memcmp (mPad7, PAD7_NO_VALUE, sizeof (mPad7)) != 0);
+            return (memcmp (mPad1, PAD1_NO_VALUE, sizeof (mPad1)) != 0);
         }
 
-        void resetPad7 ()
+        void resetPad1 ()
         {
-            memcpy (mPad7, PAD7_NO_VALUE, sizeof (mPad7));
+            memcpy (mPad1, PAD1_NO_VALUE, sizeof (mPad1));
         }
 
 
@@ -1206,6 +1340,7 @@ class xetraExtendedDeletionReportPacket
                 + sizeof (mVolumeDiscoveryPrice)
                 + sizeof (mPegOffsetValueAbs)
                 + sizeof (mPegOffsetValuePct)
+                + sizeof (mQuoteID)
                 + sizeof (mMarketSegmentID)
                 + sizeof (mOrderIDSfx)
                 + sizeof (mExpireDate)
@@ -1228,9 +1363,13 @@ class xetraExtendedDeletionReportPacket
                 + sizeof (mFreeText1)
                 + sizeof (mFreeText2)
                 + sizeof (mFreeText4)
+                + sizeof (mPartyEnteringFirm)
+                + sizeof (mPartyEnteringTrader)
+                + sizeof (mPartyExecutingFirm)
+                + sizeof (mPartyExecutingTrader)
                 + sizeof (mFIXClOrdID)
                 + sizeof (mTriggered)
-                + sizeof (mPad7);
+                + sizeof (mPad1);
             return result;
         }
 
@@ -1279,6 +1418,8 @@ class xetraExtendedDeletionReportPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mPegOffsetValuePct, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mQuoteID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mOrderIDSfx, buf, len, used);
@@ -1323,11 +1464,19 @@ class xetraExtendedDeletionReportPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mFreeText4, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyEnteringFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyEnteringTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyExecutingFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyExecutingTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mFIXClOrdID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mTriggered, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mPad7, buf, len, used);
+            state = eti::serialize (mPad1, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -1376,6 +1525,8 @@ class xetraExtendedDeletionReportPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mPegOffsetValuePct, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mQuoteID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mOrderIDSfx, buf, len, used);
@@ -1420,11 +1571,19 @@ class xetraExtendedDeletionReportPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mFreeText4, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyEnteringFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyEnteringTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyExecutingFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyExecutingTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mFIXClOrdID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mTriggered, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mPad7, buf, len, used);
+            state = eti::deserialize (mPad1, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -1455,6 +1614,7 @@ class xetraExtendedDeletionReportPacket
                 << "[VolumeDiscoveryPrice=" << getVolumeDiscoveryPrice () << "],"
                 << "[PegOffsetValueAbs=" << getPegOffsetValueAbs () << "],"
                 << "[PegOffsetValuePct=" << getPegOffsetValuePct () << "],"
+                << "[QuoteID=" << getQuoteID () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[ExpireDate=" << getExpireDate () << "],"
@@ -1477,9 +1637,13 @@ class xetraExtendedDeletionReportPacket
                 << "[FreeText1=" << getFreeText1 () << "],"
                 << "[FreeText2=" << getFreeText2 () << "],"
                 << "[FreeText4=" << getFreeText4 () << "],"
+                << "[PartyEnteringFirm=" << getPartyEnteringFirm () << "],"
+                << "[PartyEnteringTrader=" << getPartyEnteringTrader () << "],"
+                << "[PartyExecutingFirm=" << getPartyExecutingFirm () << "],"
+                << "[PartyExecutingTrader=" << getPartyExecutingTrader () << "],"
                 << "[FIXClOrdID=" << getFIXClOrdID () << "],"
                 << "[Triggered=" << getTriggered () << "],"
-                << "[Pad7=" << getPad7 () << "]";
+                << "[Pad1=" << getPad1 () << "]";
             return sss.str();
         }
 };
@@ -1538,6 +1702,9 @@ const int64_t xetraExtendedDeletionReportPacket::PEG_OFFSET_VALUE_ABS_NO_VALUE =
 const double xetraExtendedDeletionReportPacket::PEG_OFFSET_VALUE_PCT_MIN = -922337203685477.5807;
 const double xetraExtendedDeletionReportPacket::PEG_OFFSET_VALUE_PCT_MAX = 922337203685477.5807;
 const int64_t xetraExtendedDeletionReportPacket::PEG_OFFSET_VALUE_PCT_NO_VALUE = 0x8000000000000000;
+const uint64_t xetraExtendedDeletionReportPacket::QUOTE_ID_MIN = 0UL;
+const uint64_t xetraExtendedDeletionReportPacket::QUOTE_ID_MAX = 18446744073709551614UL;
+const uint64_t xetraExtendedDeletionReportPacket::QUOTE_ID_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
 const int32_t xetraExtendedDeletionReportPacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraExtendedDeletionReportPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraExtendedDeletionReportPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
@@ -1585,7 +1752,7 @@ const int8_t xetraExtendedDeletionReportPacket::EXEC_INST_MIN = 1;
 const int8_t xetraExtendedDeletionReportPacket::EXEC_INST_MAX = 6;
 const int8_t xetraExtendedDeletionReportPacket::EXEC_INST_NO_VALUE = 0xFF;
 const int8_t xetraExtendedDeletionReportPacket::TRADING_SESSION_SUB_ID_MIN = 1;
-const int8_t xetraExtendedDeletionReportPacket::TRADING_SESSION_SUB_ID_MAX = 8;
+const int8_t xetraExtendedDeletionReportPacket::TRADING_SESSION_SUB_ID_MAX = 105;
 const int8_t xetraExtendedDeletionReportPacket::TRADING_SESSION_SUB_ID_NO_VALUE = 0xFF;
 const int8_t xetraExtendedDeletionReportPacket::APPL_SEQ_INDICATOR_MIN = 0;
 const int8_t xetraExtendedDeletionReportPacket::APPL_SEQ_INDICATOR_MAX = 1;
@@ -1599,13 +1766,21 @@ const char xetraExtendedDeletionReportPacket::FREE_TEXT2_NO_VALUE[12] = {0x00, 0
 const size_t xetraExtendedDeletionReportPacket::FREE_TEXT2_MAX_LENGTH = 12;
 const char xetraExtendedDeletionReportPacket::FREE_TEXT4_NO_VALUE[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraExtendedDeletionReportPacket::FREE_TEXT4_MAX_LENGTH = 16;
+const char xetraExtendedDeletionReportPacket::PARTY_ENTERING_FIRM_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraExtendedDeletionReportPacket::PARTY_ENTERING_FIRM_MAX_LENGTH = 5;
+const char xetraExtendedDeletionReportPacket::PARTY_ENTERING_TRADER_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraExtendedDeletionReportPacket::PARTY_ENTERING_TRADER_MAX_LENGTH = 6;
+const char xetraExtendedDeletionReportPacket::PARTY_EXECUTING_FIRM_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraExtendedDeletionReportPacket::PARTY_EXECUTING_FIRM_MAX_LENGTH = 5;
+const char xetraExtendedDeletionReportPacket::PARTY_EXECUTING_TRADER_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraExtendedDeletionReportPacket::PARTY_EXECUTING_TRADER_MAX_LENGTH = 6;
 const char xetraExtendedDeletionReportPacket::FIXCL_ORD_ID_NO_VALUE[20] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraExtendedDeletionReportPacket::FIXCL_ORD_ID_MAX_LENGTH = 20;
 const int8_t xetraExtendedDeletionReportPacket::TRIGGERED_MIN = 0;
 const int8_t xetraExtendedDeletionReportPacket::TRIGGERED_MAX = 2;
 const int8_t xetraExtendedDeletionReportPacket::TRIGGERED_NO_VALUE = 0xFF;
-const char xetraExtendedDeletionReportPacket::PAD7_NO_VALUE[7] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraExtendedDeletionReportPacket::PAD7_MAX_LENGTH = 7;
+const char xetraExtendedDeletionReportPacket::PAD1_NO_VALUE[1] = {0x00};
+const size_t xetraExtendedDeletionReportPacket::PAD1_MAX_LENGTH = 1;
 
 
 } // namespace neueda

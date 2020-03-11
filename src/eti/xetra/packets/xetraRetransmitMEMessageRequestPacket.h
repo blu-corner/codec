@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_RETRANSMITMEMESSAGEREQUEST_PACKET_H
 #define XETRA_RETRANSMITMEMESSAGEREQUEST_PACKET_H
@@ -303,7 +303,7 @@ const uint16_t xetraRetransmitMEMessageRequestPacket::PARTITION_ID_MIN = 0;
 const uint16_t xetraRetransmitMEMessageRequestPacket::PARTITION_ID_MAX = 65534;
 const uint16_t xetraRetransmitMEMessageRequestPacket::PARTITION_ID_NO_VALUE = 0xFFFF;
 const int8_t xetraRetransmitMEMessageRequestPacket::REF_APPL_ID_MIN = 0;
-const int8_t xetraRetransmitMEMessageRequestPacket::REF_APPL_ID_MAX = 10;
+const int8_t xetraRetransmitMEMessageRequestPacket::REF_APPL_ID_MAX = 11;
 const int8_t xetraRetransmitMEMessageRequestPacket::REF_APPL_ID_NO_VALUE = 0xFF;
 const char xetraRetransmitMEMessageRequestPacket::APPL_BEG_MSG_ID_NO_VALUE[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraRetransmitMEMessageRequestPacket::APPL_BEG_MSG_ID_MAX_LENGTH = 16;

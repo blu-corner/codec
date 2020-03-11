@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_QUOTEENTRYACKGRPCOMP_PACKET_H
 #define XETRA_QUOTEENTRYACKGRPCOMP_PACKET_H
@@ -26,38 +26,38 @@ class xetraQuoteEntryAckGrpCompPacket
         static const int64_t SECURITY_ID_MIN;
         static const int64_t SECURITY_ID_MAX;
         static const int64_t SECURITY_ID_NO_VALUE;
-        static const double BID_CXL_SIZE_MIN;
-        static const double BID_CXL_SIZE_MAX;
-        static const int64_t BID_CXL_SIZE_NO_VALUE;
-        static const double OFFER_CXL_SIZE_MIN;
-        static const double OFFER_CXL_SIZE_MAX;
-        static const int64_t OFFER_CXL_SIZE_NO_VALUE;
+        static const double CXL_SIZE_MIN;
+        static const double CXL_SIZE_MAX;
+        static const int64_t CXL_SIZE_NO_VALUE;
         static const int32_t QUOTE_ENTRY_REJECT_REASON_MIN;
         static const int32_t QUOTE_ENTRY_REJECT_REASON_MAX;
         static const int32_t QUOTE_ENTRY_REJECT_REASON_NO_VALUE;
         static const int8_t QUOTE_ENTRY_STATUS_MIN;
         static const int8_t QUOTE_ENTRY_STATUS_MAX;
         static const int8_t QUOTE_ENTRY_STATUS_NO_VALUE;
-        static const char PAD3_NO_VALUE[3];
-        static const size_t PAD3_MAX_LENGTH;
+        static const int8_t SIDE_MIN;
+        static const int8_t SIDE_MAX;
+        static const int8_t SIDE_NO_VALUE;
+        static const char PAD2_NO_VALUE[2];
+        static const size_t PAD2_MAX_LENGTH;
 
         // fields (use with care)
         int64_t mSecurityID;
-        int64_t mBidCxlSize;
-        int64_t mOfferCxlSize;
+        int64_t mCxlSize;
         int32_t mQuoteEntryRejectReason;
         int8_t mQuoteEntryStatus;
-        char mPad3[3];
+        int8_t mSide;
+        char mPad2[2];
 
         // constructor
         xetraQuoteEntryAckGrpCompPacket ()
         {
             mSecurityID = SECURITY_ID_NO_VALUE;
-            mBidCxlSize = BID_CXL_SIZE_NO_VALUE;
-            mOfferCxlSize = OFFER_CXL_SIZE_NO_VALUE;
+            mCxlSize = CXL_SIZE_NO_VALUE;
             mQuoteEntryRejectReason = QUOTE_ENTRY_REJECT_REASON_NO_VALUE;
             mQuoteEntryStatus = QUOTE_ENTRY_STATUS_NO_VALUE;
-            memcpy(mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            mSide = SIDE_NO_VALUE;
+            memcpy(mPad2, PAD2_NO_VALUE, sizeof (mPad2));
         }
 
         // getters & setters
@@ -82,46 +82,25 @@ class xetraQuoteEntryAckGrpCompPacket
             mSecurityID = SECURITY_ID_NO_VALUE;
         }
 
-        double getBidCxlSize () const
+        double getCxlSize () const
         {
-            return mBidCxlSize / 10000.0;
+            return mCxlSize / 10000.0;
         }
 
-        bool setBidCxlSize (double v)
+        bool setCxlSize (double v)
         {
-            mBidCxlSize = v * 10000.0;
-            return ((BID_CXL_SIZE_MIN <= v && v <= BID_CXL_SIZE_MAX) || mBidCxlSize == BID_CXL_SIZE_NO_VALUE);
+            mCxlSize = v * 10000.0;
+            return ((CXL_SIZE_MIN <= v && v <= CXL_SIZE_MAX) || mCxlSize == CXL_SIZE_NO_VALUE);
         }
 
-        bool isBidCxlSizeValid () const
+        bool isCxlSizeValid () const
         {
-            return (mBidCxlSize != BID_CXL_SIZE_NO_VALUE);
+            return (mCxlSize != CXL_SIZE_NO_VALUE);
         }
 
-        void resetBidCxlSize ()
+        void resetCxlSize ()
         {
-            mBidCxlSize = BID_CXL_SIZE_NO_VALUE;
-        }
-
-        double getOfferCxlSize () const
-        {
-            return mOfferCxlSize / 10000.0;
-        }
-
-        bool setOfferCxlSize (double v)
-        {
-            mOfferCxlSize = v * 10000.0;
-            return ((OFFER_CXL_SIZE_MIN <= v && v <= OFFER_CXL_SIZE_MAX) || mOfferCxlSize == OFFER_CXL_SIZE_NO_VALUE);
-        }
-
-        bool isOfferCxlSizeValid () const
-        {
-            return (mOfferCxlSize != OFFER_CXL_SIZE_NO_VALUE);
-        }
-
-        void resetOfferCxlSize ()
-        {
-            mOfferCxlSize = OFFER_CXL_SIZE_NO_VALUE;
+            mCxlSize = CXL_SIZE_NO_VALUE;
         }
 
         int32_t getQuoteEntryRejectReason () const
@@ -166,27 +145,48 @@ class xetraQuoteEntryAckGrpCompPacket
             mQuoteEntryStatus = QUOTE_ENTRY_STATUS_NO_VALUE;
         }
 
-        string getPad3 () const
+        int8_t getSide () const
         {
-            return string (mPad3, PAD3_MAX_LENGTH);
+            return mSide;
         }
 
-        bool setPad3 (const string& v)
+        bool setSide (int8_t v)
         {
-            memset (mPad3, '\0', sizeof (mPad3));
-            size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
-            strncpy (mPad3, v.c_str (), size);
-            return (v.size () <= PAD3_MAX_LENGTH);
+            mSide = v;
+            return ((SIDE_MIN <= mSide && mSide <= SIDE_MAX) || mSide == SIDE_NO_VALUE);
         }
 
-        bool isPad3Valid () const
+        bool isSideValid () const
         {
-            return (memcmp (mPad3, PAD3_NO_VALUE, sizeof (mPad3)) != 0);
+            return (mSide != SIDE_NO_VALUE);
         }
 
-        void resetPad3 ()
+        void resetSide ()
         {
-            memcpy (mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            mSide = SIDE_NO_VALUE;
+        }
+
+        string getPad2 () const
+        {
+            return string (mPad2, PAD2_MAX_LENGTH);
+        }
+
+        bool setPad2 (const string& v)
+        {
+            memset (mPad2, '\0', sizeof (mPad2));
+            size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
+            strncpy (mPad2, v.c_str (), size);
+            return (v.size () <= PAD2_MAX_LENGTH);
+        }
+
+        bool isPad2Valid () const
+        {
+            return (memcmp (mPad2, PAD2_NO_VALUE, sizeof (mPad2)) != 0);
+        }
+
+        void resetPad2 ()
+        {
+            memcpy (mPad2, PAD2_NO_VALUE, sizeof (mPad2));
         }
 
 
@@ -194,11 +194,11 @@ class xetraQuoteEntryAckGrpCompPacket
         size_t getRawSize () const
         {
             size_t result = sizeof (mSecurityID)
-                + sizeof (mBidCxlSize)
-                + sizeof (mOfferCxlSize)
+                + sizeof (mCxlSize)
                 + sizeof (mQuoteEntryRejectReason)
                 + sizeof (mQuoteEntryStatus)
-                + sizeof (mPad3);
+                + sizeof (mSide)
+                + sizeof (mPad2);
             return result;
         }
 
@@ -208,15 +208,15 @@ class xetraQuoteEntryAckGrpCompPacket
             codecState state;
             state = eti::serialize (mSecurityID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mBidCxlSize, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mOfferCxlSize, buf, len, used);
+            state = eti::serialize (mCxlSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mQuoteEntryRejectReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mQuoteEntryStatus, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mPad3, buf, len, used);
+            state = eti::serialize (mSide, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPad2, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -227,15 +227,15 @@ class xetraQuoteEntryAckGrpCompPacket
             codecState state;
             state = eti::deserialize (mSecurityID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mBidCxlSize, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mOfferCxlSize, buf, len, used);
+            state = eti::deserialize (mCxlSize, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mQuoteEntryRejectReason, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mQuoteEntryStatus, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mPad3, buf, len, used);
+            state = eti::deserialize (mSide, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPad2, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -246,11 +246,11 @@ class xetraQuoteEntryAckGrpCompPacket
             stringstream sss;
             sss << "QuoteEntryAckGrpComp::"
                 << "[SecurityID=" << getSecurityID () << "],"
-                << "[BidCxlSize=" << getBidCxlSize () << "],"
-                << "[OfferCxlSize=" << getOfferCxlSize () << "],"
+                << "[CxlSize=" << getCxlSize () << "],"
                 << "[QuoteEntryRejectReason=" << getQuoteEntryRejectReason () << "],"
                 << "[QuoteEntryStatus=" << getQuoteEntryStatus () << "],"
-                << "[Pad3=" << getPad3 () << "]";
+                << "[Side=" << getSide () << "],"
+                << "[Pad2=" << getPad2 () << "]";
             return sss.str();
         }
 };
@@ -258,20 +258,20 @@ class xetraQuoteEntryAckGrpCompPacket
 const int64_t xetraQuoteEntryAckGrpCompPacket::SECURITY_ID_MIN = -9223372036854775807L;
 const int64_t xetraQuoteEntryAckGrpCompPacket::SECURITY_ID_MAX = 9223372036854775807L;
 const int64_t xetraQuoteEntryAckGrpCompPacket::SECURITY_ID_NO_VALUE = 0x8000000000000000;
-const double xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_MIN = -922337203685477.5807;
-const double xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_MAX = 922337203685477.5807;
-const int64_t xetraQuoteEntryAckGrpCompPacket::BID_CXL_SIZE_NO_VALUE = 0x8000000000000000;
-const double xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_MIN = -922337203685477.5807;
-const double xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_MAX = 922337203685477.5807;
-const int64_t xetraQuoteEntryAckGrpCompPacket::OFFER_CXL_SIZE_NO_VALUE = 0x8000000000000000;
+const double xetraQuoteEntryAckGrpCompPacket::CXL_SIZE_MIN = -922337203685477.5807;
+const double xetraQuoteEntryAckGrpCompPacket::CXL_SIZE_MAX = 922337203685477.5807;
+const int64_t xetraQuoteEntryAckGrpCompPacket::CXL_SIZE_NO_VALUE = 0x8000000000000000;
 const int32_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_REJECT_REASON_MIN = 0;
 const int32_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_REJECT_REASON_MAX = 65535;
 const int32_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_REJECT_REASON_NO_VALUE = 0xFFFFFFFF;
 const int8_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_STATUS_MIN = 0;
 const int8_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_STATUS_MAX = 100;
 const int8_t xetraQuoteEntryAckGrpCompPacket::QUOTE_ENTRY_STATUS_NO_VALUE = 0xFF;
-const char xetraQuoteEntryAckGrpCompPacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
-const size_t xetraQuoteEntryAckGrpCompPacket::PAD3_MAX_LENGTH = 3;
+const int8_t xetraQuoteEntryAckGrpCompPacket::SIDE_MIN = 1;
+const int8_t xetraQuoteEntryAckGrpCompPacket::SIDE_MAX = 2;
+const int8_t xetraQuoteEntryAckGrpCompPacket::SIDE_NO_VALUE = 0xFF;
+const char xetraQuoteEntryAckGrpCompPacket::PAD2_NO_VALUE[2] = {0x00, 0x00};
+const size_t xetraQuoteEntryAckGrpCompPacket::PAD2_MAX_LENGTH = 2;
 
 
 } // namespace neueda

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_PACKETS_H
 #define XETRA_PACKETS_H
@@ -28,7 +28,6 @@
 #include "xetraNotifHeaderCompPacket.h"
 #include "xetraMessageHeaderOutCompPacket.h"
 #include "xetraNRBCHeaderCompPacket.h"
-#include "xetraSRQSRelatedTradeIDGrpCompPacket.h"
 #include "xetraSideAllocGrpBCCompPacket.h"
 #include "xetraSideAllocGrpCompPacket.h"
 #include "xetraFillsGrpCompPacket.h"
@@ -97,8 +96,10 @@
 #include "xetraQuoteActivationResponsePacket.h"
 #include "xetraQuoteExecutionReportPacket.h"
 #include "xetraRFQBroadcastPacket.h"
+#include "xetraRFQRejectNotificationPacket.h"
 #include "xetraRFQRequestPacket.h"
 #include "xetraRFQResponsePacket.h"
+#include "xetraRFQSpecialistBroadcastPacket.h"
 #include "xetraRejectPacket.h"
 #include "xetraRetransmitMEMessageRequestPacket.h"
 #include "xetraRetransmitMEMessageResponsePacket.h"
@@ -106,6 +107,16 @@
 #include "xetraRetransmitResponsePacket.h"
 #include "xetraServiceAvailabilityBroadcastPacket.h"
 #include "xetraServiceAvailabilityMarketBroadcastPacket.h"
+#include "xetraSingleQuoteRequestPacket.h"
+#include "xetraSpecialistDeleteAllOrderBroadcastPacket.h"
+#include "xetraSpecialistInstrumentEventNotificationPacket.h"
+#include "xetraSpecialistOrderBookNotificationPacket.h"
+#include "xetraSpecialistRFQRejectRequestPacket.h"
+#include "xetraSpecialistRFQReplyNotificationPacket.h"
+#include "xetraSpecialistRFQReplyRequestPacket.h"
+#include "xetraSpecialistRFQReplyResponsePacket.h"
+#include "xetraSpecialistSecurityStateChangeRequestPacket.h"
+#include "xetraSpecialistSecurityStateChangeResponsePacket.h"
 #include "xetraSubscribeRequestPacket.h"
 #include "xetraSubscribeResponsePacket.h"
 #include "xetraTESApproveBroadcastPacket.h"

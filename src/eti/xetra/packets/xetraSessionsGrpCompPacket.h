@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_SESSIONSGRPCOMP_PACKET_H
 #define XETRA_SESSIONSGRPCOMP_PACKET_H
@@ -198,7 +198,7 @@ const int8_t xetraSessionsGrpCompPacket::SESSION_MODE_MIN = 1;
 const int8_t xetraSessionsGrpCompPacket::SESSION_MODE_MAX = 3;
 const int8_t xetraSessionsGrpCompPacket::SESSION_MODE_NO_VALUE = 0xFF;
 const int8_t xetraSessionsGrpCompPacket::SESSION_SUB_MODE_MIN = 0;
-const int8_t xetraSessionsGrpCompPacket::SESSION_SUB_MODE_MAX = 2;
+const int8_t xetraSessionsGrpCompPacket::SESSION_SUB_MODE_MAX = 3;
 const int8_t xetraSessionsGrpCompPacket::SESSION_SUB_MODE_NO_VALUE = 0xFF;
 const char xetraSessionsGrpCompPacket::PAD2_NO_VALUE[2] = {0x00, 0x00};
 const size_t xetraSessionsGrpCompPacket::PAD2_MAX_LENGTH = 2;

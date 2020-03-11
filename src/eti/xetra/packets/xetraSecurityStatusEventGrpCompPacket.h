@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_SECURITYSTATUSEVENTGRPCOMP_PACKET_H
 #define XETRA_SECURITYSTATUSEVENTGRPCOMP_PACKET_H
@@ -198,7 +198,7 @@ const int32_t xetraSecurityStatusEventGrpCompPacket::EVENT_DATE_MIN = 0;
 const int32_t xetraSecurityStatusEventGrpCompPacket::EVENT_DATE_MAX = 99991231;
 const int32_t xetraSecurityStatusEventGrpCompPacket::EVENT_DATE_NO_VALUE = 0xFFFFFFFF;
 const int8_t xetraSecurityStatusEventGrpCompPacket::EVENT_TYPE_MIN = 8;
-const int8_t xetraSecurityStatusEventGrpCompPacket::EVENT_TYPE_MAX = 100;
+const int8_t xetraSecurityStatusEventGrpCompPacket::EVENT_TYPE_MAX = 113;
 const int8_t xetraSecurityStatusEventGrpCompPacket::EVENT_TYPE_NO_VALUE = 0xFF;
 const char xetraSecurityStatusEventGrpCompPacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
 const size_t xetraSecurityStatusEventGrpCompPacket::PAD3_MAX_LENGTH = 3;

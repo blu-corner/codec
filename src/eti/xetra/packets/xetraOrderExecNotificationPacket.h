@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_ORDEREXECNOTIFICATION_PACKET_H
 #define XETRA_ORDEREXECNOTIFICATION_PACKET_H
@@ -66,6 +66,9 @@ class xetraOrderExecNotificationPacket
         static const size_t ORD_STATUS_MAX_LENGTH;
         static const char EXEC_TYPE_NO_VALUE[1];
         static const size_t EXEC_TYPE_MAX_LENGTH;
+        static const int8_t ORDER_EVENT_TYPE_MIN;
+        static const int8_t ORDER_EVENT_TYPE_MAX;
+        static const int8_t ORDER_EVENT_TYPE_NO_VALUE;
         static const int8_t MATCH_TYPE_MIN;
         static const int8_t MATCH_TYPE_MAX;
         static const int8_t MATCH_TYPE_NO_VALUE;
@@ -80,8 +83,8 @@ class xetraOrderExecNotificationPacket
         static const int8_t NO_FILLS_MIN;
         static const int8_t NO_FILLS_MAX;
         static const int8_t NO_FILLS_NO_VALUE;
-        static const char PAD3_NO_VALUE[3];
-        static const size_t PAD3_MAX_LENGTH;
+        static const char PAD2_NO_VALUE[2];
+        static const size_t PAD2_MAX_LENGTH;
         static const size_t FILLS_GRP_MIN;
         static const size_t FILLS_GRP_MAX;
 
@@ -103,12 +106,13 @@ class xetraOrderExecNotificationPacket
         int8_t mSide;
         char mOrdStatus[1];
         char mExecType[1];
+        int8_t mOrderEventType;
         int8_t mMatchType;
         int8_t mTriggered;
         int8_t mCrossedIndicator;
         char mFIXClOrdID[20];
         int8_t mNoFills;
-        char mPad3[3];
+        char mPad2[2];
         vector<xetraFillsGrpCompPacket> mFillsGrp;
 
         // constructor
@@ -130,12 +134,13 @@ class xetraOrderExecNotificationPacket
             mSide = SIDE_NO_VALUE;
             memcpy(mOrdStatus, ORD_STATUS_NO_VALUE, sizeof (mOrdStatus));
             memcpy(mExecType, EXEC_TYPE_NO_VALUE, sizeof (mExecType));
+            mOrderEventType = ORDER_EVENT_TYPE_NO_VALUE;
             mMatchType = MATCH_TYPE_NO_VALUE;
             mTriggered = TRIGGERED_NO_VALUE;
             mCrossedIndicator = CROSSED_INDICATOR_NO_VALUE;
             memcpy(mFIXClOrdID, FIXCL_ORD_ID_NO_VALUE, sizeof (mFIXClOrdID));
             mNoFills = NO_FILLS_NO_VALUE;
-            memcpy(mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            memcpy(mPad2, PAD2_NO_VALUE, sizeof (mPad2));
         }
 
         // getters & setters
@@ -480,6 +485,27 @@ class xetraOrderExecNotificationPacket
             memcpy (mExecType, EXEC_TYPE_NO_VALUE, sizeof (mExecType));
         }
 
+        int8_t getOrderEventType () const
+        {
+            return mOrderEventType;
+        }
+
+        bool setOrderEventType (int8_t v)
+        {
+            mOrderEventType = v;
+            return ((ORDER_EVENT_TYPE_MIN <= mOrderEventType && mOrderEventType <= ORDER_EVENT_TYPE_MAX) || mOrderEventType == ORDER_EVENT_TYPE_NO_VALUE);
+        }
+
+        bool isOrderEventTypeValid () const
+        {
+            return (mOrderEventType != ORDER_EVENT_TYPE_NO_VALUE);
+        }
+
+        void resetOrderEventType ()
+        {
+            mOrderEventType = ORDER_EVENT_TYPE_NO_VALUE;
+        }
+
         int8_t getMatchType () const
         {
             return mMatchType;
@@ -587,27 +613,27 @@ class xetraOrderExecNotificationPacket
             mNoFills = NO_FILLS_NO_VALUE;
         }
 
-        string getPad3 () const
+        string getPad2 () const
         {
-            return string (mPad3, PAD3_MAX_LENGTH);
+            return string (mPad2, PAD2_MAX_LENGTH);
         }
 
-        bool setPad3 (const string& v)
+        bool setPad2 (const string& v)
         {
-            memset (mPad3, '\0', sizeof (mPad3));
-            size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
-            strncpy (mPad3, v.c_str (), size);
-            return (v.size () <= PAD3_MAX_LENGTH);
+            memset (mPad2, '\0', sizeof (mPad2));
+            size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
+            strncpy (mPad2, v.c_str (), size);
+            return (v.size () <= PAD2_MAX_LENGTH);
         }
 
-        bool isPad3Valid () const
+        bool isPad2Valid () const
         {
-            return (memcmp (mPad3, PAD3_NO_VALUE, sizeof (mPad3)) != 0);
+            return (memcmp (mPad2, PAD2_NO_VALUE, sizeof (mPad2)) != 0);
         }
 
-        void resetPad3 ()
+        void resetPad2 ()
         {
-            memcpy (mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            memcpy (mPad2, PAD2_NO_VALUE, sizeof (mPad2));
         }
 
         const vector<xetraFillsGrpCompPacket>& getFillsGrp () const
@@ -643,12 +669,13 @@ class xetraOrderExecNotificationPacket
                 + sizeof (mSide)
                 + sizeof (mOrdStatus)
                 + sizeof (mExecType)
+                + sizeof (mOrderEventType)
                 + sizeof (mMatchType)
                 + sizeof (mTriggered)
                 + sizeof (mCrossedIndicator)
                 + sizeof (mFIXClOrdID)
                 + sizeof (mNoFills)
-                + sizeof (mPad3)
+                + sizeof (mPad2)
                 + eti::getRawSize (mFillsGrp);
             return result;
         }
@@ -693,6 +720,8 @@ class xetraOrderExecNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mExecType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mOrderEventType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mMatchType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mTriggered, buf, len, used);
@@ -703,7 +732,7 @@ class xetraOrderExecNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mNoFills, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mPad3, buf, len, used);
+            state = eti::serialize (mPad2, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             for (size_t i = 0; i < mFillsGrp.size (); i++)
             {
@@ -751,6 +780,8 @@ class xetraOrderExecNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mExecType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mOrderEventType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mMatchType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mTriggered, buf, len, used);
@@ -761,7 +792,7 @@ class xetraOrderExecNotificationPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mNoFills, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mPad3, buf, len, used);
+            state = eti::deserialize (mPad2, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mFillsGrp.resize (mNoFills);
             for (vector<xetraFillsGrpCompPacket>::iterator it = mFillsGrp.begin (); it != mFillsGrp.end (); ++it)
@@ -795,12 +826,13 @@ class xetraOrderExecNotificationPacket
                 << "[Side=" << getSide () << "],"
                 << "[OrdStatus=" << getOrdStatus () << "],"
                 << "[ExecType=" << getExecType () << "],"
+                << "[OrderEventType=" << getOrderEventType () << "],"
                 << "[MatchType=" << getMatchType () << "],"
                 << "[Triggered=" << getTriggered () << "],"
                 << "[CrossedIndicator=" << getCrossedIndicator () << "],"
                 << "[FIXClOrdID=" << getFIXClOrdID () << "],"
                 << "[NoFills=" << getNoFills () << "],"
-                << "[Pad3=" << getPad3 () << "],"
+                << "[Pad2=" << getPad2 () << "],"
                 << "[FillsGrp=" << eti::toString (getFillsGrp ()) << "]";
             return sss.str();
         }
@@ -849,6 +881,9 @@ const char xetraOrderExecNotificationPacket::ORD_STATUS_NO_VALUE[1] = {0x00};
 const size_t xetraOrderExecNotificationPacket::ORD_STATUS_MAX_LENGTH = 1;
 const char xetraOrderExecNotificationPacket::EXEC_TYPE_NO_VALUE[1] = {0x00};
 const size_t xetraOrderExecNotificationPacket::EXEC_TYPE_MAX_LENGTH = 1;
+const int8_t xetraOrderExecNotificationPacket::ORDER_EVENT_TYPE_MIN = 100;
+const int8_t xetraOrderExecNotificationPacket::ORDER_EVENT_TYPE_MAX = 100;
+const int8_t xetraOrderExecNotificationPacket::ORDER_EVENT_TYPE_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecNotificationPacket::MATCH_TYPE_MIN = 0;
 const int8_t xetraOrderExecNotificationPacket::MATCH_TYPE_MAX = 14;
 const int8_t xetraOrderExecNotificationPacket::MATCH_TYPE_NO_VALUE = 0xFF;
@@ -863,8 +898,8 @@ const size_t xetraOrderExecNotificationPacket::FIXCL_ORD_ID_MAX_LENGTH = 20;
 const int8_t xetraOrderExecNotificationPacket::NO_FILLS_MIN = 0;
 const int8_t xetraOrderExecNotificationPacket::NO_FILLS_MAX = 100;
 const int8_t xetraOrderExecNotificationPacket::NO_FILLS_NO_VALUE = 0xFF;
-const char xetraOrderExecNotificationPacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
-const size_t xetraOrderExecNotificationPacket::PAD3_MAX_LENGTH = 3;
+const char xetraOrderExecNotificationPacket::PAD2_NO_VALUE[2] = {0x00, 0x00};
+const size_t xetraOrderExecNotificationPacket::PAD2_MAX_LENGTH = 2;
 const size_t xetraOrderExecNotificationPacket::FILLS_GRP_MIN = 0;
 const size_t xetraOrderExecNotificationPacket::FILLS_GRP_MAX = 100;
 

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_MODIFYORDERSINGLESHORTREQUEST_PACKET_H
 #define XETRA_MODIFYORDERSINGLESHORTREQUEST_PACKET_H
@@ -83,14 +83,17 @@ class xetraModifyOrderSingleShortRequestPacket
         static const int8_t EX_DESTINATION_TYPE_MIN;
         static const int8_t EX_DESTINATION_TYPE_MAX;
         static const int8_t EX_DESTINATION_TYPE_NO_VALUE;
+        static const int8_t ORDER_ORIGINATION_MIN;
+        static const int8_t ORDER_ORIGINATION_MAX;
+        static const int8_t ORDER_ORIGINATION_NO_VALUE;
         static const int8_t PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_MIN;
         static const int8_t PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_MAX;
         static const int8_t PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_NO_VALUE;
         static const int8_t EXECUTING_TRADER_QUALIFIER_MIN;
         static const int8_t EXECUTING_TRADER_QUALIFIER_MAX;
         static const int8_t EXECUTING_TRADER_QUALIFIER_NO_VALUE;
-        static const char PAD6_NO_VALUE[6];
-        static const size_t PAD6_MAX_LENGTH;
+        static const char PAD5_NO_VALUE[5];
+        static const size_t PAD5_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderInCompPacket mMessageHeaderIn;
@@ -115,9 +118,10 @@ class xetraModifyOrderSingleShortRequestPacket
         int8_t mExecInst;
         int8_t mTradingCapacity;
         int8_t mExDestinationType;
+        int8_t mOrderOrigination;
         int8_t mPartyIdInvestmentDecisionMakerQualifier;
         int8_t mExecutingTraderQualifier;
-        char mPad6[6];
+        char mPad5[5];
 
         // constructor
         xetraModifyOrderSingleShortRequestPacket ()
@@ -143,9 +147,10 @@ class xetraModifyOrderSingleShortRequestPacket
             mExecInst = EXEC_INST_NO_VALUE;
             mTradingCapacity = TRADING_CAPACITY_NO_VALUE;
             mExDestinationType = EX_DESTINATION_TYPE_NO_VALUE;
+            mOrderOrigination = ORDER_ORIGINATION_NO_VALUE;
             mPartyIdInvestmentDecisionMakerQualifier = PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_NO_VALUE;
             mExecutingTraderQualifier = EXECUTING_TRADER_QUALIFIER_NO_VALUE;
-            memcpy(mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+            memcpy(mPad5, PAD5_NO_VALUE, sizeof (mPad5));
         }
 
         // getters & setters
@@ -591,6 +596,27 @@ class xetraModifyOrderSingleShortRequestPacket
             mExDestinationType = EX_DESTINATION_TYPE_NO_VALUE;
         }
 
+        int8_t getOrderOrigination () const
+        {
+            return mOrderOrigination;
+        }
+
+        bool setOrderOrigination (int8_t v)
+        {
+            mOrderOrigination = v;
+            return ((ORDER_ORIGINATION_MIN <= mOrderOrigination && mOrderOrigination <= ORDER_ORIGINATION_MAX) || mOrderOrigination == ORDER_ORIGINATION_NO_VALUE);
+        }
+
+        bool isOrderOriginationValid () const
+        {
+            return (mOrderOrigination != ORDER_ORIGINATION_NO_VALUE);
+        }
+
+        void resetOrderOrigination ()
+        {
+            mOrderOrigination = ORDER_ORIGINATION_NO_VALUE;
+        }
+
         int8_t getPartyIdInvestmentDecisionMakerQualifier () const
         {
             return mPartyIdInvestmentDecisionMakerQualifier;
@@ -633,27 +659,27 @@ class xetraModifyOrderSingleShortRequestPacket
             mExecutingTraderQualifier = EXECUTING_TRADER_QUALIFIER_NO_VALUE;
         }
 
-        string getPad6 () const
+        string getPad5 () const
         {
-            return string (mPad6, PAD6_MAX_LENGTH);
+            return string (mPad5, PAD5_MAX_LENGTH);
         }
 
-        bool setPad6 (const string& v)
+        bool setPad5 (const string& v)
         {
-            memset (mPad6, '\0', sizeof (mPad6));
-            size_t size = min ((size_t) v.size (), (size_t) PAD6_MAX_LENGTH);
-            strncpy (mPad6, v.c_str (), size);
-            return (v.size () <= PAD6_MAX_LENGTH);
+            memset (mPad5, '\0', sizeof (mPad5));
+            size_t size = min ((size_t) v.size (), (size_t) PAD5_MAX_LENGTH);
+            strncpy (mPad5, v.c_str (), size);
+            return (v.size () <= PAD5_MAX_LENGTH);
         }
 
-        bool isPad6Valid () const
+        bool isPad5Valid () const
         {
-            return (memcmp (mPad6, PAD6_NO_VALUE, sizeof (mPad6)) != 0);
+            return (memcmp (mPad5, PAD5_NO_VALUE, sizeof (mPad5)) != 0);
         }
 
-        void resetPad6 ()
+        void resetPad5 ()
         {
-            memcpy (mPad6, PAD6_NO_VALUE, sizeof (mPad6));
+            memcpy (mPad5, PAD5_NO_VALUE, sizeof (mPad5));
         }
 
 
@@ -682,9 +708,10 @@ class xetraModifyOrderSingleShortRequestPacket
                 + sizeof (mExecInst)
                 + sizeof (mTradingCapacity)
                 + sizeof (mExDestinationType)
+                + sizeof (mOrderOrigination)
                 + sizeof (mPartyIdInvestmentDecisionMakerQualifier)
                 + sizeof (mExecutingTraderQualifier)
-                + sizeof (mPad6);
+                + sizeof (mPad5);
             return result;
         }
 
@@ -737,11 +764,13 @@ class xetraModifyOrderSingleShortRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mExDestinationType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mOrderOrigination, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mPartyIdInvestmentDecisionMakerQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mExecutingTraderQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mPad6, buf, len, used);
+            state = eti::serialize (mPad5, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -794,11 +823,13 @@ class xetraModifyOrderSingleShortRequestPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mExDestinationType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mOrderOrigination, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mPartyIdInvestmentDecisionMakerQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mExecutingTraderQualifier, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mPad6, buf, len, used);
+            state = eti::deserialize (mPad5, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderIn.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -831,9 +862,10 @@ class xetraModifyOrderSingleShortRequestPacket
                 << "[ExecInst=" << getExecInst () << "],"
                 << "[TradingCapacity=" << getTradingCapacity () << "],"
                 << "[ExDestinationType=" << getExDestinationType () << "],"
+                << "[OrderOrigination=" << getOrderOrigination () << "],"
                 << "[PartyIdInvestmentDecisionMakerQualifier=" << getPartyIdInvestmentDecisionMakerQualifier () << "],"
                 << "[ExecutingTraderQualifier=" << getExecutingTraderQualifier () << "],"
-                << "[Pad6=" << getPad6 () << "]";
+                << "[Pad5=" << getPad5 () << "]";
             return sss.str();
         }
 };
@@ -898,14 +930,17 @@ const int8_t xetraModifyOrderSingleShortRequestPacket::TRADING_CAPACITY_NO_VALUE
 const int8_t xetraModifyOrderSingleShortRequestPacket::EX_DESTINATION_TYPE_MIN = 3;
 const int8_t xetraModifyOrderSingleShortRequestPacket::EX_DESTINATION_TYPE_MAX = 3;
 const int8_t xetraModifyOrderSingleShortRequestPacket::EX_DESTINATION_TYPE_NO_VALUE = 0xFF;
+const int8_t xetraModifyOrderSingleShortRequestPacket::ORDER_ORIGINATION_MIN = 5;
+const int8_t xetraModifyOrderSingleShortRequestPacket::ORDER_ORIGINATION_MAX = 5;
+const int8_t xetraModifyOrderSingleShortRequestPacket::ORDER_ORIGINATION_NO_VALUE = 0xFF;
 const int8_t xetraModifyOrderSingleShortRequestPacket::PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_MIN = 22;
 const int8_t xetraModifyOrderSingleShortRequestPacket::PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_MAX = 24;
 const int8_t xetraModifyOrderSingleShortRequestPacket::PARTY_ID_INVESTMENT_DECISION_MAKER_QUALIFIER_NO_VALUE = 0xFF;
 const int8_t xetraModifyOrderSingleShortRequestPacket::EXECUTING_TRADER_QUALIFIER_MIN = 22;
 const int8_t xetraModifyOrderSingleShortRequestPacket::EXECUTING_TRADER_QUALIFIER_MAX = 24;
 const int8_t xetraModifyOrderSingleShortRequestPacket::EXECUTING_TRADER_QUALIFIER_NO_VALUE = 0xFF;
-const char xetraModifyOrderSingleShortRequestPacket::PAD6_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const size_t xetraModifyOrderSingleShortRequestPacket::PAD6_MAX_LENGTH = 6;
+const char xetraModifyOrderSingleShortRequestPacket::PAD5_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraModifyOrderSingleShortRequestPacket::PAD5_MAX_LENGTH = 5;
 
 
 } // namespace neueda

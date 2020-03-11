@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_ORDEREXECREPORTBROADCAST_PACKET_H
 #define XETRA_ORDEREXECREPORTBROADCAST_PACKET_H
@@ -80,6 +80,9 @@ class xetraOrderExecReportBroadcastPacket
         static const double PEG_OFFSET_VALUE_PCT_MIN;
         static const double PEG_OFFSET_VALUE_PCT_MAX;
         static const int64_t PEG_OFFSET_VALUE_PCT_NO_VALUE;
+        static const uint64_t QUOTE_ID_MIN;
+        static const uint64_t QUOTE_ID_MAX;
+        static const uint64_t QUOTE_ID_NO_VALUE;
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
@@ -114,6 +117,9 @@ class xetraOrderExecReportBroadcastPacket
         static const size_t ORD_STATUS_MAX_LENGTH;
         static const char EXEC_TYPE_NO_VALUE[1];
         static const size_t EXEC_TYPE_MAX_LENGTH;
+        static const int8_t ORDER_EVENT_TYPE_MIN;
+        static const int8_t ORDER_EVENT_TYPE_MAX;
+        static const int8_t ORDER_EVENT_TYPE_NO_VALUE;
         static const int8_t MATCH_TYPE_MIN;
         static const int8_t MATCH_TYPE_MAX;
         static const int8_t MATCH_TYPE_NO_VALUE;
@@ -141,6 +147,14 @@ class xetraOrderExecReportBroadcastPacket
         static const int8_t EX_DESTINATION_TYPE_MIN;
         static const int8_t EX_DESTINATION_TYPE_MAX;
         static const int8_t EX_DESTINATION_TYPE_NO_VALUE;
+        static const char PARTY_ENTERING_FIRM_NO_VALUE[5];
+        static const size_t PARTY_ENTERING_FIRM_MAX_LENGTH;
+        static const char PARTY_ENTERING_TRADER_NO_VALUE[6];
+        static const size_t PARTY_ENTERING_TRADER_MAX_LENGTH;
+        static const char PARTY_EXECUTING_FIRM_NO_VALUE[5];
+        static const size_t PARTY_EXECUTING_FIRM_MAX_LENGTH;
+        static const char PARTY_EXECUTING_TRADER_NO_VALUE[6];
+        static const size_t PARTY_EXECUTING_TRADER_MAX_LENGTH;
         static const char FREE_TEXT1_NO_VALUE[12];
         static const size_t FREE_TEXT1_MAX_LENGTH;
         static const char FREE_TEXT2_NO_VALUE[12];
@@ -158,8 +172,8 @@ class xetraOrderExecReportBroadcastPacket
         static const int8_t CROSSED_INDICATOR_MIN;
         static const int8_t CROSSED_INDICATOR_MAX;
         static const int8_t CROSSED_INDICATOR_NO_VALUE;
-        static const char PAD3_NO_VALUE[3];
-        static const size_t PAD3_MAX_LENGTH;
+        static const char PAD4_NO_VALUE[4];
+        static const size_t PAD4_MAX_LENGTH;
         static const size_t FILLS_GRP_MIN;
         static const size_t FILLS_GRP_MAX;
 
@@ -185,6 +199,7 @@ class xetraOrderExecReportBroadcastPacket
         int64_t mVolumeDiscoveryPrice;
         int64_t mPegOffsetValueAbs;
         int64_t mPegOffsetValuePct;
+        uint64_t mQuoteID;
         int32_t mMarketSegmentID;
         uint32_t mOrderIDSfx;
         int32_t mExpireDate;
@@ -197,6 +212,7 @@ class xetraOrderExecReportBroadcastPacket
         int8_t mPartyIDEnteringFirm;
         char mOrdStatus[1];
         char mExecType[1];
+        int8_t mOrderEventType;
         int8_t mMatchType;
         int8_t mSide;
         int8_t mOrdType;
@@ -206,6 +222,10 @@ class xetraOrderExecReportBroadcastPacket
         int8_t mTradingSessionSubID;
         int8_t mApplSeqIndicator;
         int8_t mExDestinationType;
+        char mPartyEnteringFirm[5];
+        char mPartyEnteringTrader[6];
+        char mPartyExecutingFirm[5];
+        char mPartyExecutingTrader[6];
         char mFreeText1[12];
         char mFreeText2[12];
         char mFreeText4[16];
@@ -213,7 +233,7 @@ class xetraOrderExecReportBroadcastPacket
         int8_t mNoFills;
         int8_t mTriggered;
         int8_t mCrossedIndicator;
-        char mPad3[3];
+        char mPad4[4];
         vector<xetraFillsGrpCompPacket> mFillsGrp;
 
         // constructor
@@ -239,6 +259,7 @@ class xetraOrderExecReportBroadcastPacket
             mVolumeDiscoveryPrice = VOLUME_DISCOVERY_PRICE_NO_VALUE;
             mPegOffsetValueAbs = PEG_OFFSET_VALUE_ABS_NO_VALUE;
             mPegOffsetValuePct = PEG_OFFSET_VALUE_PCT_NO_VALUE;
+            mQuoteID = QUOTE_ID_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
             mOrderIDSfx = ORDER_IDSFX_NO_VALUE;
             mExpireDate = EXPIRE_DATE_NO_VALUE;
@@ -251,6 +272,7 @@ class xetraOrderExecReportBroadcastPacket
             mPartyIDEnteringFirm = PARTY_IDENTERING_FIRM_NO_VALUE;
             memcpy(mOrdStatus, ORD_STATUS_NO_VALUE, sizeof (mOrdStatus));
             memcpy(mExecType, EXEC_TYPE_NO_VALUE, sizeof (mExecType));
+            mOrderEventType = ORDER_EVENT_TYPE_NO_VALUE;
             mMatchType = MATCH_TYPE_NO_VALUE;
             mSide = SIDE_NO_VALUE;
             mOrdType = ORD_TYPE_NO_VALUE;
@@ -260,6 +282,10 @@ class xetraOrderExecReportBroadcastPacket
             mTradingSessionSubID = TRADING_SESSION_SUB_ID_NO_VALUE;
             mApplSeqIndicator = APPL_SEQ_INDICATOR_NO_VALUE;
             mExDestinationType = EX_DESTINATION_TYPE_NO_VALUE;
+            memcpy(mPartyEnteringFirm, PARTY_ENTERING_FIRM_NO_VALUE, sizeof (mPartyEnteringFirm));
+            memcpy(mPartyEnteringTrader, PARTY_ENTERING_TRADER_NO_VALUE, sizeof (mPartyEnteringTrader));
+            memcpy(mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm));
+            memcpy(mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader));
             memcpy(mFreeText1, FREE_TEXT1_NO_VALUE, sizeof (mFreeText1));
             memcpy(mFreeText2, FREE_TEXT2_NO_VALUE, sizeof (mFreeText2));
             memcpy(mFreeText4, FREE_TEXT4_NO_VALUE, sizeof (mFreeText4));
@@ -267,7 +293,7 @@ class xetraOrderExecReportBroadcastPacket
             mNoFills = NO_FILLS_NO_VALUE;
             mTriggered = TRIGGERED_NO_VALUE;
             mCrossedIndicator = CROSSED_INDICATOR_NO_VALUE;
-            memcpy(mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            memcpy(mPad4, PAD4_NO_VALUE, sizeof (mPad4));
         }
 
         // getters & setters
@@ -692,6 +718,27 @@ class xetraOrderExecReportBroadcastPacket
             mPegOffsetValuePct = PEG_OFFSET_VALUE_PCT_NO_VALUE;
         }
 
+        uint64_t getQuoteID () const
+        {
+            return mQuoteID;
+        }
+
+        bool setQuoteID (uint64_t v)
+        {
+            mQuoteID = v;
+            return ((QUOTE_ID_MIN <= mQuoteID && mQuoteID <= QUOTE_ID_MAX) || mQuoteID == QUOTE_ID_NO_VALUE);
+        }
+
+        bool isQuoteIDValid () const
+        {
+            return (mQuoteID != QUOTE_ID_NO_VALUE);
+        }
+
+        void resetQuoteID ()
+        {
+            mQuoteID = QUOTE_ID_NO_VALUE;
+        }
+
         int32_t getMarketSegmentID () const
         {
             return mMarketSegmentID;
@@ -948,6 +995,27 @@ class xetraOrderExecReportBroadcastPacket
             memcpy (mExecType, EXEC_TYPE_NO_VALUE, sizeof (mExecType));
         }
 
+        int8_t getOrderEventType () const
+        {
+            return mOrderEventType;
+        }
+
+        bool setOrderEventType (int8_t v)
+        {
+            mOrderEventType = v;
+            return ((ORDER_EVENT_TYPE_MIN <= mOrderEventType && mOrderEventType <= ORDER_EVENT_TYPE_MAX) || mOrderEventType == ORDER_EVENT_TYPE_NO_VALUE);
+        }
+
+        bool isOrderEventTypeValid () const
+        {
+            return (mOrderEventType != ORDER_EVENT_TYPE_NO_VALUE);
+        }
+
+        void resetOrderEventType ()
+        {
+            mOrderEventType = ORDER_EVENT_TYPE_NO_VALUE;
+        }
+
         int8_t getMatchType () const
         {
             return mMatchType;
@@ -1137,6 +1205,98 @@ class xetraOrderExecReportBroadcastPacket
             mExDestinationType = EX_DESTINATION_TYPE_NO_VALUE;
         }
 
+        string getPartyEnteringFirm () const
+        {
+            return string (mPartyEnteringFirm, PARTY_ENTERING_FIRM_MAX_LENGTH);
+        }
+
+        bool setPartyEnteringFirm (const string& v)
+        {
+            memset (mPartyEnteringFirm, '\0', sizeof (mPartyEnteringFirm));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_ENTERING_FIRM_MAX_LENGTH);
+            strncpy (mPartyEnteringFirm, v.c_str (), size);
+            return (v.size () <= PARTY_ENTERING_FIRM_MAX_LENGTH);
+        }
+
+        bool isPartyEnteringFirmValid () const
+        {
+            return (memcmp (mPartyEnteringFirm, PARTY_ENTERING_FIRM_NO_VALUE, sizeof (mPartyEnteringFirm)) != 0);
+        }
+
+        void resetPartyEnteringFirm ()
+        {
+            memcpy (mPartyEnteringFirm, PARTY_ENTERING_FIRM_NO_VALUE, sizeof (mPartyEnteringFirm));
+        }
+
+        string getPartyEnteringTrader () const
+        {
+            return string (mPartyEnteringTrader, PARTY_ENTERING_TRADER_MAX_LENGTH);
+        }
+
+        bool setPartyEnteringTrader (const string& v)
+        {
+            memset (mPartyEnteringTrader, '\0', sizeof (mPartyEnteringTrader));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_ENTERING_TRADER_MAX_LENGTH);
+            strncpy (mPartyEnteringTrader, v.c_str (), size);
+            return (v.size () <= PARTY_ENTERING_TRADER_MAX_LENGTH);
+        }
+
+        bool isPartyEnteringTraderValid () const
+        {
+            return (memcmp (mPartyEnteringTrader, PARTY_ENTERING_TRADER_NO_VALUE, sizeof (mPartyEnteringTrader)) != 0);
+        }
+
+        void resetPartyEnteringTrader ()
+        {
+            memcpy (mPartyEnteringTrader, PARTY_ENTERING_TRADER_NO_VALUE, sizeof (mPartyEnteringTrader));
+        }
+
+        string getPartyExecutingFirm () const
+        {
+            return string (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_MAX_LENGTH);
+        }
+
+        bool setPartyExecutingFirm (const string& v)
+        {
+            memset (mPartyExecutingFirm, '\0', sizeof (mPartyExecutingFirm));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_FIRM_MAX_LENGTH);
+            strncpy (mPartyExecutingFirm, v.c_str (), size);
+            return (v.size () <= PARTY_EXECUTING_FIRM_MAX_LENGTH);
+        }
+
+        bool isPartyExecutingFirmValid () const
+        {
+            return (memcmp (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm)) != 0);
+        }
+
+        void resetPartyExecutingFirm ()
+        {
+            memcpy (mPartyExecutingFirm, PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mPartyExecutingFirm));
+        }
+
+        string getPartyExecutingTrader () const
+        {
+            return string (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_MAX_LENGTH);
+        }
+
+        bool setPartyExecutingTrader (const string& v)
+        {
+            memset (mPartyExecutingTrader, '\0', sizeof (mPartyExecutingTrader));
+            size_t size = min ((size_t) v.size (), (size_t) PARTY_EXECUTING_TRADER_MAX_LENGTH);
+            strncpy (mPartyExecutingTrader, v.c_str (), size);
+            return (v.size () <= PARTY_EXECUTING_TRADER_MAX_LENGTH);
+        }
+
+        bool isPartyExecutingTraderValid () const
+        {
+            return (memcmp (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader)) != 0);
+        }
+
+        void resetPartyExecutingTrader ()
+        {
+            memcpy (mPartyExecutingTrader, PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mPartyExecutingTrader));
+        }
+
         string getFreeText1 () const
         {
             return string (mFreeText1, FREE_TEXT1_MAX_LENGTH);
@@ -1292,27 +1452,27 @@ class xetraOrderExecReportBroadcastPacket
             mCrossedIndicator = CROSSED_INDICATOR_NO_VALUE;
         }
 
-        string getPad3 () const
+        string getPad4 () const
         {
-            return string (mPad3, PAD3_MAX_LENGTH);
+            return string (mPad4, PAD4_MAX_LENGTH);
         }
 
-        bool setPad3 (const string& v)
+        bool setPad4 (const string& v)
         {
-            memset (mPad3, '\0', sizeof (mPad3));
-            size_t size = min ((size_t) v.size (), (size_t) PAD3_MAX_LENGTH);
-            strncpy (mPad3, v.c_str (), size);
-            return (v.size () <= PAD3_MAX_LENGTH);
+            memset (mPad4, '\0', sizeof (mPad4));
+            size_t size = min ((size_t) v.size (), (size_t) PAD4_MAX_LENGTH);
+            strncpy (mPad4, v.c_str (), size);
+            return (v.size () <= PAD4_MAX_LENGTH);
         }
 
-        bool isPad3Valid () const
+        bool isPad4Valid () const
         {
-            return (memcmp (mPad3, PAD3_NO_VALUE, sizeof (mPad3)) != 0);
+            return (memcmp (mPad4, PAD4_NO_VALUE, sizeof (mPad4)) != 0);
         }
 
-        void resetPad3 ()
+        void resetPad4 ()
         {
-            memcpy (mPad3, PAD3_NO_VALUE, sizeof (mPad3));
+            memcpy (mPad4, PAD4_NO_VALUE, sizeof (mPad4));
         }
 
         const vector<xetraFillsGrpCompPacket>& getFillsGrp () const
@@ -1352,6 +1512,7 @@ class xetraOrderExecReportBroadcastPacket
                 + sizeof (mVolumeDiscoveryPrice)
                 + sizeof (mPegOffsetValueAbs)
                 + sizeof (mPegOffsetValuePct)
+                + sizeof (mQuoteID)
                 + sizeof (mMarketSegmentID)
                 + sizeof (mOrderIDSfx)
                 + sizeof (mExpireDate)
@@ -1364,6 +1525,7 @@ class xetraOrderExecReportBroadcastPacket
                 + sizeof (mPartyIDEnteringFirm)
                 + sizeof (mOrdStatus)
                 + sizeof (mExecType)
+                + sizeof (mOrderEventType)
                 + sizeof (mMatchType)
                 + sizeof (mSide)
                 + sizeof (mOrdType)
@@ -1373,6 +1535,10 @@ class xetraOrderExecReportBroadcastPacket
                 + sizeof (mTradingSessionSubID)
                 + sizeof (mApplSeqIndicator)
                 + sizeof (mExDestinationType)
+                + sizeof (mPartyEnteringFirm)
+                + sizeof (mPartyEnteringTrader)
+                + sizeof (mPartyExecutingFirm)
+                + sizeof (mPartyExecutingTrader)
                 + sizeof (mFreeText1)
                 + sizeof (mFreeText2)
                 + sizeof (mFreeText4)
@@ -1380,7 +1546,7 @@ class xetraOrderExecReportBroadcastPacket
                 + sizeof (mNoFills)
                 + sizeof (mTriggered)
                 + sizeof (mCrossedIndicator)
-                + sizeof (mPad3)
+                + sizeof (mPad4)
                 + eti::getRawSize (mFillsGrp);
             return result;
         }
@@ -1433,6 +1599,8 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mPegOffsetValuePct, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mQuoteID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mOrderIDSfx, buf, len, used);
@@ -1457,6 +1625,8 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mExecType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mOrderEventType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mMatchType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mSide, buf, len, used);
@@ -1475,6 +1645,14 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mExDestinationType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyEnteringFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyEnteringTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyExecutingFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mPartyExecutingTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mFreeText1, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mFreeText2, buf, len, used);
@@ -1489,7 +1667,7 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mCrossedIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mPad3, buf, len, used);
+            state = eti::serialize (mPad4, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             for (size_t i = 0; i < mFillsGrp.size (); i++)
             {
@@ -1545,6 +1723,8 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mPegOffsetValuePct, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mQuoteID, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mOrderIDSfx, buf, len, used);
@@ -1569,6 +1749,8 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mExecType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mOrderEventType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mMatchType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mSide, buf, len, used);
@@ -1587,6 +1769,14 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mExDestinationType, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyEnteringFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyEnteringTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyExecutingFirm, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mPartyExecutingTrader, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mFreeText1, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mFreeText2, buf, len, used);
@@ -1601,7 +1791,7 @@ class xetraOrderExecReportBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mCrossedIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mPad3, buf, len, used);
+            state = eti::deserialize (mPad4, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mFillsGrp.resize (mNoFills);
             for (vector<xetraFillsGrpCompPacket>::iterator it = mFillsGrp.begin (); it != mFillsGrp.end (); ++it)
@@ -1639,6 +1829,7 @@ class xetraOrderExecReportBroadcastPacket
                 << "[VolumeDiscoveryPrice=" << getVolumeDiscoveryPrice () << "],"
                 << "[PegOffsetValueAbs=" << getPegOffsetValueAbs () << "],"
                 << "[PegOffsetValuePct=" << getPegOffsetValuePct () << "],"
+                << "[QuoteID=" << getQuoteID () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
                 << "[OrderIDSfx=" << getOrderIDSfx () << "],"
                 << "[ExpireDate=" << getExpireDate () << "],"
@@ -1651,6 +1842,7 @@ class xetraOrderExecReportBroadcastPacket
                 << "[PartyIDEnteringFirm=" << getPartyIDEnteringFirm () << "],"
                 << "[OrdStatus=" << getOrdStatus () << "],"
                 << "[ExecType=" << getExecType () << "],"
+                << "[OrderEventType=" << getOrderEventType () << "],"
                 << "[MatchType=" << getMatchType () << "],"
                 << "[Side=" << getSide () << "],"
                 << "[OrdType=" << getOrdType () << "],"
@@ -1660,6 +1852,10 @@ class xetraOrderExecReportBroadcastPacket
                 << "[TradingSessionSubID=" << getTradingSessionSubID () << "],"
                 << "[ApplSeqIndicator=" << getApplSeqIndicator () << "],"
                 << "[ExDestinationType=" << getExDestinationType () << "],"
+                << "[PartyEnteringFirm=" << getPartyEnteringFirm () << "],"
+                << "[PartyEnteringTrader=" << getPartyEnteringTrader () << "],"
+                << "[PartyExecutingFirm=" << getPartyExecutingFirm () << "],"
+                << "[PartyExecutingTrader=" << getPartyExecutingTrader () << "],"
                 << "[FreeText1=" << getFreeText1 () << "],"
                 << "[FreeText2=" << getFreeText2 () << "],"
                 << "[FreeText4=" << getFreeText4 () << "],"
@@ -1667,7 +1863,7 @@ class xetraOrderExecReportBroadcastPacket
                 << "[NoFills=" << getNoFills () << "],"
                 << "[Triggered=" << getTriggered () << "],"
                 << "[CrossedIndicator=" << getCrossedIndicator () << "],"
-                << "[Pad3=" << getPad3 () << "],"
+                << "[Pad4=" << getPad4 () << "],"
                 << "[FillsGrp=" << eti::toString (getFillsGrp ()) << "]";
             return sss.str();
         }
@@ -1730,6 +1926,9 @@ const int64_t xetraOrderExecReportBroadcastPacket::PEG_OFFSET_VALUE_ABS_NO_VALUE
 const double xetraOrderExecReportBroadcastPacket::PEG_OFFSET_VALUE_PCT_MIN = -922337203685477.5807;
 const double xetraOrderExecReportBroadcastPacket::PEG_OFFSET_VALUE_PCT_MAX = 922337203685477.5807;
 const int64_t xetraOrderExecReportBroadcastPacket::PEG_OFFSET_VALUE_PCT_NO_VALUE = 0x8000000000000000;
+const uint64_t xetraOrderExecReportBroadcastPacket::QUOTE_ID_MIN = 0UL;
+const uint64_t xetraOrderExecReportBroadcastPacket::QUOTE_ID_MAX = 18446744073709551614UL;
+const uint64_t xetraOrderExecReportBroadcastPacket::QUOTE_ID_NO_VALUE = 0xFFFFFFFFFFFFFFFF;
 const int32_t xetraOrderExecReportBroadcastPacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraOrderExecReportBroadcastPacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraOrderExecReportBroadcastPacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
@@ -1758,12 +1957,15 @@ const int16_t xetraOrderExecReportBroadcastPacket::EXEC_RESTATEMENT_REASON_MIN =
 const int16_t xetraOrderExecReportBroadcastPacket::EXEC_RESTATEMENT_REASON_MAX = 344;
 const int16_t xetraOrderExecReportBroadcastPacket::EXEC_RESTATEMENT_REASON_NO_VALUE = 0xFFFF;
 const int8_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_FIRM_MIN = 1;
-const int8_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 2;
+const int8_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 3;
 const int8_t xetraOrderExecReportBroadcastPacket::PARTY_IDENTERING_FIRM_NO_VALUE = 0xFF;
 const char xetraOrderExecReportBroadcastPacket::ORD_STATUS_NO_VALUE[1] = {0x00};
 const size_t xetraOrderExecReportBroadcastPacket::ORD_STATUS_MAX_LENGTH = 1;
 const char xetraOrderExecReportBroadcastPacket::EXEC_TYPE_NO_VALUE[1] = {0x00};
 const size_t xetraOrderExecReportBroadcastPacket::EXEC_TYPE_MAX_LENGTH = 1;
+const int8_t xetraOrderExecReportBroadcastPacket::ORDER_EVENT_TYPE_MIN = 100;
+const int8_t xetraOrderExecReportBroadcastPacket::ORDER_EVENT_TYPE_MAX = 100;
+const int8_t xetraOrderExecReportBroadcastPacket::ORDER_EVENT_TYPE_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecReportBroadcastPacket::MATCH_TYPE_MIN = 0;
 const int8_t xetraOrderExecReportBroadcastPacket::MATCH_TYPE_MAX = 14;
 const int8_t xetraOrderExecReportBroadcastPacket::MATCH_TYPE_NO_VALUE = 0xFF;
@@ -1783,7 +1985,7 @@ const int8_t xetraOrderExecReportBroadcastPacket::EXEC_INST_MIN = 1;
 const int8_t xetraOrderExecReportBroadcastPacket::EXEC_INST_MAX = 6;
 const int8_t xetraOrderExecReportBroadcastPacket::EXEC_INST_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecReportBroadcastPacket::TRADING_SESSION_SUB_ID_MIN = 1;
-const int8_t xetraOrderExecReportBroadcastPacket::TRADING_SESSION_SUB_ID_MAX = 8;
+const int8_t xetraOrderExecReportBroadcastPacket::TRADING_SESSION_SUB_ID_MAX = 105;
 const int8_t xetraOrderExecReportBroadcastPacket::TRADING_SESSION_SUB_ID_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecReportBroadcastPacket::APPL_SEQ_INDICATOR_MIN = 0;
 const int8_t xetraOrderExecReportBroadcastPacket::APPL_SEQ_INDICATOR_MAX = 1;
@@ -1791,6 +1993,14 @@ const int8_t xetraOrderExecReportBroadcastPacket::APPL_SEQ_INDICATOR_NO_VALUE = 
 const int8_t xetraOrderExecReportBroadcastPacket::EX_DESTINATION_TYPE_MIN = 3;
 const int8_t xetraOrderExecReportBroadcastPacket::EX_DESTINATION_TYPE_MAX = 3;
 const int8_t xetraOrderExecReportBroadcastPacket::EX_DESTINATION_TYPE_NO_VALUE = 0xFF;
+const char xetraOrderExecReportBroadcastPacket::PARTY_ENTERING_FIRM_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraOrderExecReportBroadcastPacket::PARTY_ENTERING_FIRM_MAX_LENGTH = 5;
+const char xetraOrderExecReportBroadcastPacket::PARTY_ENTERING_TRADER_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraOrderExecReportBroadcastPacket::PARTY_ENTERING_TRADER_MAX_LENGTH = 6;
+const char xetraOrderExecReportBroadcastPacket::PARTY_EXECUTING_FIRM_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraOrderExecReportBroadcastPacket::PARTY_EXECUTING_FIRM_MAX_LENGTH = 5;
+const char xetraOrderExecReportBroadcastPacket::PARTY_EXECUTING_TRADER_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const size_t xetraOrderExecReportBroadcastPacket::PARTY_EXECUTING_TRADER_MAX_LENGTH = 6;
 const char xetraOrderExecReportBroadcastPacket::FREE_TEXT1_NO_VALUE[12] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraOrderExecReportBroadcastPacket::FREE_TEXT1_MAX_LENGTH = 12;
 const char xetraOrderExecReportBroadcastPacket::FREE_TEXT2_NO_VALUE[12] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -1808,8 +2018,8 @@ const int8_t xetraOrderExecReportBroadcastPacket::TRIGGERED_NO_VALUE = 0xFF;
 const int8_t xetraOrderExecReportBroadcastPacket::CROSSED_INDICATOR_MIN = 0;
 const int8_t xetraOrderExecReportBroadcastPacket::CROSSED_INDICATOR_MAX = 1;
 const int8_t xetraOrderExecReportBroadcastPacket::CROSSED_INDICATOR_NO_VALUE = 0xFF;
-const char xetraOrderExecReportBroadcastPacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
-const size_t xetraOrderExecReportBroadcastPacket::PAD3_MAX_LENGTH = 3;
+const char xetraOrderExecReportBroadcastPacket::PAD4_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
+const size_t xetraOrderExecReportBroadcastPacket::PAD4_MAX_LENGTH = 4;
 const size_t xetraOrderExecReportBroadcastPacket::FILLS_GRP_MIN = 0;
 const size_t xetraOrderExecReportBroadcastPacket::FILLS_GRP_MAX = 100;
 

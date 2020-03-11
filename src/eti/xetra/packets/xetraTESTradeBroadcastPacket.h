@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_TESTRADEBROADCAST_PACKET_H
 #define XETRA_TESTRADEBROADCAST_PACKET_H
@@ -131,12 +131,18 @@ class xetraTESTradeBroadcastPacket
         static const int8_t TRADE_PUBLISH_INDICATOR_MIN;
         static const int8_t TRADE_PUBLISH_INDICATOR_MAX;
         static const int8_t TRADE_PUBLISH_INDICATOR_NO_VALUE;
+        static const int8_t DELIVERY_TYPE_MIN;
+        static const int8_t DELIVERY_TYPE_MAX;
+        static const int8_t DELIVERY_TYPE_NO_VALUE;
         static const int8_t LAST_COUPON_DEVIATION_INDICATOR_MIN;
         static const int8_t LAST_COUPON_DEVIATION_INDICATOR_MAX;
         static const int8_t LAST_COUPON_DEVIATION_INDICATOR_NO_VALUE;
         static const int8_t REFINANCING_ELIGIBILITY_INDICATOR_MIN;
         static const int8_t REFINANCING_ELIGIBILITY_INDICATOR_MAX;
         static const int8_t REFINANCING_ELIGIBILITY_INDICATOR_NO_VALUE;
+        static const int8_t CLEARING_INSTRUCTION_MIN;
+        static const int8_t CLEARING_INSTRUCTION_MAX;
+        static const int8_t CLEARING_INSTRUCTION_NO_VALUE;
         static const int8_t ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_MIN;
         static const int8_t ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_MAX;
         static const int8_t ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_NO_VALUE;
@@ -162,8 +168,6 @@ class xetraTESTradeBroadcastPacket
         static const size_t ROOT_PARTY_EXECUTING_TRADER_MAX_LENGTH;
         static const char ROOT_PARTY_CLEARING_FIRM_NO_VALUE[5];
         static const size_t ROOT_PARTY_CLEARING_FIRM_MAX_LENGTH;
-        static const char ROOT_PARTY_CLEARING_ORGANIZATION_NO_VALUE[4];
-        static const size_t ROOT_PARTY_CLEARING_ORGANIZATION_MAX_LENGTH;
         static const char ROOT_PARTY_EXECUTING_FIRM_KVNUMBER_NO_VALUE[4];
         static const size_t ROOT_PARTY_EXECUTING_FIRM_KVNUMBER_MAX_LENGTH;
         static const char ROOT_PARTY_SETTLEMENT_ACCOUNT_NO_VALUE[35];
@@ -186,8 +190,8 @@ class xetraTESTradeBroadcastPacket
         static const size_t ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH;
         static const char REGULATORY_TRADE_ID_NO_VALUE[52];
         static const size_t REGULATORY_TRADE_ID_MAX_LENGTH;
-        static const char PAD2_NO_VALUE[2];
-        static const size_t PAD2_MAX_LENGTH;
+        static const char PAD4_NO_VALUE[4];
+        static const size_t PAD4_MAX_LENGTH;
 
         // fields (use with care)
         xetraMessageHeaderOutCompPacket mMessageHeaderOut;
@@ -228,8 +232,10 @@ class xetraTESTradeBroadcastPacket
         int8_t mTradeReportType;
         int8_t mTransferReason;
         int8_t mTradePublishIndicator;
+        int8_t mDeliveryType;
         int8_t mLastCouponDeviationIndicator;
         int8_t mRefinancingEligibilityIndicator;
+        int8_t mClearingInstruction;
         int8_t mOrderAttributeLiquidityProvision;
         int8_t mExecutingTraderQualifier;
         int8_t mRootPartyIDInvestmentDecisionMakerQualifier;
@@ -241,7 +247,6 @@ class xetraTESTradeBroadcastPacket
         char mRootPartyExecutingFirm[5];
         char mRootPartyExecutingTrader[6];
         char mRootPartyClearingFirm[5];
-        char mRootPartyClearingOrganization[4];
         char mRootPartyExecutingFirmKVNumber[4];
         char mRootPartySettlementAccount[35];
         char mRootPartySettlementLocation[3];
@@ -253,7 +258,7 @@ class xetraTESTradeBroadcastPacket
         char mRootPartyContraSettlementLocation[3];
         char mRootPartyIDExecutionVenue[4];
         char mRegulatoryTradeID[52];
-        char mPad2[2];
+        char mPad4[4];
 
         // constructor
         xetraTESTradeBroadcastPacket ()
@@ -295,8 +300,10 @@ class xetraTESTradeBroadcastPacket
             mTradeReportType = TRADE_REPORT_TYPE_NO_VALUE;
             mTransferReason = TRANSFER_REASON_NO_VALUE;
             mTradePublishIndicator = TRADE_PUBLISH_INDICATOR_NO_VALUE;
+            mDeliveryType = DELIVERY_TYPE_NO_VALUE;
             mLastCouponDeviationIndicator = LAST_COUPON_DEVIATION_INDICATOR_NO_VALUE;
             mRefinancingEligibilityIndicator = REFINANCING_ELIGIBILITY_INDICATOR_NO_VALUE;
+            mClearingInstruction = CLEARING_INSTRUCTION_NO_VALUE;
             mOrderAttributeLiquidityProvision = ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_NO_VALUE;
             mExecutingTraderQualifier = EXECUTING_TRADER_QUALIFIER_NO_VALUE;
             mRootPartyIDInvestmentDecisionMakerQualifier = ROOT_PARTY_IDINVESTMENT_DECISION_MAKER_QUALIFIER_NO_VALUE;
@@ -308,7 +315,6 @@ class xetraTESTradeBroadcastPacket
             memcpy(mRootPartyExecutingFirm, ROOT_PARTY_EXECUTING_FIRM_NO_VALUE, sizeof (mRootPartyExecutingFirm));
             memcpy(mRootPartyExecutingTrader, ROOT_PARTY_EXECUTING_TRADER_NO_VALUE, sizeof (mRootPartyExecutingTrader));
             memcpy(mRootPartyClearingFirm, ROOT_PARTY_CLEARING_FIRM_NO_VALUE, sizeof (mRootPartyClearingFirm));
-            memcpy(mRootPartyClearingOrganization, ROOT_PARTY_CLEARING_ORGANIZATION_NO_VALUE, sizeof (mRootPartyClearingOrganization));
             memcpy(mRootPartyExecutingFirmKVNumber, ROOT_PARTY_EXECUTING_FIRM_KVNUMBER_NO_VALUE, sizeof (mRootPartyExecutingFirmKVNumber));
             memcpy(mRootPartySettlementAccount, ROOT_PARTY_SETTLEMENT_ACCOUNT_NO_VALUE, sizeof (mRootPartySettlementAccount));
             memcpy(mRootPartySettlementLocation, ROOT_PARTY_SETTLEMENT_LOCATION_NO_VALUE, sizeof (mRootPartySettlementLocation));
@@ -320,7 +326,7 @@ class xetraTESTradeBroadcastPacket
             memcpy(mRootPartyContraSettlementLocation, ROOT_PARTY_CONTRA_SETTLEMENT_LOCATION_NO_VALUE, sizeof (mRootPartyContraSettlementLocation));
             memcpy(mRootPartyIDExecutionVenue, ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE, sizeof (mRootPartyIDExecutionVenue));
             memcpy(mRegulatoryTradeID, REGULATORY_TRADE_ID_NO_VALUE, sizeof (mRegulatoryTradeID));
-            memcpy(mPad2, PAD2_NO_VALUE, sizeof (mPad2));
+            memcpy(mPad4, PAD4_NO_VALUE, sizeof (mPad4));
         }
 
         // getters & setters
@@ -1102,6 +1108,27 @@ class xetraTESTradeBroadcastPacket
             mTradePublishIndicator = TRADE_PUBLISH_INDICATOR_NO_VALUE;
         }
 
+        int8_t getDeliveryType () const
+        {
+            return mDeliveryType;
+        }
+
+        bool setDeliveryType (int8_t v)
+        {
+            mDeliveryType = v;
+            return ((DELIVERY_TYPE_MIN <= mDeliveryType && mDeliveryType <= DELIVERY_TYPE_MAX) || mDeliveryType == DELIVERY_TYPE_NO_VALUE);
+        }
+
+        bool isDeliveryTypeValid () const
+        {
+            return (mDeliveryType != DELIVERY_TYPE_NO_VALUE);
+        }
+
+        void resetDeliveryType ()
+        {
+            mDeliveryType = DELIVERY_TYPE_NO_VALUE;
+        }
+
         int8_t getLastCouponDeviationIndicator () const
         {
             return mLastCouponDeviationIndicator;
@@ -1142,6 +1169,27 @@ class xetraTESTradeBroadcastPacket
         void resetRefinancingEligibilityIndicator ()
         {
             mRefinancingEligibilityIndicator = REFINANCING_ELIGIBILITY_INDICATOR_NO_VALUE;
+        }
+
+        int8_t getClearingInstruction () const
+        {
+            return mClearingInstruction;
+        }
+
+        bool setClearingInstruction (int8_t v)
+        {
+            mClearingInstruction = v;
+            return ((CLEARING_INSTRUCTION_MIN <= mClearingInstruction && mClearingInstruction <= CLEARING_INSTRUCTION_MAX) || mClearingInstruction == CLEARING_INSTRUCTION_NO_VALUE);
+        }
+
+        bool isClearingInstructionValid () const
+        {
+            return (mClearingInstruction != CLEARING_INSTRUCTION_NO_VALUE);
+        }
+
+        void resetClearingInstruction ()
+        {
+            mClearingInstruction = CLEARING_INSTRUCTION_NO_VALUE;
         }
 
         int8_t getOrderAttributeLiquidityProvision () const
@@ -1389,29 +1437,6 @@ class xetraTESTradeBroadcastPacket
         void resetRootPartyClearingFirm ()
         {
             memcpy (mRootPartyClearingFirm, ROOT_PARTY_CLEARING_FIRM_NO_VALUE, sizeof (mRootPartyClearingFirm));
-        }
-
-        string getRootPartyClearingOrganization () const
-        {
-            return string (mRootPartyClearingOrganization, ROOT_PARTY_CLEARING_ORGANIZATION_MAX_LENGTH);
-        }
-
-        bool setRootPartyClearingOrganization (const string& v)
-        {
-            memset (mRootPartyClearingOrganization, '\0', sizeof (mRootPartyClearingOrganization));
-            size_t size = min ((size_t) v.size (), (size_t) ROOT_PARTY_CLEARING_ORGANIZATION_MAX_LENGTH);
-            strncpy (mRootPartyClearingOrganization, v.c_str (), size);
-            return (v.size () <= ROOT_PARTY_CLEARING_ORGANIZATION_MAX_LENGTH);
-        }
-
-        bool isRootPartyClearingOrganizationValid () const
-        {
-            return (memcmp (mRootPartyClearingOrganization, ROOT_PARTY_CLEARING_ORGANIZATION_NO_VALUE, sizeof (mRootPartyClearingOrganization)) != 0);
-        }
-
-        void resetRootPartyClearingOrganization ()
-        {
-            memcpy (mRootPartyClearingOrganization, ROOT_PARTY_CLEARING_ORGANIZATION_NO_VALUE, sizeof (mRootPartyClearingOrganization));
         }
 
         string getRootPartyExecutingFirmKVNumber () const
@@ -1667,27 +1692,27 @@ class xetraTESTradeBroadcastPacket
             memcpy (mRegulatoryTradeID, REGULATORY_TRADE_ID_NO_VALUE, sizeof (mRegulatoryTradeID));
         }
 
-        string getPad2 () const
+        string getPad4 () const
         {
-            return string (mPad2, PAD2_MAX_LENGTH);
+            return string (mPad4, PAD4_MAX_LENGTH);
         }
 
-        bool setPad2 (const string& v)
+        bool setPad4 (const string& v)
         {
-            memset (mPad2, '\0', sizeof (mPad2));
-            size_t size = min ((size_t) v.size (), (size_t) PAD2_MAX_LENGTH);
-            strncpy (mPad2, v.c_str (), size);
-            return (v.size () <= PAD2_MAX_LENGTH);
+            memset (mPad4, '\0', sizeof (mPad4));
+            size_t size = min ((size_t) v.size (), (size_t) PAD4_MAX_LENGTH);
+            strncpy (mPad4, v.c_str (), size);
+            return (v.size () <= PAD4_MAX_LENGTH);
         }
 
-        bool isPad2Valid () const
+        bool isPad4Valid () const
         {
-            return (memcmp (mPad2, PAD2_NO_VALUE, sizeof (mPad2)) != 0);
+            return (memcmp (mPad4, PAD4_NO_VALUE, sizeof (mPad4)) != 0);
         }
 
-        void resetPad2 ()
+        void resetPad4 ()
         {
-            memcpy (mPad2, PAD2_NO_VALUE, sizeof (mPad2));
+            memcpy (mPad4, PAD4_NO_VALUE, sizeof (mPad4));
         }
 
 
@@ -1732,8 +1757,10 @@ class xetraTESTradeBroadcastPacket
                 + sizeof (mTradeReportType)
                 + sizeof (mTransferReason)
                 + sizeof (mTradePublishIndicator)
+                + sizeof (mDeliveryType)
                 + sizeof (mLastCouponDeviationIndicator)
                 + sizeof (mRefinancingEligibilityIndicator)
+                + sizeof (mClearingInstruction)
                 + sizeof (mOrderAttributeLiquidityProvision)
                 + sizeof (mExecutingTraderQualifier)
                 + sizeof (mRootPartyIDInvestmentDecisionMakerQualifier)
@@ -1745,7 +1772,6 @@ class xetraTESTradeBroadcastPacket
                 + sizeof (mRootPartyExecutingFirm)
                 + sizeof (mRootPartyExecutingTrader)
                 + sizeof (mRootPartyClearingFirm)
-                + sizeof (mRootPartyClearingOrganization)
                 + sizeof (mRootPartyExecutingFirmKVNumber)
                 + sizeof (mRootPartySettlementAccount)
                 + sizeof (mRootPartySettlementLocation)
@@ -1757,7 +1783,7 @@ class xetraTESTradeBroadcastPacket
                 + sizeof (mRootPartyContraSettlementLocation)
                 + sizeof (mRootPartyIDExecutionVenue)
                 + sizeof (mRegulatoryTradeID)
-                + sizeof (mPad2);
+                + sizeof (mPad4);
             return result;
         }
 
@@ -1842,9 +1868,13 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mTradePublishIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mDeliveryType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mLastCouponDeviationIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mRefinancingEligibilityIndicator, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::serialize (mClearingInstruction, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mOrderAttributeLiquidityProvision, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -1868,8 +1898,6 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mRootPartyClearingFirm, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mRootPartyClearingOrganization, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mRootPartyExecutingFirmKVNumber, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mRootPartySettlementAccount, buf, len, used);
@@ -1892,7 +1920,7 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mRegulatoryTradeID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mPad2, buf, len, used);
+            state = eti::serialize (mPad4, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             return GW_CODEC_SUCCESS;
         }
@@ -1977,9 +2005,13 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mTradePublishIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mDeliveryType, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mLastCouponDeviationIndicator, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mRefinancingEligibilityIndicator, buf, len, used);
+            if (state != GW_CODEC_SUCCESS) return state;
+            state = eti::deserialize (mClearingInstruction, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mOrderAttributeLiquidityProvision, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -2003,8 +2035,6 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mRootPartyClearingFirm, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mRootPartyClearingOrganization, buf, len, used);
-            if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mRootPartyExecutingFirmKVNumber, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mRootPartySettlementAccount, buf, len, used);
@@ -2027,7 +2057,7 @@ class xetraTESTradeBroadcastPacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mRegulatoryTradeID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mPad2, buf, len, used);
+            state = eti::deserialize (mPad4, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             mMessageHeaderOut.mBodyLen = getRawSize ();
             return GW_CODEC_SUCCESS;
@@ -2076,8 +2106,10 @@ class xetraTESTradeBroadcastPacket
                 << "[TradeReportType=" << getTradeReportType () << "],"
                 << "[TransferReason=" << getTransferReason () << "],"
                 << "[TradePublishIndicator=" << getTradePublishIndicator () << "],"
+                << "[DeliveryType=" << getDeliveryType () << "],"
                 << "[LastCouponDeviationIndicator=" << getLastCouponDeviationIndicator () << "],"
                 << "[RefinancingEligibilityIndicator=" << getRefinancingEligibilityIndicator () << "],"
+                << "[ClearingInstruction=" << getClearingInstruction () << "],"
                 << "[OrderAttributeLiquidityProvision=" << getOrderAttributeLiquidityProvision () << "],"
                 << "[ExecutingTraderQualifier=" << getExecutingTraderQualifier () << "],"
                 << "[RootPartyIDInvestmentDecisionMakerQualifier=" << getRootPartyIDInvestmentDecisionMakerQualifier () << "],"
@@ -2089,7 +2121,6 @@ class xetraTESTradeBroadcastPacket
                 << "[RootPartyExecutingFirm=" << getRootPartyExecutingFirm () << "],"
                 << "[RootPartyExecutingTrader=" << getRootPartyExecutingTrader () << "],"
                 << "[RootPartyClearingFirm=" << getRootPartyClearingFirm () << "],"
-                << "[RootPartyClearingOrganization=" << getRootPartyClearingOrganization () << "],"
                 << "[RootPartyExecutingFirmKVNumber=" << getRootPartyExecutingFirmKVNumber () << "],"
                 << "[RootPartySettlementAccount=" << getRootPartySettlementAccount () << "],"
                 << "[RootPartySettlementLocation=" << getRootPartySettlementLocation () << "],"
@@ -2101,7 +2132,7 @@ class xetraTESTradeBroadcastPacket
                 << "[RootPartyContraSettlementLocation=" << getRootPartyContraSettlementLocation () << "],"
                 << "[RootPartyIDExecutionVenue=" << getRootPartyIDExecutionVenue () << "],"
                 << "[RegulatoryTradeID=" << getRegulatoryTradeID () << "],"
-                << "[Pad2=" << getPad2 () << "]";
+                << "[Pad4=" << getPad4 () << "]";
             return sss.str();
         }
 };
@@ -2214,12 +2245,18 @@ const int8_t xetraTESTradeBroadcastPacket::TRANSFER_REASON_NO_VALUE = 0xFF;
 const int8_t xetraTESTradeBroadcastPacket::TRADE_PUBLISH_INDICATOR_MIN = 0;
 const int8_t xetraTESTradeBroadcastPacket::TRADE_PUBLISH_INDICATOR_MAX = 3;
 const int8_t xetraTESTradeBroadcastPacket::TRADE_PUBLISH_INDICATOR_NO_VALUE = 0xFF;
+const int8_t xetraTESTradeBroadcastPacket::DELIVERY_TYPE_MIN = 1;
+const int8_t xetraTESTradeBroadcastPacket::DELIVERY_TYPE_MAX = 5;
+const int8_t xetraTESTradeBroadcastPacket::DELIVERY_TYPE_NO_VALUE = 0xFF;
 const int8_t xetraTESTradeBroadcastPacket::LAST_COUPON_DEVIATION_INDICATOR_MIN = 0;
-const int8_t xetraTESTradeBroadcastPacket::LAST_COUPON_DEVIATION_INDICATOR_MAX = 5;
+const int8_t xetraTESTradeBroadcastPacket::LAST_COUPON_DEVIATION_INDICATOR_MAX = 6;
 const int8_t xetraTESTradeBroadcastPacket::LAST_COUPON_DEVIATION_INDICATOR_NO_VALUE = 0xFF;
 const int8_t xetraTESTradeBroadcastPacket::REFINANCING_ELIGIBILITY_INDICATOR_MIN = 0;
 const int8_t xetraTESTradeBroadcastPacket::REFINANCING_ELIGIBILITY_INDICATOR_MAX = 1;
 const int8_t xetraTESTradeBroadcastPacket::REFINANCING_ELIGIBILITY_INDICATOR_NO_VALUE = 0xFF;
+const int8_t xetraTESTradeBroadcastPacket::CLEARING_INSTRUCTION_MIN = 2;
+const int8_t xetraTESTradeBroadcastPacket::CLEARING_INSTRUCTION_MAX = 13;
+const int8_t xetraTESTradeBroadcastPacket::CLEARING_INSTRUCTION_NO_VALUE = 0xFF;
 const int8_t xetraTESTradeBroadcastPacket::ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_MIN = 0;
 const int8_t xetraTESTradeBroadcastPacket::ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_MAX = 1;
 const int8_t xetraTESTradeBroadcastPacket::ORDER_ATTRIBUTE_LIQUIDITY_PROVISION_NO_VALUE = 0xFF;
@@ -2245,8 +2282,6 @@ const char xetraTESTradeBroadcastPacket::ROOT_PARTY_EXECUTING_TRADER_NO_VALUE[6]
 const size_t xetraTESTradeBroadcastPacket::ROOT_PARTY_EXECUTING_TRADER_MAX_LENGTH = 6;
 const char xetraTESTradeBroadcastPacket::ROOT_PARTY_CLEARING_FIRM_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraTESTradeBroadcastPacket::ROOT_PARTY_CLEARING_FIRM_MAX_LENGTH = 5;
-const char xetraTESTradeBroadcastPacket::ROOT_PARTY_CLEARING_ORGANIZATION_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
-const size_t xetraTESTradeBroadcastPacket::ROOT_PARTY_CLEARING_ORGANIZATION_MAX_LENGTH = 4;
 const char xetraTESTradeBroadcastPacket::ROOT_PARTY_EXECUTING_FIRM_KVNUMBER_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
 const size_t xetraTESTradeBroadcastPacket::ROOT_PARTY_EXECUTING_FIRM_KVNUMBER_MAX_LENGTH = 4;
 const char xetraTESTradeBroadcastPacket::ROOT_PARTY_SETTLEMENT_ACCOUNT_NO_VALUE[35] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -2269,8 +2304,8 @@ const char xetraTESTradeBroadcastPacket::ROOT_PARTY_IDEXECUTION_VENUE_NO_VALUE[4
 const size_t xetraTESTradeBroadcastPacket::ROOT_PARTY_IDEXECUTION_VENUE_MAX_LENGTH = 4;
 const char xetraTESTradeBroadcastPacket::REGULATORY_TRADE_ID_NO_VALUE[52] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraTESTradeBroadcastPacket::REGULATORY_TRADE_ID_MAX_LENGTH = 52;
-const char xetraTESTradeBroadcastPacket::PAD2_NO_VALUE[2] = {0x00, 0x00};
-const size_t xetraTESTradeBroadcastPacket::PAD2_MAX_LENGTH = 2;
+const char xetraTESTradeBroadcastPacket::PAD4_NO_VALUE[4] = {0x00, 0x00, 0x00, 0x00};
+const size_t xetraTESTradeBroadcastPacket::PAD4_MAX_LENGTH = 4;
 
 
 } // namespace neueda

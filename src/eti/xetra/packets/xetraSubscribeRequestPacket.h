@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_SUBSCRIBEREQUEST_PACKET_H
 #define XETRA_SUBSCRIBEREQUEST_PACKET_H
@@ -202,7 +202,7 @@ const uint32_t xetraSubscribeRequestPacket::SUBSCRIPTION_SCOPE_MIN = 0;
 const uint32_t xetraSubscribeRequestPacket::SUBSCRIPTION_SCOPE_MAX = 4294967294;
 const uint32_t xetraSubscribeRequestPacket::SUBSCRIPTION_SCOPE_NO_VALUE = 0xFFFFFFFF;
 const int8_t xetraSubscribeRequestPacket::REF_APPL_ID_MIN = 0;
-const int8_t xetraSubscribeRequestPacket::REF_APPL_ID_MAX = 10;
+const int8_t xetraSubscribeRequestPacket::REF_APPL_ID_MAX = 11;
 const int8_t xetraSubscribeRequestPacket::REF_APPL_ID_NO_VALUE = 0xFF;
 const char xetraSubscribeRequestPacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
 const size_t xetraSubscribeRequestPacket::PAD3_MAX_LENGTH = 3;

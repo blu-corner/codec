@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_MASSQUOTERESPONSE_PACKET_H
 #define XETRA_MASSQUOTERESPONSE_PACKET_H
@@ -32,9 +32,9 @@ class xetraMassQuoteResponsePacket
         static const int32_t MARKET_SEGMENT_ID_MIN;
         static const int32_t MARKET_SEGMENT_ID_MAX;
         static const int32_t MARKET_SEGMENT_ID_NO_VALUE;
-        static const int8_t NO_QUOTE_ENTRIES_MIN;
-        static const int8_t NO_QUOTE_ENTRIES_MAX;
-        static const int8_t NO_QUOTE_ENTRIES_NO_VALUE;
+        static const uint8_t NO_QUOTE_SIDE_ENTRIES_MIN;
+        static const uint8_t NO_QUOTE_SIDE_ENTRIES_MAX;
+        static const uint8_t NO_QUOTE_SIDE_ENTRIES_NO_VALUE;
         static const char PAD3_NO_VALUE[3];
         static const size_t PAD3_MAX_LENGTH;
         static const size_t QUOTE_ENTRY_ACK_GRP_MIN;
@@ -46,7 +46,7 @@ class xetraMassQuoteResponsePacket
         uint64_t mQuoteID;
         uint64_t mQuoteResponseID;
         int32_t mMarketSegmentID;
-        int8_t mNoQuoteEntries;
+        uint8_t mNoQuoteSideEntries;
         char mPad3[3];
         vector<xetraQuoteEntryAckGrpCompPacket> mQuoteEntryAckGrp;
 
@@ -57,7 +57,7 @@ class xetraMassQuoteResponsePacket
             mQuoteID = QUOTE_ID_NO_VALUE;
             mQuoteResponseID = QUOTE_RESPONSE_ID_NO_VALUE;
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
-            mNoQuoteEntries = NO_QUOTE_ENTRIES_NO_VALUE;
+            mNoQuoteSideEntries = NO_QUOTE_SIDE_ENTRIES_NO_VALUE;
             memcpy(mPad3, PAD3_NO_VALUE, sizeof (mPad3));
         }
 
@@ -147,25 +147,25 @@ class xetraMassQuoteResponsePacket
             mMarketSegmentID = MARKET_SEGMENT_ID_NO_VALUE;
         }
 
-        int8_t getNoQuoteEntries () const
+        uint8_t getNoQuoteSideEntries () const
         {
-            return mNoQuoteEntries;
+            return mNoQuoteSideEntries;
         }
 
-        bool setNoQuoteEntries (int8_t v)
+        bool setNoQuoteSideEntries (uint8_t v)
         {
-            mNoQuoteEntries = v;
-            return ((NO_QUOTE_ENTRIES_MIN <= mNoQuoteEntries && mNoQuoteEntries <= NO_QUOTE_ENTRIES_MAX) || mNoQuoteEntries == NO_QUOTE_ENTRIES_NO_VALUE);
+            mNoQuoteSideEntries = v;
+            return ((NO_QUOTE_SIDE_ENTRIES_MIN <= mNoQuoteSideEntries && mNoQuoteSideEntries <= NO_QUOTE_SIDE_ENTRIES_MAX) || mNoQuoteSideEntries == NO_QUOTE_SIDE_ENTRIES_NO_VALUE);
         }
 
-        bool isNoQuoteEntriesValid () const
+        bool isNoQuoteSideEntriesValid () const
         {
-            return (mNoQuoteEntries != NO_QUOTE_ENTRIES_NO_VALUE);
+            return (mNoQuoteSideEntries != NO_QUOTE_SIDE_ENTRIES_NO_VALUE);
         }
 
-        void resetNoQuoteEntries ()
+        void resetNoQuoteSideEntries ()
         {
-            mNoQuoteEntries = NO_QUOTE_ENTRIES_NO_VALUE;
+            mNoQuoteSideEntries = NO_QUOTE_SIDE_ENTRIES_NO_VALUE;
         }
 
         string getPad3 () const
@@ -199,7 +199,7 @@ class xetraMassQuoteResponsePacket
         bool setQuoteEntryAckGrp (const vector<xetraQuoteEntryAckGrpCompPacket>& v)
         {
             mQuoteEntryAckGrp = v;
-            mNoQuoteEntries = v.size ();
+            mNoQuoteSideEntries = v.size ();
             return (QUOTE_ENTRY_ACK_GRP_MIN <= v.size () && v.size () <= QUOTE_ENTRY_ACK_GRP_MAX);
         }
 
@@ -212,7 +212,7 @@ class xetraMassQuoteResponsePacket
                 + sizeof (mQuoteID)
                 + sizeof (mQuoteResponseID)
                 + sizeof (mMarketSegmentID)
-                + sizeof (mNoQuoteEntries)
+                + sizeof (mNoQuoteSideEntries)
                 + sizeof (mPad3)
                 + eti::getRawSize (mQuoteEntryAckGrp);
             return result;
@@ -221,7 +221,7 @@ class xetraMassQuoteResponsePacket
         // serialization
         codecState serialize (void *buf, size_t len, size_t &used)
         {
-            mNoQuoteEntries = mQuoteEntryAckGrp.size ();
+            mNoQuoteSideEntries = mQuoteEntryAckGrp.size ();
             mMessageHeaderOut.mBodyLen = getRawSize ();
             codecState state;
             state = mMessageHeaderOut.serialize (buf, len, used);
@@ -234,7 +234,7 @@ class xetraMassQuoteResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::serialize (mNoQuoteEntries, buf, len, used);
+            state = eti::serialize (mNoQuoteSideEntries, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::serialize (mPad3, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
@@ -260,11 +260,11 @@ class xetraMassQuoteResponsePacket
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mMarketSegmentID, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            state = eti::deserialize (mNoQuoteEntries, buf, len, used);
+            state = eti::deserialize (mNoQuoteSideEntries, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
             state = eti::deserialize (mPad3, buf, len, used);
             if (state != GW_CODEC_SUCCESS) return state;
-            mQuoteEntryAckGrp.resize (mNoQuoteEntries);
+            mQuoteEntryAckGrp.resize (mNoQuoteSideEntries);
             for (vector<xetraQuoteEntryAckGrpCompPacket>::iterator it = mQuoteEntryAckGrp.begin (); it != mQuoteEntryAckGrp.end (); ++it)
             {
                 state = it->deserialize (buf, len, used);
@@ -284,7 +284,7 @@ class xetraMassQuoteResponsePacket
                 << "[QuoteID=" << getQuoteID () << "],"
                 << "[QuoteResponseID=" << getQuoteResponseID () << "],"
                 << "[MarketSegmentID=" << getMarketSegmentID () << "],"
-                << "[NoQuoteEntries=" << getNoQuoteEntries () << "],"
+                << "[NoQuoteSideEntries=" << getNoQuoteSideEntries () << "],"
                 << "[Pad3=" << getPad3 () << "],"
                 << "[QuoteEntryAckGrp=" << eti::toString (getQuoteEntryAckGrp ()) << "]";
             return sss.str();
@@ -300,13 +300,13 @@ const uint64_t xetraMassQuoteResponsePacket::QUOTE_RESPONSE_ID_NO_VALUE = 0xFFFF
 const int32_t xetraMassQuoteResponsePacket::MARKET_SEGMENT_ID_MIN = -2147483647;
 const int32_t xetraMassQuoteResponsePacket::MARKET_SEGMENT_ID_MAX = 2147483647;
 const int32_t xetraMassQuoteResponsePacket::MARKET_SEGMENT_ID_NO_VALUE = 0x80000000;
-const int8_t xetraMassQuoteResponsePacket::NO_QUOTE_ENTRIES_MIN = 0;
-const int8_t xetraMassQuoteResponsePacket::NO_QUOTE_ENTRIES_MAX = 100;
-const int8_t xetraMassQuoteResponsePacket::NO_QUOTE_ENTRIES_NO_VALUE = 0xFF;
+const uint8_t xetraMassQuoteResponsePacket::NO_QUOTE_SIDE_ENTRIES_MIN = 0;
+const uint8_t xetraMassQuoteResponsePacket::NO_QUOTE_SIDE_ENTRIES_MAX = 200;
+const uint8_t xetraMassQuoteResponsePacket::NO_QUOTE_SIDE_ENTRIES_NO_VALUE = 0xFF;
 const char xetraMassQuoteResponsePacket::PAD3_NO_VALUE[3] = {0x00, 0x00, 0x00};
 const size_t xetraMassQuoteResponsePacket::PAD3_MAX_LENGTH = 3;
 const size_t xetraMassQuoteResponsePacket::QUOTE_ENTRY_ACK_GRP_MIN = 0;
-const size_t xetraMassQuoteResponsePacket::QUOTE_ENTRY_ACK_GRP_MAX = 100;
+const size_t xetraMassQuoteResponsePacket::QUOTE_ENTRY_ACK_GRP_MAX = 200;
 
 
 } // namespace neueda

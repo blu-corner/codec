@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_RETRANSMITREQUEST_PACKET_H
 #define XETRA_RETRANSMITREQUEST_PACKET_H
@@ -272,7 +272,7 @@ const uint16_t xetraRetransmitRequestPacket::PARTITION_ID_MIN = 0;
 const uint16_t xetraRetransmitRequestPacket::PARTITION_ID_MAX = 65534;
 const uint16_t xetraRetransmitRequestPacket::PARTITION_ID_NO_VALUE = 0xFFFF;
 const int8_t xetraRetransmitRequestPacket::REF_APPL_ID_MIN = 0;
-const int8_t xetraRetransmitRequestPacket::REF_APPL_ID_MAX = 10;
+const int8_t xetraRetransmitRequestPacket::REF_APPL_ID_MAX = 11;
 const int8_t xetraRetransmitRequestPacket::REF_APPL_ID_NO_VALUE = 0xFF;
 const char xetraRetransmitRequestPacket::PAD5_NO_VALUE[5] = {0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraRetransmitRequestPacket::PAD5_MAX_LENGTH = 5;

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2018 Neueda Ltd.
  * 
- * Generated 21/05/2019
+ * Generated 08/03/2020
  */
 #ifndef XETRA_TESAPPROVEBROADCAST_PACKET_H
 #define XETRA_TESAPPROVEBROADCAST_PACKET_H
@@ -1135,7 +1135,7 @@ const size_t xetraTESApproveBroadcastPacket::PARTY_EXECUTING_FIRM_MAX_LENGTH = 5
 const char xetraTESApproveBroadcastPacket::PARTY_EXECUTING_TRADER_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraTESApproveBroadcastPacket::PARTY_EXECUTING_TRADER_MAX_LENGTH = 6;
 const int8_t xetraTESApproveBroadcastPacket::PARTY_IDENTERING_FIRM_MIN = 1;
-const int8_t xetraTESApproveBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 2;
+const int8_t xetraTESApproveBroadcastPacket::PARTY_IDENTERING_FIRM_MAX = 3;
 const int8_t xetraTESApproveBroadcastPacket::PARTY_IDENTERING_FIRM_NO_VALUE = 0xFF;
 const char xetraTESApproveBroadcastPacket::PARTY_ENTERING_TRADER_NO_VALUE[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const size_t xetraTESApproveBroadcastPacket::PARTY_ENTERING_TRADER_MAX_LENGTH = 6;

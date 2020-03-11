@@ -2321,6 +2321,14 @@ FieldUtils::createMap ()
     m[4507] = "LegExecID";
     m[4508] = "FillRefID";
     m[4509] = "LegInputSource";
+    m[4510] = "CxlSize"; 
+    m[4511] = "OrderOrigination";
+    m[4512] = "PartyEnteringFirm";
+    m[4513] = "NoQuoteSideEntries";
+    m[4514] = "OrderEventType";
+    m[4515] = "PartyIDSpecialistTrader";
+    m[4516] = "PartySpecialistTrader";
+    m[4517] = "PartySpecialistFirm";
 
     FieldMapCreated = true;
     return m;
