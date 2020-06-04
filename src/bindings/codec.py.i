@@ -42,7 +42,7 @@
                 PyObject* key     = PyList_GetItem (keys, idx);
                 PyObject* value   = PyDict_GetItem (v, key);
 
-                cdrKey_t key_t    = PyInt_AsSsize_t (key);
+                cdrKey_t key_t    = PyLong_AsSsize_t (key);
                 std::string key_s = neueda::FieldUtils::getFieldName (key_t);
 
                 if (PyList_Check (value))
@@ -65,7 +65,7 @@
                 }
                 else
                 {
-                    cdrKey_t key_t    = PyInt_AsSsize_t (key);
+                    cdrKey_t key_t    = PyLong_AsSsize_t (key);
                     std::string key_s = neueda::FieldUtils::getFieldName (key_t);
 
                     PyDict_SetItem (ret, PyString_FromString (key_s.c_str ()), value);
