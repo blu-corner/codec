@@ -139,6 +139,11 @@ public:
             mGetter = &fixField::getAsUTCTimestamp;
             mSetter = &fixField::setAsUTCTimestamp;
         }
+        else if (type == "MSTIMESTAMP")
+        {
+            mGetter = &fixField::getAsUTCTimestamp;
+            mSetter = &fixField::setAsMsTimestamp;
+        }
         else if (type == "UTCDATE")
         {
             mGetter = &fixField::getAsUTCDate;
@@ -241,6 +246,29 @@ private:
                  i.mDateTime.mMinute,
                  i.mDateTime.mSecond,
                  i.mDateTime.mNanosecond / 1000);
+
+        string ts (t);
+        return writeStringVal (tag, ts, len, p, used);
+    }
+
+    codecState setAsMsTimestamp (const int64_t tag,
+                                 const cdrItem& i,
+                                 const size_t len,
+                                 char* p,
+                                 size_t& used)
+    {
+        if (i.mType != CDR_DATETIME)
+            return GW_CODEC_ERROR;
+
+        char t[25];
+        snprintf (t, sizeof (t), "%04d%02d%02d-%02d:%02d:%02d.%03d",
+                 i.mDateTime.mYear,
+                 i.mDateTime.mMonth,
+                 i.mDateTime.mDay,
+                 i.mDateTime.mHour,
+                 i.mDateTime.mMinute,
+                 i.mDateTime.mSecond,
+                 i.mDateTime.mNanosecond / 1000000);
 
         string ts (t);
         return writeStringVal (tag, ts, len, p, used);
