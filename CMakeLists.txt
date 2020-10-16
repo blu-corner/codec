@@ -26,6 +26,7 @@ option(PYTHON "Enable Python bindings" OFF)
 option(CSHARP "Enable C# bindings" OFF)
 option(COVERAGE "Enable gcov coverage" OFF)
 option(EXAMPLES "Enable compilation of examples" ON)
+set(PYTHON_CONFIG "python-config" CACHE STRING "python-config for build env config")
 
 if(WIN32)
   set(CMAKE_SHARED_LINKER_FLAGS "/FORCE:UNRESOLVED")
@@ -270,10 +271,10 @@ if(TESTS)
       CMAKE_ARGS -DBUILD_GMOCK=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/googletest -DCMAKE_INSTALL_LIBDIR=${CMAKE_BINARY_DIR}/googletest/lib
       )
   endif()
-  
+
   include(CTest)
   enable_testing()
-  
+
   # add test dir
   add_subdirectory(test)
 endif()
