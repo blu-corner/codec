@@ -29,7 +29,7 @@ script:
     - ./install/bin/unittest
     - gcov `find ./src/ ./test -regextype posix-egrep -regex ".*\\.(o)"`
     - cd ../
-    - 'if [ "$TRAVIS_PULL_REQUEST" = "false"  ]; then sonar-scanner; fi' # sonar only on non-PRs
+    - travis_wait 30 'if [ "$TRAVIS_PULL_REQUEST" = "false"  ]; then sonar-scanner; fi' # sonar only on non-PRs
 
 before_deploy:
     - mkdir release
