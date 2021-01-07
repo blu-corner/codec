@@ -1,2 +1,2 @@
-lxml==4.2.4
+lxml==4.6.2
 wheezy.template==0.1.167
