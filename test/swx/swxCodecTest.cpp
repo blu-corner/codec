@@ -29,7 +29,10 @@ protected:
 
     virtual void TearDown ()
     {
-        delete mSwx;
+        if ( mSwx != NULL )
+        {
+            delete mSwx;
+        }
     }
 
     codecFactory mFactory;
