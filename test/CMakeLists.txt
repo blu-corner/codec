@@ -1,5 +1,6 @@
 set(TEST_LIBS codec
               fixcodec
+              swxcodec
               lsecodec
               xetracodec
               eurexcodec
