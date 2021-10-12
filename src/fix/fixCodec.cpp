@@ -135,6 +135,31 @@ fixCodec::processDictionaryMessages (xmlNode* node, string& err)
 }
 
 bool
+fixCodec::processDictionaryComponents (xmlNode* node, string& err)
+{
+    xmlNode* cur = NULL;
+    xmlNode* field = NULL;
+
+    for (cur = node; cur; cur = cur->next)
+    {
+        if (xmlStrcmp (cur->name, (const xmlChar*)"components") == 0)
+        {
+            for (field = cur->children; field; field = field->next)
+            {
+                if (xmlStrcmp (field->name, (const xmlChar*)"component") == 0)
+                {
+                    if (xmlStrcmp (field->name, (const xmlChar*)"group") == 0)
+                    {
+                        if (!processDictionaryGroup (field, err))
+                            return false;
+                    }
+                }
+            }
+        }
+    }
+}
+
+bool
 fixCodec::processDictionaryFields (xmlNode* node, string& err)
 {
     xmlNode* cur = NULL;
@@ -208,6 +233,14 @@ fixCodec::loadDataDictionary (const char* xml, string& err)
         setLastError (err);
         return false;
     }
+
+    if (!processDictionaryComponents (root_element, err))
+    {
+        err.assign ("failed to process dictionary components");
+        setLastError (err);
+        return false;
+    }
+
     if (!processDictionaryMessages (root_element, err))
     {
         err.assign ("failed to process dictionary messages");

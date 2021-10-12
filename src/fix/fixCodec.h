@@ -78,6 +78,8 @@ private:
 
     bool processDictionaryFields (xmlNode* node, string& err);
 
+    bool processDictionaryComponents (xmlNode* node, string& err);
+
     bool processDictionaryGroup (xmlNode* node, string& err);
 
     bool processDictionaryMessages (xmlNode* node, string& err);
