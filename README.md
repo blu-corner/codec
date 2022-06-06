@@ -1,4 +1,4 @@
-# PROJECT MOVED TO [Version1 Org/etiqet](https://github.com/Version1/codec). THIS REPOSITORY WILL NO LONGER BE MAINTAINED.
+# PROJECT MOVED TO [Version1 Org/codec](https://github.com/Version1/codec). THIS REPOSITORY WILL NO LONGER BE MAINTAINED.
 
 # codec [![Build Status](https://travis-ci.com/blu-corner/codec.svg?branch=master)](https://travis-ci.com/blu-corner/codec) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=blu-corner_codec&metric=alert_status)](https://sonarcloud.io/dashboard?id=blu-corner_codec)
 
